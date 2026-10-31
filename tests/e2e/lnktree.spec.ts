@@ -32,7 +32,9 @@ test('the Lnktree row: four web app pages (FinTerm is the web terminal, its back
 
 test('each Lnktree app page lists its entries: a declared target or a greyed planned card', async ({ page }) => {
   for (const id of ['cg-omniverse', 'hardtech-cad', 'hardtech-sim2real']) {
-    for (const [sec, list] of Object.entries(ui[id].stacks).filter(([k]) => k !== 'about')) {
+    for (const [sec, all] of Object.entries(ui[id].stacks).filter(([k]) => k !== 'about')) {
+      // a page drawn by its declared kind (CG-Omniverse avatar/galaxy/store, #1366) has no stack cards, as the unit test (lnktree.test.ts) skips them
+      const list = (all as { kind?: string; url?: string }[]).filter((e) => !e.kind);
       await page.goto(`${BASE}/${id}/${sec}/`);
       const cards = page.getByTestId('stack-card');
       await expect(cards, `${id}/${sec}`).toHaveCount(list.length);

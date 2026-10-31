@@ -59,8 +59,8 @@ test('each FinTerm tab lists its dashboards as web pages, plus the Backend (mesh
 /** A panel fed (also) by a declared data file (`asset:` source, e.g. the central bank calendar): it renders offline. */
 const declaredFed = (p: { source: string; fetch?: any }) => [p.source, ...((p.fetch?.fallbacks ?? []) as { source: string }[]).map((f) => f.source)].some((id) => src(id)?.endpoint === 'asset:');
 
-test('each of the 28 dashboards renders: every panel is data or a placeholder that says why', async ({ page }) => {
-  expect(fin.dashboards).toHaveLength(28);
+test('each of the 32 dashboards renders: every panel is data or a placeholder that says why', async ({ page }) => {
+  expect(fin.dashboards).toHaveLength(32);
   await net(page);
   for (const d of fin.dashboards) {
     await page.goto(`${BASE}/${fin.app_id}/${d.tab}/${d.slug}/`);
@@ -199,8 +199,8 @@ test('FI Market Monitor: Treasury, NY Fed, ECB (Frankfurter) and Coinbase answer
   await expect(page.locator('[data-panel="funding"]').getByTestId('finterm-quotes')).toContainText('3.91');
   await expect(page.locator('[data-panel="fx"]').getByTestId('finterm-quotes')).toContainText('EUR per USD');
   await expect(page.locator('[data-panel="crypto"]').getByTestId('finterm-quotes')).toContainText('+1.00');
-  // Cboe sends no CORS header: off the mesh the equity tiles are a blocked placeholder
-  await expect(page.locator('[data-panel="equity"]')).toHaveAttribute('data-state', 'placeholder-blocked');
+  // the Market Monitor declares no equity panel any more (df55fd5): rates, funding, FX, crypto and the next events only
+  await expect(page.locator('[data-panel="equity"]')).toHaveCount(0);
   await shot(page, info, 'finterm-market-monitor');
 });
 
