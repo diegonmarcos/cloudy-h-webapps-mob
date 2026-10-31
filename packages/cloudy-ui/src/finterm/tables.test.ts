@@ -95,6 +95,13 @@ describe('table panels end to end', () => {
     for (const r of d.rows.slice(0, 3)) expect(r.slice(2).every((x) => x === NA)).toBe(true);
     expect(d.rows.slice(0, 3).map((r) => r[1])).toEqual(['33%', '53%', '0%']);
   });
+  it('a browser-readable table whose every request fails at the network is the blocked key row, not an error', async () => {
+    const { ctx } = harness(() => null, false);
+    await expect(loadPanel(panel('yields_matrix', 'spot'), dash('yields_matrix'), ctx)).rejects.toMatchObject({ kind: 'blocked' });
+    // an answer that is only empty (no network failure) stays an error
+    const e = harness(() => '{}', false);
+    await expect(loadPanel(panel('yields_matrix', 'spot'), dash('yields_matrix'), e.ctx)).rejects.not.toMatchObject({ kind: 'blocked' });
+  });
   it('coverage gates the average and short names put the ticker first', () => {
     expect(coverage([[60, 1], [40, null]])).toBeCloseTo(0.6, 12);
     expect(gatedAverage([[60, 1], [40, null]], 0.6)).toBe(1);

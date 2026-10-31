@@ -109,7 +109,8 @@ export function cell(curve: [number, number][], t: number, forward: boolean, sta
 
 // ---- fetch
 
-type ItemGot = { got: Got; by: string; why: string };
+/** blocked: every route that was asked failed at the network (undefined: nothing was asked) (no CORS / offline), as FetchError('blocked') — the panel is then the blocked key row. */
+type ItemGot = { got: Got; by: string; why: string; blocked?: boolean };
 type TFetch = Fetch & Route & { symbol_map?: Record<string, string>; proxies?: Record<string, string>; tenors?: [string, number][]; groups?: Record<string, string[]>; gdp_usd_bn?: Record<string, number>; forward_start_years?: number; min_coverage_gdp?: number };
 const empty = (): Got => ({ points: [], events: [], bars: [], kv: [], rows: [], links: [] });
 const isEmpty = (g: Got) => !g.points.length && !g.events.length && !g.bars.length && !g.kv.length && !g.rows.length;
@@ -117,7 +118,8 @@ const fillv = (v: string, sl: Record<string, string>) => Object.entries(sl).redu
 export const symbolFor = (route: { symbol_map?: Record<string, string> }, item: string): string | null => (route.symbol_map ? route.symbol_map[item] || null : item);
 
 async function gather(item: string, source: Source, f: TFetch, api: { source: Source; base: string } | null, ctx: Ctx): Promise<ItemGot> {
-  const why: string[] = [];
+  const why: string[] = []; let asked = 0; let netFail = 0;
+  const fail = (e: unknown) => { asked++; if (e instanceof FetchError && e.kind === 'blocked') netFail++; };
   const p = f.primary as (TFetch['primary'] & { symbol_map?: Record<string, string> }) | undefined;
   if (p?.api) {
     const sym = symbolFor(p, item);
@@ -128,7 +130,7 @@ async function gather(item: string, source: Source, f: TFetch, api: { source: So
         const g = parseFeed(p.parse || 'finterm_v1', await ctx.get(buildUrl(api.base, fillv(p.api, sl), paramsOf(p).map(([k, v]) => [k, fillv(v, sl)] as [string, string]))), { spec: f, each: sym });
         if (!isEmpty(g)) return { got: g, by: api.source.name, why: '' };
         why.push(`${api.source.name}: empty`);
-      } catch { why.push(`${api.source.name}: no answer`); }
+      } catch (e) { fail(e); why.push(`${api.source.name}: no answer`); }
     }
   }
   const routes: [Source, TFetch][] = [[source, f]];
@@ -145,9 +147,9 @@ async function gather(item: string, source: Source, f: TFetch, api: { source: So
       const g = parseFeed(spec.provider || s.connector || '', await ctx.get(buildUrl(s.endpoint, spec.path ?? '', paramsOf(spec).map(([k, v]) => [k, fillv(v, sl)] as [string, string]), sl)), { spec, each: sym, paths: s.paths });
       if (!isEmpty(g)) return { got: g, by: s.name, why: '' };
       why.push(`${s.name}: empty`);
-    } catch { why.push(`${s.name}: no answer`); }
+    } catch (e) { fail(e); why.push(`${s.name}: no answer`); }
   }
-  return { got: empty(), by: '', why: why.join('; ') || `no source for ${item}` };
+  return { got: empty(), by: '', why: why.join('; ') || `no source for ${item}`, blocked: asked > 0 ? netFail === asked : undefined };
 }
 
 export const closesOf = (g: Got): Close[] => {
@@ -220,6 +222,9 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
   const none = (all: ItemGot[]) => {
     if (all.some((x) => !isEmpty(x.got))) return;
     if (!browserReadable(source) && !api) throw new FetchError('blocked', `${source.name} sends no CORS header`);
+    // every item failed at the network (offline, or the browser was refused): the blocked key row, as a single-route panel would be
+    const tried = all.filter((x) => x.blocked !== undefined);
+    if (tried.length && tried.every((x) => x.blocked)) throw new FetchError('blocked', tried[0].why);
     throw new Error(all[0]?.why || 'no data');
   };
   const each = async (items: string[]) => { const r = await Promise.all(items.map(async (i) => [i, await gather(i, source, f, api, ctx)] as [string, ItemGot])); none(r.map((x) => x[1])); return r; };
