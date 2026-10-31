@@ -83,6 +83,25 @@ export function weighted(values: [number, number | null][]): number | null {
   const have = values.filter((x) => x[1] != null && x[0] > 0); const w = have.reduce((a, x) => a + x[0], 0);
   return !have.length || w <= 0 ? null : have.reduce((a, x) => a + x[0] * (x[1] as number), 0) / w;
 }
+/** Default declared minimum (`min_coverage_gdp`): an average is shown only when its countries with a value hold this GDP share. */
+export const MIN_COVERAGE = 0.6;
+export const COL_COV = 'Cov';
+/** Share (0..1) of the members' GDP held by the members that have a value. */
+export function coverage(values: [number, number | null][]): number {
+  const tot = values.filter((x) => x[0] > 0).reduce((a, x) => a + x[0], 0);
+  return tot <= 0 ? 0 : values.filter((x) => x[0] > 0 && x[1] != null).reduce((a, x) => a + x[0], 0) / tot;
+}
+/** weighted() gated by coverage(): null ("—", insufficient coverage) below min. */
+export const gatedAverage = (values: [number, number | null][], min: number): number | null => (coverage(values) + 1e-12 < min ? null : weighted(values));
+export const pct0 = (x: number) => `${(x * 100).toFixed(0)}%`;
+export const SHORT_MAX = 12;
+/** One-line name cell (Tables.shortName): "Technology (XLK)" -> "XLK Technology", long labels cut to whole 4-letter words. */
+export function shortName(label: string): string {
+  const m = /^(.*?)\s*\(([^()]+)\)\s*$/.exec(label.trim()); const base = (m ? m[1] : label).trim();
+  const short = base.length <= SHORT_MAX ? base : base.split(/\s+/).filter(Boolean).map((w) => (w.length > 4 ? w.slice(0, 4) : w))
+    .reduce((acc, w) => (!acc ? w : acc.length + 1 + w.length <= SHORT_MAX ? `${acc} ${w}` : acc), '');
+  return m ? `${m[2].trim()} ${short}`.trim() : short;
+}
 export function cell(curve: [number, number][], t: number, forward: boolean, start: number): number | null {
   if (forward) { const r = forwardRate(curve, start, t); return curve.length && Number.isFinite(r) ? r : null; }
   const p = curve.find((x) => Math.abs(x[0] - t) < 0.02); return p ? p[1] : null;
@@ -91,7 +110,7 @@ export function cell(curve: [number, number][], t: number, forward: boolean, sta
 // ---- fetch
 
 type ItemGot = { got: Got; by: string; why: string };
-type TFetch = Fetch & Route & { symbol_map?: Record<string, string>; proxies?: Record<string, string>; tenors?: [string, number][]; groups?: Record<string, string[]>; gdp_usd_bn?: Record<string, number>; forward_start_years?: number };
+type TFetch = Fetch & Route & { symbol_map?: Record<string, string>; proxies?: Record<string, string>; tenors?: [string, number][]; groups?: Record<string, string[]>; gdp_usd_bn?: Record<string, number>; forward_start_years?: number; min_coverage_gdp?: number };
 const empty = (): Got => ({ points: [], events: [], bars: [], kv: [], rows: [], links: [] });
 const isEmpty = (g: Got) => !g.points.length && !g.events.length && !g.bars.length && !g.kv.length && !g.rows.length;
 const fillv = (v: string, sl: Record<string, string>) => Object.entries(sl).reduce((x, [k, y]) => x.split(`{${k}}`).join(y), v);
@@ -140,14 +159,15 @@ const servedBy = (all: ItemGot[]) => [...new Set(all.map((x) => x.by).filter(Boo
 export function performance(panel: Panel, f: TFetch, got: [string, ItemGot][]): PanelData {
   const perf = (panel.columns ?? []).slice(2); const labels = f.labels ?? {}; const missing: string[] = []; let asOf = '';
   const rows = got.map(([item, ig]) => {
-    const cl = closesOf(ig.got); const name = labels[item] || item;
-    if (!cl.length) { missing.push(`${name}: ${ig.why}`); return [name, NA, ...perf.map(() => NA)]; }
+    const cl = closesOf(ig.got); const name = labels[item] || item; const cellName = shortName(name);
+    if (!cl.length) { missing.push(`${name}: ${ig.why}`); return [cellName, NA, ...perf.map(() => NA)]; }
     const last = cl[cl.length - 1]; if (last[0] > asOf) asOf = last[0];
     const row = perfRow(cl); const short = perf.filter((c) => column(c, cl, row) === null);
     if (short.length) missing.push(`${name} ${short.join('/')}: history from ${cl[0][0]}`);
-    return [name, sig(last[1]), ...perf.map((c) => fmt(c, column(c, cl, row)))];
+    return [cellName, sig(last[1]), ...perf.map((c) => fmt(c, column(c, cl, row)))];
   });
-  return { columns: panel.columns ?? [], rows, links: [], chart: [], asOf, note: missing.length ? `— ${missing.join(' · ')}` : '', servedBy: servedBy(got.map((x) => x[1])) };
+  return { columns: panel.columns ?? [], rows, links: [], chart: [], asOf, note: missing.length ? `— ${missing.join(' · ')}` : '', servedBy: servedBy(got.map((x) => x[1])),
+    details: got.map(([item]) => labels[item] || item) };
 }
 
 export function portfolio(panel: Panel, f: TFetch, legs: [string, number][], got: Map<string, ItemGot>): PanelData {
@@ -157,8 +177,10 @@ export function portfolio(panel: Panel, f: TFetch, legs: [string, number][], got
   const line = (label: string, cl: Close[]) => (cl.length ? ((r) => [label, sig(cl[cl.length - 1][1]), ...perf.map((c) => fmt(c, column(c, cl, r)))])(perfRow(cl)) : [label, NA, ...perf.map(() => NA)]);
   const missing = series.filter((x) => !x[2].length).map((x) => `${x[0]}: ${got.get(x[0])?.why ?? ''}`);
   const note = `${port.length ? `Daily rebalanced from ${port[0][0]}; legs priced by ETF proxies.` : ''}${missing.length ? ` — ${missing.join(' · ')}` : ''}`.trim();
-  return { columns: panel.columns ?? [], rows: [line(`Portfolio ${legs.map((l) => l[1]).join('/')}`, port), ...series.map(([n, w, cl]) => line(`${n} ${w}% (${proxies[n] ?? ''})`, cl))],
-    links: [], chart: [], asOf: port.length ? port[port.length - 1][0] : '', note, servedBy: servedBy([...got.values()]) };
+  const title = `Portfolio ${legs.map((l) => l[1]).join('/')}`;
+  return { columns: panel.columns ?? [], rows: [line(title, port), ...series.map(([n, w, cl]) => line(`${proxies[n] ?? ''} ${n} ${w}%`.trim(), cl))],
+    links: [], chart: [], asOf: port.length ? port[port.length - 1][0] : '', note, servedBy: servedBy([...got.values()]),
+    details: [`${title}, daily rebalanced`, ...series.map(([n, w]) => `${n} ${w}% (${proxies[n] ?? ''})`)] };
 }
 
 export function curveOf(f: TFetch, g: Got): [number, number][] {
@@ -172,14 +194,22 @@ export function matrix(panel: Panel & { mode?: string }, f: TFetch, got: [string
   const labels = f.labels ?? {}; const gdp = f.gdp_usd_bn ?? {}; const dm = f.groups?.DM ?? []; const em = f.groups?.EM ?? [];
   const curves = new Map(got.map(([k, ig]) => [k, curveOf(f, ig.got)]));
   const cells = new Map([...curves].map(([k, cv]) => [k, ts.map(([, y]) => cell(cv, y, forward, start))]));
-  const avg = (m: string[]) => ts.map((_, i) => weighted(m.map((c) => [gdp[c] ?? 0, cells.get(c)?.[i] ?? null])));
-  const row = (label: string, v: (number | null)[]) => [label, ...v.map((x) => (x == null ? NA : x.toFixed(2)))];
+  const min = f.min_coverage_gdp ?? MIN_COVERAGE; const hasCov = (panel.columns ?? [])[1] === COL_COV;
+  const vals = (m: string[], i: number) => m.map((c) => [gdp[c] ?? 0, cells.get(c)?.[i] ?? null] as [number, number | null]);
+  const avg = (m: string[]) => ts.map((_, i) => gatedAverage(vals(m, i), min));
+  const cov = (m: string[]) => ts.reduce((a, _, i) => Math.max(a, coverage(vals(m, i))), 0);
+  const world = [...dm, ...em]; const worldGdp = world.reduce((a, c) => a + (gdp[c] ?? 0), 0);
+  const row = (label: string, c: string, v: (number | null)[]) => [label, ...(hasCov ? [c] : []), ...v.map((x) => (x == null ? NA : x.toFixed(2)))];
+  const avgs: [string, string[]][] = [['World avg', world], ['DM avg', dm], ['EM avg', em]];
+  const thin = avgs.filter(([, m]) => avg(m).some((x) => x == null) && cov(m) + 1e-12 < min).map(([l, m]) => `${l} ${pct0(cov(m))}`);
   const noCurve = got.filter(([k]) => !curves.get(k)?.length).map(([k, ig]) => `${k} (${ig.why})`);
   const gaps = got.filter(([k]) => curves.get(k)?.length).map(([k]) => [k, ts.filter((_, i) => cells.get(k)![i] == null).map((t) => t[0])] as [string, string[]]).filter((x) => x[1].length).map(([k, m]) => `${k} ${m.join('/')}`);
-  const note = [forward ? `${start}y-forward curve from each spot curve (Forward.rate).` : null, 'Averages GDP-weighted (IMF, USD), over the countries with a value.',
+  const note = [forward ? `${start}y-forward curve from each spot curve (Forward.rate).` : null,
+    `Averages GDP-weighted (IMF, USD), shown only when the countries with a value hold ${pct0(min)} of the group's GDP; Cov = that share (country rows: share of World GDP).`,
+    thin.length ? `— insufficient coverage: ${thin.join(', ')} < ${pct0(min)}.` : null,
     noCurve.length ? `— no curve: ${noCurve.join(', ')}` : null, gaps.length ? `— no point at tenor: ${gaps.join(', ')}` : null].filter(Boolean).join(' ');
   const asOf = got.flatMap(([, ig]) => ig.got.points.map((p) => p.date)).reduce((m, d) => (d > m ? d : m), '');
-  return { columns: panel.columns ?? [], rows: [row('World avg', avg([...dm, ...em])), row('DM avg', avg(dm)), row('EM avg', avg(em)), ...got.map(([k]) => row(labels[k] || k, cells.get(k)!))],
+  return { columns: panel.columns ?? [], rows: [...avgs.map(([l, m]) => row(l, pct0(cov(m)), avg(m))), ...got.map(([k]) => row(labels[k] || k, worldGdp > 0 ? pct0((gdp[k] ?? 0) / worldGdp) : NA, cells.get(k)!))],
     links: [], chart: [], asOf, note, servedBy: servedBy(got.map((x) => x[1])) };
 }
 

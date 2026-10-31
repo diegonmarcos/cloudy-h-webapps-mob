@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
 import { FetchError, forwardRate, loadPanel, NA, sig, type Ctx, type Dashboard } from './engine';
-import { cell, maxDrawdown1y, perfFormat, perfRow, PERF_COLUMNS, rebalanced, trailing, vol1y, weighted, type Close } from './tables';
+import { cell, coverage, gatedAverage, shortName, maxDrawdown1y, perfFormat, perfRow, PERF_COLUMNS, rebalanced, trailing, vol1y, weighted, type Close } from './tables';
 
 // #1370 the per-item tables (port of Performance.kt / Tables.kt): Performance.row, daily rebalancing, GDP weights, container first, CORS skip.
 const dash = (id: string) => FINTERM.dashboards.find((d) => d.id === id) as Dashboard;
@@ -56,10 +56,11 @@ describe('table panels end to end', () => {
   it('a performance table reads the container per item and keeps an unanswered item as a dashed row with its reason', async () => {
     const { ctx } = harness((u) => (u.startsWith(`${MESH}/v1/history?symbol=XLK`) ? bars(['2025-10-30', 100], ['2026-10-30', 110]) : null), true);
     const d = await loadPanel(panel('eq_dm_us', 'sectors'), dash('eq_dm_us'), ctx);
-    const xlk = d.rows.find((r) => r[0] === 'Technology (XLK)')!;
+    const xlk = d.rows.find((r) => r[0] === 'XLK Technology')!;
+    expect(d.details?.[d.rows.indexOf(xlk)]).toBe('Technology (XLK)');
     expect(xlk[2 + PERF_COLUMNS.indexOf('1Y')]).toBe('+10.00%');
     expect(xlk[1]).toBe(sig(110));
-    expect(d.rows.find((r) => r[0] === 'Financials (XLF)')!.slice(1).every((x) => x === NA)).toBe(true);
+    expect(d.rows.find((r) => r[0] === 'XLF Financials')!.slice(1).every((x) => x === NA)).toBe(true);
     expect(d.note).toContain('Financials (XLF): ');
   });
   it('off the mesh a Cboe-only table asks nothing and is the mesh-only key row; Coinbase is read in the browser', async () => {
@@ -76,15 +77,37 @@ describe('table panels end to end', () => {
     const { ctx } = harness((u) => (u === `${MESH}/v1/curves/US` ? curve(4) : u === `${MESH}/v1/curves/DE` ? curve(2) : null), true);
     const d = await loadPanel(panel('yields_matrix', 'spot'), dash('yields_matrix'), ctx);
     expect(d.rows.slice(0, 3).map((r) => r[0])).toEqual(['World avg', 'DM avg', 'EM avg']);
-    expect(d.rows[1][1]).toBe(((30507 * 4 + 4744 * 2) / 35251).toFixed(2));
-    expect(d.rows[2][1]).toBe(NA);
+    // US + DE hold 61 % of DM GDP: DM shown; World (40 %) and EM (0 %) are "—" with insufficient coverage
+    expect(d.columns.slice(0, 3)).toEqual(['Country', 'Cov', '3M']);
+    expect(d.rows[1][2]).toBe(((30507 * 4 + 4744 * 2) / 35251).toFixed(2));
+    expect(d.rows.slice(0, 3).map((r) => r[1])).toEqual(['38%', '61%', '0%']);
+    expect(d.rows[0][2]).toBe(NA);
+    expect(d.rows[2][2]).toBe(NA);
     expect(d.rows.length).toBe(25);
     expect(d.note).toContain('no curve: ');
+    expect(d.note).toContain('insufficient coverage: World avg 38%, EM avg 0% < 60%');
+  });
+  it('the US alone (the CI emulator, mesh off) never passes for the World or DM average; the store curve shape is read', async () => {
+    const us = JSON.stringify({ tenors: ['3M', '6M'], curve: { country: 'US', tenors: [{ tenor: '3M', value: 4.16, date: '2026-10-30' }, { tenor: '6M', value: null, date: null, method: 'no free source declared for this cell' }] } });
+    const { ctx } = harness((u) => (u === `${MESH}/v1/curves/US` ? us : null), true);
+    const d = await loadPanel(panel('yields_matrix', 'spot'), dash('yields_matrix'), ctx);
+    expect(d.rows.find((r) => r[0] === 'United States')![2]).toBe('4.16');
+    for (const r of d.rows.slice(0, 3)) expect(r.slice(2).every((x) => x === NA)).toBe(true);
+    expect(d.rows.slice(0, 3).map((r) => r[1])).toEqual(['33%', '53%', '0%']);
+  });
+  it('coverage gates the average and short names put the ticker first', () => {
+    expect(coverage([[60, 1], [40, null]])).toBeCloseTo(0.6, 12);
+    expect(gatedAverage([[60, 1], [40, null]], 0.6)).toBe(1);
+    expect(gatedAverage([[59, 1], [41, null]], 0.6)).toBeNull();
+    expect(shortName('Consumer Discretionary (XLY)')).toBe('XLY Cons Disc');
+    expect(shortName('Health Care (XLV)')).toBe('XLV Health Care');
+    expect(shortName('DAX')).toBe('DAX');
   });
   it('model portfolio performance: the portfolio row then each leg with its proxy', async () => {
     const { ctx } = harness((u) => (u.includes('symbol=AGG') ? bars(['2026-10-29', 100], ['2026-10-30', 101]) : u.includes('symbol=ACWI') ? bars(['2026-10-29', 100], ['2026-10-30', 110]) : null), true);
     const d = await loadPanel(panel('mp_60_40', 'perf'), dash('mp_60_40'), ctx);
-    expect(d.rows.map((r) => r[0])).toEqual(['Portfolio 60/40', 'Bonds 60% (AGG)', 'Equity 40% (ACWI)']);
+    expect(d.rows.map((r) => r[0])).toEqual(['Portfolio 60/40', 'AGG Bonds 60%', 'ACWI Equity 40%']);
+    expect(d.details).toEqual(['Portfolio 60/40, daily rebalanced', 'Bonds 60% (AGG)', 'Equity 40% (ACWI)']);
     expect(d.rows[0][1]).toBe(sig(100 * (0.6 * 1.01 + 0.4 * 1.1)));
   });
 });

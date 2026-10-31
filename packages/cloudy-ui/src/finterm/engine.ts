@@ -9,7 +9,7 @@ import { TABLE_DERIVES, tablePanel } from './tables';
 
 export type Obs = { date: string; value: number };
 export type ChartPoint = { label: string; x: number; y: number };
-export type PanelData = { columns: string[]; rows: string[][]; links: string[]; chart: ChartPoint[]; asOf: string; note: string; servedBy: string; alerts?: string[]; /** per row, the recent values (oldest first) for a sparkline, when the source gives history */ spark?: (number[] | null)[] };
+export type PanelData = { columns: string[]; rows: string[][]; links: string[]; chart: ChartPoint[]; asOf: string; note: string; servedBy: string; alerts?: string[]; /** per row, the recent values (oldest first) for a sparkline, when the source gives history */ spark?: (number[] | null)[]; /** per row, the full name the one-line name cell shortens (detail / title) */ details?: string[] };
 
 export type Feed = { tab: string; entries: string[] };
 export type Source = {
@@ -160,6 +160,12 @@ export function parseGdelt(json: string): Article[] {
 }
 
 // ------------------------------------------------------------------ forward rates
+
+/** A tenor label in years: "3M" 0.25, "10Y" 10, "2W" 2/52; null for anything else (Feeds.tenorYears). */
+export function tenorYears(t: string): number | null {
+  const m = /^(\d+(?:\.\d+)?)\s*([WMY])$/.exec(t.trim().toUpperCase()); if (!m) return null;
+  const n = Number(m[1]); return m[2] === 'Y' ? n : m[2] === 'M' ? n / 12 : n / 52;
+}
 
 /** Yield (percent) at maturity t years: linear between the points, flat outside. NaN for an empty curve. */
 export function yieldAt(curve: [number, number][], t: number): number {
@@ -561,6 +567,8 @@ export function feedV1(body: string, concept: string): Got {
   const asof = s(o.asof); const prev = new Map<string, number>();
   if (Array.isArray(o.prev)) for (const p of objs(o.prev)) { const v = fin(p.value); if (v !== null) prev.set(s(p.label), v); }
   for (const p of objs(o.points)) { const v = fin(p.value); if (v === null) continue; const l = s(p.label); pts.push({ key: s(p.key) || l, label: l, x: fin(p.tenor_years) ?? pts.length, value: v, prev: prev.get(l) ?? null, date: asof }); }
+  // /v1/curves/{CC} (finterm-store): {curve:{tenors:[{tenor, value|null, date, method}]}}; a null value (no free source) is left out
+  for (const t of objs((o.curve as Record<string, unknown> | undefined)?.tenors)) { const v = fin(t.value); const k = s(t.tenor); const y = tenorYears(k); if (v === null || y === null) continue; pts.push({ key: k, label: k, x: y, value: v, prev: null, date: s(t.date) }); }
   if (o.rates && typeof o.rates === 'object') for (const c of Object.keys(o.rates).sort()) pts.push({ key: c, label: c, x: pts.length, value: Number(o.rates[c]), prev: fin(o.prev?.[c]), date: asof });
   for (const m of objs(o.implied)) { const v = fin(m.prob); if (v !== null) pts.push({ key: s(m.label), label: s(m.label), x: pts.length, value: v, prev: null, date: s(m.ends) }); }
   const facts = objs(o.facts?.[concept]).flatMap((x): [string, string, number][] => { const v = fin(x.val); return v === null ? [] : [[s(x.fy), s(x.end), v]]; }).sort((a, b) => (a[0] < b[0] ? -1 : 1));
