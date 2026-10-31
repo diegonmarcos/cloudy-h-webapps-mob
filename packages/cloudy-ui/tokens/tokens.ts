@@ -401,7 +401,8 @@ export const tokens = {
     "topRowFill": "#00000000",
     "ui": {
       "cleanDrawerActions": "ai,profile,settings",
-      "cleanDrawerRows": "page_dropdown,actions,sub_page_dropdown,app_actions",
+      "cleanDrawerRows": "page_dropdown,actions,sub_page_dropdown",
+      "cleanDrawerRowsWithActions": "page_dropdown,actions,app_actions,sub_page_dropdown",
       "defaultMode": "classic",
       "modes": "classic,clean",
       "scrollHideDefault": 1
@@ -569,4 +570,4 @@ export type Tokens = typeof tokens;
 export const THEME_IDS = ["cloud","cloud_minimalist_black"] as const;
 export type ThemeId = (typeof THEME_IDS)[number];
 export const PALETTE_ROLES = ["window","surface","surface_selected","text_primary","text_secondary","accent","hairline","tile_ink"] as const;
-export const TOKEN_COUNT = 409;
+export const TOKEN_COUNT = 410;

@@ -178,8 +178,22 @@ put('color.web.background', 'color', kColor(/val FleetWebBackground = (Color\(0x
   };
   const uiSrc = `${NAV}/NavUi.kt`;
   put('nav.ui.modes', 'string', enumStrings('NavUiMode').join(','), `${uiSrc}#NavUiMode`);
-  put('nav.ui.cleanDrawerRows', 'string', enumStrings('DrawerRow').join(','), `${uiSrc}#DrawerRow`);
-  put('nav.ui.cleanDrawerActions', 'string', enumStrings('NavQuickAction').join(','), `${uiSrc}#NavQuickAction`);
+  // the DECLARED lists (NavUiDecl.CLEAN_DRAWER_ROWS / _ACTIONS), not every enum entry: an enum value the plain drawer does not carry
+  // (DrawerRow.AppActions, used only by CLEAN_DRAWER_ROWS_WITH_ACTIONS) must not leak into the default rows
+  const enumMap = (name) => {
+    const body = new RegExp(`enum class ${name}\\([^)]*\\)\\s*\\{([\\s\\S]*?)\\n\\}`).exec(navUi)?.[1] ?? fail(`NavUi.kt: enum ${name} not found`);
+    return new Map([...body.matchAll(/^\s*(\w+)\("([^"]+)"\)/gm)].map((m) => [m[1], m[2]]));
+  };
+  const declaredList = (val, en) => {
+    const m = new RegExp(`val ${val}: List<${en}> =\\s*listOf\\(([^)]*)\\)`).exec(navUi) ?? fail(`NavUiDecl.${val} not found`);
+    const map = enumMap(en);
+    const v = [...m[1].matchAll(new RegExp(`${en}\\.(\\w+)`, 'g'))].map((x) => map.get(x[1]) ?? fail(`NavUiDecl.${val}: ${en}.${x[1]} unknown`));
+    if (!v.length) fail(`NavUiDecl.${val} is empty`);
+    return v;
+  };
+  put('nav.ui.cleanDrawerRows', 'string', declaredList('CLEAN_DRAWER_ROWS', 'DrawerRow').join(','), `${uiSrc}#NavUiDecl.CLEAN_DRAWER_ROWS`);
+  put('nav.ui.cleanDrawerRowsWithActions', 'string', declaredList('CLEAN_DRAWER_ROWS_WITH_ACTIONS', 'DrawerRow').join(','), `${uiSrc}#NavUiDecl.CLEAN_DRAWER_ROWS_WITH_ACTIONS`);
+  put('nav.ui.cleanDrawerActions', 'string', declaredList('CLEAN_DRAWER_ACTIONS', 'NavQuickAction').join(','), `${uiSrc}#NavUiDecl.CLEAN_DRAWER_ACTIONS`);
   put('nav.ui.defaultMode', 'string', /val DEFAULT: NavUiSettings = NavUiSettings\(NavUiMode\.(\w+)/.exec(navUi)?.[1]?.toLowerCase() ?? fail('NavUiDecl.DEFAULT'), `${uiSrc}#NavUiDecl.DEFAULT`);
   put('nav.ui.scrollHideDefault', 'number', /DEFAULT: NavUiSettings = NavUiSettings\([^)]*scrollHide = (true|false)/.exec(navUi)?.[1] === 'true' ? 1 : 0, `${uiSrc}#NavUiDecl.DEFAULT`);
   // the Android resources must agree with the defaults (FleetParityTest pins the same on Android)

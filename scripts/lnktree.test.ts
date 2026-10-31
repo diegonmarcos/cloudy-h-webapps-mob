@@ -34,7 +34,8 @@ describe('Lnktree apps (#1335)', () => {
   });
   it('the four apps are fleet apps with their pages from their own build.json (ad_ folders)', () => {
     const by = Object.fromEntries(apps.map((a) => [a.id, a]));
-    expect(by['cg-omniverse'].bottom_nav).toEqual(['galaxy', 'game-store', 'vr-store']);
+    // ad_CG-Omniverse/build.json ui.bottom_nav (#1366): Avatar, Galaxy, Store
+    expect(by['cg-omniverse'].bottom_nav).toEqual(['avatar', 'galaxy', 'store']);
     const fin = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
     expect(fin.bottom_nav).toEqual(['fi', 'eq', 'ex', 'nw', 'pm', 'my-pm']);
     expect(by['hardtech-cad'].bottom_nav).toEqual(['mcad', 'bim', 'solidworks']);
@@ -91,8 +92,9 @@ describe('Lnktree apps on the web', () => {
       expect(e.registry ?? e.repo, `${id}/${e.title}`).toBeUndefined();
     }
     const by = (id: string, sec: string) => stacks[id].stacks[sec][0];
-    expect(by('cg-omniverse', 'galaxy').url).toMatch(/^https:\/\//);
-    expect(by('cg-omniverse', 'game-store').planned).toBe(true);
+    // CG-Omniverse pages are drawn by their declared kind (build.json ui, #1366), one entry each, kind = page id
+    expect(Object.keys(stacks['cg-omniverse'].stacks)).toEqual(['avatar', 'galaxy', 'store', 'about']);
+    for (const sec of ['avatar', 'galaxy', 'store']) expect(stacks['cg-omniverse'].stacks[sec].map((e) => e.kind), sec).toEqual([sec]);
     expect(by('hardtech-cad', 'mcad').url).toMatch(/^https:\/\/github\.com\//);
     expect(by('hardtech-cad', 'solidworks').planned).toBe(true);
     for (const sec of ['sap2000', 'matlab', 'ansys']) expect(by('hardtech-sim2real', sec).planned, sec).toBe(true);
