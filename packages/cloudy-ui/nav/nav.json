@@ -1286,7 +1286,7 @@
         ],
         "tile_groups": [
           {
-            "title": "Inboxes",
+            "title": "Communication",
             "tiles": [
               {
                 "id": "mail",
@@ -1319,10 +1319,10 @@
                 "target": "intent://resolve?domain=Cloud_bot_C3_Infra_bot#Intent;scheme=tg;package=org.telegram.messenger;S.browser_fallback_url=https%3A%2F%2Ft.me%2FCloud_bot_C3_Infra_bot;end"
               },
               {
-                "id": "news",
-                "label": "News",
-                "icon": "ic_rss",
-                "target": "extapp:cloud-news"
+                "id": "contacts",
+                "label": "Contacts",
+                "icon": "ic_p_sol_personal",
+                "target": "extapp:cloud-contacts"
               }
             ]
           },
@@ -1394,28 +1394,21 @@
                 "separator": true
               },
               {
-                "id": "calendar",
-                "label": "Tasks",
-                "icon": "ic_calendar",
-                "target": "extapp:cloud-tasks"
-              },
-              {
-                "id": "contacts",
-                "label": "Contacts",
-                "icon": "ic_p_sol_personal",
-                "target": "extapp:cloud-contacts"
-              },
-              {
                 "id": "notes",
                 "label": "Notes",
                 "icon": "ic_notes",
                 "target": "extapp:cloud-notes"
               },
               {
-                "id": "sheets",
-                "label": "Office",
-                "icon": "ic_sheets",
-                "target": "extapp:cloud-office"
+                "id": "calendar",
+                "label": "Tasks",
+                "icon": "ic_calendar",
+                "target": "extapp:cloud-tasks"
+              },
+              {
+                "id": "data-apps-sep-2",
+                "label": "|",
+                "separator": true
               },
               {
                 "id": "gallery",
@@ -1428,6 +1421,23 @@
                 "label": "Media",
                 "icon": "ic_music",
                 "target": "extapp:cloud-media-center"
+              },
+              {
+                "id": "news",
+                "label": "News",
+                "icon": "ic_rss",
+                "target": "extapp:cloud-news"
+              },
+              {
+                "id": "data-apps-sep-3",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "sheets",
+                "label": "Office",
+                "icon": "ic_sheets",
+                "target": "extapp:cloud-office"
               }
             ]
           },
@@ -4875,7 +4885,7 @@
       "name": "Cloud Dialer",
       "label": "Dialer",
       "icon": "ic_p_dialer",
-      "group": "Inboxes",
+      "group": "Communication",
       "category": null,
       "description": null,
       "kind": "app",
@@ -4963,7 +4973,7 @@
       "name": "Cloud Contacts",
       "label": "Contacts",
       "icon": "ic_p_sol_personal",
-      "group": "Data Apps",
+      "group": "Communication",
       "category": "android",
       "description": "Diego's Cloud Contacts — standalone Android multi-channel people hub. NOT a dialer-first address book: each person is a set of reachable CHANNELS (WhatsApp, Telegram, SMS, Cloud Mail, Cloud Dialer, Matrix, Cloud Chat, LinkedIn, Instagram) and the person screen is a channel switchboard — tapping a channel opens that conversation in its app; there is no default call action. Sources merged into one identity: device contacts (local phone + synced accounts such as Gmail) read from ContactsContract, plus LinkedIn Connections.csv and Instagram followers/following JSON imports parsed natively. WebView UI over HTML/Tailwind (cloud-news pattern). Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -5025,7 +5035,7 @@
       "name": "Cloud Chat",
       "label": "Chat",
       "icon": "ic_p_chat_mattermost",
-      "group": "Inboxes",
+      "group": "Communication",
       "category": null,
       "description": null,
       "kind": "portal",
@@ -5044,7 +5054,7 @@
       "name": "Cloud Mail",
       "label": "Mail",
       "icon": "ic_mail",
-      "group": "Inboxes",
+      "group": "Communication",
       "category": null,
       "description": null,
       "kind": "app",
@@ -5165,7 +5175,7 @@
       "name": "Cloud Matrix",
       "label": "Messenger",
       "icon": "ic_p_chat_matrix",
-      "group": "Inboxes",
+      "group": "Communication",
       "category": null,
       "description": null,
       "kind": "portal",
@@ -5556,7 +5566,7 @@
       "name": "Cloud News",
       "label": "News",
       "icon": "ic_rss",
-      "group": "Inboxes",
+      "group": "Data Apps",
       "category": "android",
       "description": "Diego's Cloud News — standalone Android news app. WebView UI over GDELT-backed topic feeds (economy, technology, geopolitics, climate, finance, AI, energy, health): per-topic article lists, tone/sentiment timelines, and rolling topic summaries against a self-hosted GDELT proxy. Build via Nix devShell, one APK out.",
       "kind": "app",
