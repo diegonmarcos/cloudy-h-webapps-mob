@@ -4,11 +4,12 @@
 // GDP-weighted World / DM / EM averages. Each item routes the container's /v1 first, then the panel's own source and its fallbacks (a source
 // a browser cannot read is skipped); a route with `symbol_map` serves only the items it maps. A missing value is a dash with its reason in the note.
 import { FetchError, apiRoute, browserReadable, buildUrl, forwardRate, NA, paramsOf, parseFeed, sig, slotsOf, type Ctx, type Dashboard, type Fetch, type Got, type Panel, type PanelData, type Route, type Source } from './engine';
+import { parseNum, signedFmt } from './fin';
 
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -265,6 +266,19 @@ export function emUsd(panel: Panel, body: string, by: string): PanelData {
 }
 
 /** The table panel end to end: every item fetched on its own (in parallel), then rendered by its derive. */
+/** World Bonds merged table (#1370, spec 9; Tables.spreads): 2Y, 10Y and the 10Y spread over the 2Y, the Bund and the UST, in bp. */
+export const SPREAD_COLS = ['Country', '2Y', '10Y', '2s10s bp', 'vs Bund bp', 'vs UST bp'];
+export function spreads(m: PanelData, labels: Record<string, string>): PanelData {
+  const i2 = m.columns.indexOf('2Y'), i10 = m.columns.indexOf('10Y');
+  const cell = (r: string[], i: number) => (i < 0 ? NA : r[i] ?? NA);
+  const num = (r: string[] | undefined, i: number) => (r && cell(r, i) !== NA ? parseNum(cell(r, i)) : null);
+  const row = (cc: string) => m.rows.find((r) => r[0] === (labels[cc] || cc));
+  const bund = num(row('DE'), i10), ust = num(row('US'), i10);
+  const bp = (a: number | null, b: number | null) => (a === null || b === null ? NA : signedFmt((a - b) * 100, 0));
+  const rows = m.rows.map((r) => { const y10 = num(r, i10); return [r[0] ?? '', cell(r, i2), cell(r, i10), bp(y10, num(r, i2)), bp(y10, bund), bp(y10, ust)]; });
+  return { ...m, columns: SPREAD_COLS, rows, note: `${m.note} Spreads in bp: the 10Y minus the 2Y, minus Germany's 10Y (Bund), minus the US 10Y (UST).`.trim() };
+}
+
 export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, f0: Fetch, ctx: Ctx): Promise<PanelData> {
   const f = f0 as TFetch; const api = await apiRoute(panel, dash, ctx);
   // nothing answered for any item: a CORS-only source off the mesh is the key-row pattern ("open on the mesh"), else an error state
@@ -296,6 +310,7 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       }
       return matrix(panel, f, await each(f.each ?? []));
     }
+    case 'world_bonds': return spreads(await tablePanel({ ...panel, derive: 'yields_matrix' }, dash, source, f0, ctx), f.labels ?? {});
     default: throw new Error(`unknown derive ${panel.derive}`);
   }
 }

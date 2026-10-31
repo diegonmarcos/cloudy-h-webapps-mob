@@ -151,3 +151,16 @@ describe('EM government bonds in USD', () => {
     expect(d.asOf).toBe('2026-09');
   });
 });
+
+describe('World Bonds merged table (#1370, spec 9 spreads vs Bund / UST)', () => {
+  it('the 10Y over the 2Y, the Bund and the UST in bp; a missing yield is a dash', async () => {
+    const { spreads, SPREAD_COLS } = await import('./tables');
+    const m = { columns: ['Country', 'Cov', '2Y', '10Y'], rows: [['United States', '52%', '4.56', '4.94'], ['Germany', '9%', '2.10', '2.60'], ['Italy', '4%', '\u2014', '3.75']], links: [], chart: [], asOf: '2026-10-30', note: '', servedBy: '' };
+    const d = spreads(m, { US: 'United States', DE: 'Germany', IT: 'Italy' });
+    expect(d.columns).toEqual(SPREAD_COLS);
+    expect(d.rows[0]).toEqual(['United States', '4.56', '4.94', '+38', '+234', '0']);
+    expect(d.rows[1]).toEqual(['Germany', '2.10', '2.60', '+50', '0', '-234']);
+    expect(d.rows[2]).toEqual(['Italy', '\u2014', '3.75', '\u2014', '+115', '-119']);
+  });
+});
+
