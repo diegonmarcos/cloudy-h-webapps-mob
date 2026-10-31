@@ -120,3 +120,5 @@ export function trimBody(body: string, keep = 400, min = 100_000): string {
     return JSON.stringify(o);
   } catch { return body; }
 }
+/** A footer source name (#1370 shorter footers): the declared name without its parenthetical or " / " detail; each " + " part alike (FinFormat.shortSource). */
+export const shortSource = (name: string): string => name.split(' + ').map((n) => n.split(' (')[0].split(' / ')[0].trim() || n.trim()).join(' + ');

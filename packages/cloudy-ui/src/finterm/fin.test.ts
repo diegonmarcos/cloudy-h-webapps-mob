@@ -135,3 +135,14 @@ describe('trimBody (DBnomics cache)', () => {
     expect(trimBody(other)).toBe(other);
   });
 });
+
+describe('shortSource (#1370 shorter footers)', () => {
+  it('drops the parenthetical and the " / " detail, part by part', async () => {
+    const { shortSource } = await import('./fin');
+    expect(shortSource('Cloud-Fincept / fin_api (private mesh)')).toBe('Cloud-Fincept');
+    expect(shortSource('US Treasury par yield curve (XML)')).toBe('US Treasury par yield curve');
+    expect(shortSource('FRED (St. Louis Fed) + Cloud-Fincept / fin_api (private mesh)')).toBe('FRED + Cloud-Fincept');
+    expect(shortSource('Eurostat')).toBe('Eurostat');
+  });
+});
+
