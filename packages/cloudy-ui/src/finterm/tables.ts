@@ -5,11 +5,12 @@
 // a browser cannot read is skipped); a route with `symbol_map` serves only the items it maps. A missing value is a dash with its reason in the note.
 import { FetchError, apiRoute, browserReadable, buildUrl, forwardRate, NA, paramsOf, parseFeed, sig, slotsOf, type Ctx, type Dashboard, type Fetch, type Got, type Panel, type PanelData, type Route, type Source } from './engine';
 import { parseNum, signedFmt } from './fin';
+import { fxPppRow, type FxRow, type S } from './fxppp';
 
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -194,6 +195,18 @@ export function riskCompare(panel: Panel, f: TFetch, sets: [string, number][][],
     note: `Same ETF proxies, each daily rebalanced; risk = Vol 1Y and MaxDD 1Y.${miss ? ` ${miss}` : ''}`, servedBy: parts[0]?.servedBy ?? '', details: parts.map((p) => p.details?.[0] ?? '') };
 }
 
+/** The /v1/fx/ppp rows as the table (Tables.fxPppTable): Currency | Spot | PPP | Over/under % | 30d avg | 30d 1y ago real | Real YoY %; reasons in the note. */
+export function fxPppTable(panel: Panel, rows: Record<string, unknown>[], by: string): PanelData {
+  const n = (o: Record<string, unknown>, k: string, d: number) => (typeof o[k] === 'number' ? (o[k] as number).toFixed(d) : NA);
+  const sp = (o: Record<string, unknown>, k: string) => (typeof o[k] === 'number' ? signedFmt(o[k] as number, 1) : NA);
+  const dg = (o: Record<string, unknown>) => (typeof o.spot === 'number' && (o.spot as number) >= 100 ? 1 : 4);
+  const why = rows.flatMap((o) => Object.entries((o.null_reason as Record<string, string>) ?? {}).map(([k, v]) => `${o.currency} ${k}: ${v}`));
+  return { columns: panel.columns ?? [], rows: rows.map((o) => [String(o.currency), n(o, 'spot', dg(o)), n(o, 'ppp', dg(o)), sp(o, 'over_under_pct'), n(o, 'avg_window', dg(o)), n(o, 'avg_window_year_ago_real', dg(o)), sp(o, 'real_change_pct')]),
+    links: [], chart: [], asOf: rows.map((o) => (o.spot_date as string) ?? '').filter(Boolean).sort().pop() ?? '',
+    note: `Local currency per USD. Over/under % = PPP / spot - 1 (negative: undervalued); real YoY % = the year-ago window in today's prices / today's window - 1 (positive: gained in real terms).${why.length ? ` — ${why.join(' · ')}` : ''}`,
+    servedBy: by, details: rows.map((o) => String(o.label ?? '')) };
+}
+
 export function curveOf(f: TFetch, g: Got): [number, number][] {
   const out = new Map<number, number>();
   for (const p of g.points) { const x = f.years && p.key in f.years ? f.years[p.key] : p.x; if (x > 0 && Number.isFinite(p.value) && !out.has(x)) out.set(x, p.value); }
@@ -317,6 +330,29 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
         try { const one = parseOne(await ctx.get(buildUrl(api.base, ma, [])), f.each ?? [], api.source.name); if (one) return matrix(panel, f, one.got, one); } catch { /* the per-country path below */ }
       }
       return matrix(panel, f, await each(f.each ?? []));
+    }
+    case 'fx_ppp': {
+      const g = f as unknown as { primary?: { api?: string }; rows: FxRow[]; window_days?: number; fx_source: string; wb: { source: string; indicators: { ppp: string; cpi: string } } };
+      if (api) {
+        try { const rows = (JSON.parse(await ctx.get(buildUrl(api.base, g.primary?.api ?? '/v1/fx/ppp', []))) as { rows?: Record<string, unknown>[] }).rows ?? []; if (rows.length) return fxPppTable(panel, rows, api.source.name); } catch { /* the direct sources below */ }
+      }
+      const fxs = ctx.sources.find((x) => x.id === g.fx_source); const wbs = ctx.sources.find((x) => x.id === g.wb.source);
+      if (!fxs || !wbs) throw new Error('FX vs PPP: a declared source is missing');
+      const today = new Date().toISOString().slice(0, 10); const from = new Date(Date.now() - 400 * 864e5).toISOString().slice(0, 10);
+      const ccys = g.rows.filter((r) => !r.no_fx).map((r) => r.ccy).join(',');
+      const rates = (JSON.parse(await ctx.get(buildUrl(fxs.endpoint, `/v1/${from}..${today}`, [['base', 'USD'], ['symbols', ccys]]))) as { rates?: Record<string, Record<string, number>> }).rates ?? {};
+      const fx = new Map<string, S>();
+      for (const d of Object.keys(rates).sort()) for (const [k, v] of Object.entries(rates[d])) fx.set(k, [...(fx.get(k) ?? []), [d, v]]);
+      const wb = async (code: string) => {
+        const cc = [...g.rows.map((r) => r.cc), 'US'].join(';');
+        const a = JSON.parse(await ctx.get(buildUrl(wbs.endpoint, `/country/${cc}/indicator/${code}`, [['format', 'json'], ['per_page', '2000'], ['date', `2015:${today.slice(0, 4)}`]]))) as [unknown, { country: { id: string }; date: string; value: number | null }[] | null];
+        const m = new Map<string, S>();
+        for (const o of a[1] ?? []) if (o.value !== null) m.set(o.country.id, [...(m.get(o.country.id) ?? []), [o.date, o.value]]);
+        for (const [k, v] of m) m.set(k, v.sort((x, y) => (x[0] < y[0] ? -1 : 1)));
+        return m;
+      };
+      const ppp = await wb(g.wb.indicators.ppp); const cpi = await wb(g.wb.indicators.cpi); const us = cpi.get('US') ?? [];
+      return fxPppTable(panel, g.rows.map((r) => fxPppRow(r, fx.get(r.ccy) ?? [], ppp.get(r.cc) ?? [], cpi.get(r.cc) ?? [], us, g.window_days ?? 30)), `${fxs.name} + ${wbs.name}`);
     }
     case 'risk_compare': {
       const sets = (f as { compare?: [string, number][][] }).compare ?? []; const proxies = f.proxies ?? {};

@@ -176,3 +176,26 @@ describe('60/40 vs 100/0 risk comparison (spec 9)', () => {
   });
 });
 
+describe('FX vs PPP (#1374): the same maths as /v1/fx/ppp', () => {
+  it('carries PPP by relative inflation and real-adjusts the year-ago window', async () => {
+    const { pppToday, realAdjust, pct, windowAvg, fxPppRow } = await import('./fxppp');
+    const { fxPppTable } = await import('./tables');
+    expect(pppToday(3.4, 100, 110, 200, 210)).toBeCloseTo((3.4 * 1.1) / 1.05, 12);
+    expect(realAdjust(7, 100, 104, 100, 102)).toBeCloseTo((7 * 1.04) / 1.02, 12);
+    const fx: [string, number][] = [['2025-10-01', 7.0], ['2025-10-30', 7.2], ['2026-10-01', 6.9], ['2026-10-30', 7.1]];
+    expect(windowAvg(fx, '2026-10-30', 30)).toBeCloseTo(7.0, 12);
+    const y = (v: [number, number][]) => v.map(([a, b]) => [String(a), b] as [string, number]);
+    const r = fxPppRow({ cc: 'CN', ccy: 'CNY' }, fx, y([[2023, 3.5]]), y([[2023, 100], [2024, 101], [2025, 103]]), y([[2023, 140], [2024, 143], [2025, 147]]), 30);
+    const ppp = pppToday(3.5, 100, 103, 140, 147);
+    expect(r.ppp).toBeCloseTo(ppp, 12);
+    expect(r.over_under_pct).toBeCloseTo(pct(ppp, 7.1), 12);
+    const ago = realAdjust(7.1, 101, 103, 143, 147);
+    expect(r.avg_window_year_ago_real).toBeCloseTo(ago, 12);
+    expect(r.real_change_pct).toBeCloseTo(pct(ago, 7.0), 12);
+    const sa = fxPppRow({ cc: 'SA', ccy: 'SAR', no_fx: 'pegged, no ECB rate' }, [], [], [], [], 30);
+    const t = fxPppTable({ id: 'ppp', columns: ['Currency'] } as never, [r, sa], 'test');
+    expect(t.rows[0].slice(0, 2)).toEqual(['CNY', '7.1000']);
+    expect(t.note).toContain('SAR spot: pegged, no ECB rate');
+  });
+});
+
