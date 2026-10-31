@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { shot } from './shot';
-import { BASE, isTablet, swipe } from './helpers';
+import { BASE, cloudGroups, isTablet, swipe } from './helpers';
 
 // M2: the SuperApp shell at phone (412x915) and tablet (1280x800, 800x1280).
 test.describe('SuperApp shell', () => {
@@ -30,7 +30,8 @@ test.describe('SuperApp shell', () => {
     await page.goto(`${BASE}/cloud/`);
     await expect(page.locator('[data-testid="content"] [data-testid="page-tabs"] .page-tabs__item')).toHaveText(['APP', 'WEBAPPS', 'LINKTREE', 'CONFIGS']);
     await expect(page.locator('.group-title').first()).toHaveText('Quickmarks');
-    await expect(page.locator('[data-group="Inboxes"] .tile__label').first()).toHaveText('Mail');
+    const first = cloudGroups[0];
+    await expect(page.locator(`[data-group="${first.title}"] .tile__label`).first()).toHaveText(first.tiles.find((t) => !t.separator)!.label);
     await shot(page, info, 'cloud-apps');
   });
 

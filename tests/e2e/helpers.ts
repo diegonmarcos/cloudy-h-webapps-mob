@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 
 export const BASE = '/cloud-webapps';
 export const isTablet = (name: string) => name.startsWith('tablet');
@@ -14,3 +15,10 @@ export async function swipe(page: Page, selector: string, dx: number) {
     el.dispatchEvent(new TouchEvent('touchend', { touches: [], changedTouches: [t(x + (dx as number))], bubbles: true }));
   }, [selector, dx] as const);
 }
+
+/** Cloud > Apps tile groups as declared (nav.json, mirrored from aa_cloud-superapp/build.json): specs read names and order here, never hard-code them. */
+type Tile = { id: string; label: string; separator?: boolean };
+export const cloudGroups: { title: string; tiles: Tile[] }[] = (JSON.parse(readFileSync('packages/cloudy-ui/nav/nav.json', 'utf8')).superapp.sections as { id: string; tile_groups?: { title: string; tiles: Tile[] }[] }[])
+  .find((s) => s.id === 'cloud')!.tile_groups!;
+/** The declared group holding tile `id` (its title, as the shell's data-group). */
+export const groupOf = (id: string) => cloudGroups.find((g) => g.tiles.some((t) => t.id === id))!.title;

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { BASE } from './helpers';
+import { BASE, cloudGroups } from './helpers';
 
 // Port of a_Portals/cloud-superapp/test/embed.spec.mjs: the APK opens /cloud-webapps/?embed=1 with the UA marker
 // " CloudSuperApp-Embed/1" (aa_cloud-superapp test-cloud-webapps-tab.sh T6, WebAppsEmbedTest).
@@ -35,7 +35,7 @@ for (const path of ['/cloud/', '/cloud-c3/', '/']) {
 }
 test('?embed=1 home is the Cloud > Apps grid, and the flag survives a tile click', async ({ page }) => {
   await page.goto(`${BASE}/?embed=1`);
-  await expect(page.locator('.embed-apps [data-group="Inboxes"]')).toBeVisible();
+  await expect(page.locator(`.embed-apps [data-group="${cloudGroups[0].title}"]`)).toBeVisible();
   await expect(page.getByTestId('home-cube')).toBeHidden();
   await page.locator('.embed-apps a.tile').first().click();
   await page.waitForLoadState('load');

@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { shot } from './shot';
-import { BASE } from './helpers';
+import { BASE, groupOf } from './helpers';
 
 // #1326: every fleet app links back to its real web service; phone-only apps are grey and open an About page.
 const links = JSON.parse(readFileSync('packages/cloudy-ui/nav/app-links.json', 'utf8')).links as { id: string; kind: string; href: string | null }[];
@@ -10,7 +10,7 @@ const container = (id: string) => links.find((l) => l.id === id)!;
 test('a grey tile (Dialer) opens its About page, the back arrow returns to the grid', async ({ page }, info) => {
   await page.goto(`${BASE}/cloud/`);
   await page.getByTestId('tile-groups').first().waitFor();
-  const tile = page.locator('[data-group="Inboxes"] [data-tile="dialer"]');
+  const tile = page.locator(`[data-group="${groupOf('dialer')}"] [data-tile="dialer"]`);
   await expect(tile).toHaveClass(/grey/);
   expect(await tile.locator('.glyph').evaluate((e) => getComputedStyle(e).filter)).toContain('grayscale');
   await tile.click();
