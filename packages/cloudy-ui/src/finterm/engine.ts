@@ -388,7 +388,7 @@ export function failureFor(panel: Panel, sources: Source[], e: unknown): Placeho
 // The normalised model every connector parses into: points (series, quotes, curve tenors), events (calendars), bars, key/value rows,
 // rows with links. Only the browser-readable connectors are parsed here (a `cors: false` source is never asked from the browser; the
 // container's /v1 answer covers it on the mesh): nyfed_rates, treasury_xml, sdmx_json, jsonstat, bls_series, frankfurter_rates,
-// coinbase_exchange, polymarket_events, sec_submissions, declared_events, finterm_v1.
+// coinbase_exchange, cftc_cot, polymarket_events, sec_submissions, declared_events, finterm_v1.
 
 export type Pt = { key: string; label: string; x: number; value: number; prev: number | null; date: string; hist?: number[] };
 export type Ev = { ts: string; country: string; title: string; importance: number; consensus: string; actual: string; previous: string; kind: string };
@@ -415,6 +415,7 @@ export function parseFeed(connector: string, body: string, o: ParseOpt): Got {
       case 'bls_series': return feedBls(body);
       case 'frankfurter_rates': return feedFrankfurter(body);
       case 'coinbase_exchange': return feedCoinbase(body, o.each ?? '');
+      case 'cftc_cot': return feedCot(body, o.each ?? '');
       case 'polymarket_events': return feedPolymarket(body, o.spec.last ?? 12);
       case 'sec_submissions': return feedSec(body, o);
       case 'declared_events': return feedDeclared(body);
@@ -535,6 +536,14 @@ export function feedCoinbase(body: string, each: string): Got {
   }
   const o = JSON.parse(t); const last = fin(o.last);
   return last === null ? got() : got({ points: [{ key: each, label: each, x: 0, value: last, prev: fin(o.open), date: '24h' }] });
+}
+/** CFTC Commitments of Traders (legacy futures, Socrata; Feeds.cot): newest first; net non-commercial = long - short, this week and the one before. */
+export function feedCot(body: string, each: string): Got {
+  const a = JSON.parse(body) as Record<string, string>[];
+  const net = (i: number) => { const r = a[i]; const l = Number(r?.noncomm_positions_long_all), sh = Number(r?.noncomm_positions_short_all); return r && Number.isFinite(l) && Number.isFinite(sh) && r.noncomm_positions_long_all !== undefined && r.noncomm_positions_short_all !== undefined ? l - sh : null; };
+  const now = net(0);
+  if (now === null) return got();
+  return got({ points: [{ key: each, label: a[0].contract_market_name || each, x: 0, value: now, prev: net(1), date: (a[0].report_date_as_yyyy_mm_dd ?? '').slice(0, 10) }] });
 }
 export function feedPolymarket(body: string, last: number): Got {
   const out: Pt[] = [];

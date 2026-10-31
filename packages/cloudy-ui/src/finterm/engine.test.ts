@@ -269,3 +269,13 @@ describe('Coinbase daily candles per item: a quotes row with a 7-day sparkline (
   });
 });
 
+describe('CFTC COT (Feeds.cot)', () => {
+  it('net non-commercial this week and last', async () => {
+    const { feedCot } = await import('./engine');
+    const body = JSON.stringify([
+      { contract_market_name: 'GOLD', report_date_as_yyyy_mm_dd: '2026-10-27T00:00:00.000', noncomm_positions_long_all: '300000', noncomm_positions_short_all: '113549' },
+      { contract_market_name: 'GOLD', report_date_as_yyyy_mm_dd: '2026-10-20T00:00:00.000', noncomm_positions_long_all: '290000', noncomm_positions_short_all: '90135' }]);
+    expect(feedCot(body, '088691').points[0]).toMatchObject({ label: 'GOLD', value: 186451, prev: 199865, date: '2026-10-27' });
+  });
+});
+
