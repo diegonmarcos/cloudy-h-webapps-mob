@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
 import { FetchError, forwardRate, loadPanel, NA, sig, type Ctx, type Dashboard } from './engine';
-import { cell, coverage, gatedAverage, shortName, maxDrawdown1y, perfFormat, perfRow, PERF_COLUMNS, rebalanced, trailing, vol1y, weighted, type Close } from './tables';
+import { cell, coverage, parseOne, reasons, gatedAverage, shortName, maxDrawdown1y, perfFormat, perfRow, PERF_COLUMNS, rebalanced, trailing, vol1y, weighted, type Close } from './tables';
 
 // #1370 the per-item tables (port of Performance.kt / Tables.kt): Performance.row, daily rebalancing, GDP weights, container first, CORS skip.
 const dash = (id: string) => FINTERM.dashboards.find((d) => d.id === id) as Dashboard;
@@ -116,5 +116,25 @@ describe('table panels end to end', () => {
     expect(d.rows.map((r) => r[0])).toEqual(['Portfolio 60/40', 'AGG Bonds 60%', 'ACWI Equity 40%']);
     expect(d.details).toEqual(['Portfolio 60/40, daily rebalanced', 'Bonds 60% (AGG)', 'Equity 40% (ACWI)']);
     expect(d.rows[0][1]).toBe(sig(100 * (0.6 * 1.01 + 0.4 * 1.1)));
+  });
+});
+
+describe('one /v1/curves/matrix call', () => {
+  const body = JSON.stringify({ fill: { rate: 0.25 }, rows: [
+    { country: 'US', gdp_usd: 30e12, tenors: [{ tenor: '3M', value: 4.1, date: '2026-10-30' }, { tenor: '10Y', value: 4.9, date: '2026-10-30' }] },
+    { country: 'FR', gdp_usd: 3.4e12, tenors: [{ tenor: '3M', value: null, date: null, method: 'no free source declared for this cell' }, { tenor: '10Y', value: 4.44, date: '2026-09' }] },
+    { country: 'EA', gdp_usd: null, tenors: [{ tenor: '10Y', value: 3.3, date: '2026-10-29' }] },
+  ] });
+  it('keeps the declared countries in order with the container GDP and every empty cell reason', () => {
+    const one = parseOne(body, ['US', 'FR', 'CN'], 'api')!;
+    expect(one.got.map((x) => x[0])).toEqual(['US', 'FR', 'CN']);
+    expect(one.got[1][1].got.points.map((p) => [p.key, p.x, p.value])).toEqual([['10Y', 10, 4.44]]);
+    expect(one.got[2][1].why).toBe('not in /v1/curves/matrix');
+    expect(one.gdp.FR).toBeCloseTo(3400);
+    expect(one.fill).toBe(0.25);
+    expect(reasons(one.why, ['3M', '10Y'])).toEqual(['no free source declared for this cell: FR 3M']);
+  });
+  it('is null when no declared country has a value (the per-country path runs)', () => {
+    expect(parseOne(JSON.stringify({ rows: [] }), ['US'], 'api')).toBeNull();
   });
 });

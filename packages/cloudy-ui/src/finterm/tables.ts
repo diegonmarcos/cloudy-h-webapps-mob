@@ -191,9 +191,41 @@ export function curveOf(f: TFetch, g: Got): [number, number][] {
   return [...out.entries()].sort((a, b) => a[0] - b[0]);
 }
 
-export function matrix(panel: Panel & { mode?: string }, f: TFetch, got: [string, ItemGot][]): PanelData {
+/** The container's one-call matrix (/v1/curves/matrix): values, its GDP (USD bn), each empty cell's reason (country -> tenor -> method), fill rate. */
+export type One = { got: [string, ItemGot][]; gdp: Record<string, number>; why: Record<string, Record<string, string>>; fill: number | null };
+
+/** Parse a /v1/curves/matrix body for the declared countries (declared order); null when none of them has a value. */
+export function parseOne(body: string, each: string[], by: string): One | null {
+  const o = JSON.parse(body) as { fill?: { rate?: number }; rows?: { country: string; gdp_usd?: number | null; tenors?: { tenor: string; value: number | null; date: string | null; method?: string }[] }[] };
+  const got = new Map<string, ItemGot>(); const gdp: Record<string, number> = {}; const why: Record<string, Record<string, string>> = {};
+  for (const r of o.rows ?? []) {
+    if (!each.includes(r.country)) continue;
+    if (r.gdp_usd && r.gdp_usd > 0) gdp[r.country] = r.gdp_usd / 1e9;
+    const g = empty(); const miss: Record<string, string> = {};
+    for (const t of r.tenors ?? []) {
+      const y = tenorYears(t.tenor); if (y == null) continue;
+      if (typeof t.value === 'number' && Number.isFinite(t.value)) g.points.push({ key: t.tenor, label: t.tenor, x: y, value: t.value, prev: null, date: t.date ?? '' } as Got['points'][number]);
+      else miss[t.tenor] = t.method || 'no value';
+    }
+    why[r.country] = miss;
+    got.set(r.country, g.points.length ? { got: g, by, why: '' } : { got: g, by: '', why: [...new Set(Object.values(miss))].join('; ') || 'no curve' });
+  }
+  if (![...got.values()].some((x) => !isEmpty(x.got))) return null;
+  return { got: each.map((c) => [c, got.get(c) ?? { got: empty(), by: '', why: 'not in /v1/curves/matrix' }]), gdp, why, fill: typeof o.fill?.rate === 'number' ? o.fill.rate : null };
+}
+
+const tenorYears = (t: string): number | null => { const m = /^(\d+(?:\.\d+)?)\s*([WMY])$/.exec(t.trim().toUpperCase()); if (!m) return null; const n = +m[1]; return m[2] === 'Y' ? n : m[2] === 'M' ? n / 12 : n / 52; };
+
+/** The empty cells' reasons grouped: "no free source declared for this cell: FR 3M/6M, IT 3M". */
+export function reasons(why: Record<string, Record<string, string>>, ts: string[]): string[] {
+  const by = new Map<string, Map<string, string[]>>();
+  for (const [cc, m] of Object.entries(why)) for (const t of ts) if (m[t]) { const r = by.get(m[t]) ?? new Map(); by.set(m[t], r); r.set(cc, [...(r.get(cc) ?? []), t]); }
+  return [...by].map(([r, ccs]) => `${r}: ${[...ccs].map(([cc, t]) => `${cc} ${t.join('/')}`).join(', ')}`);
+}
+
+export function matrix(panel: Panel & { mode?: string }, f: TFetch, got: [string, ItemGot][], one: One | null = null): PanelData {
   const forward = panel.mode === 'forward'; const start = f.forward_start_years ?? 1; const ts = f.tenors ?? [];
-  const labels = f.labels ?? {}; const gdp = f.gdp_usd_bn ?? {}; const dm = f.groups?.DM ?? []; const em = f.groups?.EM ?? [];
+  const labels = f.labels ?? {}; const gdp: Record<string, number> = { ...(f.gdp_usd_bn ?? {}), ...(one?.gdp ?? {}) }; const dm = f.groups?.DM ?? []; const em = f.groups?.EM ?? [];
   const curves = new Map(got.map(([k, ig]) => [k, curveOf(f, ig.got)]));
   const cells = new Map([...curves].map(([k, cv]) => [k, ts.map(([, y]) => cell(cv, y, forward, start))]));
   const min = f.min_coverage_gdp ?? MIN_COVERAGE; const hasCov = (panel.columns ?? [])[1] === COL_COV;
@@ -205,11 +237,13 @@ export function matrix(panel: Panel & { mode?: string }, f: TFetch, got: [string
   const avgs: [string, string[]][] = [['World avg', world], ['DM avg', dm], ['EM avg', em]];
   const thin = avgs.filter(([, m]) => avg(m).some((x) => x == null) && cov(m) + 1e-12 < min).map(([l, m]) => `${l} ${pct0(cov(m))}`);
   const noCurve = got.filter(([k]) => !curves.get(k)?.length).map(([k, ig]) => `${k} (${ig.why})`);
-  const gaps = got.filter(([k]) => curves.get(k)?.length).map(([k]) => [k, ts.filter((_, i) => cells.get(k)![i] == null).map((t) => t[0])] as [string, string[]]).filter((x) => x[1].length).map(([k, m]) => `${k} ${m.join('/')}`);
+  const gaps = one && !forward ? [] : got.filter(([k]) => curves.get(k)?.length).map(([k]) => [k, ts.filter((_, i) => cells.get(k)![i] == null).map((t) => t[0])] as [string, string[]]).filter((x) => x[1].length).map(([k, m]) => `${k} ${m.join('/')}`);
   const note = [forward ? `${start}y-forward curve from each spot curve (Forward.rate).` : null,
+    one?.fill != null ? `One call /v1/curves/matrix: ${pct0(one.fill)} of cells filled; GDP from the container (World Bank, USD).` : null,
     `Averages GDP-weighted (IMF, USD), shown only when the countries with a value hold ${pct0(min)} of the group's GDP; Cov = that share (country rows: share of World GDP).`,
     thin.length ? `— insufficient coverage: ${thin.join(', ')} < ${pct0(min)}.` : null,
-    noCurve.length ? `— no curve: ${noCurve.join(', ')}` : null, gaps.length ? `— no point at tenor: ${gaps.join(', ')}` : null].filter(Boolean).join(' ');
+    noCurve.length ? `— no curve: ${noCurve.join(', ')}` : null, gaps.length ? `— no point at tenor: ${gaps.join(', ')}` : null,
+    ...(one && !forward ? reasons(Object.fromEntries(Object.entries(one.why).filter(([k]) => curves.get(k)?.length)), ts.map((t) => t[0])).map((r) => `— ${r}.`) : [])].filter(Boolean).join(' ');
   const asOf = got.flatMap(([, ig]) => ig.got.points.map((p) => p.date)).reduce((m, d) => (d > m ? d : m), '');
   return { columns: panel.columns ?? [], rows: [...avgs.map(([l, m]) => row(l, pct0(cov(m)), avg(m))), ...got.map(([k]) => row(labels[k] || k, worldGdp > 0 ? pct0((gdp[k] ?? 0) / worldGdp) : NA, cells.get(k)!))],
     links: [], chart: [], asOf, note, servedBy: servedBy(got.map((x) => x[1])) };
@@ -236,7 +270,13 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       none([...got.values()]);
       return portfolio(panel, f, legs, got);
     }
-    case 'yields_matrix': return matrix(panel, f, await each(f.each ?? []));
+    case 'yields_matrix': {
+      const ma = (f.primary as { matrix_api?: string } | undefined)?.matrix_api;
+      if (ma && api) {
+        try { const one = parseOne(await ctx.get(buildUrl(api.base, ma, [])), f.each ?? [], api.source.name); if (one) return matrix(panel, f, one.got, one); } catch { /* the per-country path below */ }
+      }
+      return matrix(panel, f, await each(f.each ?? []));
+    }
     default: throw new Error(`unknown derive ${panel.derive}`);
   }
 }
