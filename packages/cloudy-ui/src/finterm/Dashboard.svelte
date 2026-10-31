@@ -7,7 +7,7 @@
   import './components/fin.css';
   import { FINTERM, sourceOf } from './catalog';
   import { alertRule, alertSymbol, alloc, drawOrder, failureFor, loadPanel, placeholderFor, ruleText, FetchError, type AlertRule, type Ctx, type Dashboard, type Panel, type PanelData, type Placeholder, type UserLists } from './engine';
-  import { CAL_CHIPS, inCalWindow, trimBody, betterWhen, beatMiss, dirOf, isStale, nextDelay, parseNum, refreshPolicy, signedFmt, DASH, type SearchItem } from './fin';
+  import { CAL_CHIPS, inCalWindow, lowerBetter, trimBody, betterWhen, beatMiss, dirOf, isStale, nextDelay, parseNum, refreshPolicy, signedFmt, DASH, type SearchItem } from './fin';
   import Skel from './components/Skel.svelte';
   import FinFooter from './components/FinFooter.svelte';
   import FinKeyRow from './components/FinKeyRow.svelte';
@@ -184,11 +184,11 @@
   const assetOf = (p: Panel): SearchItem['kind'] => (/coinbase|kraken/.test(p.source) ? 'CR' : /frankfurter|fx/.test(p.source + p.id + dash.id) ? 'FX' : /cboe|equity|stooq|sec/.test(p.source + dash.id) ? 'EQ' : /energy|commod|eia/.test(p.id + dash.id) ? 'CO' : /calendar|forexfactory/.test(p.source + dash.id) ? 'EV' : 'FI');
   const short = (s: string) => s.replace(/ per USD$/, '').replace(/^UST /, 'UST');
   function rowsOf(p: Panel, d: PanelData): Row[] {
-    return d.rows.map((r, i) => ({ sym: short(r[0] ?? ''), name: r[0] ?? '', last: r[1] ?? DASH, chg: r[2] ?? DASH, pct: r[3] ?? DASH, spark: d.spark?.[i] ?? null, flash: flashes[p.id]?.[i] }));
+    return d.rows.map((r, i) => ({ sym: short(r[0] ?? ''), name: r[0] ?? '', last: r[1] ?? DASH, chg: r[2] ?? DASH, pct: r[3] ?? DASH, spark: d.spark?.[i] ?? null, flash: flashes[p.id]?.[i], lower: lowerBetter(p.better_when, r[0] ?? '') }));
   }
   function kpisOf(p: Panel, d: PanelData): Kpi[] {
     const unit = p.change_unit === 'bp' ? 'bp' : '';
-    const t: Kpi[] = d.rows.map((r, i) => ({ label: r[0] ?? '', value: r[1] ?? DASH, chg: r[2] ?? '', unit, asOf: r[4] ?? r[3] ?? '', spark: d.spark?.[i] ?? null, flash: flashes[p.id]?.[i] }));
+    const t: Kpi[] = d.rows.map((r, i) => ({ label: r[0] ?? '', value: r[1] ?? DASH, chg: r[2] ?? '', unit, asOf: r[4] ?? r[3] ?? '', spark: d.spark?.[i] ?? null, flash: flashes[p.id]?.[i], lower: lowerBetter(p.better_when, r[0] ?? '') }));
     // the 2s10s spread (UI spec 3.1, derive: spread): 10Y minus 2Y in bp, its change from the two tiles' changes
     const two = d.rows.findIndex((r) => /2Y$/.test(r[0] ?? '')), ten = d.rows.findIndex((r) => /10Y$/.test(r[0] ?? ''));
     if (two >= 0 && ten >= 0) {

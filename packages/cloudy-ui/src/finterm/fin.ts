@@ -134,3 +134,9 @@ export function inCalWindow(ts: string, chip: number, today: string): boolean {
   const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);
   return d >= iso(monday) && d <= iso(monday + 6 * 864e5);
 }
+/** Credit/Macro colouring (#1370, FinFormat.lowerBetter): the declared better_when wins; else lower is better for the calendar's words and credit OAS. */
+export const lowerBetter = (betterWhenDecl: string | undefined, label: string): boolean =>
+  betterWhenDecl === 'lower' ? true : betterWhenDecl === 'higher' ? false : betterWhen(label) === 'lower' || /\boas\b/i.test(label);
+/** The colour direction of a move, flipped when lower is better (FinFormat.tone). */
+export const tone = (d: Dir, lower: boolean): Dir => (!lower ? d : d === 'up' ? 'down' : d === 'down' ? 'up' : 'flat');
+

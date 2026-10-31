@@ -1,15 +1,15 @@
 <script lang="ts">
   // 2.8 KPI tiles: 2 per row (3 >= 480px), 72px, raised fill, label + sparkline, value + signed change, as-of.
   import Spark from './Spark.svelte';
-  import { dirOf, DASH } from '../fin';
-  export type Kpi = { label: string; value: string; chg: string; unit: string; asOf: string; spark: number[] | null; flash?: string };
+  import { dirOf, tone, DASH } from '../fin';
+  export type Kpi = { label: string; value: string; chg: string; unit: string; asOf: string; spark: number[] | null; flash?: string; lower?: boolean };
   let { tiles, onOpen }: { tiles: Kpi[]; onOpen: (i: number) => void } = $props();
 </script>
 <div class="kpis" data-testid="finterm-quotes">
   {#each tiles as t, i (t.label)}
     <button type="button" class="kpi {t.flash ?? ''}" data-testid="fin-kpi" onclick={() => onOpen(i)}>
       <span class="l1"><span class="lbl">{t.label}</span>{#if t.spark}<Spark values={t.spark} w={40} h={16} />{/if}</span>
-      <span class="l2"><span class="v num">{t.value}</span>{#if t.chg && t.chg !== DASH}<span class="c num {dirOf(t.chg)}">{t.chg}{t.unit ? ` ${t.unit}` : ''}</span>{/if}</span>
+      <span class="l2"><span class="v num">{t.value}</span>{#if t.chg && t.chg !== DASH}<span class="c num {tone(dirOf(t.chg), !!t.lower)}">{t.chg}{t.unit ? ` ${t.unit}` : ''}</span>{/if}</span>
       <span class="cap">{t.asOf}</span>
     </button>
   {/each}

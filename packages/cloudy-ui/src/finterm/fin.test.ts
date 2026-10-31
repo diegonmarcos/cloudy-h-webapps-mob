@@ -160,3 +160,18 @@ describe('calendar window chips (#1370)', () => {
   });
 });
 
+describe('Credit/Macro better_when colouring (#1370)', () => {
+  it('flips the colour where lower is better; the declaration wins', async () => {
+    const { lowerBetter, tone } = await import('./fin');
+    expect(lowerBetter(undefined, 'US Unemployment rate')).toBe(true);
+    expect(lowerBetter(undefined, 'ICE BofA US HY OAS')).toBe(true);
+    expect(lowerBetter(undefined, 'S&P 500')).toBe(false);
+    expect(lowerBetter('lower', 'S&P 500')).toBe(true);
+    expect(lowerBetter('higher', 'CPI YoY')).toBe(false);
+    expect(tone('up', true)).toBe('down');
+    expect(tone('down', true)).toBe('up');
+    expect(tone('up', false)).toBe('up');
+    expect(tone('flat', true)).toBe('flat');
+  });
+});
+

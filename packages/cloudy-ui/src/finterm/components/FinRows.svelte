@@ -1,8 +1,8 @@
 <script lang="ts">
   // 2.2 market-monitor rows: SYMBOL | sparkline | last | chg | chg% (fixed widths; chg drops under 360px). Tap = quote detail; star = watchlist.
   import Spark from './Spark.svelte';
-  import { dirOf, DASH } from '../fin';
-  export type Row = { sym: string; name: string; last: string; chg: string; pct: string; spark: number[] | null; flash?: string };
+  import { dirOf, tone, DASH } from '../fin';
+  export type Row = { sym: string; name: string; last: string; chg: string; pct: string; spark: number[] | null; flash?: string; lower?: boolean };
   let { rows, watched, onOpen, onStar }: { rows: Row[]; watched: Set<string>; onOpen: (i: number) => void; onStar: (sym: string) => void } = $props();
 </script>
 <div class="rows" data-testid="finterm-quotes" role="list">
@@ -12,8 +12,8 @@
         <span class="s"><span class="sym">{r.sym}</span>{#if r.name && r.name !== r.sym}<span class="cap nm">{r.name}</span>{/if}</span>
         <span class="sp">{#if r.spark}<Spark values={r.spark} />{/if}</span>
         <span class="num last">{r.last}</span>
-        <span class="num chg {dirOf(r.chg)}">{r.chg || DASH}</span>
-        <span class="num pct {dirOf(r.pct)}">{r.pct && r.pct !== DASH ? `${r.pct}%` : DASH}</span>
+        <span class="num chg {tone(dirOf(r.chg), !!r.lower)}">{r.chg || DASH}</span>
+        <span class="num pct {tone(dirOf(r.pct), !!r.lower)}">{r.pct && r.pct !== DASH ? `${r.pct}%` : DASH}</span>
       </button>
       <button type="button" class="star" class:on={watched.has(r.sym)} onclick={() => onStar(r.sym)} aria-label={watched.has(r.sym) ? `Remove ${r.sym} from watchlist` : `Add ${r.sym} to watchlist`} title="Watchlist">{watched.has(r.sym) ? '★' : '☆'}</button>
     </div>
