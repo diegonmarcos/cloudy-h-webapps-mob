@@ -1,0 +1,38 @@
+name: live-shots
+# Screenshots of the LIVE published pages (#1374): phone + tablet full pages and each FinTerm table at both scroll edges, with a
+# geometry report (tables.json). Dispatch after the Pages mirror sync; review the artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: 'Live site base'
+        default: 'https://diegonmarcos.github.io/cloud-webapps'
+      paths:
+        description: 'Space-separated page paths under the base'
+        default: '/capital-stack-finterminal/eq/eq-dm-us/ /capital-stack-finterminal/fi/yields-matrix/ /capital-stack-finterminal/pm/mp-60-40/ /capital-stack-finterminal/eq/world-equity-indices/'
+permissions:
+  contents: read
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Playwright + Chromium
+        run: npm i --no-save --no-package-lock @playwright/test@1.56.1 && npx playwright install --with-deps chromium
+      - name: Shoot
+        env:
+          BASE: ${{ inputs.base }}
+          PATHS: ${{ inputs.paths }}
+        run: node scripts/live-shots.mjs "$BASE" shots $PATHS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-shots
+          path: shots
+          retention-days: 14
