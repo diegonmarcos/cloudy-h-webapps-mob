@@ -9181,6 +9181,14 @@
                     "label": "Legend",
                     "icon": "help_outline",
                     "exclusive": false
+                  },
+                  {
+                    "id": "advanced",
+                    "kind": "open_advanced",
+                    "label": "Advanced",
+                    "hint": "parentless and unlisted folders",
+                    "icon": "folder",
+                    "exclusive": false
                   }
                 ]
               }
