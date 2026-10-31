@@ -257,3 +257,15 @@ describe('spec 9 forward table (Forward.table)', () => {
   });
 });
 
+describe('Coinbase daily candles per item: a quotes row with a 7-day sparkline (spec 9 crypto top-20)', () => {
+  it('last close, previous close and the last 7 closes; no item, bars only', async () => {
+    const { feedCoinbase } = await import('./engine');
+    const day = (i: number, c: number) => [Date.UTC(2026, 9, 20 + i) / 1000, c - 1, c + 1, c, c];
+    const body = JSON.stringify(Array.from({ length: 9 }, (_, i) => day(8 - i, 100 + (8 - i)))); // newest first, as Coinbase sends
+    const g = feedCoinbase(body, 'BTC-USD');
+    expect(g.points[0]).toMatchObject({ key: 'BTC-USD', value: 108, prev: 107, date: '2026-10-28' });
+    expect(g.points[0].hist).toEqual([102, 103, 104, 105, 106, 107, 108]);
+    expect(feedCoinbase(body, '').points).toEqual([]);
+  });
+});
+

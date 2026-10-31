@@ -528,7 +528,10 @@ export function feedCoinbase(body: string, each: string): Got {
   if (t.startsWith('[')) {
     const bars = (JSON.parse(t) as unknown[]).filter((c): c is number[] => Array.isArray(c) && c.length >= 5)
       .map((c) => ({ date: new Date(c[0] * 1000).toISOString().slice(0, 10), o: c[3], h: c[2], l: c[1], c: c[4] })).sort((a, b) => (a.date < b.date ? -1 : 1));
-    return got({ bars });
+    // per item (a quotes row): the last daily close, the one before, and the last 7 closes as the row's sparkline (spec 9 crypto top-20)
+    const n = bars.length;
+    if (!each || !n) return got({ bars });
+    return got({ bars, points: [{ key: each, label: each, x: 0, value: bars[n - 1].c, prev: n > 1 ? bars[n - 2].c : null, date: bars[n - 1].date, hist: bars.slice(-7).map((b) => b.c) }] });
   }
   const o = JSON.parse(t); const last = fin(o.last);
   return last === null ? got() : got({ points: [{ key: each, label: each, x: 0, value: last, prev: fin(o.open), date: '24h' }] });
