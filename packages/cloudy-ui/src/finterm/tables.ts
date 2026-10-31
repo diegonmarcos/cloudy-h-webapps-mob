@@ -8,7 +8,7 @@ import { FetchError, apiRoute, browserReadable, buildUrl, forwardRate, NA, param
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -249,6 +249,21 @@ export function matrix(panel: Panel & { mode?: string }, f: TFetch, got: [string
     links: [], chart: [], asOf, note, servedBy: servedBy(got.map((x) => x[1])) };
 }
 
+/** /v1/bonds/em-usd as Country | Ccy | Yield | 1Y | 10Y | 25Y (returns are fractions, shown as %); each empty cell's reason goes to the note. */
+export function emUsd(panel: Panel, body: string, by: string): PanelData {
+  const o = JSON.parse(body) as { method?: string; rows?: { country: string; currency?: string | null; yield_last?: { month: string; value: number } | null; usd_return_annualised?: Record<string, number | null>; null_reason?: string | null }[] };
+  const cols = panel.columns ?? []; const hs = cols.slice(3); const why: string[] = []; let asOf = '';
+  const rows = (o.rows ?? []).map((r) => {
+    if (r.yield_last?.month && r.yield_last.month > asOf) asOf = r.yield_last.month;
+    const cells = hs.map((h) => { const v = r.usd_return_annualised?.[h.toLowerCase()]; return typeof v === 'number' && Number.isFinite(v) ? `${v >= 0 ? '+' : ''}${(v * 100).toFixed(2)}%` : NA; });
+    if (r.null_reason) why.push(`${r.country} (${r.null_reason})`);
+    else if (cells.includes(NA)) why.push(`${r.country} (history shorter than ${hs.filter((_, i) => cells[i] === NA).join('/')})`);
+    return [r.country, r.currency || NA, typeof r.yield_last?.value === 'number' ? r.yield_last.value.toFixed(2) : NA, ...cells];
+  });
+  if (!rows.length) throw new Error(`${by}: no EM bond row`);
+  return { columns: cols, rows, links: [], chart: [], asOf, note: [o.method || null, why.length ? `— ${why.join(', ')}` : null].filter(Boolean).join(' '), servedBy: by };
+}
+
 /** The table panel end to end: every item fetched on its own (in parallel), then rendered by its derive. */
 export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, f0: Fetch, ctx: Ctx): Promise<PanelData> {
   const f = f0 as TFetch; const api = await apiRoute(panel, dash, ctx);
@@ -269,6 +284,10 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       const got = new Map(await Promise.all(legs.map(async ([n]) => [n, proxies[n] ? await gather(proxies[n], source, f, api, ctx) : { got: empty(), by: '', why: 'no proxy declared' }] as [string, ItemGot])));
       none([...got.values()]);
       return portfolio(panel, f, legs, got);
+    }
+    case 'em_usd': {
+      if (!api) throw new FetchError('blocked', 'mesh off: the EM USD bond table is served by the FinTerm container only');
+      return emUsd(panel, await ctx.get(buildUrl(api.base, (f.primary as { api?: string } | undefined)?.api ?? '/v1/bonds/em-usd', [])), api.source.name);
     }
     case 'yields_matrix': {
       const ma = (f.primary as { matrix_api?: string } | undefined)?.matrix_api;

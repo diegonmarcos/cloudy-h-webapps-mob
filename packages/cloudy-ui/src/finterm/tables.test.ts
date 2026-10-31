@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
 import { FetchError, forwardRate, loadPanel, NA, sig, type Ctx, type Dashboard } from './engine';
-import { cell, coverage, parseOne, reasons, gatedAverage, shortName, maxDrawdown1y, perfFormat, perfRow, PERF_COLUMNS, rebalanced, trailing, vol1y, weighted, type Close } from './tables';
+import { cell, coverage, emUsd, parseOne, reasons, gatedAverage, shortName, maxDrawdown1y, perfFormat, perfRow, PERF_COLUMNS, rebalanced, trailing, vol1y, weighted, type Close } from './tables';
 
 // #1370 the per-item tables (port of Performance.kt / Tables.kt): Performance.row, daily rebalancing, GDP weights, container first, CORS skip.
 const dash = (id: string) => FINTERM.dashboards.find((d) => d.id === id) as Dashboard;
@@ -136,5 +136,18 @@ describe('one /v1/curves/matrix call', () => {
   });
   it('is null when no declared country has a value (the per-country path runs)', () => {
     expect(parseOne(JSON.stringify({ rows: [] }), ['US'], 'api')).toBeNull();
+  });
+});
+
+describe('EM government bonds in USD', () => {
+  it('one row per country, returns in %, each empty cell explained', () => {
+    const body = JSON.stringify({ method: 'm', rows: [
+      { country: 'BR', currency: 'BRL', yield_last: { month: '2026-09', value: 13.1 }, usd_return_annualised: { '1y': 0.0812, '10y': 0.031, '25y': null }, null_reason: null },
+      { country: 'SA', currency: null, yield_last: null, usd_return_annualised: { '1y': null, '10y': null, '25y': null }, null_reason: 'no free 10-year government yield series for this country' }] });
+    const d = emUsd(panel('yields_matrix', 'em_usd'), body, 'api');
+    expect(d.rows[0]).toEqual(['BR', 'BRL', '13.10', '+8.12%', '+3.10%', NA]);
+    expect(d.rows[1].slice(1).every((x) => x === NA)).toBe(true);
+    expect(d.note).toContain('BR (history shorter than 25Y)');
+    expect(d.asOf).toBe('2026-09');
   });
 });
