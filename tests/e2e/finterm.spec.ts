@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { shot } from './shot';
 import { BASE } from './helpers';
+import { shortSource } from '../../packages/cloudy-ui/src/finterm/fin';
 
 // #1342: the web FinTerm. Every address, tab, dashboard and source is READ from the generated declarations (finterm.json, app-links.json); none is typed here.
 // The browser has no network in these tests except what a test routes in: a panel is data (a routed answer) or a dashed placeholder with its reason.
@@ -79,7 +80,7 @@ test('each of the 32 dashboards renders: every panel is data or a placeholder th
       if (state === 'data') { await expect(panel.getByTestId('finterm-chart').or(panel.getByTestId('finterm-table')).or(panel.getByTestId('finterm-calendar')).or(panel.getByTestId('finterm-quotes')), `${d.id}/${p.id}`).not.toHaveCount(0); }
       else { await expect(panel.getByTestId('finterm-note'), `${d.id}/${p.id}`).not.toBeEmpty(); await expect(panel.getByTestId('finterm-placeholder')).toBeVisible(); }
       if (p.fetch) expect(state, `${d.id}/${p.id}: offline fetch panel`).toBe(declaredFed(p) ? 'data' : 'placeholder-blocked');
-      await expect(panel.getByTestId('finterm-attr'), `${d.id}/${p.id}`).toContainText(src(p.source).name);
+      await expect(panel.getByTestId('finterm-attr'), `${d.id}/${p.id}`).toContainText(shortSource(src(p.source).name));
     }
   }
 });
@@ -114,11 +115,11 @@ test('FI Yield Curves: FRED is cors false so the web goes straight to DBnomics; 
   await expect(ust.getByTestId('finterm-asof')).toHaveText('2026-10-28');
   // one footer line: "● 09:15 · as of 2026-10-28 · FRED ↗ · via DBnomics" (the declared source is attributed, the route that served it named)
   await expect(ust.getByTestId('finterm-meta')).toContainText('as of 2026-10-28');
-  await expect(ust.getByTestId('finterm-meta')).toContainText(`via ${dbn.name}`);
+  await expect(ust.getByTestId('finterm-meta')).toContainText(`via ${shortSource(dbn.name)}`);
   // terminal chart card: gridlines + right-edge labels, and the table pins its header and sorts on tap
   await expect(ust.locator('[data-testid="finterm-table"] th').first()).toBeVisible();
   expect(asked).not.toContain(new URL(fred.endpoint).host);
-  await expect(ust.getByTestId('finterm-attr')).toContainText(fred.name);
+  await expect(ust.getByTestId('finterm-attr')).toContainText(shortSource(fred.name));
   // the keyed panel of the same dashboard stays dashed
   await expect(page.locator('[data-panel="sovereigns"]')).toHaveAttribute('data-state', /placeholder-/);
   await shot(page, info, 'finterm-yield-curves');
@@ -142,7 +143,7 @@ test('on the mesh fin-api serves first: the topic answer wins and the page says 
   await settle(page);
   const ust = page.locator('[data-panel="ust"]');
   await expect(ust).toHaveAttribute('data-state', 'data');
-  await expect(ust.getByTestId('finterm-meta')).toContainText(`via ${api.name}`);
+  await expect(ust.getByTestId('finterm-meta')).toContainText(`via ${shortSource(api.name)}`);
   expect(asked).not.toContain(new URL(src('fred').endpoint).host);
 });
 
