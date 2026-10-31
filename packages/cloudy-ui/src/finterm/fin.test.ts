@@ -146,3 +146,17 @@ describe('shortSource (#1370 shorter footers)', () => {
   });
 });
 
+describe('calendar window chips (#1370)', () => {
+  it('All keeps everything, Today the date, This week Monday to Sunday', async () => {
+    const { inCalWindow } = await import('./fin');
+    const today = '2026-10-29'; // a Thursday
+    expect(inCalWindow('2026-12-01 08:30', 0, today)).toBe(true);
+    expect(inCalWindow('2026-10-29 14:00', 1, today)).toBe(true);
+    expect(inCalWindow('2026-10-30 14:00', 1, today)).toBe(false);
+    expect(inCalWindow('2026-10-26', 2, today)).toBe(true);
+    expect(inCalWindow('2026-11-01 23:00', 2, today)).toBe(true);
+    expect(inCalWindow('2026-10-25 23:00', 2, today)).toBe(false);
+    expect(inCalWindow('2026-11-02 00:00', 2, today)).toBe(false);
+  });
+});
+

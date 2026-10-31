@@ -122,3 +122,15 @@ export function trimBody(body: string, keep = 400, min = 100_000): string {
 }
 /** A footer source name (#1370 shorter footers): the declared name without its parenthetical or " / " detail; each " + " part alike (FinFormat.shortSource). */
 export const shortSource = (name: string): string => name.split(' + ').map((n) => n.split(' (')[0].split(' / ')[0].trim() || n.trim()).join(' + ');
+/** Calendar window chips (#1370, FinLogic.inCalWindow): 0 All, 1 Today, 2 This week (Monday to Sunday of today; UTC ISO dates). */
+export const CAL_CHIPS = ['All', 'Today', 'This week'];
+export function inCalWindow(ts: string, chip: number, today: string): boolean {
+  if (chip === 0) return true;
+  const d = ts.slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return false;
+  if (chip === 1) return d === today;
+  const t = Date.parse(`${today}T00:00:00Z`);
+  const monday = t - ((new Date(t).getUTCDay() + 6) % 7) * 864e5;
+  const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);
+  return d >= iso(monday) && d <= iso(monday + 6 * 864e5);
+}

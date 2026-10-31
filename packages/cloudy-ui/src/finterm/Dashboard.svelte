@@ -7,7 +7,7 @@
   import './components/fin.css';
   import { FINTERM, sourceOf } from './catalog';
   import { alertRule, alertSymbol, alloc, drawOrder, failureFor, loadPanel, placeholderFor, ruleText, FetchError, type AlertRule, type Ctx, type Dashboard, type Panel, type PanelData, type Placeholder, type UserLists } from './engine';
-  import { trimBody, betterWhen, beatMiss, dirOf, isStale, nextDelay, parseNum, refreshPolicy, signedFmt, DASH, type SearchItem } from './fin';
+  import { CAL_CHIPS, inCalWindow, trimBody, betterWhen, beatMiss, dirOf, isStale, nextDelay, parseNum, refreshPolicy, signedFmt, DASH, type SearchItem } from './fin';
   import Skel from './components/Skel.svelte';
   import FinFooter from './components/FinFooter.svelte';
   import FinKeyRow from './components/FinKeyRow.svelte';
@@ -251,6 +251,7 @@
   }
   const keyHref = $derived(`${root}config/`);
   let minImp = $state(0);
+  let calChip = $state(0);
   const actualBeat = (p: Panel) => (r: string[], j: number) => (p.value_columns === 'actual_previous' && j === 1 ? beatMiss(r[1] ?? '', r[2] ?? '', betterWhen(r[0] ?? '')) : '');
 </script>
 
@@ -308,7 +309,8 @@
             {/if}
           {:else if p.view === 'calendar'}
             <div class="fchips" role="group" aria-label="Importance">{#each [[0, 'All'], [2, '●● and up'], [3, '●●● only']] as [v, l]}<button type="button" class="chip" class:sel={minImp === v} onclick={() => (minImp = v as number)}>{l}</button>{/each}</div>
-            <FinCalendar rows={d.rows} columns={d.columns} {minImp} />
+            <div class="fchips" role="group" aria-label="Window">{#each CAL_CHIPS as l, i}<button type="button" class="chip" class:sel={calChip === i} onclick={() => (calChip = i)}>{l}</button>{/each}</div>
+            <FinCalendar rows={d.rows.filter((r) => inCalWindow(r[0] ?? '', calChip, new Date().toISOString().slice(0, 10)))} columns={d.columns} {minImp} />
           {:else if p.view === 'news'}
             <FinNews rows={d.rows} links={d.links} />
           {:else}
