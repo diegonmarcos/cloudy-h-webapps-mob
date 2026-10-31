@@ -4631,7 +4631,8 @@
       "nav_ui": {
         "mode": "clean",
         "scroll_hide": true,
-        "actions": "drawer"
+        "actions": "drawer",
+        "bottom": "history"
       },
       "configs_ui": [
         "nav_ui"
