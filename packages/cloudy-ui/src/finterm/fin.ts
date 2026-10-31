@@ -139,4 +139,14 @@ export const lowerBetter = (betterWhenDecl: string | undefined, label: string): 
   betterWhenDecl === 'lower' ? true : betterWhenDecl === 'higher' ? false : betterWhen(label) === 'lower' || /\boas\b/i.test(label);
 /** The colour direction of a move, flipped when lower is better (FinFormat.tone). */
 export const tone = (d: Dir, lower: boolean): Dir => (!lower ? d : d === 'up' ? 'down' : d === 'down' ? 'up' : 'flat');
+/** Central-bank next-decision tiles (#1370, FinLogic.nextDecisions): the first decision on or after today per country, with days to go. */
+export function nextDecisions(events: [string, string][], today: string): { country: string; date: string; days: number }[] {
+  const seen = new Map<string, { country: string; date: string; days: number }>();
+  for (const [ts, cc] of events) {
+    const d = ts.slice(0, 10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || d < today || !cc || seen.has(cc)) continue;
+    seen.set(cc, { country: cc, date: d, days: Math.round((Date.parse(`${d}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 864e5) });
+  }
+  return [...seen.values()].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+}
 

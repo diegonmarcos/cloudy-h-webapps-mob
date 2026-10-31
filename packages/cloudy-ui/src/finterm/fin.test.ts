@@ -175,3 +175,13 @@ describe('Credit/Macro better_when colouring (#1370)', () => {
   });
 });
 
+describe('central-bank next-decision tiles (#1370)', () => {
+  it('first upcoming decision per country, soonest first, with days to go', async () => {
+    const { nextDecisions } = await import('./fin');
+    const ev: [string, string][] = [['2026-10-29T18:00Z', 'US'], ['2026-12-09T19:00Z', 'US'], ['2027-01-27T19:00Z', 'US'], ['2026-11-05T12:00Z', 'GB'], ['2026-10-31T11:00Z', 'JP'], ['bad', 'EU']];
+    const n = nextDecisions(ev, '2026-10-31');
+    expect(n.map((x) => x.country)).toEqual(['JP', 'GB', 'US']);
+    expect(n.map((x) => x.days)).toEqual([0, 5, 39]);
+  });
+});
+

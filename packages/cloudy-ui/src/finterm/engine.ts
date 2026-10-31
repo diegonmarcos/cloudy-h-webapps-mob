@@ -31,7 +31,7 @@ export type Fetch = {
   fallback?: { source: string };
 };
 export type Panel = {
-  id: string; title: string; source: string; view: string; derive?: string; fetch?: Fetch; columns?: string[]; unit?: string; chart_value?: string; change_unit?: string; better_when?: string;
+  id: string; title: string; source: string; view: string; derive?: string; fetch?: Fetch; columns?: string[]; unit?: string; chart_value?: string; change_unit?: string; better_when?: string; next_tiles?: boolean;
   value_columns?: string; alerts?: string;
   /** A source with no key / connector yet: drawn as one key row (UI spec 2; the dashed columns/rows layout is gone, checklist 1). */
   placeholder?: { reason?: string; note?: string };

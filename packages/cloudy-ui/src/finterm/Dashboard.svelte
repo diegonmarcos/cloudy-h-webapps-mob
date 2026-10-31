@@ -7,7 +7,7 @@
   import './components/fin.css';
   import { FINTERM, sourceOf } from './catalog';
   import { alertRule, alertSymbol, alloc, drawOrder, failureFor, loadPanel, placeholderFor, ruleText, FetchError, type AlertRule, type Ctx, type Dashboard, type Panel, type PanelData, type Placeholder, type UserLists } from './engine';
-  import { CAL_CHIPS, inCalWindow, lowerBetter, trimBody, betterWhen, beatMiss, dirOf, isStale, nextDelay, parseNum, refreshPolicy, signedFmt, DASH, type SearchItem } from './fin';
+  import { CAL_CHIPS, inCalWindow, lowerBetter, nextDecisions, trimBody, betterWhen, beatMiss, dirOf, isStale, nextDelay, parseNum, refreshPolicy, signedFmt, DASH, type SearchItem } from './fin';
   import Skel from './components/Skel.svelte';
   import FinFooter from './components/FinFooter.svelte';
   import FinKeyRow from './components/FinKeyRow.svelte';
@@ -309,6 +309,10 @@
             {/if}
           {:else if p.view === 'calendar'}
             <div class="fchips" role="group" aria-label="Importance">{#each [[0, 'All'], [2, '●● and up'], [3, '●●● only']] as [v, l]}<button type="button" class="chip" class:sel={minImp === v} onclick={() => (minImp = v as number)}>{l}</button>{/each}</div>
+            {#if p.next_tiles}
+              {@const today = new Date().toISOString().slice(0, 10)}
+              <FinKpi tiles={nextDecisions(d.rows.map((r) => [r[0] ?? '', r[1] ?? ''] as [string, string]), today).map((n) => ({ label: n.country, value: n.date, chg: '', unit: '', asOf: n.days === 0 ? 'today' : `in ${n.days} d`, spark: null }))} onOpen={() => {}} />
+            {/if}
             <div class="fchips" role="group" aria-label="Window">{#each CAL_CHIPS as l, i}<button type="button" class="chip" class:sel={calChip === i} onclick={() => (calChip = i)}>{l}</button>{/each}</div>
             <FinCalendar rows={d.rows.filter((r) => inCalWindow(r[0] ?? '', calChip, new Date().toISOString().slice(0, 10)))} columns={d.columns} {minImp} />
           {:else if p.view === 'news'}
