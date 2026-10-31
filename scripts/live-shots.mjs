@@ -21,6 +21,7 @@ for (const [dev, opts] of Object.entries(devices)) {
     const n = await wraps.count();
     for (let i = 0; i < n; i++) {
       const w = wraps.nth(i);
+      if (!(await w.isVisible())) continue; // a chart's table folded in its <details>
       const g = await w.evaluate((el) => {
         const t = el.querySelector('table');
         const first = [...el.querySelectorAll('tbody td:first-child')];
@@ -33,9 +34,9 @@ for (const [dev, opts] of Object.entries(devices)) {
       report.push({ dev, path: p, table: i, ...g });
       await w.evaluate((el) => { el.scrollLeft = el.scrollWidth; });
       await page.waitForTimeout(400);
-      await w.screenshot({ path: `${out}/${name}-table${i}-right.png` });
+      await w.screenshot({ path: `${out}/${name}-table${i}-right.png`, timeout: 10_000 }).catch((e) => console.error(String(e)));
       await w.evaluate((el) => { el.scrollLeft = 0; });
-      await w.screenshot({ path: `${out}/${name}-table${i}-left.png` });
+      await w.screenshot({ path: `${out}/${name}-table${i}-left.png`, timeout: 10_000 }).catch((e) => console.error(String(e)));
     }
   }
   await ctx.close();
