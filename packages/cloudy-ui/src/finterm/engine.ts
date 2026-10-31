@@ -5,6 +5,7 @@
 // source or one a browser cannot reach is a dashed placeholder with its reason. A source declared `cors: false` (FRED and IMF send no
 // Access-Control-Allow-Origin) is never asked from the browser: the engine goes straight to the next source, so the page never waits on it.
 
+import { signedFmt } from './fin';
 import { TABLE_DERIVES, tablePanel } from './tables';
 
 export type Obs = { date: string; value: number };
@@ -22,7 +23,7 @@ export type Route = { source?: string; provider?: string; path?: string; params?
 export type Fetch = {
   provider: string; lookback_days?: number; path?: string; params?: Record<string, unknown>; countries?: string[]; country_names?: Record<string, string>; labels?: Record<string, string>;
   series?: { id: string; label: string; years?: number; ccy?: string; quote?: string; pair?: string; dbnomics?: string }[];
-  forward?: { grid: number[][]; curve_length?: number; curve_max_start?: number };
+  forward?: { grid?: number[][]; table_start?: number; curve_length?: number; curve_max_start?: number };
   primary?: { source: string; topic?: string; api?: string; params?: Record<string, unknown>; parse?: string };
   // model panels (Feeds): routes, items, labels, curve tenors, SDMX / JSON-stat key dimension, event filter
   fallbacks?: Route[]; merge?: boolean; each?: string[]; each_days?: number; each_user?: string; years?: Record<string, number>; key_dim?: string;
@@ -187,6 +188,8 @@ export function forwardRate(curve: [number, number][], start: number, length: nu
   const grownStart = start === 0 ? 1 : Math.pow(1 + yieldAt(curve, start) / 100, start);
   return (Math.pow(grownEnd / grownStart, 1 / length) - 1) * 100;
 }
+/** Spec 9 forward table (Forward.table): per curve tenor, [tenor, spot, the forward starting in `start` years over the same tenor]. */
+export const forwardTable = (curve: [number, number][], start: number): [number, number, number][] => curve.map(([t, y]) => [t, y, forwardRate(curve, start, t)]);
 export const forwardCurve = (curve: [number, number][], length: number, maxStart: number): [number, number][] =>
   Array.from({ length: maxStart + 1 }, (_, s) => [s, forwardRate(curve, s, length)] as [number, number]).filter((p) => Number.isFinite(p[1]));
 
@@ -316,7 +319,10 @@ function derived(panel: Panel, f: Fetch, series: FredSeries[], asOf: string, not
     case 'forward_grid': {
       const fw = f.forward!;
       const curve = series.map((s) => [s.spec.years ?? 0, s.last.value] as [number, number]).sort((a, b) => a[0] - b[0]);
-      const rows = fw.grid.map(([s, l]) => [`${years(s)}Y x ${years(l)}Y`, num(forwardRate(curve, s, l), 2)]);
+      // spec 9: TENOR | SPOT | FWD | DIFF (bp) when the panel declares table_start (Forward.table); else the declared grid
+      const rows = fw.table_start !== undefined
+        ? forwardTable(curve, fw.table_start).map(([t, y, r]) => [`${years(t)}Y`, num(y, 2), num(r, 2), Number.isFinite(r) ? signedFmt((r - y) * 100, 0) : NA])
+        : (fw.grid ?? []).map(([s, l]) => [`${years(s)}Y x ${years(l)}Y`, num(forwardRate(curve, s, l), 2)]);
       const pts = forwardCurve(curve, fw.curve_length ?? 1, fw.curve_max_start ?? 29).map(([s, r]) => ({ label: `${years(s)}Y`, x: s, y: r }));
       return mk(rows, pts);
     }

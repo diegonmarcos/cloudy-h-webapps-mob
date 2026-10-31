@@ -2335,44 +2335,7 @@
               }
             ],
             "forward": {
-              "grid": [
-                [
-                  0,
-                  1
-                ],
-                [
-                  1,
-                  1
-                ],
-                [
-                  2,
-                  1
-                ],
-                [
-                  5,
-                  1
-                ],
-                [
-                  1,
-                  2
-                ],
-                [
-                  2,
-                  3
-                ],
-                [
-                  5,
-                  5
-                ],
-                [
-                  10,
-                  10
-                ],
-                [
-                  10,
-                  20
-                ]
-              ],
+              "table_start": 1,
               "curve_length": 1,
               "curve_max_start": 29
             },
@@ -2386,8 +2349,10 @@
           },
           "unit": "%",
           "columns": [
-            "Forward (start x length)",
-            "Rate %"
+            "Tenor",
+            "Spot %",
+            "1Y fwd %",
+            "Diff bp"
           ]
         }
       ],

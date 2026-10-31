@@ -247,3 +247,13 @@ describe('a container-only panel off the mesh (EM USD) says mesh off, never its 
     expect(failureFor(p, FINTERM.sources, new FetchError('blocked', 'Failed to fetch')).note).toMatch(/^Mesh only \/ CORS/);
   });
 });
+
+describe('spec 9 forward table (Forward.table)', () => {
+  it('per tenor: the tenor, its spot and the forward over the same tenor', async () => {
+    const { forwardTable } = await import('./engine');
+    const t = forwardTable([[1, 2], [2, 3]], 1);
+    expect(t.map((r) => [r[0], r[1]])).toEqual([[1, 2], [2, 3]]);
+    expect(t[0][2]).toBeCloseTo(4.0098, 3);
+  });
+});
+
