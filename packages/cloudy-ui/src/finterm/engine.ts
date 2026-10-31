@@ -373,6 +373,7 @@ export function placeholderFor(panel: Panel, sources: Source[]): Placeholder {
 /** A fetch that failed: the browser could not read the source (CORS / off the mesh) or it answered an error. */
 export function failureFor(panel: Panel, sources: Source[], e: unknown): Placeholder {
   const s = sources.find((x) => x.id === panel.source);
+  if (e instanceof Error && e.message.startsWith('mesh off')) return { reason: 'blocked', note: 'Mesh off: served by the FinTerm container on the private mesh only.' }; // a container-only panel never names its public source
   if (e instanceof FetchError && e.kind === 'blocked') return { reason: 'blocked', note: `Mesh only / CORS: ${s?.name ?? 'the source'} does not allow browser requests; open this page on the mesh to read it through fin-api.` };
   return { reason: 'error', note: `${s?.name ?? 'The source'} is unavailable right now (${e instanceof Error ? e.message : 'error'}).` };
 }

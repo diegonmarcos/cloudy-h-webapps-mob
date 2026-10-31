@@ -237,3 +237,13 @@ describe('quote change (real Cboe _DJX after the close, 2026-10-31)', () => {
     expect(decimals(0.92)).toBe(4);
   });
 });
+
+describe('a container-only panel off the mesh (EM USD) says mesh off, never its declared public source', () => {
+  it('failureFor names the mesh, not US Treasury', () => {
+    const p = { id: 'em_usd', source: 'treasury_xml' } as unknown as Parameters<typeof failureFor>[0];
+    const ph = failureFor(p, FINTERM.sources, new FetchError('blocked', 'mesh off: the EM USD bond table is served by the FinTerm container only'));
+    expect(ph.note.startsWith('Mesh off')).toBe(true);
+    expect(ph.note).not.toMatch(/Treasury/);
+    expect(failureFor(p, FINTERM.sources, new FetchError('blocked', 'Failed to fetch')).note).toMatch(/^Mesh only \/ CORS/);
+  });
+});
