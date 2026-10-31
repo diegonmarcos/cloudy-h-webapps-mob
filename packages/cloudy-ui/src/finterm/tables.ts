@@ -9,7 +9,7 @@ import { parseNum, signedFmt } from './fin';
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -186,6 +186,14 @@ export function portfolio(panel: Panel, f: TFetch, legs: [string, number][], got
     details: [`${title}, daily rebalanced`, ...series.map(([n, w]) => `${n} ${w}% (${proxies[n] ?? ''})`)] };
 }
 
+/** 60/40 vs 100/0 risk comparison (spec 9; Tables.riskCompare): each compared portfolio's headline row, on the same proxies. */
+export function riskCompare(panel: Panel, f: TFetch, sets: [string, number][][], got: Map<string, ItemGot>): PanelData {
+  const parts = sets.map((s) => portfolio(panel, f, s, got));
+  const miss = parts[0]?.note.split(' — ')[1];
+  return { columns: panel.columns ?? [], rows: parts.map((p) => p.rows[0]), links: [], chart: [], asOf: parts[0]?.asOf ?? '',
+    note: `Same ETF proxies, each daily rebalanced; risk = Vol 1Y and MaxDD 1Y.${miss ? ` ${miss}` : ''}`, servedBy: parts[0]?.servedBy ?? '', details: parts.map((p) => p.details?.[0] ?? '') };
+}
+
 export function curveOf(f: TFetch, g: Got): [number, number][] {
   const out = new Map<number, number>();
   for (const p of g.points) { const x = f.years && p.key in f.years ? f.years[p.key] : p.x; if (x > 0 && Number.isFinite(p.value) && !out.has(x)) out.set(x, p.value); }
@@ -309,6 +317,13 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
         try { const one = parseOne(await ctx.get(buildUrl(api.base, ma, [])), f.each ?? [], api.source.name); if (one) return matrix(panel, f, one.got, one); } catch { /* the per-country path below */ }
       }
       return matrix(panel, f, await each(f.each ?? []));
+    }
+    case 'risk_compare': {
+      const sets = (f as { compare?: [string, number][][] }).compare ?? []; const proxies = f.proxies ?? {};
+      const names = [...new Set(sets.flat().map((l) => l[0]))];
+      const got = new Map(await Promise.all(names.map(async (n) => [n, proxies[n] ? await gather(proxies[n], source, f, api, ctx) : { got: empty(), by: '', why: 'no proxy declared' }] as [string, ItemGot])));
+      none([...got.values()]);
+      return riskCompare(panel, f, sets, got);
     }
     case 'world_bonds': return spreads(await tablePanel({ ...panel, derive: 'yields_matrix' }, dash, source, f0, ctx), f.labels ?? {});
     default: throw new Error(`unknown derive ${panel.derive}`);

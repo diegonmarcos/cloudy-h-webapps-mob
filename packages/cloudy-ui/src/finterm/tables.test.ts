@@ -164,3 +164,15 @@ describe('World Bonds merged table (#1370, spec 9 spreads vs Bund / UST)', () =>
   });
 });
 
+describe('60/40 vs 100/0 risk comparison (spec 9)', () => {
+  it('stacks each compared portfolio headline row on the same legs', async () => {
+    const { riskCompare } = await import('./tables');
+    const bars = (a: number, b: number) => ({ points: [], events: [], kv: [], rows: [], links: [], bars: [{ date: '2026-10-29', c: a }, { date: '2026-10-30', c: b }] });
+    const got = new Map([['Bonds', { got: bars(100, 101), by: 'api', why: '' }], ['Equity', { got: bars(100, 110), by: 'api', why: '' }]]) as never;
+    const p = { id: 'risk', title: '', source: 'cboe', view: 'table', derive: 'risk_compare', columns: ['Name', 'Last', '1Y'] } as never;
+    const d = riskCompare(p, { proxies: { Bonds: 'AGG', Equity: 'ACWI' } } as never, [[['Bonds', 40], ['Equity', 60]], [['Bonds', 0], ['Equity', 100]]], got);
+    expect(d.rows.map((r) => r[0])).toEqual(['Portfolio 40/60', 'Portfolio 0/100']);
+    expect(d.rows[1][1]).not.toBe(d.rows[0][1]);
+  });
+});
+
