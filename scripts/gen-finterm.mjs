@@ -50,6 +50,27 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
     }
   }
   if (out.length !== byId.size) fail(`dashboards.json has ${byId.size} dashboards, ui.stacks maps ${out.length}`);
+  // #1399 each tab's Homepage (ui.sections[].pages: Home first, then one per dashboard, one scrollable row) and the removed pages' redirects
+  const homes = {};
+  const secs = build.ui.sections;
+  if (secs) {
+    if (build.ui.nav_ui?.mode !== 'classic') fail(`ui.nav_ui.mode is ${build.ui.nav_ui?.mode}: only classic draws the one-row sub-page nav`);
+    for (const tab of TABS) {
+      const s = secs.find((x) => x.id === tab) ?? fail(`ui.sections has no ${tab}`);
+      if ((s.nav_mode ?? 'horizontal_one_row') !== 'horizontal_one_row' || s.groups?.length) fail(`${tab}: the sub-page nav is not one row`);
+      const pages = s.pages ?? [];
+      if (pages[0]?.id !== 'home') fail(`${tab}: the first sub-page is not home`);
+      const dash = tabStacks[tab].filter((e) => e.kind === 'dashboard');
+      const want = dash.map((e) => slugOf(e.dashboard)).join(',');
+      if (pages.slice(1).map((p) => p.id).join(',') !== want) fail(`${tab}: the Homepage pages ${pages.slice(1).map((p) => p.id)} are not the tab's dashboards ${want}`);
+      homes[tab] = pages.slice(1).map((p, i) => ({ slug: p.id, title: p.label, icon: p.icon, subtitle: dash[i].subtitle }));
+    }
+  }
+  const redirects = (build.ui.redirects ?? []).map((r) => {
+    if (byId.has(r.from)) fail(`redirect from ${r.from}: that dashboard still exists`);
+    if (!TABS.includes(r.tab) || r.to !== 'home') fail(`redirect from ${r.from}: only a tab's Homepage is a target`);
+    return { slug: slugOf(r.from), tab: r.tab, to: r.to };
+  });
   const bySlug = new Map((services?.services ?? []).map((s) => [s.slug, s]));
   const mesh = {};
   const keep = ['id', 'name', 'category', 'primary', 'priority', 'coverage', 'endpoint', 'fleet_endpoint', 'docs', 'cors', 'paths', 'connector', 'feeds', 'attribution', 'user_endpoint', 'schedule'];
@@ -80,6 +101,8 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
     mesh,
     tabs: build.ui.bottom_nav.filter((t) => TABS.includes(t)),
     stacks: tabStacks,
+    homes,
+    redirects,
     sources: slim,
     dashboards: out,
     declared: files,

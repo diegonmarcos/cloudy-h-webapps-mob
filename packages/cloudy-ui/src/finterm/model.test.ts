@@ -1,12 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
+import fixture from './engine-fixture.json';
 import {
   FetchError, alertRule, alertSymbol, apiRoute, eventHits, eventsIn, feedBls, feedFrankfurter, feedJsonstat, feedSdmx, feedTreasury, loadPanel, parseFeed, priceHits, ruleText,
   type Ctx, type Dashboard, type Ev,
 } from './engine';
 
 // #1351 the web model panels (port of Feeds.kt / Engine.model / Alerts.kt): parsers, route order, merge, CORS skip, window, watchlist, alerts.
-const dash = (id: string) => FINTERM.dashboards.find((d) => d.id === id) as Dashboard;
+// #1399 + the removed Market Monitor's engine panels as a test fixture (engine-fixture.json)
+const dash = (id: string) => [...FINTERM.dashboards, ...(fixture.dashboards as unknown as Dashboard[])].find((d) => d.id === id) as Dashboard;
 const panel = (d: string, p: string) => dash(d).panels.find((x) => x.id === p)!;
 const src = (id: string) => FINTERM.sources.find((s) => s.id === id)!;
 const fin = src('cloud_fincept');
@@ -92,7 +94,7 @@ describe('model route order: the container /v1 first, then the public source, th
   it('the first public route that answers wins (no merge): last month only when this month is empty', async () => {
     const x = '<m:properties><d:NEW_DATE m:type="Edm.DateTime">2026-09-30T00:00:00</d:NEW_DATE><d:BC_2YEAR m:type="Edm.Double">3.5</d:BC_2YEAR><d:BC_10YEAR m:type="Edm.Double">4.1</d:BC_10YEAR><d:BC_30YEAR m:type="Edm.Double">4.7</d:BC_30YEAR></m:properties>';
     const h = harness((u) => (u.includes('month=202610') ? '<feed/>' : u.includes('month=202609') ? x : null));
-    const d = await loadPanel(panel('market_monitor', 'ust'), dash('market_monitor'), h.ctx);
+    const d = await loadPanel(panel('engine_fixture', 'ust'), dash('engine_fixture'), h.ctx);
     expect(h.asked.length).toBe(2);
     expect(d.rows.map((r) => r[0])).toEqual(['UST 2Y', 'UST 10Y', 'UST 30Y']);
     expect(d.servedBy).toBe('');
@@ -104,15 +106,15 @@ describe('model route order: the container /v1 first, then the public source, th
   });
   it('one request per item; a failing item is skipped; all failing keeps the block reason', async () => {
     const h = harness((u) => (u.includes('/BTC-USD/') ? JSON.stringify({ open: '100', last: '110' }) : null));
-    const d = await loadPanel(panel('market_monitor', 'crypto'), dash('market_monitor'), h.ctx);
+    const d = await loadPanel(panel('engine_fixture', 'crypto'), dash('engine_fixture'), h.ctx);
     expect(h.asked.length).toBe(3);
     expect(d.rows).toEqual([['Bitcoin', '110.00', '+10.00', '+10.00', '24h']]);
-    await expect(loadPanel(panel('market_monitor', 'crypto'), dash('market_monitor'), harness(() => null).ctx)).rejects.toMatchObject({ kind: 'blocked' });
+    await expect(loadPanel(panel('engine_fixture', 'crypto'), dash('engine_fixture'), harness(() => null).ctx)).rejects.toMatchObject({ kind: 'blocked' });
   });
   it('the container route needs the declared /v1 path and an answering mesh', async () => {
-    const p = panel('market_monitor', 'fx');
-    expect(await apiRoute(p, dash('market_monitor'), { sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => true })).toMatchObject({ base: MESH });
-    expect(await apiRoute(p, dash('market_monitor'), { sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => false })).toBeNull();
+    const p = panel('engine_fixture', 'fx');
+    expect(await apiRoute(p, dash('engine_fixture'), { sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => true })).toMatchObject({ base: MESH });
+    expect(await apiRoute(p, dash('engine_fixture'), { sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => false })).toBeNull();
     expect(await apiRoute(panel('yield_curves', 'ust'), dash('yield_curves'), { sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => true })).toBeNull();
   });
   it('the watchlist replaces the declared symbols in the container request', async () => {

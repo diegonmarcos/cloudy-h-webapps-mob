@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
+import fixture from './engine-fixture.json';
 import { FetchError, alloc, cboePrev, decimals, browserReadable, drawOrder, buildUrl, dbnomicsObs, failureFor, forwardRate, loadPanel, parseDbnomics, parseFinceptSeries, parseFredCsv, parseGdelt, parseImf, parseWorldBank, placeholderFor, primaryRoute, seen, yieldAt, type Ctx, type Dashboard } from './engine';
 
-const dash = (id: string) => FINTERM.dashboards.find((d) => d.id === id) as Dashboard;
+// #1399 + the removed Market Monitor's engine panels as a test fixture (engine-fixture.json)
+const dash = (id: string) => [...FINTERM.dashboards, ...(fixture.dashboards as unknown as Dashboard[])].find((d) => d.id === id) as Dashboard;
 const fred = FINTERM.sources.find((s) => s.id === 'fred')!;
 const fin = FINTERM.sources.find((s) => s.id === 'cloud_fincept')!;
 const dbn = FINTERM.sources.find((s) => s.id === 'dbnomics')!;
@@ -222,8 +224,8 @@ describe('drawOrder (UI spec 3, checklist 9 + 17)', () => {
     expect(drawOrder(yc.panels).map((p) => p.id)).toEqual(['ust', 'euro', 'sovereigns']);
   });
   it('keeps the declared order when nothing is a segment or a key row', () => {
-    const mm = FINTERM.dashboards.find((d) => d.id === 'market_monitor')!;
-    expect(drawOrder(mm.panels).map((p) => p.id)).toEqual(['ust', 'funding', 'fx', 'crypto', 'next']);
+    const mm = dash('engine_fixture');
+    expect(drawOrder(mm.panels).map((p) => p.id)).toEqual(['ust', 'funding', 'fx', 'crypto']);
   });
 });
 

@@ -10051,20 +10051,22 @@
     },
     "capital-stack-finterminal": {
       "nav_ui": {
-        "mode": "clean",
+        "mode": "classic",
         "scroll_hide": true
       },
       "configs_ui": [
         "nav_ui"
       ],
+      "redirects": [
+        {
+          "from": "market_monitor",
+          "tab": "fi",
+          "to": "home",
+          "note": "#1399 FI Market Monitor removed: its deep links open the FI Homepage"
+        }
+      ],
       "stacks": {
         "fi": [
-          {
-            "kind": "dashboard",
-            "title": "Market Monitor",
-            "subtitle": "Cross-asset tiles (rates, funding, indices, FX, crypto) and the next 48 hours of high-importance events",
-            "dashboard": "market_monitor"
-          },
           {
             "kind": "dashboard",
             "title": "Yield Curves",
@@ -10271,6 +10273,7 @@
         "my-pm": [
           {
             "kind": "holdings",
+            "page": "holdings",
             "title": "Personal portfolio",
             "subtitle": "Your holdings: ticker, quantity, cost, kept on this phone"
           }

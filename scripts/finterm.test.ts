@@ -56,6 +56,38 @@ describe('gen-finterm (pure)', () => {
   it('slug: lower-case, underscores to dashes', () => { expect(slugOf('mp_70_30_DM_EM')).toBe('mp-70-30-dm-em'); });
 });
 
+// #1399 the one-row sub-page nav, each tab's Homepage (Home first, a card per dashboard) and the removed Market Monitor's redirect
+describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () => {
+  const withNav = () => {
+    const a = clone();
+    a.build.ui.nav_ui = { mode: 'classic' };
+    a.build.ui.sections = ['fi', 'eq', 'ex', 'nw', 'pm'].map((id) => ({ id, nav_mode: 'horizontal_one_row', pages: [{ id: 'home', label: 'Home', icon: 'home' }, ...(id === 'fi' ? [{ id: 'yield-curves', label: 'Yield Curves', icon: 'timeline' }] : [])] }));
+    a.build.ui.redirects = [{ from: 'market_monitor', tab: 'fi', to: 'home' }];
+    return a;
+  };
+  it('a tab Homepage lists every dashboard of the tab with its icon and description, and the removed page redirects to it', () => {
+    const o = buildFinterm(withNav());
+    expect(o.homes.fi).toEqual([{ slug: 'yield-curves', title: 'Yield Curves', icon: 'timeline', subtitle: 'Sub' }]);
+    expect(o.redirects).toEqual([{ slug: 'market-monitor', tab: 'fi', to: 'home' }]);
+  });
+  it('fails on: a tab that does not open on Home, a missing sub-page, more than one row, the clean chrome, a redirect to a live page', () => {
+    let a = withNav(); a.build.ui.sections[0].pages.shift(); expect(() => buildFinterm(a)).toThrow(/first sub-page is not home/);
+    a = withNav(); a.build.ui.sections[0].pages.pop(); expect(() => buildFinterm(a)).toThrow(/Homepage pages/);
+    a = withNav(); a.build.ui.sections[1].nav_mode = 'horizontal_two_rows'; expect(() => buildFinterm(a)).toThrow(/not one row/);
+    a = withNav(); a.build.ui.nav_ui.mode = 'clean'; expect(() => buildFinterm(a)).toThrow(/only classic/);
+    a = withNav(); a.build.ui.redirects[0].from = 'yield_curves'; expect(() => buildFinterm(a)).toThrow(/still exists/);
+  });
+  it('the committed declarations: every tab opens on Home listing all its dashboards; Market Monitor is gone and redirected', () => {
+    for (const tab of fin.tabs) {
+      const dash = fin.stacks[tab].filter((e: { kind: string }) => e.kind === 'dashboard').map((e: { dashboard: string }) => slugOf(e.dashboard));
+      expect(fin.homes[tab].map((c: { slug: string }) => c.slug), tab).toEqual(dash);
+      for (const c of fin.homes[tab]) expect(c.icon && c.title && c.subtitle, `${tab}/${c.slug}`).toBeTruthy();
+    }
+    expect(fin.dashboards.some((d: { id: string }) => d.id === 'market_monitor')).toBe(false);
+    expect(fin.redirects).toContainEqual({ slug: 'market-monitor', tab: 'fi', to: 'home' });
+  });
+});
+
 describe('gen-finterm --check (the CI drift guard)', () => {
   const sandbox = () => {
     const t = mkdtempSync(join(tmpdir(), 'finterm-'));

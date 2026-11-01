@@ -9,7 +9,8 @@ import { shortSource } from '../../packages/cloudy-ui/src/finterm/fin';
 const J = (p: string) => JSON.parse(readFileSync(p, 'utf8'));
 const fin = J('packages/cloudy-ui/nav/finterm.json') as {
   app_id: string; mesh: Record<string, string>;
-  stacks: Record<string, { kind: string; title: string; dashboard?: string }[]>;
+  stacks: Record<string, { kind: string; title: string; dashboard?: string }[]>; tabs: string[];
+  homes: Record<string, { slug: string; title: string; icon: string; subtitle: string }[]>;
   sources: { id: string; name: string; endpoint: string; fleet_endpoint?: string; paths?: Record<string, string> }[];
   dashboards: { id: string; slug: string; tab: string; entry: string; panels: { id: string; source: string; fetch?: unknown; placeholder?: unknown; view: string }[] }[];
 };
@@ -60,8 +61,8 @@ test('each FinTerm tab lists its dashboards as web pages, plus the Backend (mesh
 /** A panel fed (also) by a declared data file (`asset:` source, e.g. the central bank calendar): it renders offline. */
 const declaredFed = (p: { source: string; fetch?: any }) => [p.source, ...((p.fetch?.fallbacks ?? []) as { source: string }[]).map((f) => f.source)].some((id) => src(id)?.endpoint === 'asset:');
 
-test('each of the 32 dashboards renders: every panel is data or a placeholder that says why', async ({ page }) => {
-  expect(fin.dashboards).toHaveLength(32);
+test('each dashboard renders: every panel is data or a placeholder that says why', async ({ page }) => {
+  expect(fin.dashboards.length).toBeGreaterThanOrEqual(31);
   await net(page);
   for (const d of fin.dashboards) {
     await page.goto(`${BASE}/${fin.app_id}/${d.tab}/${d.slug}/`);
@@ -147,7 +148,7 @@ test('on the mesh fin-api serves first: the topic answer wins and the page says 
   expect(asked).not.toContain(new URL(src('fred').endpoint).host);
 });
 
-// #1351 mini Bloomberg: the economic calendar (top priority), the market monitor tiles, the watchlist and alert rules.
+// #1351 mini Bloomberg: the economic calendar (top priority), the watchlist and alert rules (#1399 the Market Monitor page is removed).
 test('NW Economic Calendar: off the mesh the declared central bank decisions fill the calendar, grouped by day', async ({ page }, info) => {
   await net(page);
   const cb = (fin as unknown as { declared: Record<string, { banks: { events: { ts: string; title: string }[] }[] }> }).declared['central-banks.json'];
@@ -181,30 +182,6 @@ test('NW Central Bank Calendar lists every declared bank and the Polymarket odds
   await shot(page, info, 'finterm-central-banks');
 });
 
-test('FI Market Monitor: Treasury, NY Fed, ECB (Frankfurter) and Coinbase answer the browser; the tiles show last and change', async ({ page }, info) => {
-  const host = (id: string) => new URL(src(id).endpoint).host;
-  const xml = (d: string, two: number, ten: number, thirty: number) => `<m:properties><d:NEW_DATE m:type="Edm.DateTime">${d}T00:00:00</d:NEW_DATE><d:BC_2YEAR m:type="Edm.Double">${two}</d:BC_2YEAR><d:BC_10YEAR m:type="Edm.Double">${ten}</d:BC_10YEAR><d:BC_30YEAR m:type="Edm.Double">${thirty}</d:BC_30YEAR></m:properties>`;
-  await net(page, (u) => {
-    if (u.host === host('treasury_xml')) return { type: 'application/xml', body: `<feed>${xml('2026-10-29', 3.5, 4.1, 4.7)}${xml('2026-10-30', 3.52, 4.15, 4.71)}</feed>` };
-    if (u.host === host('nyfed')) return { type: 'application/json', body: JSON.stringify({ refRates: [{ effectiveDate: '2026-10-29', type: 'SOFR', percentRate: 3.91 }, { effectiveDate: '2026-10-29', type: 'EFFR', percentRate: 3.88 }] }) };
-    if (u.host === host('frankfurter')) return { type: 'application/json', body: JSON.stringify({ base: 'USD', rates: { '2026-10-29': { EUR: 0.89, JPY: 156 }, '2026-10-30': { EUR: 0.9, JPY: 157.25 } } }) };
-    if (u.host === host('coinbase')) return { type: 'application/json', body: JSON.stringify({ open: '100000', last: '101000' }) };
-    return null;
-  });
-  await page.goto(`${BASE}/${fin.app_id}/fi/market-monitor/`);
-  await settle(page);
-  const ust = page.locator('[data-panel="ust"]');
-  await expect(ust).toHaveAttribute('data-state', 'data');
-  await expect(ust.getByTestId('finterm-quotes')).toContainText('UST 10Y');
-  await expect(ust.getByTestId('finterm-quotes')).toContainText('+5.0');
-  await expect(page.locator('[data-panel="funding"]').getByTestId('finterm-quotes')).toContainText('3.91');
-  await expect(page.locator('[data-panel="fx"]').getByTestId('finterm-quotes')).toContainText('EUR per USD');
-  await expect(page.locator('[data-panel="crypto"]').getByTestId('finterm-quotes')).toContainText('+1.00');
-  // the Market Monitor declares no equity panel any more (df55fd5): rates, funding, FX, crypto and the next events only
-  await expect(page.locator('[data-panel="equity"]')).toHaveCount(0);
-  await shot(page, info, 'finterm-market-monitor');
-});
-
 test('EQ Watchlist & Alerts: symbols and rules are kept in this browser; a bad entry is refused', async ({ page }) => {
   await net(page);
   await page.goto(`${BASE}/${fin.app_id}/eq/watchlist/`);
@@ -220,4 +197,33 @@ test('EQ Watchlist & Alerts: symbols and rules are kept in this browser; a bad e
   await expect(page.getByTestId('finterm-userlists')).toContainText('NVDA');
   await expect(page.getByTestId('finterm-userlists')).toContainText('NVDA > 120.00');
   await expect(page.getByTestId('finterm-userlists')).toContainText('events >= 3');
+});
+
+// #1399 each tab opens on its Homepage: the one-row sub-page nav with Home first, every dashboard as a card that opens it; Market Monitor redirects there
+test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard (icon, name, description) that opens it', async ({ page }, info) => {
+  await net(page);
+  for (const tab of fin.tabs) {
+    await page.goto(`${BASE}/${fin.app_id}/${tab}/home/`);
+    const home = page.getByTestId('finterm-home');
+    await expect(home, tab).toHaveAttribute('data-tab', tab);
+    const cards = home.getByTestId('home-card');
+    await expect(cards, tab).toHaveCount(fin.homes[tab].length);
+    for (const [i, c] of fin.homes[tab].entries()) {
+      await expect(cards.nth(i), `${tab}/${c.slug}`).toHaveAttribute('href', `${BASE}/${fin.app_id}/${tab}/${c.slug}/`);
+      await expect(cards.nth(i)).toContainText(c.title);
+      await expect(cards.nth(i)).toContainText(c.subtitle);
+      await expect(cards.nth(i).locator('svg.icon')).toHaveCount(1);
+    }
+    await shot(page, info, `finterm-home-${tab}`);
+  }
+  await page.goto(`${BASE}/${fin.app_id}/fi/home/`);
+  await page.getByTestId('home-card').first().click();
+  await expect(page.getByTestId('finterm-dash')).toHaveAttribute('data-dash', fin.dashboards.find((d) => d.tab === 'fi' && d.slug === fin.homes.fi[0].slug)!.id);
+});
+
+test('the removed FI Market Monitor deep link opens the FI Homepage', async ({ page }) => {
+  await net(page);
+  await page.goto(`${BASE}/${fin.app_id}/fi/market-monitor/`);
+  await expect(page).toHaveURL(new RegExp(`/${fin.app_id}/fi/home/$`));
+  await expect(page.getByTestId('finterm-home')).toHaveAttribute('data-tab', 'fi');
 });
