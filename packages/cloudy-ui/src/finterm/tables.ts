@@ -3,15 +3,16 @@
 // = a model portfolio's legs through declared ETF proxies, rebalanced daily; `yields_matrix` = country x tenor, spot or 1y forward, with
 // GDP-weighted World / DM / EM averages. Each item routes the container's /v1 first, then the panel's own source and its fallbacks (a source
 // a browser cannot read is skipped); a route with `symbol_map` serves only the items it maps. A missing value is a dash with its reason in the note.
-import { FetchError, apiRoute, browserReadable, buildUrl, forwardRate, NA, paramsOf, parseFeed, sig, slotsOf, type Ctx, type Dashboard, type Fetch, type Got, type Panel, type PanelData, type Route, type Source } from './engine';
+import { FetchError, apiRoute, browserReadable, buildUrl, forwardRate, fredUrl, NA, parseFredCsv, paramsOf, parseFeed, sig, slotsOf, type Ctx, type Dashboard, type Fetch, type Got, type Panel, type PanelData, type Route, type Source } from './engine';
 import { parseNum, signedFmt } from './fin';
 import { fxPppRow, type FxRow, type S } from './fxppp';
 import { bigMac, dxyRow, fxMatrixCells, fxMatrixRow, reasonsOf, type Dxy, type MRow } from './fxmatrix';
+import { cpiYoY, g20Cells, g20Notes, g20Row, type GRow } from './g20bonds';
 
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp', 'fx_matrix'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp', 'fx_matrix', 'g20_bonds'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -206,6 +207,15 @@ export function fxPppTable(panel: Panel, rows: Record<string, unknown>[], by: st
     links: [], chart: [], asOf: rows.map((o) => (o.spot_date as string) ?? '').filter(Boolean).sort().pop() ?? '',
     note: `Local currency per USD. Over/under % = PPP / spot - 1 (negative: undervalued); real YoY % = the year-ago window in today's prices / today's window - 1 (positive: gained in real terms).${why.length ? ` — ${why.join(' · ')}` : ''}`,
     servedBy: by, details: rows.map((o) => String(o.label ?? '')) };
+}
+
+/** The /v1/bonds/g20-real rows as the table (Tables.g20Table): footer, method, monthly bases and each empty cell's reason in the note. */
+export function g20Table(panel: Panel, f: { footer?: string; method?: string }, rows: Record<string, unknown>[], by: string, fails: string[] = []): PanelData {
+  const bases = g20Notes(rows, 'basis');
+  const why = [...g20Notes(rows, 'null_reason'), ...fails.map((x) => `source failed: ${x}`)];
+  const note = [f.footer, f.method].filter(Boolean).join(' ') + (bases.length ? ` Monthly basis: ${bases.join(' · ')}.` : '') + (why.length ? ` — ${why.join(' · ')}` : '');
+  return { columns: panel.columns ?? [], rows: g20Cells(rows, (v, d) => signedFmt(v, d), NA), links: [], chart: [],
+    asOf: rows.map((o) => (o.as_of as string) ?? '').filter(Boolean).sort().pop() ?? '', note, servedBy: by, details: rows.map((o) => `${o.name ?? ''} ${o.bench ?? ''}`) };
 }
 
 /** The /v1/fx/ppp-matrix rows as the table (Tables.fxMatrixTable): DXY then the declared rows; reading, method and each empty cell's reason in the note. */
@@ -409,6 +419,50 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       const by = new Map(all.map((r) => [r.ccy, fxMatrixRow(r, fx.get(r.ccy) ?? [], ppp.get(r.cc) ?? [], cpi.get(r.cc) ?? [], us, bm.get(r.a3 ?? '') ?? [], bmUs, win, lags)] as [string, Record<string, unknown>]));
       if ([...by.values()].every((o) => o.today === null)) throw new Error(fails[0] ?? 'no FX rate answered');
       return fxMatrixTable(panel, g, [dxyRow(g.dxy, by, lags), ...g.rows.map((r) => by.get(r.ccy)!)], [...new Set(used)].join(' + '), fails);
+    }
+    case 'g20_bonds': {
+      const g = f as unknown as { primary?: { api?: string }; rows: GRow[]; window_days?: number; min_daily?: number; fx_source: string; rub_source?: string; fred_source?: string; oecd_source?: string;
+        oecd?: { path: string; prefix: string; suffix: string }; fred?: { yield: string; cpi: string }; rub?: { path: string; code: string }; footer?: string; method?: string };
+      if (api) {
+        try { const rows = (JSON.parse(await ctx.get(buildUrl(api.base, g.primary?.api ?? '/v1/bonds/g20-real', []))) as { rows?: Record<string, unknown>[] }).rows ?? []; if (rows.length) return g20Table(panel, g, rows, api.source.name); } catch { /* the direct sources below */ }
+      }
+      const win = g.window_days ?? 30; const minDaily = g.min_daily ?? 10; const today = ctx.today; const back = 365 * 3 + win + 75;
+      const from = new Date(Date.parse(`${today}T00:00:00Z`) - back * 864e5).toISOString().slice(0, 10);
+      const src = (id?: string) => ctx.sources.find((x) => x.id === id);
+      const fails: string[] = []; const used: string[] = []; const fx = new Map<string, S>(); const ys = new Map<string, S>();
+      const add = (m: Map<string, S>, k: string, p: [string, number]) => m.set(k, [...(m.get(k) ?? []), p]);
+      const read = async <T>(s: ReturnType<typeof src>, go: (s: Source) => Promise<T>, none: T): Promise<T> => {
+        if (!s) return none;
+        if (!browserReadable(s)) { fails.push(`${s.name} sends no CORS header (open on the mesh)`); return none; }
+        try { const v = await go(s); used.push(s.name); return v; } catch (e) { fails.push(`${s.name}: ${(e as Error).message}`); return none; }
+      };
+      const o = g.oecd;
+      if (o) await read(src(g.oecd_source), async (s) => {
+        const byA3 = new Map(g.rows.map((r) => [r.a3 ?? '', r.cc]));
+        const a = JSON.parse(await ctx.get(buildUrl(s.endpoint, o.path, [['series_ids', g.rows.map((r) => `${o.prefix}${r.a3}${o.suffix}`).join(',')], ['observations', '1'], ['limit', '100']]))) as { series?: { docs?: { series_code: string; period: string[]; value: (number | string | null)[] }[] } };
+        for (const d of a.series?.docs ?? []) { const cc = byA3.get(d.series_code.split('.')[0]); if (!cc) continue; d.period.forEach((p, i) => { const v = d.value[i]; if (typeof v === 'number' && Number.isFinite(v) && p.length === 7) add(ys, cc, [p, v]); }); }
+      }, undefined);
+      let cpi: [number, string] | null = null;
+      const fr = g.fred;
+      if (fr) await read(src(g.fred_source), async (s) => {
+        for (const x of parseFredCsv(await ctx.get(fredUrl(s.endpoint, fr.yield, today, back)))[fr.yield] ?? []) add(ys, 'US', [x.date, x.value]);
+        cpi = cpiYoY((parseFredCsv(await ctx.get(fredUrl(s.endpoint, fr.cpi, today, 500)))[fr.cpi] ?? []).map((x) => [x.date, x.value] as [string, number]));
+      }, undefined);
+      await read(src(g.fx_source), async (s) => {
+        const ccys = g.rows.filter((r) => !r.fx && r.ccy !== 'USD').map((r) => r.ccy).join(',');
+        const rates = (JSON.parse(await ctx.get(buildUrl(s.endpoint, `/v1/${from}..${today}`, [['base', 'USD'], ['symbols', ccys]]))) as { rates?: Record<string, Record<string, number>> }).rates ?? {};
+        for (const d of Object.keys(rates).sort()) for (const [k, v] of Object.entries(rates[d])) add(fx, k, [d, v]);
+      }, undefined);
+      const dmy = (x: string) => `${x.slice(8, 10)}/${x.slice(5, 7)}/${x.slice(0, 4)}`;
+      const rub = g.rub;
+      if (rub && g.rows.some((r) => r.fx === 'cbr')) await read(src(g.rub_source), async (s) => {
+        const xml = await ctx.get(buildUrl(s.endpoint, rub.path, [['date_req1', dmy(from)], ['date_req2', dmy(today)], ['VAL_NM_RQ', rub.code]]));
+        const v: S = [...xml.matchAll(/<Record Date="(\d{2})\.(\d{2})\.(\d{4})"[^>]*>\s*<Nominal>(\d+)<\/Nominal>\s*<Value>([\d,.]+)<\/Value>/g)].map((m) => [`${m[3]}-${m[2]}-${m[1]}`, Number(m[5].replace(',', '.')) / Number(m[4])] as [string, number]).sort((x, y) => (x[0] < y[0] ? -1 : 1));
+        for (const r of g.rows) if (r.fx === 'cbr') fx.set(r.ccy, v);
+      }, undefined);
+      if (!ys.size) throw new Error(fails[0] ?? 'no 10Y yield answered');
+      const out = g.rows.map((r) => g20Row(r, (ys.get(r.cc) ?? []).sort((a, b) => (a[0] < b[0] ? -1 : 1)), fx.get(r.ccy) ?? [], cpi, today, win, minDaily));
+      return g20Table(panel, g, out, [...new Set(used)].join(' + '), fails);
     }
     case 'risk_compare': {
       const sets = (f as { compare?: [string, number][][] }).compare ?? []; const proxies = f.proxies ?? {};
