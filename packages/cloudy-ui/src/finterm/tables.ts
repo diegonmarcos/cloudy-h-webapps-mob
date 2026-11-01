@@ -431,11 +431,12 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       const from = new Date(Date.parse(`${today}T00:00:00Z`) - back * 864e5).toISOString().slice(0, 10);
       const src = (id?: string) => ctx.sources.find((x) => x.id === id);
       const fails: string[] = []; const used: string[] = []; const fx = new Map<string, S>(); const ys = new Map<string, S>();
+      let first: unknown = null; // the first source's own error: offline it is a FetchError('blocked'), so the panel says blocked, not error
       const add = (m: Map<string, S>, k: string, p: [string, number]) => m.set(k, [...(m.get(k) ?? []), p]);
       const read = async <T>(s: ReturnType<typeof src>, go: (s: Source) => Promise<T>, none: T): Promise<T> => {
         if (!s) return none;
         if (!browserReadable(s)) { fails.push(`${s.name} sends no CORS header (open on the mesh)`); return none; }
-        try { const v = await go(s); used.push(s.name); return v; } catch (e) { fails.push(`${s.name}: ${(e as Error).message}`); return none; }
+        try { const v = await go(s); used.push(s.name); return v; } catch (e) { first ??= e; fails.push(`${s.name}: ${(e as Error).message}`); return none; }
       };
       const o = g.oecd;
       if (o) await read(src(g.oecd_source), async (s) => {
@@ -461,7 +462,7 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
         const v: S = [...xml.matchAll(/<Record Date="(\d{2})\.(\d{2})\.(\d{4})"[^>]*>\s*<Nominal>(\d+)<\/Nominal>\s*<Value>([\d,.]+)<\/Value>/g)].map((m) => [`${m[3]}-${m[2]}-${m[1]}`, Number(m[5].replace(',', '.')) / Number(m[4])] as [string, number]).sort((x, y) => (x[0] < y[0] ? -1 : 1));
         for (const r of g.rows) if (r.fx === 'cbr') fx.set(r.ccy, v);
       }, undefined);
-      if (!ys.size) throw new Error(fails[0] ?? 'no 10Y yield answered');
+      if (!ys.size) throw first ?? new FetchError('blocked', fails[0] ?? 'no 10Y yield answered');
       const out = g.rows.map((r) => g20Row(r, (ys.get(r.cc) ?? []).sort((a, b) => (a[0] < b[0] ? -1 : 1)), fx.get(r.ccy) ?? [], cpi, today, win, minDaily));
       return g20Table(panel, g, out, [...new Set(used)].join(' + '), fails);
     }
