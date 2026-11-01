@@ -59,7 +59,7 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
       const s = secs.find((x) => x.id === tab) ?? fail(`ui.sections has no ${tab}`);
       if ((s.nav_mode ?? 'horizontal_one_row') !== 'horizontal_one_row' || s.groups?.length) fail(`${tab}: the sub-page nav is not one row`);
       const pages = s.pages ?? [];
-      if (pages[0]?.id !== 'home') fail(`${tab}: the first sub-page is not home`);
+      if (pages[0]?.id !== `${tab}-home`) fail(`${tab}: the first sub-page is not home (${tab}-home)`);
       const dash = tabStacks[tab].filter((e) => e.kind === 'dashboard');
       const want = dash.map((e) => slugOf(e.dashboard)).join(',');
       if (pages.slice(1).map((p) => p.id).join(',') !== want) fail(`${tab}: the Homepage pages ${pages.slice(1).map((p) => p.id)} are not the tab's dashboards ${want}`);
@@ -69,7 +69,7 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
   const redirects = (build.ui.redirects ?? []).map((r) => {
     if (byId.has(r.from)) fail(`redirect from ${r.from}: that dashboard still exists`);
     if (!TABS.includes(r.tab) || r.to !== 'home') fail(`redirect from ${r.from}: only a tab's Homepage is a target`);
-    return { slug: slugOf(r.from), tab: r.tab, to: r.to };
+    return { slug: slugOf(r.from), tab: r.tab, to: `${r.tab}-home` };
   });
   const bySlug = new Map((services?.services ?? []).map((s) => [s.slug, s]));
   const mesh = {};

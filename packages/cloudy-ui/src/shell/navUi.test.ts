@@ -118,9 +118,9 @@ describe('every app offers Configs > UI', () => {
 });
 
 // The apps whose build.json declares ui.nav_ui = clean: Cloud Notes (#1344) and Capital-Stack-FinTerminal (#1361, FinTerm UI spec 4.1).
-const CLEAN = ['cloud-notes', 'capital-stack-finterminal'];
+const CLEAN = ['cloud-notes']; // #1399 FinTerm moved to classic: its one-row sub-page nav is the second row
 
-describe('Cloud Notes and FinTerm start in Clean', () => {
+describe('Cloud Notes starts in Clean', () => {
   it('their declared default (build.json ui.nav_ui) is clean, everyone else is classic', () => {
     for (const id of CLEAN) expect(declaredNavUi(apps.find((a) => a.id === id)!.nav_ui).mode, id).toBe('clean');
     for (const a of apps.filter((x) => !CLEAN.includes(x.id))) expect(declaredNavUi(a.nav_ui).mode, a.id).toBe('classic');

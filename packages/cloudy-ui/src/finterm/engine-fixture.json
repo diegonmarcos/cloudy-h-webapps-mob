@@ -1,9 +1,9 @@
 {
-  "_doc": "#1399 TEST FIXTURE (not shipped): the engine-test panels of the removed FI Market Monitor (UST par quotes, NY Fed funding, ECB FX, Coinbase crypto), kept so the engine and model tests still cover first-route-wins, per-item requests and the container route.",
+  "_doc": "#1399 TEST FIXTURE (not shipped): the engine-test panels of the removed FI Market Monitor (UST par quotes, NY Fed funding, ECB FX, Coinbase crypto), kept so the engine and model tests still cover first-route-wins, per-item requests and the container route. Its entry is FI Yield Curves so the declared Treasury fallback (fed to that entry) is allowed.",
   "dashboards": [
     {
       "id": "engine_fixture",
-      "entry": "Engine fixture",
+      "entry": "Yield Curves",
       "tab": "fi",
       "panels": [
         {

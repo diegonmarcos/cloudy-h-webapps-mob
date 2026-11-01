@@ -6026,12 +6026,12 @@
       "section": "fi"
     },
     {
-      "path": "capital-stack-finterminal/fi/home/",
+      "path": "capital-stack-finterminal/fi/fi-home/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "fi",
       "page": [
-        "home"
+        "fi-home"
       ],
       "depth": 1
     },
@@ -6122,12 +6122,12 @@
       "section": "eq"
     },
     {
-      "path": "capital-stack-finterminal/eq/home/",
+      "path": "capital-stack-finterminal/eq/eq-home/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "eq",
       "page": [
-        "home"
+        "eq-home"
       ],
       "depth": 1
     },
@@ -6208,12 +6208,12 @@
       "section": "ex"
     },
     {
-      "path": "capital-stack-finterminal/ex/home/",
+      "path": "capital-stack-finterminal/ex/ex-home/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "ex",
       "page": [
-        "home"
+        "ex-home"
       ],
       "depth": 1
     },
@@ -6264,12 +6264,12 @@
       "section": "nw"
     },
     {
-      "path": "capital-stack-finterminal/nw/home/",
+      "path": "capital-stack-finterminal/nw/nw-home/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "nw",
       "page": [
-        "home"
+        "nw-home"
       ],
       "depth": 1
     },
@@ -6310,12 +6310,12 @@
       "section": "pm"
     },
     {
-      "path": "capital-stack-finterminal/pm/home/",
+      "path": "capital-stack-finterminal/pm/pm-home/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "pm",
       "page": [
-        "home"
+        "pm-home"
       ],
       "depth": 1
     },
@@ -6416,12 +6416,12 @@
       "section": "my-pm"
     },
     {
-      "path": "capital-stack-finterminal/my-pm/home/",
+      "path": "capital-stack-finterminal/my-pm/my-pm-home/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "my-pm",
       "page": [
-        "home"
+        "my-pm-home"
       ],
       "depth": 1
     },

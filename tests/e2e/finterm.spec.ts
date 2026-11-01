@@ -203,7 +203,7 @@ test('EQ Watchlist & Alerts: symbols and rules are kept in this browser; a bad e
 test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard (icon, name, description) that opens it', async ({ page }, info) => {
   await net(page);
   for (const tab of fin.tabs) {
-    await page.goto(`${BASE}/${fin.app_id}/${tab}/home/`);
+    await page.goto(`${BASE}/${fin.app_id}/${tab}/${tab}-home/`);
     const home = page.getByTestId('finterm-home');
     await expect(home, tab).toHaveAttribute('data-tab', tab);
     const cards = home.getByTestId('home-card');
@@ -216,7 +216,7 @@ test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard
     }
     await shot(page, info, `finterm-home-${tab}`);
   }
-  await page.goto(`${BASE}/${fin.app_id}/fi/home/`);
+  await page.goto(`${BASE}/${fin.app_id}/fi/fi-home/`);
   await page.getByTestId('home-card').first().click();
   await expect(page.getByTestId('finterm-dash')).toHaveAttribute('data-dash', fin.dashboards.find((d) => d.tab === 'fi' && d.slug === fin.homes.fi[0].slug)!.id);
 });
@@ -224,6 +224,6 @@ test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard
 test('the removed FI Market Monitor deep link opens the FI Homepage', async ({ page }) => {
   await net(page);
   await page.goto(`${BASE}/${fin.app_id}/fi/market-monitor/`);
-  await expect(page).toHaveURL(new RegExp(`/${fin.app_id}/fi/home/$`));
+  await expect(page).toHaveURL(new RegExp(`/${fin.app_id}/fi/fi-home/$`));
   await expect(page.getByTestId('finterm-home')).toHaveAttribute('data-tab', 'fi');
 });

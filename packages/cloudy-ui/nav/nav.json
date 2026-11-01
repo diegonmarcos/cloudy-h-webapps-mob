@@ -9209,7 +9209,7 @@
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "home",
+              "id": "fi-home",
               "label": "Home",
               "icon": "home"
             },
@@ -9262,7 +9262,7 @@
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "home",
+              "id": "eq-home",
               "label": "Home",
               "icon": "home"
             },
@@ -9310,7 +9310,7 @@
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "home",
+              "id": "ex-home",
               "label": "Home",
               "icon": "home"
             },
@@ -9343,7 +9343,7 @@
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "home",
+              "id": "nw-home",
               "label": "Home",
               "icon": "home"
             },
@@ -9371,7 +9371,7 @@
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "home",
+              "id": "pm-home",
               "label": "Home",
               "icon": "home"
             },
@@ -9431,7 +9431,7 @@
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "home",
+              "id": "my-pm-home",
               "label": "Home",
               "icon": "home"
             },

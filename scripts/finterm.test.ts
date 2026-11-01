@@ -61,14 +61,14 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
   const withNav = () => {
     const a = clone();
     a.build.ui.nav_ui = { mode: 'classic' };
-    a.build.ui.sections = ['fi', 'eq', 'ex', 'nw', 'pm'].map((id) => ({ id, nav_mode: 'horizontal_one_row', pages: [{ id: 'home', label: 'Home', icon: 'home' }, ...(id === 'fi' ? [{ id: 'yield-curves', label: 'Yield Curves', icon: 'timeline' }] : [])] }));
+    a.build.ui.sections = ['fi', 'eq', 'ex', 'nw', 'pm'].map((id) => ({ id, nav_mode: 'horizontal_one_row', pages: [{ id: `${id}-home`, label: 'Home', icon: 'home' }, ...(id === 'fi' ? [{ id: 'yield-curves', label: 'Yield Curves', icon: 'timeline' }] : [])] }));
     a.build.ui.redirects = [{ from: 'market_monitor', tab: 'fi', to: 'home' }];
     return a;
   };
   it('a tab Homepage lists every dashboard of the tab with its icon and description, and the removed page redirects to it', () => {
     const o = buildFinterm(withNav());
     expect(o.homes.fi).toEqual([{ slug: 'yield-curves', title: 'Yield Curves', icon: 'timeline', subtitle: 'Sub' }]);
-    expect(o.redirects).toEqual([{ slug: 'market-monitor', tab: 'fi', to: 'home' }]);
+    expect(o.redirects).toEqual([{ slug: 'market-monitor', tab: 'fi', to: 'fi-home' }]);
   });
   it('fails on: a tab that does not open on Home, a missing sub-page, more than one row, the clean chrome, a redirect to a live page', () => {
     let a = withNav(); a.build.ui.sections[0].pages.shift(); expect(() => buildFinterm(a)).toThrow(/first sub-page is not home/);
@@ -84,7 +84,7 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
       for (const c of fin.homes[tab]) expect(c.icon && c.title && c.subtitle, `${tab}/${c.slug}`).toBeTruthy();
     }
     expect(fin.dashboards.some((d: { id: string }) => d.id === 'market_monitor')).toBe(false);
-    expect(fin.redirects).toContainEqual({ slug: 'market-monitor', tab: 'fi', to: 'home' });
+    expect(fin.redirects).toContainEqual({ slug: 'market-monitor', tab: 'fi', to: 'fi-home' });
   });
 });
 
@@ -114,10 +114,10 @@ describe('gen-finterm --check (the CI drift guard)', () => {
 });
 
 describe('the committed web FinTerm declarations', () => {
-  it('32 dashboards: FI 9, EQ 7, EX 4, NW 3, PM 9 (the APK entries), each with at least one panel', () => {
+  it('31 dashboards: FI 8, EQ 7, EX 4, NW 3, PM 9 (the APK entries; #1399 FI Market Monitor removed), each with at least one panel', () => {
     const by = (t: string) => fin.dashboards.filter((d: { tab: string }) => d.tab === t).length;
-    expect([by('fi'), by('eq'), by('ex'), by('nw'), by('pm')]).toEqual([9, 7, 4, 3, 9]);
-    expect(fin.dashboards).toHaveLength(32);
+    expect([by('fi'), by('eq'), by('ex'), by('nw'), by('pm')]).toEqual([8, 7, 4, 3, 9]);
+    expect(fin.dashboards).toHaveLength(31);
     for (const d of fin.dashboards) expect(d.panels.length, d.id).toBeGreaterThan(0);
   });
   it('every panel is a live fetch, a dashed placeholder or a static allocation; every source named exists', () => {
