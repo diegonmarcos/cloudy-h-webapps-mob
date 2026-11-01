@@ -2322,6 +2322,57 @@
       "configs_ui": [
         "nav_ui"
       ],
+      "vault_rows": {
+        "section": "tasks",
+        "asset": "vault-rows.json",
+        "rows": [
+          {
+            "id": "inboxes",
+            "label": "Inboxes",
+            "root": "0___Inbox___",
+            "under": [
+              "0"
+            ],
+            "icon": "ic_nav_agenda"
+          },
+          {
+            "id": "backlogs",
+            "label": "Backlogs",
+            "root": "1.0_Backlogs___",
+            "under": [
+              "00",
+              "1"
+            ],
+            "icon": "checklist"
+          },
+          {
+            "id": "roadmaps",
+            "label": "RoadMaps",
+            "root": "1.1_RoadMaps___",
+            "under": [
+              "1.1"
+            ],
+            "icon": "ic_p_roadmap"
+          },
+          {
+            "id": "library",
+            "label": "Library",
+            "root": "2___Library___",
+            "under": [
+              "2"
+            ],
+            "sub": true,
+            "icon": "menu_book"
+          }
+        ],
+        "projects": {
+          "id": "projects",
+          "label": "Projects",
+          "icon": "account_tree",
+          "section": "lnktree",
+          "group": "proj"
+        }
+      },
       "repo_tree": {
         "outline_asset": "repos.outline.json",
         "group": "proj",

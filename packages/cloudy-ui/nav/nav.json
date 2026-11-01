@@ -4755,8 +4755,7 @@
         "id": "cloud-c3",
         "folder": "sys_dev",
         "hub_package": "com.diegonmarcos.cloudc3",
-        "install_package": "com.diegonmarcos.cloudc3",
-        "site": "Cloud Portal"
+        "install_package": "com.diegonmarcos.cloudc3"
       },
       {
         "id": "cloud-c3-webserver",
@@ -6127,17 +6126,36 @@
         },
         {
           "id": "tasks",
+          "nav_mode": "horizontal_two_rows",
           "label": "Tasks",
           "icon": "checklist",
-          "pages": [
+          "groups": [
+            {
+              "id": "backlogs",
+              "label": "Backlogs",
+              "icon": "checklist",
+              "pages": [
+                "backlogs"
+              ]
+            },
             {
               "id": "roadmaps",
               "label": "RoadMaps",
+              "icon": "ic_p_roadmap",
+              "pages": [
+                "roadmaps"
+              ]
+            }
+          ],
+          "pages": [
+            {
+              "id": "roadmaps",
+              "label": "Tree",
               "icon": "ic_p_roadmap"
             },
             {
               "id": "backlogs",
-              "label": "Backlogs",
+              "label": "Due",
               "icon": "checklist"
             }
           ]
