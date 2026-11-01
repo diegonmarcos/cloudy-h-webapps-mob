@@ -6,11 +6,12 @@
 import { FetchError, apiRoute, browserReadable, buildUrl, forwardRate, NA, paramsOf, parseFeed, sig, slotsOf, type Ctx, type Dashboard, type Fetch, type Got, type Panel, type PanelData, type Route, type Source } from './engine';
 import { parseNum, signedFmt } from './fin';
 import { fxPppRow, type FxRow, type S } from './fxppp';
+import { bigMac, dxyRow, fxMatrixCells, fxMatrixRow, reasonsOf, type Dxy, type MRow } from './fxmatrix';
 
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp', 'fx_matrix'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -207,6 +208,16 @@ export function fxPppTable(panel: Panel, rows: Record<string, unknown>[], by: st
     servedBy: by, details: rows.map((o) => String(o.label ?? '')) };
 }
 
+/** The /v1/fx/ppp-matrix rows as the table (Tables.fxMatrixTable): DXY then the declared rows; reading, method and each empty cell's reason in the note. */
+export function fxMatrixTable(panel: Panel, f: { lags_years?: number[]; reading?: string; method?: string }, rows: Record<string, unknown>[], by: string, fails: string[] = []): PanelData {
+  const lags = f.lags_years ?? [1, 3];
+  const why = [...reasonsOf(rows), ...fails.map((x) => `source failed: ${x}`)];
+  const note = [f.reading, 'Brackets: the market quote (USD per unit).', f.method, '30MA adj = the 30-day average N years ago x (1 + pi_dom) / (1 + pi_US), pi the cumulative CPI change over the window (RPPP).'].filter(Boolean).join(' ');
+  return { columns: panel.columns ?? [], rows: fxMatrixCells(rows, lags, (v, d) => signedFmt(v, d), NA), links: [], chart: [],
+    asOf: rows.map((o) => (o.today_date as string) ?? '').filter(Boolean).sort().pop() ?? '', note: `${note}${why.length ? ` — ${why.join(' · ')}` : ''}`,
+    servedBy: by, details: rows.map((o) => String(o.label ?? '')) };
+}
+
 export function curveOf(f: TFetch, g: Got): [number, number][] {
   const out = new Map<number, number>();
   for (const p of g.points) { const x = f.years && p.key in f.years ? f.years[p.key] : p.x; if (x > 0 && Number.isFinite(p.value) && !out.has(x)) out.set(x, p.value); }
@@ -353,6 +364,51 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       };
       const ppp = await wb(g.wb.indicators.ppp); const cpi = await wb(g.wb.indicators.cpi); const us = cpi.get('US') ?? [];
       return fxPppTable(panel, g.rows.map((r) => fxPppRow(r, fx.get(r.ccy) ?? [], ppp.get(r.cc) ?? [], cpi.get(r.cc) ?? [], us, g.window_days ?? 30)), `${fxs.name} + ${wbs.name}`);
+    }
+    case 'fx_matrix': {
+      const g = f as unknown as { primary?: { api?: string }; rows: MRow[]; dxy: Dxy; window_days?: number; lags_years?: number[]; fx_source: string; rub_source?: string; bigmac_source?: string;
+        rub?: { path: string; code: string }; bigmac?: { path: string; us?: string }; wb: { source: string; indicators: { ppp: string; cpi: string } }; reading?: string; method?: string };
+      if (api) {
+        try { const rows = (JSON.parse(await ctx.get(buildUrl(api.base, g.primary?.api ?? '/v1/fx/ppp-matrix', []))) as { rows?: Record<string, unknown>[] }).rows ?? []; if (rows.length) return fxMatrixTable(panel, g, rows, api.source.name); } catch { /* the direct sources below */ }
+      }
+      const lags = g.lags_years ?? [1, 3]; const win = g.window_days ?? 30;
+      const all: MRow[] = [...g.rows, ...g.dxy.legs.filter((l) => !g.rows.some((r) => r.ccy === l.ccy))];
+      const today = ctx.today; const from = new Date(Date.parse(`${today}T00:00:00Z`) - (365 * Math.max(...lags) + win + 15) * 864e5).toISOString().slice(0, 10);
+      const src = (id?: string) => ctx.sources.find((x) => x.id === id);
+      const fails: string[] = []; const used: string[] = []; const fx = new Map<string, S>();
+      // a source the browser cannot read (no CORS header) is not asked: its cells say so
+      const read = async <T>(s: ReturnType<typeof src>, go: (s: Source) => Promise<T>, none: T): Promise<T> => {
+        if (!s) return none;
+        if (!browserReadable(s)) { fails.push(`${s.name} sends no CORS header (open on the mesh)`); return none; }
+        try { const v = await go(s); used.push(s.name); return v; } catch (e) { fails.push(`${s.name}: ${(e as Error).message}`); return none; }
+      };
+      await read(src(g.fx_source), async (s) => {
+        const ccys = all.filter((r) => !r.fx).map((r) => r.ccy).join(',');
+        const rates = (JSON.parse(await ctx.get(buildUrl(s.endpoint, `/v1/${from}..${today}`, [['base', 'USD'], ['symbols', ccys]]))) as { rates?: Record<string, Record<string, number>> }).rates ?? {};
+        for (const d of Object.keys(rates).sort()) for (const [k, v] of Object.entries(rates[d])) fx.set(k, [...(fx.get(k) ?? []), [d, v]]);
+      }, undefined);
+      const wbs = src(g.wb.source);
+      const wb = (code: string) => read(wbs, async (s) => {
+        const cc = [...new Set([...all.map((r) => r.cc), 'US'])].join(';');
+        const a = JSON.parse(await ctx.get(buildUrl(s.endpoint, `/country/${cc}/indicator/${code}`, [['format', 'json'], ['per_page', '2000'], ['date', `2015:${today.slice(0, 4)}`]]))) as [unknown, { country: { id: string }; date: string; value: number | null }[] | null];
+        const m = new Map<string, S>();
+        for (const o of a[1] ?? []) if (o.value !== null) m.set(o.country.id, [...(m.get(o.country.id) ?? []), [o.date, o.value]]);
+        for (const [k, v] of m) m.set(k, v.sort((x, y) => (x[0] < y[0] ? -1 : 1)));
+        return m;
+      }, new Map<string, S>());
+      const ppp = await wb(g.wb.indicators.ppp); const cpi = await wb(g.wb.indicators.cpi);
+      const bm = await read(src(g.bigmac_source), async (s) => bigMac(await ctx.get(buildUrl(s.endpoint, g.bigmac?.path ?? '', []))), new Map<string, S>());
+      const dmy = (s: string) => `${s.slice(8, 10)}/${s.slice(5, 7)}/${s.slice(0, 4)}`;
+      const rub = g.rub;
+      if (rub && all.some((r) => r.fx === 'cbr')) await read(src(g.rub_source), async (s) => {
+        const xml = await ctx.get(buildUrl(s.endpoint, rub.path, [['date_req1', dmy(from)], ['date_req2', dmy(today)], ['VAL_NM_RQ', rub.code]]));
+        const v: S = [...xml.matchAll(/<Record Date="(\d{2})\.(\d{2})\.(\d{4})"[^>]*>\s*<Nominal>(\d+)<\/Nominal>\s*<Value>([\d,.]+)<\/Value>/g)].map((m) => [`${m[3]}-${m[2]}-${m[1]}`, Number(m[5].replace(',', '.')) / Number(m[4])] as [string, number]).sort((x, y) => (x[0] < y[0] ? -1 : 1));
+        for (const r of all) if (r.fx === 'cbr') fx.set(r.ccy, v);
+      }, undefined);
+      const us = cpi.get('US') ?? []; const bmUs = bm.get(g.bigmac?.us ?? 'USA') ?? [];
+      const by = new Map(all.map((r) => [r.ccy, fxMatrixRow(r, fx.get(r.ccy) ?? [], ppp.get(r.cc) ?? [], cpi.get(r.cc) ?? [], us, bm.get(r.a3 ?? '') ?? [], bmUs, win, lags)] as [string, Record<string, unknown>]));
+      if ([...by.values()].every((o) => o.today === null)) throw new Error(fails[0] ?? 'no FX rate answered');
+      return fxMatrixTable(panel, g, [dxyRow(g.dxy, by, lags), ...g.rows.map((r) => by.get(r.ccy)!)], [...new Set(used)].join(' + '), fails);
     }
     case 'risk_compare': {
       const sets = (f as { compare?: [string, number][][] }).compare ?? []; const proxies = f.proxies ?? {};

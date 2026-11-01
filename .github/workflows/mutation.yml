@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'island-width | trailing-slash | plan-island | page-route | calc-keypad | portal-flag | client-order | c3-route | old-url | baseline-bar | finterm-drift | finterm-order | finterm-csv | finterm-url | finterm-tab | finterm-placeholder | finterm-fred | finterm-model-merge | finterm-v1-first | finterm-window | finterm-cors-model | finterm-alert-side | finterm-declared | finterm-beat | finterm-sign | finterm-cadence | finterm-sort | finterm-trim | dropdown-cap | dropdown-css | scroll-gesture | dead-export | dead-module | finterm-coverage | finterm-shortname | finterm-curve | navui-rows | finterm-table-blocked'
+        description: 'island-width | trailing-slash | plan-island | page-route | calc-keypad | portal-flag | client-order | c3-route | old-url | baseline-bar | finterm-drift | finterm-order | finterm-csv | finterm-url | finterm-tab | finterm-placeholder | finterm-fred | finterm-model-merge | finterm-v1-first | finterm-window | finterm-cors-model | finterm-alert-side | finterm-declared | finterm-beat | finterm-sign | finterm-cadence | finterm-sort | finterm-trim | dropdown-cap | dropdown-css | scroll-gesture | dead-export | dead-module | finterm-coverage | finterm-shortname | finterm-curve | navui-rows | finterm-table-blocked | fxm-rppp | fxm-dxy | fxm-diff | fxm-cors'
         required: true
 permissions:
   contents: read
@@ -59,6 +59,10 @@ jobs:
             finterm-curve)       sed -i 's/if (v === null || y === null) continue; pts.push({ key: k, label: k, x: y,/if (true) continue; pts.push({ key: k, label: k, x: y,/' packages/cloudy-ui/src/finterm/engine.ts ;;
             navui-rows)          sed -i "s/declaredList('CLEAN_DRAWER_ROWS', 'DrawerRow')/declaredList('CLEAN_DRAWER_ROWS_WITH_ACTIONS', 'DrawerRow')/" scripts/gen-tokens.mjs && node scripts/gen-tokens.mjs ;;
             finterm-table-blocked) sed -i 's/if (tried.length \&\& tried.every((x) => x.blocked)) throw/if (false) throw/' packages/cloudy-ui/src/finterm/tables.ts ;;
+            fxm-rppp)       sed -i 's|(sHist \* (home1 / home0)) / (us1 / us0)|sHist * (home1 / home0)|' packages/cloudy-ui/src/finterm/fxmatrix.ts ;;
+            fxm-dxy)        sed -i 's|acc \* Math.pow(x, w)|acc * Math.pow(x, -w)|' packages/cloudy-ui/src/finterm/fxmatrix.ts ;;
+            fxm-diff)       sed -i 's|(today / x - 1) \* 100|(x / today - 1) * 100|' packages/cloudy-ui/src/finterm/fxmatrix.ts ;;
+            fxm-cors)       sed -i 's|if (!browserReadable(s)) { fails.push|if (false) { fails.push|' packages/cloudy-ui/src/finterm/tables.ts ;;
             *) echo "unknown mutation"; exit 2 ;;
           esac
           git diff --stat
