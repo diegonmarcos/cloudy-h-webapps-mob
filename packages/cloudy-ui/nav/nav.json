@@ -1680,7 +1680,7 @@
                 "id": "configs-about",
                 "label": "About",
                 "icon": "ic_settings",
-                "target": "page:config/about"
+                "target": "page:config/app-about"
               }
             ]
           }
@@ -3206,7 +3206,6 @@
             "pages": [
               "profile",
               "store",
-              "perms",
               "controls",
               "onehand",
               "notify",
@@ -3255,13 +3254,11 @@
             "label": "Observability",
             "icon": "ic_monitor_heart",
             "pages": [
-              "agents",
-              "diagnostics",
+              "xray",
               "logcat",
-              "about",
-              "battery",
-              "agents-superapp",
-              "agents-fleet"
+              "perms",
+              "app-about",
+              "battery"
             ]
           }
         ],
@@ -3270,7 +3267,30 @@
             "controls",
             "onehand",
             "notify"
+          ],
+          "about": [
+            "xray",
+            "app-about"
+          ],
+          "diagnostics": [
+            "xray"
+          ],
+          "agents": [
+            "xray"
+          ],
+          "agents-superapp": [
+            "xray"
+          ],
+          "agents-fleet": [
+            "xray"
           ]
+        },
+        "page_aliases": {
+          "about": "xray",
+          "diagnostics": "xray",
+          "agents": "xray",
+          "agents-superapp": "xray",
+          "agents-fleet": "xray"
         },
         "removed_pages": {
           "apps-mesh": "Apps Mesh is Cloud Store > Access now; one Apps Access tile opens it",
@@ -3299,13 +3319,6 @@
             "label": "Store",
             "icon": "ic_storefront",
             "action": "extapp:cloud-store",
-            "group": "Setup",
-            "subgroup": "Apps"
-          },
-          {
-            "id": "perms",
-            "label": "Permissions",
-            "icon": "ic_key",
             "group": "Setup",
             "subgroup": "Apps"
           },
@@ -3424,29 +3437,25 @@
             "group": "Fleet"
           },
           {
-            "id": "agents",
-            "label": "Agents",
-            "icon": "ic_robot",
-            "tabs": [
-              "agents-superapp",
-              "agents-fleet"
-            ],
-            "group": "Observability"
-          },
-          {
-            "id": "diagnostics",
-            "label": "Diagnostics",
+            "id": "xray",
+            "label": "X-Ray",
             "icon": "ic_monitor_heart",
             "group": "Observability"
           },
           {
             "id": "logcat",
-            "label": "Logcat",
+            "label": "LogCat",
             "icon": "ic_subject",
             "group": "Observability"
           },
           {
-            "id": "about",
+            "id": "perms",
+            "label": "Permissions",
+            "icon": "ic_key",
+            "group": "Observability"
+          },
+          {
+            "id": "app-about",
             "label": "About",
             "icon": "ic_info",
             "group": "Observability"
@@ -3483,18 +3492,6 @@
             "id": "battery",
             "label": "Battery",
             "icon": "ic_settings",
-            "hidden": true
-          },
-          {
-            "id": "agents-superapp",
-            "label": "SuperApp agents",
-            "icon": "ic_robot",
-            "hidden": true
-          },
-          {
-            "id": "agents-fleet",
-            "label": "Fleet agents",
-            "icon": "ic_robot",
             "hidden": true
           },
           {

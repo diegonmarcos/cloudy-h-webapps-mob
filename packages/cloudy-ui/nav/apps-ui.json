@@ -8973,8 +8973,86 @@
                 "i18n": {
                   "es": "Sync manual"
                 },
-                "layout": "lines",
+                "layout": "row",
                 "items": [
+                  {
+                    "id": "stash",
+                    "label": "Stash",
+                    "i18n": {
+                      "es": "Stash"
+                    },
+                    "icon": "archive"
+                  },
+                  {
+                    "id": "pull_rebase",
+                    "label": "Pull (Rebase)",
+                    "i18n": {
+                      "es": "Pull (rebase)"
+                    },
+                    "icon": "download"
+                  },
+                  {
+                    "id": "stash_pop",
+                    "label": "Stash Pop",
+                    "i18n": {
+                      "es": "Stash pop"
+                    },
+                    "icon": "swap"
+                  },
+                  {
+                    "id": "solve_conflicts",
+                    "label": "Conflict Solver",
+                    "i18n": {
+                      "es": "Resolver conflictos"
+                    },
+                    "icon": "info"
+                  }
+                ],
+                "subgroups": [
+                  {
+                    "id": "dangerous",
+                    "label": "Dangerous",
+                    "i18n": {
+                      "es": "Peligroso"
+                    },
+                    "danger": true,
+                    "layout": "row",
+                    "items": [
+                      {
+                        "id": "force_pull",
+                        "label": "Force pull",
+                        "i18n": {
+                          "es": "Pull forzado"
+                        },
+                        "icon": "restore"
+                      },
+                      {
+                        "id": "force_push",
+                        "label": "Force push",
+                        "i18n": {
+                          "es": "Push forzado"
+                        },
+                        "icon": "publish"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "workflow",
+                "label": "Workflow",
+                "i18n": {
+                  "es": "Flujo"
+                },
+                "layout": "chips",
+                "items": [
+                  {
+                    "id": "unpushed",
+                    "label": "Commits Unpushed",
+                    "i18n": {
+                      "es": "Commits sin push"
+                    }
+                  },
                   {
                     "id": "fetch",
                     "label": "Fetch",
@@ -9009,50 +9087,6 @@
                     "i18n": {
                       "es": "Estado"
                     }
-                  }
-                ],
-                "subgroups": [
-                  {
-                    "id": "dangerous",
-                    "label": "Dangerous",
-                    "i18n": {
-                      "es": "Peligroso"
-                    },
-                    "danger": true,
-                    "layout": "lines",
-                    "items": [
-                      {
-                        "id": "force_pull",
-                        "label": "Force pull",
-                        "i18n": {
-                          "es": "Pull forzado"
-                        }
-                      },
-                      {
-                        "id": "force_push",
-                        "label": "Force push",
-                        "i18n": {
-                          "es": "Push forzado"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "id": "workflow",
-                "label": "Workflow",
-                "i18n": {
-                  "es": "Flujo"
-                },
-                "layout": "chips",
-                "items": [
-                  {
-                    "id": "unpushed",
-                    "label": "Commits Unpushed",
-                    "i18n": {
-                      "es": "Commits sin push"
-                    }
                   },
                   {
                     "id": "list_dirty",
@@ -9066,13 +9100,6 @@
                     "label": "List Conflicts",
                     "i18n": {
                       "es": "Listar conflictos"
-                    }
-                  },
-                  {
-                    "id": "solve_conflicts",
-                    "label": "Solve Conflicts",
-                    "i18n": {
-                      "es": "Resolver conflictos"
                     }
                   },
                   {
@@ -9542,14 +9569,81 @@
                 "icon": "cloud_sync",
                 "items": [
                   {
+                    "id": "sync_server_wins",
+                    "kind": "compound",
+                    "op": "sync_remote_wins",
+                    "section": "Sync All",
+                    "label": "Server Wins",
+                    "hint": "local changes stashed, reset to the remote",
+                    "icon": "cloud",
+                    "scope": "filtered",
+                    "confirm": true,
+                    "danger": true
+                  },
+                  {
+                    "id": "sync_local_wins",
+                    "kind": "compound",
+                    "op": "sync_local_wins",
+                    "section": "Sync All",
+                    "label": "Local Wins",
+                    "hint": "commit, push with lease",
+                    "icon": "cloud_upload",
+                    "scope": "filtered",
+                    "confirm": true,
+                    "danger": true
+                  },
+                  {
                     "id": "sync_all",
                     "kind": "compound",
                     "op": "sync_no_winner",
-                    "label": "Sync all",
-                    "hint": "no winner",
+                    "section": "Sync All",
+                    "label": "No Winner",
+                    "hint": "stops at conflicts, opens the solver",
                     "icon": "cloud_sync",
                     "scope": "filtered",
                     "confirm": true
+                  },
+                  {
+                    "id": "stash_all",
+                    "kind": "compound",
+                    "op": "stash",
+                    "section": "Manual Sync",
+                    "label": "Stash All",
+                    "hint": "stash -u every dirty clone",
+                    "icon": "archive",
+                    "scope": "filtered",
+                    "confirm": true
+                  },
+                  {
+                    "id": "pull_rebase_all",
+                    "kind": "compound",
+                    "op": "pull_rebase",
+                    "section": "Manual Sync",
+                    "label": "Pull (Rebase)",
+                    "hint": "pull --rebase",
+                    "icon": "download",
+                    "scope": "filtered",
+                    "confirm": true
+                  },
+                  {
+                    "id": "stash_pop_all",
+                    "kind": "compound",
+                    "op": "stash_pop",
+                    "section": "Manual Sync",
+                    "label": "Stash Pop All",
+                    "hint": "newest stash back",
+                    "icon": "swap",
+                    "scope": "filtered",
+                    "confirm": true
+                  },
+                  {
+                    "id": "conflicts_all",
+                    "kind": "open_conflicts",
+                    "section": "Manual Sync",
+                    "label": "Conflicts All",
+                    "hint": "every repository with conflicts",
+                    "icon": "info",
+                    "exclusive": false
                   }
                 ]
               },
