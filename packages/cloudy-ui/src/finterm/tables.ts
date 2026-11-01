@@ -385,12 +385,12 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       const all: MRow[] = [...g.rows, ...g.dxy.legs.filter((l) => !g.rows.some((r) => r.ccy === l.ccy))];
       const today = ctx.today; const from = new Date(Date.parse(`${today}T00:00:00Z`) - (365 * Math.max(...lags) + win + 15) * 864e5).toISOString().slice(0, 10);
       const src = (id?: string) => ctx.sources.find((x) => x.id === id);
-      const fails: string[] = []; const used: string[] = []; const fx = new Map<string, S>();
+      const fails: string[] = []; const used: string[] = []; const fx = new Map<string, S>(); let refused = false;
       // a source the browser cannot read (no CORS header) is not asked: its cells say so
       const read = async <T>(s: ReturnType<typeof src>, go: (s: Source) => Promise<T>, none: T): Promise<T> => {
         if (!s) return none;
-        if (!browserReadable(s)) { fails.push(`${s.name} sends no CORS header (open on the mesh)`); return none; }
-        try { const v = await go(s); used.push(s.name); return v; } catch (e) { fails.push(`${s.name}: ${(e as Error).message}`); return none; }
+        if (!browserReadable(s)) { refused = true; fails.push(`${s.name} sends no CORS header (open on the mesh)`); return none; }
+        try { const v = await go(s); used.push(s.name); return v; } catch (e) { if (e instanceof FetchError && e.kind === 'blocked') refused = true; fails.push(`${s.name}: ${(e as Error).message}`); return none; }
       };
       await read(src(g.fx_source), async (s) => {
         const ccys = all.filter((r) => !r.fx).map((r) => r.ccy).join(',');
@@ -417,7 +417,8 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       }, undefined);
       const us = cpi.get('US') ?? []; const bmUs = bm.get(g.bigmac?.us ?? 'USA') ?? [];
       const by = new Map(all.map((r) => [r.ccy, fxMatrixRow(r, fx.get(r.ccy) ?? [], ppp.get(r.cc) ?? [], cpi.get(r.cc) ?? [], us, bm.get(r.a3 ?? '') ?? [], bmUs, win, lags)] as [string, Record<string, unknown>]));
-      if ([...by.values()].every((o) => o.today === null)) throw new Error(fails[0] ?? 'no FX rate answered');
+      // no rate at all: refused at the network (offline, CORS) is the blocked key row, else an error state
+      if ([...by.values()].every((o) => o.today === null)) throw refused ? new FetchError('blocked', fails[0] ?? 'blocked') : new Error(fails[0] ?? 'no FX rate answered');
       return fxMatrixTable(panel, g, [dxyRow(g.dxy, by, lags), ...g.rows.map((r) => by.get(r.ccy)!)], [...new Set(used)].join(' + '), fails);
     }
     case 'g20_bonds': {

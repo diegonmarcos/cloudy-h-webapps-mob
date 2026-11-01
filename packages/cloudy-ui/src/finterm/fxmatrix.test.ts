@@ -72,4 +72,11 @@ describe('G20 FX & PPP Matrix maths', () => {
     expect(d.note).toContain('sends no CORS header');
     expect(d.note).toContain('RUB today:');
   });
+
+  it('offline (every fetch refused) it is the blocked key row, not an error', async () => {
+    const dash = FINTERM.dashboards.find((x) => x.id === 'fx') as Dashboard;
+    const panel = dash.panels.find((p) => p.id === 'ppp_matrix')!;
+    const ctx: Ctx = { today: '2026-10-30', sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => false, get: async () => { throw new FetchError('blocked', 'Failed to fetch'); } };
+    await expect(loadPanel(panel, dash, ctx)).rejects.toMatchObject({ kind: 'blocked' });
+  });
 });
