@@ -122,6 +122,6 @@ if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {
       declared: Object.fromEntries(['central-banks.json'].flatMap((n) => { const t = readRaw(`${dir}/data/${n}`); return t == null ? [] : [[n, JSON.parse(t)]]; })),
     });
   } catch (e) { console.error('FAIL', e.message); process.exit(1); }
-  emit(root, { [OUT]: JSON.stringify(doc, null, 2) + '\n', [OUT_APP]: JSON.stringify({ _generated: HEADER, app_id: doc.app_id }, null, 2) + '\n' }, 'gen-finterm');
+  emit(root, { [OUT]: JSON.stringify(doc, null, 2) + '\n', [OUT_APP]: JSON.stringify({ _generated: HEADER, app_id: doc.app_id, tabs: doc.tabs }, null, 2) + '\n' }, 'gen-finterm');
   console.log(`gen-finterm: ${doc.dashboards.length} dashboards, ${doc.sources.length} sources (${dir}, app ${appId})`);
 }
