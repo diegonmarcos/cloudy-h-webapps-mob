@@ -299,6 +299,8 @@
     "bookmark": "bookmark",
     "star": "star",
     "sms": "sms",
+    "dialpad": "dialpad",
+    "sim_card": "sim_card",
     "ic_p_health_body": "accessibility_new",
     "ic_p_health_vitals": "monitor_heart",
     "ic_p_health_sleep": "bedtime",

@@ -6632,7 +6632,7 @@
         "tabs",
         "browser",
         "search",
-        "configs"
+        "scrapers"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -6663,6 +6663,23 @@
           "label": "Search",
           "icon": "search",
           "pages": []
+        },
+        {
+          "id": "scrapers",
+          "label": "Scrapers",
+          "icon": "download",
+          "pages": [
+            {
+              "id": "site_files",
+              "label": "Site Files",
+              "icon": "folder_open"
+            },
+            {
+              "id": "scrap_tools",
+              "label": "Scrap Tools",
+              "icon": "build"
+            }
+          ]
         },
         {
           "id": "configs",
