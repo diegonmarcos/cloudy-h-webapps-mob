@@ -37,13 +37,24 @@ test('cloud-calc: the declared keypad computes (7 × 6 = 42; 500 / 3 = 166.66666
   await shot(page, info, 'calc');
 });
 
+// The expectations are READ from the generated navdata (nav.json, from Android build.json), never hard-coded: the default
+// section's last page, its group row when the section has two rows (nav_mode horizontal_two_rows), and the bottom bar.
+type Sec = { id: string; label: string; pages: { id: string; label: string }[]; groups?: { id: string; pages: string[] }[] };
+const calc = nav.apps.find((x) => x.id === 'cloud-calc') as unknown as { name: string; label: string; default_section: string; bottom_nav: string[]; sections: Sec[] };
+const esc = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 test('cloud-calc: the breadcrumb, the second row and the bottom bar follow build.json', async ({ page }) => {
-  await page.goto(`${BASE}/cloud-calc/calculator/graph/`);
-  await expect(page.getByTestId('fleet-title')).toHaveText(/Cloud Calc \/ Calc \/ Graph$|Calc \/ Graph$/);
-  await expect(page.getByTestId('ftab-graph')).toHaveAttribute('aria-selected', 'true');
-  await expect(page.locator('[data-testid="fleet-bottom"] a')).toHaveCount(5);
+  const sec = calc.sections.find((x) => x.id === calc.default_section)!;
+  const pg = sec.pages[sec.pages.length - 1];
+  await page.goto(`${BASE}/cloud-calc/${sec.id}/${pg.id}/`);
+  const crumb = `${esc(sec.label)} / ${esc(pg.label)}$`;
+  await expect(page.getByTestId('fleet-title')).toHaveText(new RegExp(`${esc(calc.name)} / ${crumb}|${crumb}`));
+  const group = sec.groups?.find((g) => g.pages.includes(pg.id));
+  if (group) await expect(page.getByTestId(`frow-${group.id}`).locator('.tab.on')).toHaveAttribute('aria-label', pg.label);
+  else await expect(page.getByTestId(`ftab-${pg.id}`)).toHaveAttribute('aria-selected', 'true');
+  await expect(page.locator('[data-testid="fleet-bottom"] a')).toHaveCount(calc.bottom_nav.length);
   await page.getByTestId('fleet-title').click();
-  await expect(page.getByTestId('fleet-dropdown')).toContainText('Convert');
+  await expect(page.getByTestId('fleet-dropdown')).toContainText(pg.label);
 });
 
 test('cloud-tasks: calendar events are list-detail on a tablet only', async ({ page }, info) => {
