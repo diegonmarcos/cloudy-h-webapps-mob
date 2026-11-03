@@ -31,7 +31,7 @@ export const strip = (v) => Array.isArray(v) ? v.map(strip)
 export const slugOf = (id) => id.toLowerCase().replace(/_/g, '-');
 
 /** Pure: the Android declarations + the containers declaration -> the web file. Throws on any contradiction. */
-export function buildFinterm({ sources, dashboards, build, services, appId, declared = {} }) {
+export function buildFinterm({ sources, dashboards, build, services, appId, declared = {}, universe = null }) {
   const fail = (m) => { throw new Error(m); };
   const stacks = build.ui?.stacks ?? fail('build.json has no ui.stacks');
   const byId = new Map(dashboards.dashboards.map((d) => [d.id, d]));
@@ -106,6 +106,20 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
     sources: slim,
     dashboards: out,
     declared: files,
+    // #1416 About > Data sources: the free stack of data/universe.json, keys and flags as declared (the web holds no key)
+    free_stack: universe?.free_stack ? freeStack(strip(universe.free_stack)) : null,
+  };
+}
+
+/** #1416 the free stack, slimmed to what About > Data sources shows; throws when a source lacks what the page needs. */
+export function freeStack(fs) {
+  const fail = (m) => { throw new Error(m); };
+  return {
+    contact: fs.contact ?? fail('free_stack has no contact'), route: fs.route,
+    sources: (fs.sources ?? []).map((s) => {
+      for (const k of ['id', 'name', 'coverage', 'licence', 'terms', 'per_min']) if (s[k] == null) fail(`free_stack ${s.id}: no ${k}`);
+      return { id: s.id, name: s.name, coverage: s.coverage, licence: s.licence, terms: s.terms, per_min: s.per_min, ...(s.per_day ? { per_day: s.per_day } : {}), key: s.key ?? null, flag: s.flag ?? null };
+    }),
   };
 }
 
@@ -119,6 +133,7 @@ if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {
       sources: JSON.parse(need(`${dir}/data/sources.json`)), dashboards: JSON.parse(need(`${dir}/data/dashboards.json`)), build: JSON.parse(need(`${dir}/build.json`)),
       services: JSON.parse(readFileSync(join(root, 'scripts/fallback-services.json'), 'utf8')), appId,
       // a declared data file is read when the app has it; a panel naming one that is missing fails the render (buildFinterm)
+      universe: (() => { const t = readRaw(`${dir}/data/universe.json`); return t == null ? null : JSON.parse(t); })(),
       declared: Object.fromEntries(['central-banks.json'].flatMap((n) => { const t = readRaw(`${dir}/data/${n}`); return t == null ? [] : [[n, JSON.parse(t)]]; })),
     });
   } catch (e) { console.error('FAIL', e.message); process.exit(1); }

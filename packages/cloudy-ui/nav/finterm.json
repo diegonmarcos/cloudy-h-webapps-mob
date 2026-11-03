@@ -1397,6 +1397,70 @@
       }
     },
     {
+      "id": "openfigi",
+      "name": "OpenFIGI",
+      "category": "Equity-Exchange",
+      "priority": 10,
+      "coverage": "FIGI identifier mapping and metadata for bonds and equities (free tier, no key)",
+      "endpoint": "https://api.openfigi.com",
+      "docs": "https://www.openfigi.com/api",
+      "connector": null,
+      "feeds": [
+        {
+          "tab": "eq",
+          "entries": [
+            "Fundamentals"
+          ]
+        }
+      ],
+      "auth": {
+        "type": "none"
+      }
+    },
+    {
+      "id": "fmp",
+      "name": "Financial Modeling Prep",
+      "category": "Equity-Exchange",
+      "priority": 20,
+      "coverage": "Standardised fundamentals and ratios for US equities",
+      "endpoint": "https://financialmodelingprep.com",
+      "docs": "https://site.financialmodelingprep.com/developer/docs",
+      "connector": null,
+      "feeds": [
+        {
+          "tab": "eq",
+          "entries": [
+            "Fundamentals"
+          ]
+        }
+      ],
+      "auth": {
+        "type": "free_key",
+        "signup": "https://site.financialmodelingprep.com/developer/docs"
+      }
+    },
+    {
+      "id": "yahoo",
+      "name": "Yahoo Finance chart (flagged)",
+      "category": "Equity-Exchange",
+      "priority": 10,
+      "coverage": "EOD prices, splits and dividends: the last fallback after Cboe, FRED and Coinbase, off by default",
+      "endpoint": "https://query1.finance.yahoo.com",
+      "docs": "https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html",
+      "connector": null,
+      "feeds": [
+        {
+          "tab": "eq",
+          "entries": [
+            "Quotes & Charts"
+          ]
+        }
+      ],
+      "auth": {
+        "type": "none"
+      }
+    },
+    {
       "id": "nasdaq_calendar",
       "name": "Nasdaq earnings calendar",
       "category": "Equity-Exchange",
@@ -6699,5 +6763,76 @@
         }
       ]
     }
+  },
+  "free_stack": {
+    "contact": "admin@diegonmarcos.com",
+    "route": "/v1/sources",
+    "sources": [
+      {
+        "id": "fred",
+        "name": "FRED (St. Louis Fed)",
+        "coverage": "US Treasury curve 1M-30Y and TIPS, global policy rates, monetary aggregates, inflation, ICE BofA corporate yield and OAS spread indexes",
+        "licence": "Public domain for Federal Reserve data; third-party series (ICE BofA) are copyrighted, FRED shows a rolling 3-year window, attribution required",
+        "terms": "https://fred.stlouisfed.org/legal/",
+        "per_min": 20,
+        "key": null,
+        "flag": null
+      },
+      {
+        "id": "openfigi",
+        "name": "OpenFIGI",
+        "coverage": "Free mapping tier: FIGI, name, ticker, exchange, market sector and security type for bond and equity identifiers (ISIN, CUSIP, ticker)",
+        "licence": "FIGI is an open standard (MIT-licensed data, Bloomberg as registration authority); API terms of use apply",
+        "terms": "https://www.openfigi.com/docs/terms-of-service",
+        "per_min": 25,
+        "key": null,
+        "flag": null
+      },
+      {
+        "id": "fmp",
+        "name": "Financial Modeling Prep",
+        "coverage": "Standardised annual fundamentals and ratios (margins, returns, leverage, valuation multiples) for US equities",
+        "licence": "FMP terms of service: free tier for personal, non-commercial use; attribution",
+        "terms": "https://site.financialmodelingprep.com/terms-of-service",
+        "per_min": 5,
+        "per_day": 250,
+        "key": {
+          "env": "FMP_API_KEY",
+          "slot": "fmp",
+          "header": "apikey",
+          "signup": "https://site.financialmodelingprep.com/developer/docs",
+          "reason": "FMP needs a free API key: none is configured in the fleet secret store (FMP_API_KEY) for the container, or in Config > Sources (fmp) on this phone"
+        },
+        "flag": null
+      },
+      {
+        "id": "sec_edgar",
+        "name": "SEC EDGAR",
+        "coverage": "Filings (10-K, 10-Q, 8-K) with links, and XBRL company facts (revenue, net income, EPS, assets, equity, operating cash flow)",
+        "licence": "US government work, public domain; SEC fair-access policy (declared User-Agent with a contact, at most 10 requests a second)",
+        "terms": "https://www.sec.gov/os/accessing-edgar-data",
+        "per_min": 600,
+        "key": null,
+        "flag": null
+      },
+      {
+        "id": "yahoo",
+        "name": "Yahoo Finance (chart)",
+        "coverage": "EOD prices (open, high, low, close), splits and dividends for symbols no other source serves",
+        "licence": "No official API; Yahoo's terms restrict automated use (ToS risk): off by default, last fallback only, our own honest User-Agent (no spoofing)",
+        "terms": "https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html",
+        "per_min": 10,
+        "key": null,
+        "flag": {
+          "env": "FINTERM_YAHOO",
+          "default": false,
+          "after": [
+            "cboe",
+            "fred",
+            "coinbase"
+          ]
+        }
+      }
+    ]
   }
 }
