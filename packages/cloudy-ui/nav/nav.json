@@ -1503,10 +1503,10 @@
               },
               {
                 "id": "tools-account",
-                "label": "Account",
+                "label": "Profile",
                 "icon": "ic_p_accounts",
-                "target": "page:config/profile",
-                "fleet_app": "account"
+                "target": "extapp:cloud-me#page:profile/profile",
+                "fleet_app": "me"
               }
             ]
           },
@@ -5930,6 +5930,31 @@
           ],
           "pages": [
             {
+              "id": "tracked",
+              "label": "Tracked",
+              "icon": "monitor_heart"
+            },
+            {
+              "id": "activities",
+              "label": "Activities",
+              "icon": "ic_p_health_activity"
+            },
+            {
+              "id": "bodycomp",
+              "label": "Body comp",
+              "icon": "ic_p_health_body"
+            },
+            {
+              "id": "hr",
+              "label": "HR & HRV",
+              "icon": "ic_p_health_vitals"
+            },
+            {
+              "id": "sleep",
+              "label": "Sleep",
+              "icon": "ic_p_health_sleep"
+            },
+            {
               "id": "home",
               "label": "Index",
               "icon": "home"
@@ -5998,34 +6023,21 @@
               "id": "workout",
               "label": "Workout plan",
               "icon": "ic_gym"
-            },
-            {
-              "id": "tracked",
-              "label": "Tracked",
-              "icon": "monitor_heart"
-            },
-            {
-              "id": "activities",
-              "label": "Activities",
-              "icon": "ic_p_health_activity"
-            },
-            {
-              "id": "bodycomp",
-              "label": "Body comp",
-              "icon": "ic_p_health_body"
-            },
-            {
-              "id": "hr",
-              "label": "HR & HRV",
-              "icon": "ic_p_health_vitals"
-            },
-            {
-              "id": "sleep",
-              "label": "Sleep",
-              "icon": "ic_p_health_sleep"
             }
           ],
           "groups": [
+            {
+              "id": "trackers",
+              "label": "Trackers",
+              "icon": "monitor_heart",
+              "pages": [
+                "tracked",
+                "activities",
+                "bodycomp",
+                "hr",
+                "sleep"
+              ]
+            },
             {
               "id": "plan",
               "label": "Plan",
@@ -6045,18 +6057,6 @@
                 "shop",
                 "dossier",
                 "workout"
-              ]
-            },
-            {
-              "id": "trackers",
-              "label": "Trackers",
-              "icon": "monitor_heart",
-              "pages": [
-                "tracked",
-                "activities",
-                "bodycomp",
-                "hr",
-                "sleep"
               ]
             }
           ]
@@ -6600,15 +6600,48 @@
           ]
         },
         {
+          "id": "profile",
+          "label": "Profile",
+          "icon": "account_circle",
+          "toolbar": true,
+          "pages": [
+            {
+              "id": "profile",
+              "label": "Profile",
+              "icon": "account_circle"
+            }
+          ]
+        },
+        {
           "id": "configs",
           "label": "Configs",
           "icon": "ic_nav_configs",
           "toolbar": true,
           "pages": [
             {
-              "id": "configs",
-              "label": "Configs",
-              "icon": "ic_nav_configs"
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
+              "id": "nav",
+              "label": "Navigation",
+              "icon": "navigation"
+            },
+            {
+              "id": "apps",
+              "label": "Apps",
+              "icon": "apps"
             }
           ]
         }
@@ -7679,7 +7712,7 @@
             {
               "id": "lfrfid",
               "label": "LF-RFID-Tags",
-              "icon": "usb"
+              "icon": "nfc"
             }
           ]
         },

@@ -2420,7 +2420,7 @@
         }
       },
       "settings": [
-        "lnktree",
+        "profile",
         "configs"
       ]
     },
@@ -7783,7 +7783,7 @@
         {
           "id": "lfrfid_read",
           "label": "Read",
-          "icon": "usb",
+          "icon": "nfc",
           "tab": "lfrfid",
           "kind": "lfrfid",
           "spec": {
@@ -8418,33 +8418,6 @@
               {
                 "action": "android.settings.APPLICATION_DETAILS_SETTINGS",
                 "package_uri": true
-              }
-            ]
-          },
-          {
-            "id": "engine_all_files",
-            "label": "All files access for the git sync engine",
-            "why": "Git on repositories in shared storage (the vaults) runs in the git sync engine app, a separate uid: it needs its OWN All files access, Cloud Drive's grant does not cover it. Repositories in the store run in cld.termux and do not need it. The engine reports its grant itself.",
-            "permissions": [
-              "android.permission.MANAGE_EXTERNAL_STORAGE"
-            ],
-            "min_sdk": 30,
-            "requires_package": "{gitEnginePackage}",
-            "check": "engine_all_files",
-            "grant": "settings",
-            "intents": [
-              {
-                "action": "android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION",
-                "package_uri": true,
-                "target": "{gitEnginePackage}"
-              },
-              {
-                "action": "android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION"
-              },
-              {
-                "action": "android.settings.APPLICATION_DETAILS_SETTINGS",
-                "package_uri": true,
-                "target": "{gitEnginePackage}"
               }
             ]
           },
@@ -10741,6 +10714,22 @@
             "title": "MCAD",
             "subtitle": "Mechanical CAD: FreeCAD and AutoCAD agents (MCP)",
             "url": "https://github.com/diegonmarcos/HardTech-Stack-CAD-Simulators/tree/main/Structural-Designer/OpenCAD"
+          },
+          {
+            "kind": "section_title",
+            "title": "Model libraries"
+          },
+          {
+            "kind": "library",
+            "library": "boats",
+            "title": "Boats",
+            "subtitle": "Marine Engineering & Naval Architecture: STEP, IGES, 3DM, X_T, DXF"
+          },
+          {
+            "kind": "library",
+            "library": "architecture",
+            "title": "Architecture",
+            "subtitle": "Buildings, BIM & ArchViz: IFC, RVT, SKP, DWG/DXF, FBX/OBJ, glTF/GLB"
           }
         ],
         "bim": [
@@ -10763,6 +10752,115 @@
             "kind": "about"
           }
         ]
+      },
+      "model_repo": "hardtech-db-models",
+      "libraries": {
+        "boats": {
+          "title": "Boats",
+          "subtitle": "Marine Engineering & Naval Architecture",
+          "default_model": "one-lilo",
+          "formats": [
+            {
+              "ext": [
+                "stp",
+                "step"
+              ],
+              "label": "STEP (.stp / .step)",
+              "purpose": "Solid hulls, assemblies and hardware: the neutral solid exchange."
+            },
+            {
+              "ext": [
+                "igs",
+                "iges"
+              ],
+              "label": "IGES (.igs)",
+              "purpose": "Lines plans, waterline splines and lofted hull surfaces."
+            },
+            {
+              "ext": [
+                "3dm"
+              ],
+              "label": "Rhino (.3dm)",
+              "purpose": "Freeform hull and deck surfacing."
+            },
+            {
+              "ext": [
+                "x_t"
+              ],
+              "label": "Parasolid (.x_t)",
+              "purpose": "Solid-modeler exchange for CNC and plate cutting."
+            },
+            {
+              "ext": [
+                "dxf"
+              ],
+              "label": "DXF (.dxf)",
+              "purpose": "2D sections, station offsets and nesting sheets."
+            }
+          ],
+          "core": {
+            "geometry": "Precise B-rep solids and NURBS surfaces (fair hulls)",
+            "need": "Engineering and manufacturing (CNC, plate cutting)",
+            "standards": "STEP / IGES"
+          }
+        },
+        "architecture": {
+          "title": "Architecture",
+          "subtitle": "Buildings, BIM & ArchViz",
+          "default_model": "campidoglio",
+          "formats": [
+            {
+              "ext": [
+                "ifc"
+              ],
+              "label": "IFC (.ifc)",
+              "purpose": "BIM: building elements with their data, open standard."
+            },
+            {
+              "ext": [
+                "rvt"
+              ],
+              "label": "Revit (.rvt)",
+              "purpose": "Native Autodesk BIM projects."
+            },
+            {
+              "ext": [
+                "skp"
+              ],
+              "label": "SketchUp (.skp)",
+              "purpose": "Conceptual massing and design models."
+            },
+            {
+              "ext": [
+                "dwg",
+                "dxf"
+              ],
+              "label": "DWG / DXF",
+              "purpose": "Plans, elevations and sections."
+            },
+            {
+              "ext": [
+                "fbx",
+                "obj"
+              ],
+              "label": "FBX / OBJ",
+              "purpose": "Rendering meshes with UVs and materials."
+            },
+            {
+              "ext": [
+                "gltf",
+                "glb"
+              ],
+              "label": "glTF / GLB",
+              "purpose": "Web real-time walkthroughs."
+            }
+          ],
+          "core": {
+            "geometry": "BIM objects with data, and polygon meshes for visuals",
+            "need": "Building information, coordination and rendering",
+            "standards": "IFC / FBX / DWG"
+          }
+        }
       }
     },
     "hardtech-sim2real": {
