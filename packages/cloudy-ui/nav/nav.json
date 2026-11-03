@@ -6858,6 +6858,40 @@
           "id": "infra",
           "label": "Infra",
           "icon": "ic_p_sol_cloud",
+          "nav_mode": "horizontal_two_rows",
+          "groups": [
+            {
+              "id": "bare",
+              "label": "Bare",
+              "icon": "ic_p_sol_cloud",
+              "pages": [
+                "providers",
+                "machines",
+                "serverless",
+                "node_python",
+                "storage"
+              ]
+            },
+            {
+              "id": "personal",
+              "label": "Personal",
+              "icon": "ic_wg",
+              "pages": [
+                "desktop",
+                "mobile",
+                "gadgets"
+              ]
+            },
+            {
+              "id": "domains_row",
+              "label": "Domains",
+              "icon": "ic_link_tile",
+              "pages": [
+                "domains",
+                "domains_public"
+              ]
+            }
+          ],
           "pages": [
             {
               "id": "providers",
@@ -6871,7 +6905,12 @@
             },
             {
               "id": "serverless",
-              "label": "Serverless Cont",
+              "label": "Containers-as-Service",
+              "icon": "ic_p_c3_vms"
+            },
+            {
+              "id": "node_python",
+              "label": "Containers-Node-Python",
               "icon": "ic_p_c3_vms"
             },
             {
@@ -6880,13 +6919,28 @@
               "icon": "ic_p_c3_stack"
             },
             {
-              "id": "electronics",
-              "label": "Electronics",
+              "id": "desktop",
+              "label": "Desktop",
+              "icon": "ic_wg"
+            },
+            {
+              "id": "mobile",
+              "label": "Mobile",
+              "icon": "ic_wg"
+            },
+            {
+              "id": "gadgets",
+              "label": "Gadgets",
               "icon": "ic_wg"
             },
             {
               "id": "domains",
-              "label": "Domains",
+              "label": "Private",
+              "icon": "ic_link_tile"
+            },
+            {
+              "id": "domains_public",
+              "label": "Public",
               "icon": "ic_link_tile"
             }
           ]
@@ -8758,14 +8812,31 @@
           "background": "dark",
           "pages": [
             {
-              "id": "me",
-              "label": "Me",
-              "icon": "account_circle"
+              "id": "ids",
+              "label": "IDs",
+              "icon": "badge"
             },
             {
-              "id": "wallet",
-              "label": "Wallet",
-              "icon": "account_balance_wallet"
+              "id": "cards",
+              "label": "Pay Cards",
+              "icon": "payments"
+            },
+            {
+              "id": "others",
+              "label": "Others",
+              "icon": "edit_note",
+              "pages": [
+                {
+                  "id": "entries",
+                  "label": "Entries",
+                  "icon": "folder"
+                },
+                {
+                  "id": "me",
+                  "label": "Me",
+                  "icon": "account_circle"
+                }
+              ]
             },
             {
               "id": "autocomplete",
@@ -8803,29 +8874,19 @@
               "icon": "android",
               "pages": [
                 {
-                  "id": "runbook",
-                  "label": "Runbook",
-                  "icon": "menu_book"
-                },
-                {
-                  "id": "apps",
-                  "label": "Install",
+                  "id": "cloud-apps",
+                  "label": "Cloud Apps",
                   "icon": "apps"
                 },
                 {
-                  "id": "push",
-                  "label": "Push",
-                  "icon": "notifications"
+                  "id": "phone-apps",
+                  "label": "Phone Apps",
+                  "icon": "smartphone"
                 },
                 {
-                  "id": "perms",
-                  "label": "Perms",
-                  "icon": "admin_panel_settings"
-                },
-                {
-                  "id": "adb-shell",
-                  "label": "ADB Shell",
-                  "icon": "terminal"
+                  "id": "runbook",
+                  "label": "Runbook",
+                  "icon": "menu_book"
                 }
               ]
             },
@@ -8837,7 +8898,19 @@
             {
               "id": "c3",
               "label": "C3",
-              "icon": "cloud"
+              "icon": "cloud",
+              "pages": [
+                {
+                  "id": "infra",
+                  "label": "Infra",
+                  "icon": "dns"
+                },
+                {
+                  "id": "containers",
+                  "label": "Containers",
+                  "icon": "inventory_2"
+                }
+              ]
             }
           ]
         },
@@ -8989,6 +9062,21 @@
                   "id": "drive",
                   "label": "Drive",
                   "icon": "folder"
+                },
+                {
+                  "id": "push",
+                  "label": "Push",
+                  "icon": "notifications"
+                },
+                {
+                  "id": "perms",
+                  "label": "Perms",
+                  "icon": "admin_panel_settings"
+                },
+                {
+                  "id": "adb-shell",
+                  "label": "ADB Shell",
+                  "icon": "terminal"
                 }
               ]
             }

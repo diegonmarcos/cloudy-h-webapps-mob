@@ -2927,7 +2927,7 @@
         ],
         "favourites": {
           "version": 3,
-          "catalog": "data/favourites_catalog.json",
+          "catalog": "app/src/main/assets/favourites_catalog.json",
           "legacy_groups": [
             "Public",
             "Private (mesh)",
