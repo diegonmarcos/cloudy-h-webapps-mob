@@ -4888,11 +4888,12 @@
       "wasm": "cloud-dialer",
       "default_section": "home",
       "bottom_nav": [
-        "home",
         "contacts",
-        "favorites",
+        "keypad",
+        "home",
         "recents",
-        "sms"
+        "sms",
+        "sims"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -4957,6 +4958,30 @@
               "id": "sms",
               "label": "SMS",
               "icon": "sms"
+            }
+          ]
+        },
+        {
+          "id": "keypad",
+          "label": "Keypad",
+          "icon": "dialpad",
+          "pages": [
+            {
+              "id": "keypad",
+              "label": "Keypad",
+              "icon": "dialpad"
+            }
+          ]
+        },
+        {
+          "id": "sims",
+          "label": "SIMs",
+          "icon": "sim_card",
+          "pages": [
+            {
+              "id": "sims",
+              "label": "SIMs",
+              "icon": "sim_card"
             }
           ]
         }
@@ -6645,24 +6670,14 @@
           "icon": "configs",
           "pages": [
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "search",
-              "label": "Search",
-              "icon": "search"
-            },
-            {
-              "id": "privacy",
-              "label": "Privacy & Security",
-              "icon": "security"
-            },
-            {
-              "id": "site",
-              "label": "Site settings",
+              "id": "sites",
+              "label": "Sites",
               "icon": "public"
+            },
+            {
+              "id": "permissions",
+              "label": "Permissions",
+              "icon": "security"
             },
             {
               "id": "autocomplete",
@@ -6670,39 +6685,9 @@
               "icon": "edit_note"
             },
             {
-              "id": "passwords",
-              "label": "Passwords",
-              "icon": "key"
-            },
-            {
-              "id": "payment",
-              "label": "Payment",
-              "icon": "payments"
-            },
-            {
-              "id": "downloads",
-              "label": "Downloads",
-              "icon": "download"
-            },
-            {
-              "id": "appearance",
-              "label": "Appearance",
-              "icon": "palette"
-            },
-            {
-              "id": "tabs",
-              "label": "Tabs",
-              "icon": "tab"
-            },
-            {
-              "id": "sync",
-              "label": "Sync & Vault",
-              "icon": "sync"
-            },
-            {
-              "id": "advanced",
-              "label": "Advanced",
-              "icon": "build"
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
             },
             {
               "id": "about",
@@ -6865,6 +6850,11 @@
             {
               "id": "machines",
               "label": "VMs",
+              "icon": "ic_p_c3_vms"
+            },
+            {
+              "id": "serverless",
+              "label": "Serverless Cont",
               "icon": "ic_p_c3_vms"
             },
             {
@@ -7359,12 +7349,13 @@
       "description": "Cloud Writer - the application the owner asked for: one place that owns Text Enhance, Translate, Grammar Check and Summary (Resume), with its own model choice for each of them separately. Type or paste a text, pick a tool, get the result back in an editable box.",
       "kind": "app",
       "wasm": "cloud-writer",
-      "default_section": "documents",
+      "default_section": "home",
       "bottom_nav": [
-        "documents",
-        "writer",
-        "tools",
-        "settings"
+        "enhancer",
+        "drafter",
+        "home",
+        "translator",
+        "grammar"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -7373,9 +7364,33 @@
       ],
       "sections": [
         {
-          "id": "documents",
-          "label": "Documents",
-          "icon": "documents",
+          "id": "enhancer",
+          "label": "Enhancer",
+          "icon": "auto_fix_high",
+          "pages": []
+        },
+        {
+          "id": "drafter",
+          "label": "Drafter",
+          "icon": "drafts",
+          "pages": []
+        },
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
+          "pages": []
+        },
+        {
+          "id": "translator",
+          "label": "Translator",
+          "icon": "language",
+          "pages": []
+        },
+        {
+          "id": "grammar",
+          "label": "Grammar",
+          "icon": "edit_note",
           "pages": []
         },
         {
@@ -7455,6 +7470,31 @@
           "id": "calculator",
           "label": "Calc",
           "icon": "calculate",
+          "nav_mode": "horizontal_two_rows",
+          "groups": [
+            {
+              "id": "decimals",
+              "label": "Decimals",
+              "icon": "calculate",
+              "pages": [
+                "calc",
+                "latex",
+                "convert",
+                "history"
+              ]
+            },
+            {
+              "id": "others",
+              "label": "Others",
+              "icon": "apps",
+              "pages": [
+                "datetime",
+                "sound",
+                "finance",
+                "graph"
+              ]
+            }
+          ],
           "pages": [
             {
               "id": "calc",
@@ -7472,19 +7512,32 @@
               "icon": "swap"
             },
             {
-              "id": "graph",
-              "label": "Graph",
-              "icon": "chart"
-            },
-            {
-              "id": "tools",
-              "label": "Tools",
-              "icon": "tools"
-            },
-            {
               "id": "history",
               "label": "History",
               "icon": "history"
+            },
+            {
+              "id": "datetime",
+              "label": "Time & Date",
+              "icon": "event",
+              "redirect_from": [
+                "tools"
+              ]
+            },
+            {
+              "id": "sound",
+              "label": "Sound",
+              "icon": "graphic_eq"
+            },
+            {
+              "id": "finance",
+              "label": "Finance",
+              "icon": "payments"
+            },
+            {
+              "id": "graph",
+              "label": "Graph",
+              "icon": "chart"
             }
           ]
         },
@@ -7551,6 +7604,11 @@
               "id": "nfc",
               "label": "NFC",
               "icon": "nfc"
+            },
+            {
+              "id": "lfrfid",
+              "label": "LF-RFID-Tags",
+              "icon": "usb"
             }
           ]
         },
