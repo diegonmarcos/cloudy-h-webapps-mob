@@ -35,6 +35,8 @@ test('each Lnktree app page lists its entries: a declared target or a greyed pla
     for (const [sec, all] of Object.entries(ui[id].stacks).filter(([k]) => k !== 'about')) {
       // a page drawn by its declared kind (CG-Omniverse avatar/galaxy/store, #1366) has no stack cards, as the unit test (lnktree.test.ts) skips them
       const list = (all as { kind?: string; url?: string }[]).filter((e) => !e.kind);
+      // a page with a model library (hardtech-cad) is drawn by the generic body, not by stack cards (appStack returns null)
+      if ((all as { kind?: string }[]).some((e) => e.kind === 'library')) continue;
       await page.goto(`${BASE}/${id}/${sec}/`);
       const cards = page.getByTestId('stack-card');
       await expect(cards, `${id}/${sec}`).toHaveCount(list.length);
