@@ -7117,12 +7117,12 @@
             {
               "id": "perms",
               "label": "Perms",
-              "icon": "ic_perms"
+              "icon": "security"
             },
             {
               "id": "about",
               "label": "About",
-              "icon": "ic_info"
+              "icon": "info"
             },
             {
               "id": "build",
