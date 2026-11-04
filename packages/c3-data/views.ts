@@ -9,7 +9,9 @@ const health = () => dataset('c3-health-tier1') as { vm: string; alias: string; 
 
 export type Row = { title: string; subtitle: string; meta: string; state: 'ok' | 'warn' | 'bad' | 'idle' | 'busy'; lead: string; detail?: [string, string][] };
 /** The rows of one Cloud C3 page (Android ac_cloud-c3 section page id), read from the snapshot. */
-export function rows(page: string | null): Row[] {
+export function rows(pageId: string | null): Row[] {
+  // #1454 Containers: `<project>_topology` / `<project>_table` pages (All, Cloudy, CG, Capital, Hardtech, Cloud-me) read the one snapshot
+  const page = pageId?.replace(/^(all|cloudy|cg|capital|hardtech|cloud_me)_(?=topology$|table$)/, '') ?? null;
   switch (page) {
     case 'providers': {
       const v = Object.keys((dataset('c3-topology') as { vpss?: Record<string, unknown> }).vpss ?? {});

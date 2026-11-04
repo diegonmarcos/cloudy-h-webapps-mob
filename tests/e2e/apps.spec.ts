@@ -57,8 +57,8 @@ test('cloud-calc: the breadcrumb, the second row and the bottom bar follow build
   await expect(page.getByTestId('fleet-dropdown')).toContainText(pg.label);
 });
 
-test('cloud-tasks: calendar events are list-detail on a tablet only', async ({ page }, info) => {
-  await page.goto(`${BASE}/cloud-tasks/calendar/events/`);
+test('cloud-tasks: the calendar agenda is list-detail on a tablet only', async ({ page }, info) => {
+  await page.goto(`${BASE}/cloud-tasks/tasks/calendar/`);
   if (isTablet(info.project.name)) await expect(page.getByTestId('tasks-detail')).toBeVisible();
   else await expect(page.getByTestId('tasks-detail')).toBeHidden();
   await shot(page, info, 'tasks-events');
@@ -68,12 +68,12 @@ test('cloud-c3: home stats and the containers table', async ({ page }, info) => 
   await page.goto(`${BASE}/cloud-c3/`);
   await expect(page.locator('[data-testid="app-body"]')).toContainText('machines');
   await shot(page, info, 'c3-app-home');
-  await page.goto(`${BASE}/cloud-c3/containers/table/`);
+  await page.goto(`${BASE}/cloud-c3/containers/all/all_table/`);
   await expect(page.getByTestId('c3-list').locator('[data-testid="list-row"]').first()).toBeVisible();
   await shot(page, info, 'c3-app-table');
 });
 
-for (const p of ['cloud-calc/calculator/calc/', 'cloud-tasks/tasks/', 'cloud-c3/containers/table/']) {
+for (const p of ['cloud-calc/calculator/calc/', 'cloud-tasks/tasks/calendar/', 'cloud-c3/containers/all/all_table/']) {
   test(`a11y: no critical axe violation on ${p}`, async ({ page }) => {
     await page.goto(`${BASE}/${p}`);
     const r = await new AxeBuilder({ page }).analyze();
@@ -85,7 +85,7 @@ for (const p of ['cloud-calc/calculator/calc/', 'cloud-tasks/tasks/', 'cloud-c3/
 test.describe('light pages', () => {
   test.use({ colorScheme: 'light' });
   test('cloud-tasks on a light device: kit rows take the page ink, not the dark theme\'s white', async ({ page }) => {
-    await page.goto(`${BASE}/cloud-tasks/calendar/events/`);
+    await page.goto(`${BASE}/cloud-tasks/tasks/calendar/`);
     const rgb = await page.getByTestId('list-row').first().locator('.l').evaluate((el) => getComputedStyle(el).color);
     const [r, g, b] = rgb.match(/\d+/g)!.map(Number);
     expect((0.2126 * r + 0.7152 * g + 0.0722 * b) / 255).toBeLessThan(0.5);
