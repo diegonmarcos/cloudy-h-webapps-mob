@@ -1736,6 +1736,13 @@
             "icon": "ic_p_dialer"
           },
           {
+            "id": "webapps",
+            "label": "WebApps",
+            "icon": "ic_world",
+            "webapps_base": "https://diegonmarcos.github.io/cloud-webapps",
+            "webapps_path": "phone/webapps/?embed=1"
+          },
+          {
             "id": "configs",
             "label": "Configs",
             "icon": "ic_settings",

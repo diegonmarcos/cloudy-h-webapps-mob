@@ -12,6 +12,7 @@ import { drawerRows, resolveTarget, joinBase, type ShellData, type Tab, type Til
 import content from '../../apps/superapp/data/sections-content.json';
 import core from '../../apps/superapp/data/sections-core.json';
 import linktree from '../../apps/superapp/data/linktree.json';
+import phoneApps from '../../apps/phone-apps/phone-apps.json';
 import shellSeed from '../../apps/superapp/data/shell.json';
 import statusBarJson from '@cloudy/ui/nav/status-bar.json';
 import { stripChips, stripRight, stripShowsBattery, type StatusBarDecl } from '@cloudy/ui/src/shell/statusBar.ts';
@@ -64,6 +65,14 @@ export function tileItems(base: string, tiles: Tile[]): TileItem[] {
     out.push({ id: t.id ?? t.label, label: t.label, icon: t.icon ?? null, href: h.href, external: h.external });
   }
   return out;
+}
+
+/** Phone > WebApps tiles: url -> an external link, no url -> an inert greyed tile (href null, grey). */
+export function phoneAppGroups(): TileGroup[] {
+  return phoneApps.groups.map((g) => ({
+    title: g.title,
+    tiles: g.tiles.map((t) => ({ id: t.id, label: t.label, icon: 'ic_world', href: t.url, external: !!t.url, grey: !t.url })),
+  }));
 }
 
 export function cloudGroups(base: string): TileGroup[] {
@@ -199,6 +208,9 @@ export function pageBody(base: string, section: Section, page: Page | null): Bod
     const wasm = APPS.filter((a) => a.wasm).map((a) => ({ id: `wasm-${a.id}`, label: a.label, icon: a.icon, href: joinBase(base, `${a.id}/portal/`) }));
     return { groups: [...cloudGroups(base), { title: 'Kotlin/Wasm pages', tiles: wasm }] };
   }
+  // Phone > WebApps (#1466): the phone apps' web versions (src/apps/phone-apps/phone-apps.json, GENERATED from the Android data). A tap opens the
+  // site (in the APK's embedded browser through the link rules); an app with no known web URL is a greyed, disabled tile.
+  if (section.id === 'phone' && page.id === 'webapps') return { groups: phoneAppGroups() };
   if (section.id === 'cloud' && page.id === 'lnktree') {
     const groups = (linktree as { groups: { label?: string; title?: string; tiles: { label: string; icon?: string; href?: string }[] }[] }).groups.map((g) => ({
       title: g.title ?? g.label ?? '', tiles: g.tiles.map((t) => ({ id: t.label, label: t.label, icon: t.icon ?? null, href: t.href ?? null, external: !!t.href })),

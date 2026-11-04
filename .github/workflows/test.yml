@@ -43,6 +43,7 @@ jobs:
           node scripts/gen-navdata.mjs --check
           node scripts/gen-icons.mjs --check
           node scripts/gen-app-links.mjs --check
+          node scripts/gen-phone-apps.mjs --check
           node scripts/gen-finterm.mjs --check
       - name: Portal probe (declared embeddable == what each vendor site allows)
         run: node scripts/probe-portals.mjs

@@ -2094,6 +2094,16 @@
       }
     },
     "cloud-tasks": {
+      "calendar_views": [
+        {
+          "id": "month",
+          "label": "Month"
+        },
+        {
+          "id": "year",
+          "label": "Year"
+        }
+      ],
       "configs_ui": [
         "nav_ui"
       ]
@@ -8505,6 +8515,17 @@
             "why": "Manage > Apps and the Home app grid list every installed app. Granted at install.",
             "permissions": [
               "android.permission.QUERY_ALL_PACKAGES"
+            ],
+            "check": "permission",
+            "grant": "none",
+            "intents": []
+          },
+          {
+            "id": "write_secure_settings",
+            "label": "Write secure settings",
+            "why": "Held through a one-time adb grant so the adb-shell channel can keep wireless debugging available; the app does not write settings itself.",
+            "permissions": [
+              "android.permission.WRITE_SECURE_SETTINGS"
             ],
             "check": "permission",
             "grant": "none",

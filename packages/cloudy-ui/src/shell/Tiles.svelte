@@ -22,7 +22,7 @@
                 <span class="tile__label">{t.label}</span>
               </a>
             {:else}
-              <span class="tile inert" data-tile={t.id} title="Opens on the phone">
+              <span class="tile inert" class:grey={t.grey} aria-disabled={t.grey ? 'true' : undefined} data-tile={t.id} title={t.grey ? 'No web version' : 'Opens on the phone'}>
                 <Icon name={t.icon} size={32} />
                 <span class="tile__label">{t.label}</span>
               </span>

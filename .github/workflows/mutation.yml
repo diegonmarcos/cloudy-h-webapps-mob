@@ -24,7 +24,7 @@ jobs:
             trailing-slash) sed -i "/export const trailingSlash/d" sites/cloudy-webapps/src/routes/+layout.ts ;;
             plan-island)    sed -i 's/const roomy = Math.max(classic, maxWidth - t.fitSideMargin \* 2);/const roomy = classic;/' packages/cloudy-ui/src/shell/planIsland.ts ;;
             page-route)     sed -i "s/if (parts\[2\] \&\& !page) return null;/if (parts[2] \&\& (!page || parts[2] === 'graph')) return null;/" sites/cloudy-webapps/src/lib/server/nav.ts ;;
-            calc-keypad)    sed -i 's/case .\*.: return a \* b;/case "*": return a + b;/' sites/cloudy-webapps/src/apps/cloud-calc/engine.ts ;;
+            calc-keypad)    sed -i 's/case .\*.: return a \* b;/case "*": return a + b;/' sites/cloudy-webapps/src/apps/cloudy-apps/cloud-calc/engine.ts ;;
             portal-flag)    node -e 'const f="packages/cloudy-ui/nav/nav-overlay.json",fs=require("fs"),j=JSON.parse(fs.readFileSync(f));j.portals["cloud-chat"].embeddable=true;fs.writeFileSync(f,JSON.stringify(j,null,2)+"\n")'; node scripts/probe-portals.mjs; exit $? ;;
             client-order)   sed -i 's/get(fetcher, MESH_BASE + path)/get(fetcher, PUBLIC_BASE + path)/' packages/c3-data/client.ts ;;
             c3-route)       sed -i "s/const page = PORTAL.find((p) => p.id === id);/const page = PORTAL.find((p) => p.id === id \&\& p.id !== 'gallery');/" sites/cloudy-c3/src/lib/server/c3.ts ;;
