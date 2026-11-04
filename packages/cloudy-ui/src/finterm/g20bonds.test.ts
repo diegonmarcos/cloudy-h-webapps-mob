@@ -56,4 +56,22 @@ describe('G20 Sovereign 10Y Bonds maths', () => {
     expect(d.note).toContain('DE fx1: less than 1y of daily EUR history');
     expect(d.note).toContain('sends no CORS header');
   });
+  it('FRED unreachable: US CPI falls back to the OECD monthly index on DBnomics (key-free)', async () => {
+    const dash = FINTERM.dashboards.find((x) => x.id === 'world_bonds') as Dashboard;
+    const panel = dash.panels.find((p) => p.id === 'g20_real')!;
+    const ctx: Ctx = { today: '2026-10-30', sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => false,
+      get: async (url) => {
+        if (url.includes('db.nomics')) {
+          expect(url).toContain(encodeURIComponent('USA.M.CP.IX._Z._Z._Z').replace(/%2F/g, '/'));
+          return JSON.stringify({ series: { docs: [
+            { series_code: 'USA.M.IRLT.PA._Z._Z._Z', period: ['2026-05'], value: [4.4] },
+            { series_code: 'USA.M.CP.IX._Z._Z._Z', period: ['2025-05', '2026-05'], value: [100, 103] }] } });
+        }
+        if (url.includes('frankfurter')) return JSON.stringify({ rates: {} });
+        throw new FetchError('blocked', 'Failed to fetch');
+      } };
+    const d = await loadPanel(panel, dash, ctx);
+    expect(d.rows[0][10]).toBe('3.00');
+    expect(d.note).toContain('US CPI from the OECD monthly index');
+  });
 });
