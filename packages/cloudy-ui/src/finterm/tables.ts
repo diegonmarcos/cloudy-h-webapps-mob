@@ -8,11 +8,12 @@ import { parseNum, signedFmt } from './fin';
 import { fxPppRow, type FxRow, type S } from './fxppp';
 import { bigMac, dxyRow, fxMatrixCells, fxMatrixRow, reasonsOf, type Dxy, type MRow } from './fxmatrix';
 import { cpiYoY, g20Cells, g20Notes, g20Row, type GRow } from './g20bonds';
+import { emPanel } from './emcalc';
 
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp', 'fx_matrix', 'g20_bonds'];
+export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp', 'fx_matrix', 'g20_bonds', 'em_calc', 'em_carry'];
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 
@@ -473,6 +474,7 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       const out = g.rows.map((r) => g20Row(r, (ys.get(r.cc) ?? []).sort((a, b) => (a[0] < b[0] ? -1 : 1)), fx.get(r.ccy) ?? [], cpi, today, win, minDaily));
       return g20Table(panel, g, out, [...new Set(used)].join(' + '), fails);
     }
+    case 'em_calc': case 'em_carry': return emPanel(panel, f, ctx);
     case 'risk_compare': {
       const sets = (f as { compare?: [string, number][][] }).compare ?? []; const proxies = f.proxies ?? {};
       const names = [...new Set(sets.flat().map((l) => l[0]))];

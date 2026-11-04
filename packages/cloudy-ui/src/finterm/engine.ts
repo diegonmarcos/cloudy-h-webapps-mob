@@ -10,7 +10,7 @@ import { TABLE_DERIVES, tablePanel } from './tables';
 
 export type Obs = { date: string; value: number };
 export type ChartPoint = { label: string; x: number; y: number };
-export type PanelData = { columns: string[]; rows: string[][]; links: string[]; chart: ChartPoint[]; asOf: string; note: string; servedBy: string; alerts?: string[]; /** per row, the recent values (oldest first) for a sparkline, when the source gives history */ spark?: (number[] | null)[]; /** per row, the full name the one-line name cell shortens (detail / title) */ details?: string[] };
+export type PanelData = { columns: string[]; rows: string[][]; links: string[]; chart: ChartPoint[]; asOf: string; note: string; servedBy: string; alerts?: string[]; /** per row, the recent values (oldest first) for a sparkline, when the source gives history */ spark?: (number[] | null)[]; /** per row, the full name the one-line name cell shortens (detail / title) */ details?: string[]; /** per cell, a tint -1 (red) .. +1 (green) or null, shaped like rows (the EM Bonds calculator, #1447); such a table is not sortable */ heat?: (number | null)[][]; /** (row, column) cells drawn bold */ bold?: [number, number][] };
 
 export type Feed = { tab: string; entries: string[] };
 export type Source = {

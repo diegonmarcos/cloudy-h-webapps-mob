@@ -10619,6 +10619,58 @@
           },
           {
             "kind": "section_title",
+            "title": "A) Low risk"
+          },
+          {
+            "kind": "dashboard",
+            "title": "A1 Cash (DM - Cash)",
+            "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)",
+            "dashboard": "pm_a1_cash"
+          },
+          {
+            "kind": "dashboard",
+            "title": "A2 Low Risk",
+            "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0",
+            "dashboard": "pm_a2_low"
+          },
+          {
+            "kind": "section_title",
+            "title": "B) Middle risk"
+          },
+          {
+            "kind": "dashboard",
+            "title": "B1 Middle Risk",
+            "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
+            "dashboard": "pm_b1_mid"
+          },
+          {
+            "kind": "section_title",
+            "title": "C) Risky"
+          },
+          {
+            "kind": "dashboard",
+            "title": "C1 Risky",
+            "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
+            "dashboard": "pm_c1_risky"
+          },
+          {
+            "kind": "section_title",
+            "title": "D) High risk"
+          },
+          {
+            "kind": "dashboard",
+            "title": "D1 EM Bonds",
+            "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes",
+            "dashboard": "pm_d1_em_bonds"
+          },
+          {
+            "kind": "dashboard",
+            "title": "D0 EM Carry Trade",
+            "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
+            "dashboard": "pm_d0_carry"
+          },
+          {
+            "kind": "section_title",
             "title": "Model portfolios: bonds / equity"
           },
           {

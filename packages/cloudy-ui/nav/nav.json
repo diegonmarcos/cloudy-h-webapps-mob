@@ -9014,6 +9014,11 @@
                   "icon": "inventory_2"
                 }
               ]
+            },
+            {
+              "id": "repos",
+              "label": "Repos",
+              "icon": "sync"
             }
           ]
         },
@@ -9660,6 +9665,40 @@
               "id": "portfolio-risk",
               "label": "Portfolio & Risk Analytics",
               "icon": "insights"
+            },
+            {
+              "id": "pm-a1-cash",
+              "label": "A1 Cash (DM - Cash)",
+              "icon": "payments",
+              "separator_before": true
+            },
+            {
+              "id": "pm-a2-low",
+              "label": "A2 Low Risk",
+              "icon": "pie_chart"
+            },
+            {
+              "id": "pm-b1-mid",
+              "label": "B1 Middle Risk",
+              "icon": "pie_chart",
+              "separator_before": true
+            },
+            {
+              "id": "pm-c1-risky",
+              "label": "C1 Risky",
+              "icon": "pie_chart",
+              "separator_before": true
+            },
+            {
+              "id": "pm-d1-em-bonds",
+              "label": "D1 EM Bonds",
+              "icon": "calculate",
+              "separator_before": true
+            },
+            {
+              "id": "pm-d0-carry",
+              "label": "D0 EM Carry Trade",
+              "icon": "trending_up"
             },
             {
               "id": "mp-40-60",

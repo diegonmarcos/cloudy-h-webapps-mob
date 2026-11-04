@@ -2,7 +2,10 @@
   // 2.3 data table: sticky raised header, sortable (numeric desc first, text asc, third tap = source order), zebra, numbers right in mono,
   // signed change columns coloured, first column pinned when scrolling sideways, 8 rows then "Show all".
   import { dirOf, parseNum, sortRows, DASH } from '../fin';
-  let { columns, rows, links = [], details = [], limit = 8, beat }: { columns: string[]; rows: string[][]; links?: string[]; details?: string[]; limit?: number; beat?: (r: string[], j: number) => string } = $props();
+  let { columns, rows, links = [], details = [], limit = 8, beat, heat = [], bold = [] }: { columns: string[]; rows: string[][]; links?: string[]; details?: string[]; limit?: number; beat?: (r: string[], j: number) => string;
+    /** per-cell tints -1 (red) .. +1 (green) shaped like rows, and the bold (row, column) cells: the EM Bonds calculator's heat map (#1447); such a table is not sortable */ heat?: (number | null)[][]; bold?: [number, number][] } = $props();
+  const tint = (i: number, j: number) => { const h = heat[i]?.[j]; return h == null ? '' : `background:color-mix(in srgb, ${h >= 0 ? 'var(--fin-up)' : 'var(--fin-down)'} ${Math.round(Math.abs(h) * 55)}%, var(--fin-raised))`; };
+  const isBold = (i: number, j: number) => bold.some((b) => b[0] === i && b[1] === j);
   // the scroll hint: a fade and a chevron at the right edge while more columns lie to the right
   let wrap = $state<HTMLDivElement>();
   let more = $state(false);
@@ -13,10 +16,11 @@
   let dir = $state<'asc' | 'desc' | 'none'>('none');
   let all = $state(false);
   // the first column is the row's label (a tenor like 1M parses as a number but is text: left-aligned), as in the APK's FinLogic.colTypes
-  const isNum = (j: number) => j > 0 && rows.length > 0 && rows.every((r) => parseNum(r[j]) !== null || r[j] === DASH || r[j] === '' || r[j] === '-') && !/date|period|as of|time/i.test(columns[j] ?? '');
-  const isChg = (j: number) => /chg|change|bp|1d|1w|1m|diff|surprise|%\s*$/i.test(columns[j] ?? '') && !/rate %|yield %|level/i.test(columns[j] ?? '') && rows.some((r) => /^[+-]/.test(r[j] ?? ''));
+  const isNum = (j: number) => (heat.length > 0 || j > 0) && rows.length > 0 && rows.every((r) => parseNum(r[j]) !== null || r[j] === DASH || r[j] === '' || r[j] === '-') && !/date|period|as of|time/i.test(columns[j] ?? '');
+  const isChg = (j: number) => heat.length === 0 && /chg|change|bp|1d|1w|1m|diff|surprise|%\s*$/i.test(columns[j] ?? '') && !/rate %|yield %|level/i.test(columns[j] ?? '') && rows.some((r) => /^[+-]/.test(r[j] ?? ''));
   const isDate = (j: number) => /date|period|as of/i.test(columns[j] ?? '');
   function sortBy(j: number) {
+    if (heat.length) return;
     if (col !== j) { col = j; dir = isNum(j) ? 'desc' : 'asc'; return; }
     dir = dir === 'none' ? (isNum(j) ? 'desc' : 'asc') : dir === (isNum(j) ? 'desc' : 'asc') ? (isNum(j) ? 'asc' : 'desc') : 'none';
   }
@@ -31,7 +35,7 @@
         <tr class:hide={!all && k >= limit}>
           {#each r as cell, j}
             {@const b = beat?.(r, j) ?? ''}
-            <td class:n={isNum(j) || isChg(j)} class:num={isNum(j) || isChg(j)} class:d={isDate(j)} class="{isChg(j) ? dirOf(cell) : ''} {b}">{#if j === 0 && links[i]}<a href={links[i]} target="_blank" rel="noopener noreferrer">{cell}</a>{:else if j === 0 && details[i]}<button type="button" class="nm" title={details[i]} data-testid="finterm-row-name" onclick={() => (open = open === i ? -1 : i)}>{cell}</button>{:else}{cell === '-' ? DASH : cell}{/if}</td>
+            <td class:n={isNum(j) || isChg(j)} class:num={isNum(j) || isChg(j)} class:d={isDate(j)} class:bd={isBold(i, j)} class="{isChg(j) ? dirOf(cell) : ''} {b}" style={tint(i, j)}>{#if j === 0 && links[i]}<a href={links[i]} target="_blank" rel="noopener noreferrer">{cell}</a>{:else if j === 0 && details[i]}<button type="button" class="nm" title={details[i]} data-testid="finterm-row-name" onclick={() => (open = open === i ? -1 : i)}>{cell}</button>{:else}{cell === '-' ? DASH : cell}{/if}</td>
           {/each}
         </tr>
         {#if open === i}<tr class="det" data-testid="finterm-row-detail"><td colspan={columns.length}><b>{details[i]}</b>{#each columns.slice(1) as c, j}<span>{c} {r[j + 1]}</span>{/each}</td></tr>{/if}
@@ -64,6 +68,7 @@
   td.n { text-align: right; }
   td.d { color: var(--fin-text2); font-size: 11px; text-align: right; }
   .hide { display: none; }
+  td.bd { font-weight: 700; }
   td a { color: var(--fin-accent); text-decoration: none; }
   .more { all: unset; cursor: pointer; display: block; min-height: 32px; line-height: 32px; color: var(--fin-accent); font: 500 12px/32px var(--fin-sans); }
 </style>

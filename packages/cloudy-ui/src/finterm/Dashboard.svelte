@@ -330,7 +330,7 @@
               {#if p.view === 'bars' || p.view === 'alloc'}
                 <details class="tbl"><summary class="cap">Table ({d.rows.length})</summary><FinTable columns={d.columns} rows={d.rows} links={d.links} limit={50} /></details>
               {:else}
-                <FinTable columns={d.columns} rows={d.rows} links={d.links} details={d.details ?? []} beat={actualBeat(p)} />
+                <FinTable columns={d.columns} rows={d.rows} links={d.links} details={d.details ?? []} beat={actualBeat(p)} heat={d.heat} bold={d.bold} limit={d.heat ? d.rows.length : 8} />
               {/if}
             {/if}
           {/if}
