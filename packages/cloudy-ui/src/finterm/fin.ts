@@ -150,3 +150,11 @@ export function nextDecisions(events: [string, string][], today: string): { coun
   return [...seen.values()].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
 }
 
+
+/** Pinch zoom of a dated series (the APK's FinLogic.zoomed): the last len / zoom points, never fewer than 8 nor more than all. */
+export const ZOOM_MIN_POINTS = 8;
+export const ZOOM_MAX = 20;
+export function zoomWindow<T>(points: T[], zoom: number): T[] {
+  if (zoom <= 1 || points.length <= ZOOM_MIN_POINTS) return points;
+  return points.slice(-Math.min(points.length, Math.max(ZOOM_MIN_POINTS, Math.floor(points.length / zoom))));
+}

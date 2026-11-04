@@ -1,9 +1,23 @@
 <script lang="ts">
   // 2.4 chart card body. Line/curve: 4 gridlines, y labels inside the right edge, area gradient, last-value pill, optional previous curve
   // (the only dashed stroke), crosshair on hover/drag with the hovered value replacing the title line. Bars: horizontal, labelled, value right.
-  import { signedFmt } from '../fin';
+  import { signedFmt, zoomWindow, ZOOM_MAX } from '../fin';
   type P = { label: string; x: number; y: number };
-  let { points, kind, title, prev = null, unit = '', even = false }: { points: P[]; kind: 'line' | 'bars'; title: string; prev?: number[] | null; unit?: string; even?: boolean } = $props();
+  let { points: all, kind, title, prev = null, unit = '', even = false }: { points: P[]; kind: 'line' | 'bars'; title: string; prev?: number[] | null; unit?: string; even?: boolean } = $props();
+  // two-finger pinch zooms a dated line onto its latest points (zoomWindow, as the APK); double click resets; a curve (even tenors) does not zoom
+  let zoom = $state(1);
+  $effect(() => { all; zoom = 1; });
+  const points = $derived(kind === 'line' && !even ? zoomWindow(all, zoom) : all);
+  const touches = new Map<number, { x: number; y: number }>();
+  let d0 = 0;
+  const dist = () => { const [a, b] = [...touches.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+  function down(e: PointerEvent) { touches.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (touches.size === 2) d0 = dist(); else move(e); }
+  function pinch(e: PointerEvent) {
+    if (!touches.has(e.pointerId)) { move(e); return; }
+    touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (touches.size === 2 && d0 > 0) { const d = dist(); zoom = Math.min(ZOOM_MAX, Math.max(1, zoom * (d / d0))); d0 = d; hover = null; } else if (touches.size < 2) move(e);
+  }
+  const up = (e: PointerEvent) => { touches.delete(e.pointerId); d0 = 0; };
   const W = 360, H = 200, R = 48, B = 18, T = 8;
   let hover = $state<number | null>(null);
   const gid = `g${Math.random().toString(36).slice(2, 8)}`;
@@ -38,7 +52,7 @@
 </script>
 {#if kind === 'line'}
   <div class="hd cap num" aria-live="polite">{#if hover !== null && points[hover]}<span class="hv">{points[hover].label}</span> <strong>{fmt(points[hover].y)}{unit}</strong>{#if prev?.[hover] !== undefined && prev} <span>({signedFmt((points[hover].y - prev[hover]) * (unit === '%' ? 100 : 1), unit === '%' ? 0 : 2)}{unit === '%' ? ' bp' : ''})</span>{/if}{:else}&nbsp;{/if}</div>
-  <svg viewBox="0 0 {W} {H}" class="ch" role="img" aria-label={title} data-testid="finterm-chart" onpointermove={move} onpointerdown={move} onpointerleave={() => (hover = null)}>
+  <svg viewBox="0 0 {W} {H}" class="ch" role="img" aria-label={title} data-testid="finterm-chart" onpointermove={pinch} onpointerdown={down} onpointerup={up} onpointercancel={up} ondblclick={() => (zoom = 1)} onpointerleave={(e) => { up(e); hover = null; }}>
     <defs><linearGradient id={gid} x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--fin-accent)" stop-opacity=".22" /><stop offset="1" stop-color="var(--fin-accent)" stop-opacity="0" /></linearGradient></defs>
     {#each g.grid as l}<line x1="0" x2={W - R + 4} y1={l.y} y2={l.y} class="gl" /><text x={W - 2} y={l.y + 3} class="yl" text-anchor="end">{fmt(l.v)}</text>{/each}
     {#each g.ticks as i}<text x={g.sx(i)} y={H - 4} class="xl" text-anchor="middle">{points[i]?.label.slice(points[i].label.length > 7 ? 5 : 0)}</text>{/each}

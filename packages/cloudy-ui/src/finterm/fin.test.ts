@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { trimBody, beatMiss, betterWhen, dirOf, flag, heat, isStale, nextDelay, parseNum, price, refreshPolicy, resample, search, signedFmt, sortRows, sparkDir, sparkPath, DASH } from './fin';
+import { trimBody, beatMiss, betterWhen, dirOf, flag, heat, isStale, nextDelay, parseNum, price, refreshPolicy, resample, search, signedFmt, sortRows, zoomWindow, ZOOM_MIN_POINTS, sparkDir, sparkPath, DASH } from './fin';
 
 describe('FinFormat', () => {
   it('signs every change, zero unsigned, missing is the em dash (never a bare "-")', () => {
@@ -182,6 +182,15 @@ describe('central-bank next-decision tiles (#1370)', () => {
     const n = nextDecisions(ev, '2026-10-31');
     expect(n.map((x) => x.country)).toEqual(['JP', 'GB', 'US']);
     expect(n.map((x) => x.days)).toEqual([0, 5, 39]);
+  });
+
+  it('pinch zoom keeps the latest points and clamps (APK FinLogic.zoomed)', () => {
+    const pts = Array.from({ length: 100 }, (_, i) => i);
+    expect(zoomWindow(pts, 1)).toEqual(pts);
+    expect(zoomWindow(pts, 2).length).toBe(50);
+    expect(zoomWindow(pts, 2).at(-1)).toBe(99);
+    expect(zoomWindow(pts, 20).length).toBe(ZOOM_MIN_POINTS);
+    expect(zoomWindow(pts.slice(0, 5), 4)).toEqual(pts.slice(0, 5));
   });
 });
 
