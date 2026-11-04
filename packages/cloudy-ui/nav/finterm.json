@@ -161,7 +161,7 @@
       },
       {
         "kind": "section_title",
-        "title": "A Low risk"
+        "title": "DM · Low risk"
       },
       {
         "kind": "dashboard",
@@ -183,23 +183,13 @@
       },
       {
         "kind": "section_title",
-        "title": "B Middle risk"
+        "title": "DM · Middle risk"
       },
       {
         "kind": "dashboard",
         "title": "60/40",
         "subtitle": "60% bonds, 40% equity",
         "dashboard": "mp_60_40"
-      },
-      {
-        "kind": "dashboard",
-        "title": "B1 Middle Risk",
-        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
-        "dashboard": "pm_b1_mid"
-      },
-      {
-        "kind": "section_title",
-        "title": "C Risky"
       },
       {
         "kind": "dashboard",
@@ -214,14 +204,8 @@
         "dashboard": "mp_30_70"
       },
       {
-        "kind": "dashboard",
-        "title": "C1 Risky",
-        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
-        "dashboard": "pm_c1_risky"
-      },
-      {
         "kind": "section_title",
-        "title": "D High risk"
+        "title": "EM · Middle-High risk"
       },
       {
         "kind": "dashboard",
@@ -231,9 +215,19 @@
       },
       {
         "kind": "dashboard",
-        "title": "D0 EM Carry Trade",
-        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
-        "dashboard": "pm_d0_carry"
+        "title": "B1 Middle Risk",
+        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
+        "dashboard": "pm_b1_mid"
+      },
+      {
+        "kind": "dashboard",
+        "title": "C1 Risky",
+        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
+        "dashboard": "pm_c1_risky"
+      },
+      {
+        "kind": "section_title",
+        "title": "EM · High risk"
       },
       {
         "kind": "dashboard",
@@ -258,6 +252,12 @@
         "title": "30/70 DM/EM",
         "subtitle": "30% Developed Markets, 70% Emerging Markets",
         "dashboard": "mp_30_70_DM_EM"
+      },
+      {
+        "kind": "dashboard",
+        "title": "D0 EM Carry Trade",
+        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
+        "dashboard": "pm_d0_carry"
       }
     ]
   },
@@ -414,98 +414,98 @@
         "title": "A1 Cash (DM - Cash)",
         "icon": "payments",
         "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)",
-        "risk": "A"
+        "risk": "dm_low"
       },
       {
         "slug": "pm-a2-low",
         "title": "A2 Low Risk",
         "icon": "pie_chart",
         "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0",
-        "risk": "A"
+        "risk": "dm_low"
       },
       {
         "slug": "mp-70-30",
         "title": "70/30",
         "icon": "pie_chart",
         "subtitle": "70% bonds, 30% equity",
-        "risk": "A"
+        "risk": "dm_low"
       },
       {
         "slug": "mp-60-40",
         "title": "60/40",
         "icon": "pie_chart",
         "subtitle": "60% bonds, 40% equity",
-        "risk": "B"
-      },
-      {
-        "slug": "pm-b1-mid",
-        "title": "B1 Middle Risk",
-        "icon": "pie_chart",
-        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
-        "risk": "B"
+        "risk": "dm_mid"
       },
       {
         "slug": "mp-40-60",
         "title": "40/60",
         "icon": "pie_chart",
         "subtitle": "40% bonds, 60% equity",
-        "risk": "C"
+        "risk": "dm_mid"
       },
       {
         "slug": "mp-30-70",
         "title": "30/70",
         "icon": "pie_chart",
         "subtitle": "30% bonds, 70% equity",
-        "risk": "C"
-      },
-      {
-        "slug": "pm-c1-risky",
-        "title": "C1 Risky",
-        "icon": "pie_chart",
-        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
-        "risk": "C"
+        "risk": "dm_mid"
       },
       {
         "slug": "pm-d1-em-bonds",
         "title": "D1 EM Bonds",
         "icon": "calculate",
         "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes",
-        "risk": "D"
+        "risk": "em_mid"
       },
       {
-        "slug": "pm-d0-carry",
-        "title": "D0 EM Carry Trade",
-        "icon": "trending_up",
-        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
-        "risk": "D"
+        "slug": "pm-b1-mid",
+        "title": "B1 Middle Risk",
+        "icon": "pie_chart",
+        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
+        "risk": "em_mid"
+      },
+      {
+        "slug": "pm-c1-risky",
+        "title": "C1 Risky",
+        "icon": "pie_chart",
+        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
+        "risk": "em_mid"
       },
       {
         "slug": "mp-70-30-dm-em",
         "title": "70/30 DM/EM",
         "icon": "pie_chart",
         "subtitle": "70% Developed Markets, 30% Emerging Markets",
-        "risk": "D"
+        "risk": "em_high"
       },
       {
         "slug": "mp-60-40-dm-em",
         "title": "60/40 DM/EM",
         "icon": "pie_chart",
         "subtitle": "60% Developed Markets, 40% Emerging Markets",
-        "risk": "D"
+        "risk": "em_high"
       },
       {
         "slug": "mp-40-60-dm-em",
         "title": "40/60 DM/EM",
         "icon": "pie_chart",
         "subtitle": "40% Developed Markets, 60% Emerging Markets",
-        "risk": "D"
+        "risk": "em_high"
       },
       {
         "slug": "mp-30-70-dm-em",
         "title": "30/70 DM/EM",
         "icon": "pie_chart",
         "subtitle": "30% Developed Markets, 70% Emerging Markets",
-        "risk": "D"
+        "risk": "em_high"
+      },
+      {
+        "slug": "pm-d0-carry",
+        "title": "D0 EM Carry Trade",
+        "icon": "trending_up",
+        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
+        "risk": "em_high"
       }
     ]
   },
@@ -515,27 +515,31 @@
       "label": "All"
     },
     {
-      "id": "A",
-      "label": "A Low",
-      "header": "A Low risk",
+      "id": "dm_low",
+      "label": "DM · Low",
+      "header": "DM · Low risk",
+      "market": "DM",
       "equity_max": 30
     },
     {
-      "id": "B",
-      "label": "B Middle",
-      "header": "B Middle risk",
-      "equity_max": 50
+      "id": "dm_mid",
+      "label": "DM · Mid",
+      "header": "DM · Middle risk",
+      "market": "DM",
+      "equity_max": 100
     },
     {
-      "id": "C",
-      "label": "C Risky",
-      "header": "C Risky",
+      "id": "em_mid",
+      "label": "EM · Mid-High",
+      "header": "EM · Middle-High risk",
+      "market": "EM",
       "equity_max": 80
     },
     {
-      "id": "D",
-      "label": "D High",
-      "header": "D High risk",
+      "id": "em_high",
+      "label": "EM · High",
+      "header": "EM · High risk",
+      "market": "EM",
       "equity_max": 100
     }
   ],
@@ -6054,8 +6058,10 @@
       "id": "pm_a1_cash",
       "entry": "A1 Cash (DM - Cash)",
       "tab": "pm",
-      "risk": "A",
+      "market": "DM",
       "equity_pct": 0,
+      "em_pct": 0,
+      "risk": "dm_low",
       "model_portfolio": {
         "legs": [
           [
@@ -6099,8 +6105,10 @@
       "id": "pm_a2_low",
       "entry": "A2 Low Risk",
       "tab": "pm",
-      "risk": "A",
+      "market": "DM",
       "equity_pct": 30,
+      "em_pct": 0,
+      "risk": "dm_low",
       "model_portfolio": {
         "legs": [
           [
@@ -6136,8 +6144,10 @@
       "id": "mp_70_30",
       "entry": "70/30",
       "tab": "pm",
-      "risk": "A",
+      "market": "DM",
       "equity_pct": 30,
+      "em_pct": 0,
+      "risk": "dm_low",
       "model_portfolio": {
         "legs": [
           [
@@ -6210,8 +6220,10 @@
       "id": "mp_60_40",
       "entry": "60/40",
       "tab": "pm",
-      "risk": "B",
+      "market": "DM",
       "equity_pct": 40,
+      "em_pct": 0,
+      "risk": "dm_mid",
       "model_portfolio": {
         "legs": [
           [
@@ -6281,48 +6293,13 @@
       "subtitle": "60% bonds, 40% equity"
     },
     {
-      "id": "pm_b1_mid",
-      "entry": "B1 Middle Risk",
-      "tab": "pm",
-      "risk": "B",
-      "equity_pct": 50,
-      "model_portfolio": {
-        "legs": [
-          [
-            "DM Equity",
-            40
-          ],
-          [
-            "DM Bonds",
-            40
-          ],
-          [
-            "EM Equity",
-            10
-          ],
-          [
-            "EM Bonds",
-            10
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation (placeholder tier): DM 40 / 40, EM 10 / 10",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        }
-      ],
-      "slug": "pm-b1-mid",
-      "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10"
-    },
-    {
       "id": "mp_40_60",
       "entry": "40/60",
       "tab": "pm",
-      "risk": "C",
+      "market": "DM",
       "equity_pct": 60,
+      "em_pct": 0,
+      "risk": "dm_mid",
       "model_portfolio": {
         "legs": [
           [
@@ -6457,8 +6434,10 @@
       "id": "mp_30_70",
       "entry": "30/70",
       "tab": "pm",
-      "risk": "C",
+      "market": "DM",
       "equity_pct": 70,
+      "em_pct": 0,
+      "risk": "dm_mid",
       "model_portfolio": {
         "legs": [
           [
@@ -6528,49 +6507,13 @@
       "subtitle": "30% bonds, 70% equity"
     },
     {
-      "id": "pm_c1_risky",
-      "entry": "C1 Risky",
-      "tab": "pm",
-      "risk": "C",
-      "equity_pct": 80,
-      "model_portfolio": {
-        "legs": [
-          [
-            "DM Equity",
-            50
-          ],
-          [
-            "DM Bonds",
-            10
-          ],
-          [
-            "EM Equity",
-            30
-          ],
-          [
-            "EM Bonds",
-            10
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation (placeholder tier): DM 50 / 10, EM 30 / 10",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        }
-      ],
-      "slug": "pm-c1-risky",
-      "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10"
-    },
-    {
       "id": "pm_d1_em_bonds",
       "entry": "D1 EM Bonds",
       "tab": "pm",
-      "risk": "D",
+      "market": "EM",
       "equity_pct": 0,
-      "risk_basis": "declared: 100% EM bonds / EM carry trade, no equity share but the highest credit and FX risk (owner, #1447)",
+      "em_pct": 100,
+      "risk": "em_mid",
       "model_portfolio": {
         "legs": [
           [
@@ -6683,65 +6626,91 @@
       "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes"
     },
     {
-      "id": "pm_d0_carry",
-      "entry": "D0 EM Carry Trade",
+      "id": "pm_b1_mid",
+      "entry": "B1 Middle Risk",
       "tab": "pm",
-      "risk": "D",
-      "risk_basis": "declared: 100% EM bonds / EM carry trade, no equity share but the highest credit and FX risk (owner, #1447)",
+      "market": "EM",
+      "equity_pct": 50,
+      "em_pct": 20,
+      "risk": "em_mid",
+      "model_portfolio": {
+        "legs": [
+          [
+            "DM Equity",
+            40
+          ],
+          [
+            "DM Bonds",
+            40
+          ],
+          [
+            "EM Equity",
+            10
+          ],
+          [
+            "EM Bonds",
+            10
+          ]
+        ]
+      },
       "panels": [
         {
-          "id": "carry",
-          "title": "EM Carry Trade: EUR funding against BRL",
-          "source": "dbnomics",
-          "view": "table",
-          "derive": "em_carry",
-          "columns": [
-            "Metric",
-            "Value"
-          ],
-          "fetch": {
-            "provider": "dbnomics_series",
-            "path": "/series",
-            "fx_source": "frankfurter",
-            "oecd_source": "dbnomics",
-            "oecd": {
-              "path": "/series",
-              "prefix": "OECD/DSD_KEI@DF_KEI/",
-              "suffix": ".M.IRLT.PA._Z._Z._Z",
-              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
-            },
-            "high_a3": "BRA",
-            "fund_a3": "DEU",
-            "infl_a3": "DEU",
-            "inputs": {
-              "nav_eur": 200000,
-              "cg": 0.17,
-              "spread": 0.02,
-              "exch_step": 0.05,
-              "yield_step": 0.0075,
-              "center": "now",
-              "center_diff": 0,
-              "round": 250,
-              "n": 3
-            },
-            "ecb_fx": {
-              "path": "/series",
-              "prefix": "ECB/EXR/",
-              "brl": "D.BRL.EUR.SP00.A",
-              "usd": "D.USD.EUR.SP00.A"
-            }
-          }
+          "id": "alloc",
+          "title": "Allocation (placeholder tier): DM 40 / 40, EM 10 / 10",
+          "source": "fincept_data_api",
+          "view": "alloc"
         }
       ],
-      "slug": "pm-d0-carry",
-      "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return"
+      "slug": "pm-b1-mid",
+      "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10"
+    },
+    {
+      "id": "pm_c1_risky",
+      "entry": "C1 Risky",
+      "tab": "pm",
+      "market": "EM",
+      "equity_pct": 80,
+      "em_pct": 40,
+      "risk": "em_mid",
+      "model_portfolio": {
+        "legs": [
+          [
+            "DM Equity",
+            50
+          ],
+          [
+            "DM Bonds",
+            10
+          ],
+          [
+            "EM Equity",
+            30
+          ],
+          [
+            "EM Bonds",
+            10
+          ]
+        ]
+      },
+      "panels": [
+        {
+          "id": "alloc",
+          "title": "Allocation (placeholder tier): DM 50 / 10, EM 30 / 10",
+          "source": "fincept_data_api",
+          "view": "alloc"
+        }
+      ],
+      "slug": "pm-c1-risky",
+      "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10"
     },
     {
       "id": "mp_70_30_DM_EM",
       "entry": "70/30 DM/EM",
       "tab": "pm",
-      "risk": "D",
+      "market": "EM",
       "equity_pct": 100,
+      "em_pct": 30,
+      "risk": "em_high",
       "model_portfolio": {
         "legs": [
           [
@@ -6814,8 +6783,10 @@
       "id": "mp_60_40_DM_EM",
       "entry": "60/40 DM/EM",
       "tab": "pm",
-      "risk": "D",
+      "market": "EM",
       "equity_pct": 100,
+      "em_pct": 40,
+      "risk": "em_high",
       "model_portfolio": {
         "legs": [
           [
@@ -6888,8 +6859,10 @@
       "id": "mp_40_60_DM_EM",
       "entry": "40/60 DM/EM",
       "tab": "pm",
-      "risk": "D",
+      "market": "EM",
       "equity_pct": 100,
+      "em_pct": 60,
+      "risk": "em_high",
       "model_portfolio": {
         "legs": [
           [
@@ -6962,8 +6935,10 @@
       "id": "mp_30_70_DM_EM",
       "entry": "30/70 DM/EM",
       "tab": "pm",
-      "risk": "D",
+      "market": "EM",
       "equity_pct": 100,
+      "em_pct": 70,
+      "risk": "em_high",
       "model_portfolio": {
         "legs": [
           [
@@ -7031,6 +7006,63 @@
       ],
       "slug": "mp-30-70-dm-em",
       "subtitle": "30% Developed Markets, 70% Emerging Markets"
+    },
+    {
+      "id": "pm_d0_carry",
+      "entry": "D0 EM Carry Trade",
+      "tab": "pm",
+      "market": "EM",
+      "equity_pct": 100,
+      "em_pct": 100,
+      "risk": "em_high",
+      "risk_basis": "the top of the scale: the EM carry trade (EM funding-currency FX risk on top of EM bonds), no portfolio legs; equity_pct 100 places it last",
+      "panels": [
+        {
+          "id": "carry",
+          "title": "EM Carry Trade: EUR funding against BRL",
+          "source": "dbnomics",
+          "view": "table",
+          "derive": "em_carry",
+          "columns": [
+            "Metric",
+            "Value"
+          ],
+          "fetch": {
+            "provider": "dbnomics_series",
+            "path": "/series",
+            "fx_source": "frankfurter",
+            "oecd_source": "dbnomics",
+            "oecd": {
+              "path": "/series",
+              "prefix": "OECD/DSD_KEI@DF_KEI/",
+              "suffix": ".M.IRLT.PA._Z._Z._Z",
+              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
+            },
+            "high_a3": "BRA",
+            "fund_a3": "DEU",
+            "infl_a3": "DEU",
+            "inputs": {
+              "nav_eur": 200000,
+              "cg": 0.17,
+              "spread": 0.02,
+              "exch_step": 0.05,
+              "yield_step": 0.0075,
+              "center": "now",
+              "center_diff": 0,
+              "round": 250,
+              "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
+            }
+          }
+        }
+      ],
+      "slug": "pm-d0-carry",
+      "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return"
     }
   ],
   "declared": {

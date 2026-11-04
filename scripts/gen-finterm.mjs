@@ -67,12 +67,15 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
       homes[tab] = pages.slice(1).map((p, i) => ({ slug: p.id, title: p.label, icon: p.icon, subtitle: dash[i].subtitle, ...(byId.get(dash[i].dashboard).risk ? { risk: byId.get(dash[i].dashboard).risk } : {}) }));
     }
   }
-  // #1462 the PM risk tabs (All | A | B | C | D, dashboards.json pm_risk_tabs): every PM portfolio declares a tier that exists, and the tier is the one its equity share takes
+  // #1462 the PM risk tabs (All | DM Low | DM Mid | EM Mid-High | EM High, dashboards.json pm_risk_tabs): every PM portfolio declares a market (DM | EM), an equity share and a tier that exists,
+  // and the tier is the first of its market whose equity_max takes the share (DM below EM, then more equity = higher risk)
   const riskTabs = strip(dashboards.pm_risk_tabs?.tabs ?? []);
   const tiers = riskTabs.filter((t) => t.id !== 'all');
   if (tiers.length) for (const d of out.filter((x) => x.tab === 'pm' && x.id !== 'portfolio_risk')) {
+    if (d.market !== 'DM' && d.market !== 'EM') fail(`${d.id}: no market (${d.market ?? 'none'}): every PM portfolio declares DM or EM`);
+    if (!Number.isFinite(d.equity_pct)) fail(`${d.id}: no equity_pct`);
     if (!tiers.some((t) => t.id === d.risk)) fail(`${d.id}: no risk tier (${d.risk ?? 'none'}): every PM portfolio declares one of ${tiers.map((t) => t.id)}`);
-    if (!d.risk_basis && tiers.find((t) => d.equity_pct <= t.equity_max)?.id !== d.risk) fail(`${d.id}: risk ${d.risk} does not follow its equity share ${d.equity_pct}`);
+    if (tiers.find((t) => t.market === d.market && d.equity_pct <= t.equity_max)?.id !== d.risk) fail(`${d.id}: risk ${d.risk} does not follow its market ${d.market} and equity share ${d.equity_pct}`);
   }
   const redirects = (build.ui.redirects ?? []).map((r) => {
     if (byId.has(r.from)) fail(`redirect from ${r.from}: that dashboard still exists`);

@@ -7093,16 +7093,6 @@
       "depth": 1
     },
     {
-      "path": "capital-stack-finterminal/pm/pm-b1-mid/",
-      "kind": "app-page",
-      "app": "capital-stack-finterminal",
-      "section": "pm",
-      "page": [
-        "pm-b1-mid"
-      ],
-      "depth": 1
-    },
-    {
       "path": "capital-stack-finterminal/pm/mp-40-60/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
@@ -7123,16 +7113,6 @@
       "depth": 1
     },
     {
-      "path": "capital-stack-finterminal/pm/pm-c1-risky/",
-      "kind": "app-page",
-      "app": "capital-stack-finterminal",
-      "section": "pm",
-      "page": [
-        "pm-c1-risky"
-      ],
-      "depth": 1
-    },
-    {
       "path": "capital-stack-finterminal/pm/pm-d1-em-bonds/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
@@ -7143,12 +7123,22 @@
       "depth": 1
     },
     {
-      "path": "capital-stack-finterminal/pm/pm-d0-carry/",
+      "path": "capital-stack-finterminal/pm/pm-b1-mid/",
       "kind": "app-page",
       "app": "capital-stack-finterminal",
       "section": "pm",
       "page": [
-        "pm-d0-carry"
+        "pm-b1-mid"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "capital-stack-finterminal/pm/pm-c1-risky/",
+      "kind": "app-page",
+      "app": "capital-stack-finterminal",
+      "section": "pm",
+      "page": [
+        "pm-c1-risky"
       ],
       "depth": 1
     },
@@ -7189,6 +7179,16 @@
       "section": "pm",
       "page": [
         "mp-30-70-dm-em"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "capital-stack-finterminal/pm/pm-d0-carry/",
+      "kind": "app-page",
+      "app": "capital-stack-finterminal",
+      "section": "pm",
+      "page": [
+        "pm-d0-carry"
       ],
       "depth": 1
     },

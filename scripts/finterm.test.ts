@@ -53,15 +53,19 @@ describe('gen-finterm (pure)', () => {
     a = clone(); a.dashboards.dashboards[0].panels[0].source = 'ghost'; expect(() => buildFinterm(a)).toThrow(/unknown source ghost/);
     a = clone(); a.services.services = []; expect(() => buildFinterm(a)).toThrow(/not declared in cloudy-u-containers/);
   });
-  it('fails when a PM portfolio has no risk tier or one that its equity share does not take (#1462)', () => {
+  it('fails when a PM portfolio has no market, no tier, or a tier its market and equity share do not take (#1462)', () => {
     const a = clone();
-    a.dashboards.pm_risk_tabs = { tabs: [{ id: 'all', label: 'All' }, { id: 'A', label: 'A Low', header: 'A Low risk', equity_max: 30 }, { id: 'B', label: 'B Middle', header: 'B Middle risk', equity_max: 100 }] };
-    a.dashboards.dashboards.push({ id: 'p1', entry: 'P1', tab: 'pm', equity_pct: 40, risk: 'B', panels: [] });
+    a.dashboards.pm_risk_tabs = { tabs: [{ id: 'all', label: 'All' }, { id: 'dm_low', label: 'DM Low', header: 'DM Low risk', market: 'DM', equity_max: 30 },
+      { id: 'dm_mid', label: 'DM Mid', header: 'DM Middle risk', market: 'DM', equity_max: 100 }, { id: 'em', label: 'EM', header: 'EM risk', market: 'EM', equity_max: 100 }] };
+    a.dashboards.dashboards.push({ id: 'p1', entry: 'P1', tab: 'pm', market: 'DM', equity_pct: 40, em_pct: 0, risk: 'dm_mid', panels: [] });
     a.build.ui.stacks.pm.push({ kind: 'dashboard', title: 'P1', subtitle: 's', dashboard: 'p1' });
     const ok = buildFinterm(a);
-    expect(ok.risk_tabs.map((t: { id: string }) => t.id)).toEqual(['all', 'A', 'B']);
-    let b = JSON.parse(JSON.stringify(a)); delete b.dashboards.dashboards[1].risk; expect(() => buildFinterm(b)).toThrow(/no risk tier/);
-    b = JSON.parse(JSON.stringify(a)); b.dashboards.dashboards[1].risk = 'A'; expect(() => buildFinterm(b)).toThrow(/does not follow its equity share/);
+    expect(ok.risk_tabs.map((t: { id: string }) => t.id)).toEqual(['all', 'dm_low', 'dm_mid', 'em']);
+    const bad = (f: (d: Record<string, unknown>) => void, re: RegExp) => { const b = JSON.parse(JSON.stringify(a)); f(b.dashboards.dashboards[1]); expect(() => buildFinterm(b)).toThrow(re); };
+    bad((d) => { delete d.market; }, /no market/);
+    bad((d) => { delete d.risk; }, /no risk tier/);
+    bad((d) => { d.risk = 'dm_low'; }, /does not follow its market DM and equity share 40/);
+    bad((d) => { d.market = 'EM'; }, /does not follow its market EM/);
   });
   it('slug: lower-case, underscores to dashes', () => { expect(slugOf('mp_70_30_DM_EM')).toBe('mp-70-30-dm-em'); });
 });
