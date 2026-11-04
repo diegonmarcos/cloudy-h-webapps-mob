@@ -5508,13 +5508,16 @@
       "icon": "ic_calendar",
       "group": "Data Apps",
       "category": "android",
-      "description": "Diego's Cloud Tasks (formerly Cloud Agenda, before that Cloud Calendar) — standalone Android task, calendar and event app. The applicationId stays com.diegonmarcos.cloudagenda so installed phones update in place. Jetpack Compose chrome (CloudKitTheme light/dark/system, libs:bottomnav island + page tabs, a page-managed hamburger drawer, AI and Profile buttons in the top row, libs:ai chat with persistent history) over a local tasks database (projects > lists > tasks > subtasks, statuses, tags, links to Cloud Mail / Cloud Drive items) and a mail agent that proposes tasks for review. The Events, Calendar and Invites pages are still the legacy tasks.html WebView (public-ICS feed sync, CalDAV against a self-hosted Radicale). Build via Nix devShell, one APK out.",
+      "description": "Diego's Cloud Tasks (formerly Cloud Agenda, before that Cloud Calendar) — standalone Android task, calendar and event app. The applicationId stays com.diegonmarcos.cloudagenda so installed phones update in place. Jetpack Compose chrome (CloudKitTheme light/dark/system, libs:bottomnav island + page tabs, a page-managed hamburger drawer, AI and Profile buttons in the top row, libs:ai chat with persistent history) over a local tasks database (projects > lists > tasks > subtasks, statuses, tags, links to Cloud Mail / Cloud Drive items) and a mail agent that proposes tasks for review. The Feeds page is still the legacy tasks.html WebView (public-ICS feed sync, CalDAV against a self-hosted Radicale). Build via Nix devShell, one APK out.",
       "kind": "app",
       "wasm": null,
       "default_section": "tasks",
       "bottom_nav": [
+        "inboxes",
+        "backlogs",
         "tasks",
-        "calendar"
+        "library",
+        "projects"
       ],
       "top_bar": {
         "drawer": true,
@@ -5530,38 +5533,87 @@
       ],
       "sections": [
         {
+          "id": "inboxes",
+          "label": "Inboxes",
+          "icon": "inbox",
+          "background": "theme",
+          "pages": [
+            {
+              "id": "inboxes",
+              "label": "Inboxes",
+              "icon": "inbox"
+            }
+          ]
+        },
+        {
+          "id": "backlogs",
+          "label": "Backlogs",
+          "icon": "bookmark",
+          "background": "theme",
+          "pages": [
+            {
+              "id": "backlogs",
+              "label": "Backlogs",
+              "icon": "bookmark"
+            }
+          ]
+        },
+        {
           "id": "tasks",
           "label": "Tasks",
           "icon": "tasks",
           "background": "theme",
           "pages": [
             {
-              "id": "tasks",
-              "label": "Tasks",
-              "icon": "checklist"
-            }
-          ]
-        },
-        {
-          "id": "calendar",
-          "label": "Calendar",
-          "icon": "calendar",
-          "background": "theme",
-          "pages": [
-            {
-              "id": "events",
-              "label": "Events",
-              "icon": "event"
-            },
-            {
               "id": "calendar",
               "label": "Calendar",
               "icon": "calendar_month"
             },
             {
-              "id": "invites",
-              "label": "Invites",
-              "icon": "mark_email_unread"
+              "id": "list",
+              "label": "List",
+              "icon": "checklist"
+            },
+            {
+              "id": "gantt",
+              "label": "Gantt",
+              "icon": "timeline"
+            },
+            {
+              "id": "kanban",
+              "label": "Kanban",
+              "icon": "table_chart"
+            },
+            {
+              "id": "mindmap",
+              "label": "Mindmap",
+              "icon": "account_tree"
+            }
+          ]
+        },
+        {
+          "id": "library",
+          "label": "Library",
+          "icon": "folder_open",
+          "background": "theme",
+          "pages": [
+            {
+              "id": "library",
+              "label": "Library",
+              "icon": "folder_open"
+            }
+          ]
+        },
+        {
+          "id": "projects",
+          "label": "Projects",
+          "icon": "folder",
+          "background": "theme",
+          "pages": [
+            {
+              "id": "projects",
+              "label": "Projects",
+              "icon": "folder"
             }
           ]
         },
@@ -5571,6 +5623,21 @@
           "icon": "settings",
           "background": "theme",
           "pages": [
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
             {
               "id": "appearance",
               "label": "Appearance",
@@ -5583,7 +5650,7 @@
             },
             {
               "id": "inbox",
-              "label": "Inbox",
+              "label": "Proposals",
               "icon": "inbox"
             },
             {
@@ -6741,6 +6808,11 @@
               "id": "scrap_tools",
               "label": "Scrap Tools",
               "icon": "build"
+            },
+            {
+              "id": "music",
+              "label": "Music",
+              "icon": "music_note"
             }
           ]
         },
@@ -7024,19 +7096,106 @@
           "icon": "ic_p_c3_stack",
           "pages": [
             {
-              "id": "topology",
-              "label": "Topology",
-              "icon": "ic_p_c3_stack"
+              "id": "all",
+              "label": "All",
+              "icon": "ic_p_c3_stack",
+              "pages": [
+                {
+                  "id": "all_topology",
+                  "label": "Topology",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "all_table",
+                  "label": "Table",
+                  "icon": "ic_link_tile"
+                }
+              ]
             },
             {
-              "id": "table",
-              "label": "Table",
-              "icon": "ic_link_tile"
+              "id": "cloudy",
+              "label": "Cloudy",
+              "icon": "ic_p_c3_stack",
+              "pages": [
+                {
+                  "id": "cloudy_topology",
+                  "label": "Topology",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "cloudy_table",
+                  "label": "Table",
+                  "icon": "ic_link_tile"
+                }
+              ]
             },
             {
-              "id": "agents",
-              "label": "Agents",
-              "icon": "ic_robot"
+              "id": "cg",
+              "label": "CG",
+              "icon": "ic_p_c3_stack",
+              "pages": [
+                {
+                  "id": "cg_topology",
+                  "label": "Topology",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "cg_table",
+                  "label": "Table",
+                  "icon": "ic_link_tile"
+                }
+              ]
+            },
+            {
+              "id": "capital",
+              "label": "Capital",
+              "icon": "ic_p_c3_stack",
+              "pages": [
+                {
+                  "id": "capital_topology",
+                  "label": "Topology",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "capital_table",
+                  "label": "Table",
+                  "icon": "ic_link_tile"
+                }
+              ]
+            },
+            {
+              "id": "hardtech",
+              "label": "Hardtech",
+              "icon": "ic_p_c3_stack",
+              "pages": [
+                {
+                  "id": "hardtech_topology",
+                  "label": "Topology",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "hardtech_table",
+                  "label": "Table",
+                  "icon": "ic_link_tile"
+                }
+              ]
+            },
+            {
+              "id": "cloud_me",
+              "label": "Cloud-me",
+              "icon": "ic_p_c3_stack",
+              "pages": [
+                {
+                  "id": "cloud_me_topology",
+                  "label": "Topology",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "cloud_me_table",
+                  "label": "Table",
+                  "icon": "ic_link_tile"
+                }
+              ]
             }
           ]
         },
@@ -7074,6 +7233,11 @@
               "id": "release",
               "label": "Release",
               "icon": "ic_code"
+            },
+            {
+              "id": "agents",
+              "label": "Agents",
+              "icon": "ic_robot"
             }
           ]
         },
@@ -7595,7 +7759,39 @@
           "id": "settings",
           "label": "Settings",
           "icon": "settings",
-          "pages": []
+          "background": "theme",
+          "pages": [
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
+              "id": "appearance",
+              "label": "Appearance",
+              "icon": "palette"
+            },
+            {
+              "id": "models",
+              "label": "Models",
+              "icon": "smart_toy"
+            },
+            {
+              "id": "ocr",
+              "label": "OCR",
+              "icon": "visibility"
+            }
+          ]
         }
       ]
     },
@@ -9678,16 +9874,36 @@
               "icon": "pie_chart"
             },
             {
-              "id": "pm-b1-mid",
-              "label": "B1 Middle Risk",
+              "id": "mp-70-30",
+              "label": "70/30",
+              "icon": "pie_chart"
+            },
+            {
+              "id": "mp-60-40",
+              "label": "60/40",
               "icon": "pie_chart",
               "separator_before": true
             },
             {
-              "id": "pm-c1-risky",
-              "label": "C1 Risky",
+              "id": "pm-b1-mid",
+              "label": "B1 Middle Risk",
+              "icon": "pie_chart"
+            },
+            {
+              "id": "mp-40-60",
+              "label": "40/60",
               "icon": "pie_chart",
               "separator_before": true
+            },
+            {
+              "id": "mp-30-70",
+              "label": "30/70",
+              "icon": "pie_chart"
+            },
+            {
+              "id": "pm-c1-risky",
+              "label": "C1 Risky",
+              "icon": "pie_chart"
             },
             {
               "id": "pm-d1-em-bonds",
@@ -9701,31 +9917,9 @@
               "icon": "trending_up"
             },
             {
-              "id": "mp-40-60",
-              "label": "40/60",
-              "icon": "pie_chart",
-              "separator_before": true
-            },
-            {
-              "id": "mp-70-30",
-              "label": "70/30",
-              "icon": "pie_chart"
-            },
-            {
-              "id": "mp-60-40",
-              "label": "60/40",
-              "icon": "pie_chart"
-            },
-            {
-              "id": "mp-30-70",
-              "label": "30/70",
-              "icon": "pie_chart"
-            },
-            {
               "id": "mp-70-30-dm-em",
               "label": "70/30 DM/EM",
-              "icon": "pie_chart",
-              "separator_before": true
+              "icon": "pie_chart"
             },
             {
               "id": "mp-60-40-dm-em",

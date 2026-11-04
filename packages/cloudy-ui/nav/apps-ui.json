@@ -2926,7 +2926,7 @@
           }
         ],
         "favourites": {
-          "version": 3,
+          "version": 4,
           "catalog": "app/src/main/assets/favourites_catalog.json",
           "legacy_groups": [
             "Public",
@@ -2937,7 +2937,8 @@
             {
               "id": "gh_pages",
               "label": "GH Pages",
-              "from": "github_pages"
+              "from": "pages_hub",
+              "feed": "https://raw.githubusercontent.com/diegonmarcos/front-html/main/pages.json"
             },
             {
               "id": "cloudy_public",
@@ -4245,14 +4246,23 @@
       "configs_ui": [
         "nav_ui"
       ],
+      "private_sources": {
+        "identities": {
+          "owner": "diegonmarcos",
+          "repo": "cloud-me-pvt-configs",
+          "ref": "main",
+          "path": "profile/identities.json"
+        }
+      },
       "aliases": {
         "sections": {
           "topology": "containers",
           "apps": "ops"
         },
         "pages": {
-          "public": "containers/table",
-          "private": "containers/table",
+          "public": "containers/all_table",
+          "private": "containers/all_table",
+          "table": "containers/all_table",
           "stack": "infra/providers"
         }
       },
@@ -9228,6 +9238,26 @@
               "depth": 1,
               "workers": 1,
               "confirm": false
+            },
+            {
+              "id": "clone_all_bare_nohist",
+              "label": "Clone Bare All (no hist)",
+              "icon": "archive",
+              "kind": "clone_bare_nohist",
+              "scope": "all",
+              "depth": 1,
+              "workers": 2,
+              "confirm": true
+            },
+            {
+              "id": "clone_repo_bare_nohist",
+              "label": "Clone bare (no hist)",
+              "icon": "archive",
+              "kind": "clone_bare_nohist",
+              "scope": "repo",
+              "depth": 1,
+              "workers": 1,
+              "confirm": false
             }
           ],
           "bare_root": "_bare",
@@ -9361,6 +9391,13 @@
                     "label": "Clone bare",
                     "i18n": {
                       "es": "Clonar bare"
+                    }
+                  },
+                  {
+                    "id": "clone_repo_bare_nohist",
+                    "label": "Clone bare (no hist)",
+                    "i18n": {
+                      "es": "Clonar bare (sin historial)"
                     }
                   }
                 ]
@@ -9784,6 +9821,7 @@
               "duplicates": "Duplicate clones",
               "duplicates_hint": "A second clone of a repository another folder already holds; the primary keeps the row above. Archive or delete the copy.",
               "duplicate_of": "copy of",
+              "archive_all": "Archive all",
               "bare": "Bare mirrors",
               "bare_hint": "The bare mirrors under the declared bare root (Clone bare / Mirror all).",
               "debris": "Leftover folders",
@@ -9998,10 +10036,18 @@
                 "icon": "sync",
                 "items": [
                   {
+                    "id": "check_lite",
+                    "kind": "check_light",
+                    "label": "Check lite",
+                    "hint": "quick: local refs plus the cached remote state",
+                    "icon": "sync",
+                    "exclusive": false
+                  },
+                  {
                     "id": "check_full",
                     "kind": "check_full",
-                    "label": "Full check",
-                    "hint": "working tree",
+                    "label": "Check full",
+                    "hint": "working tree, fetches the remote, depth and LFS",
                     "icon": "search",
                     "exclusive": false
                   }
@@ -10111,9 +10157,17 @@
                     "id": "clone_missing",
                     "kind": "depth",
                     "action": "clone_all_depth1",
-                    "label": "Clone missing (depth 1)",
-                    "hint": "one clone per repository",
+                    "label": "Clone Depth 1 All",
+                    "hint": "normal checkout with files, depth 1",
                     "icon": "download"
+                  },
+                  {
+                    "id": "clone_bare_nohist",
+                    "kind": "depth",
+                    "action": "clone_all_bare_nohist",
+                    "label": "Clone Bare All (no hist)",
+                    "hint": "--bare --depth 1: only the .git data, no files",
+                    "icon": "archive"
                   }
                 ]
               },
@@ -10619,7 +10673,7 @@
           },
           {
             "kind": "section_title",
-            "title": "A) Low risk"
+            "title": "A Low risk"
           },
           {
             "kind": "dashboard",
@@ -10634,8 +10688,20 @@
             "dashboard": "pm_a2_low"
           },
           {
+            "kind": "dashboard",
+            "title": "70/30",
+            "subtitle": "70% bonds, 30% equity",
+            "dashboard": "mp_70_30"
+          },
+          {
             "kind": "section_title",
-            "title": "B) Middle risk"
+            "title": "B Middle risk"
+          },
+          {
+            "kind": "dashboard",
+            "title": "60/40",
+            "subtitle": "60% bonds, 40% equity",
+            "dashboard": "mp_60_40"
           },
           {
             "kind": "dashboard",
@@ -10645,7 +10711,19 @@
           },
           {
             "kind": "section_title",
-            "title": "C) Risky"
+            "title": "C Risky"
+          },
+          {
+            "kind": "dashboard",
+            "title": "40/60",
+            "subtitle": "40% bonds, 60% equity",
+            "dashboard": "mp_40_60"
+          },
+          {
+            "kind": "dashboard",
+            "title": "30/70",
+            "subtitle": "30% bonds, 70% equity",
+            "dashboard": "mp_30_70"
           },
           {
             "kind": "dashboard",
@@ -10655,7 +10733,7 @@
           },
           {
             "kind": "section_title",
-            "title": "D) High risk"
+            "title": "D High risk"
           },
           {
             "kind": "dashboard",
@@ -10668,38 +10746,6 @@
             "title": "D0 EM Carry Trade",
             "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
             "dashboard": "pm_d0_carry"
-          },
-          {
-            "kind": "section_title",
-            "title": "Model portfolios: bonds / equity"
-          },
-          {
-            "kind": "dashboard",
-            "title": "40/60",
-            "subtitle": "40% bonds, 60% equity",
-            "dashboard": "mp_40_60"
-          },
-          {
-            "kind": "dashboard",
-            "title": "70/30",
-            "subtitle": "70% bonds, 30% equity",
-            "dashboard": "mp_70_30"
-          },
-          {
-            "kind": "dashboard",
-            "title": "60/40",
-            "subtitle": "60% bonds, 40% equity",
-            "dashboard": "mp_60_40"
-          },
-          {
-            "kind": "dashboard",
-            "title": "30/70",
-            "subtitle": "30% bonds, 70% equity",
-            "dashboard": "mp_30_70"
-          },
-          {
-            "kind": "section_title",
-            "title": "Model portfolios: DM / EM"
           },
           {
             "kind": "dashboard",
