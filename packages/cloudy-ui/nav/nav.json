@@ -1504,7 +1504,7 @@
               {
                 "id": "tools-account",
                 "label": "Profile",
-                "icon": "ic_p_accounts",
+                "icon": "ic_p_identities",
                 "target": "extapp:cloud-me#page:profile/profile",
                 "fleet_app": "me"
               }
