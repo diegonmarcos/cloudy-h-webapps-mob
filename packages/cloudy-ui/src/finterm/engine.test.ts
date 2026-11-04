@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
 import fixture from './engine-fixture.json';
-import { FetchError, alloc, cboePrev, decimals, browserReadable, drawOrder, buildUrl, dbnomicsObs, failureFor, forwardRate, loadPanel, parseDbnomics, parseFinceptSeries, parseFredCsv, parseGdelt, parseImf, parseWorldBank, placeholderFor, primaryRoute, seen, yieldAt, type Ctx, type Dashboard } from './engine';
+import { FetchError, feedPolymarket, alloc, cboePrev, decimals, browserReadable, drawOrder, buildUrl, dbnomicsObs, failureFor, forwardRate, loadPanel, parseDbnomics, parseFinceptSeries, parseFredCsv, parseGdelt, parseImf, parseWorldBank, placeholderFor, primaryRoute, seen, yieldAt, type Ctx, type Dashboard } from './engine';
 
 // #1399 + the removed Market Monitor's engine panels as a test fixture (engine-fixture.json)
 const dash = (id: string) => [...FINTERM.dashboards, ...(fixture.dashboards as unknown as Dashboard[])].find((d) => d.id === id) as Dashboard;
@@ -278,6 +278,15 @@ describe('CFTC COT (Feeds.cot)', () => {
       { contract_market_name: 'GOLD', report_date_as_yyyy_mm_dd: '2026-10-27T00:00:00.000', noncomm_positions_long_all: '300000', noncomm_positions_short_all: '113549' },
       { contract_market_name: 'GOLD', report_date_as_yyyy_mm_dd: '2026-10-20T00:00:00.000', noncomm_positions_long_all: '290000', noncomm_positions_short_all: '90135' }]);
     expect(feedCot(body, '088691').points[0]).toMatchObject({ label: 'GOLD', value: 186451, prev: 199865, date: '2026-10-27' });
+  });
+  it('polymarket match keeps one event and labels by the market (the stacked rate path)', () => {
+    const body = JSON.stringify([
+      { title: 'How many Fed rate cuts in 2026?', endDate: '2027-01-01T04:59:00Z', markets: [{ question: 'q0', groupItemTitle: '0 (0 bps)', slug: 'zero', outcomePrices: '["0.7", "0.3"]' }, { question: 'q1', groupItemTitle: '1 (25 bps)', slug: 'one', outcomePrices: '["0.3", "0.7"]' }] },
+      { title: 'Fed emergency rate cut before 2027?', endDate: '2027-01-01T04:59:00Z', markets: [{ question: 'e', slug: 'e', outcomePrices: '["0.02", "0.98"]' }] }]);
+    const g = feedPolymarket(body, 8, 'how many fed rate cuts');
+    expect(g.points.map((p) => p.label)).toEqual(['0 (0 bps)', '1 (25 bps)']);
+    expect(g.points.map((p) => p.value)).toEqual([70, 30]);
+    expect(feedPolymarket(body, 8).points.length).toBe(3);
   });
 });
 

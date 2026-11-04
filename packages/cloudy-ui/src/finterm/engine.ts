@@ -32,7 +32,7 @@ export type Fetch = {
   fallback?: { source: string };
 };
 export type Panel = {
-  id: string; title: string; source: string; view: string; derive?: string; fetch?: Fetch; columns?: string[]; unit?: string; chart_value?: string; change_unit?: string; better_when?: string; next_tiles?: boolean;
+  id: string; title: string; source: string; view: string; derive?: string; fetch?: Fetch; columns?: string[]; unit?: string; chart_value?: string; stacked?: boolean; change_unit?: string; better_when?: string; next_tiles?: boolean;
   value_columns?: string; alerts?: string;
   /** A source with no key / connector yet: drawn as one key row (UI spec 2; the dashed columns/rows layout is gone, checklist 1). */
   placeholder?: { reason?: string; note?: string };
@@ -416,7 +416,7 @@ export function parseFeed(connector: string, body: string, o: ParseOpt): Got {
       case 'frankfurter_rates': return feedFrankfurter(body);
       case 'coinbase_exchange': return feedCoinbase(body, o.each ?? '');
       case 'cftc_cot': return feedCot(body, o.each ?? '');
-      case 'polymarket_events': return feedPolymarket(body, o.spec.last ?? 12);
+      case 'polymarket_events': return feedPolymarket(body, o.spec.last ?? 12, s(o.spec.match));
       case 'sec_submissions': return feedSec(body, o);
       case 'declared_events': return feedDeclared(body);
       case 'finterm_v1': return feedV1(body, s(o.spec.concept));
@@ -545,15 +545,16 @@ export function feedCot(body: string, each: string): Got {
   if (now === null) return got();
   return got({ points: [{ key: each, label: a[0].contract_market_name || each, x: 0, value: now, prev: net(1), date: (a[0].report_date_as_yyyy_mm_dd ?? '').slice(0, 10) }] });
 }
-export function feedPolymarket(body: string, last: number): Got {
+export function feedPolymarket(body: string, last: number, match = ''): Got {
   const out: Pt[] = [];
-  for (const e of objs(JSON.parse(body))) for (const m of objs(e.markets)) {
+  // `match` keeps only the events whose title contains it (one event = one distribution, e.g. the Fed cuts in 2026), labelled by the market alone
+  for (const e of objs(JSON.parse(body)).filter((x) => !match || s(x.title).toLowerCase().includes(match.toLowerCase()))) for (const m of objs(e.markets)) {
     if (m.closed === true) continue;
     let prices: unknown; try { prices = JSON.parse(s(m.outcomePrices)); } catch { continue; }
     const p = Array.isArray(prices) ? fin(prices[0]) : null;
     if (p === null) continue;
     const label = s(m.groupItemTitle) || s(m.question);
-    out.push({ key: s(m.slug) || label, label: `${s(e.title)}: ${label}`, x: out.length, value: p * 100, prev: null, date: s(e.endDate).slice(0, 10) });
+    out.push({ key: s(m.slug) || label, label: match ? label : `${s(e.title)}: ${label}`, x: out.length, value: p * 100, prev: null, date: s(e.endDate).slice(0, 10) });
   }
   return got({ points: out.slice(0, Math.max(1, last)) });
 }
