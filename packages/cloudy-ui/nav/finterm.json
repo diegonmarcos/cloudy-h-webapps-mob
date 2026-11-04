@@ -6220,6 +6220,12 @@
               "center_diff": 0,
               "round": 250,
               "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
             }
           }
         },
@@ -6258,6 +6264,12 @@
               "center_diff": 0,
               "round": 250,
               "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
             }
           }
         }
@@ -6304,6 +6316,12 @@
               "center_diff": 0,
               "round": 250,
               "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
             }
           }
         }

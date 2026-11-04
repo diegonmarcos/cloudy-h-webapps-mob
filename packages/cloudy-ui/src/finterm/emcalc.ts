@@ -107,12 +107,22 @@ export async function emLive(f: Fetch, i: EmInputs, ctx: Ctx): Promise<{ live: E
     const rates = (JSON.parse(await ctx.get(buildUrl(s.endpoint, `/v1/${from}..${to}`, [['base', 'USD'], ['symbols', 'BRL,EUR']]))) as { rates?: Record<string, Record<string, number>> }).rates ?? {};
     for (const d of Object.keys(rates).sort()) for (const [k, v] of Object.entries(rates[d])) fx.set(k, [...(fx.get(k) ?? []), [d, v]]);
   });
+  // Frankfurter unreachable (a 5xx from some networks): the ECB reference rates on DBnomics, key-free (BRL and USD per EUR -> BRL and EUR per USD)
+  const e = (g as O).ecb_fx as { path: string; prefix: string; brl: string; usd: string } | undefined;
+  if (e && (!(fx.get('BRL') ?? []).length || !(fx.get('EUR') ?? []).length)) await read(src(g.oecd_source), async (s) => {
+    const a = JSON.parse(await ctx.get(buildUrl(s.endpoint, e.path, [['series_ids', `${e.prefix}${e.brl},${e.prefix}${e.usd}`], ['observations', '1'], ['metadata', '0']]))) as { series?: { docs?: { series_code: string; period: string[]; value: (number | string | null)[] }[] } };
+    const ser = (c: string) => { const d = a.series?.docs?.find((x) => x.series_code === c); return new Map((d?.period ?? []).flatMap((p, k) => (typeof d!.value[k] === 'number' ? [[p, d!.value[k] as number] as [string, number]] : []))); };
+    const u = ser(e.usd); const from = new Date(Date.parse(`${ctx.today}T00:00:00Z`) - 30 * 864e5).toISOString().slice(0, 10);
+    const bl = [...ser(e.brl)].filter(([p]) => p >= from && u.has(p)).sort((x, y) => (x[0] < y[0] ? -1 : 1));
+    fx.set('BRL', bl.map(([p, b]) => [p, b / u.get(p)!] as [string, number])); fx.set('EUR', bl.map(([p]) => [p, 1 / u.get(p)!] as [string, number]));
+    fails.push('Frankfurter unavailable: BRL and EUR from the ECB reference rates on DBnomics');
+  });
   const yh = pick(y.get(hi) ?? [], i.ma, 7); const yf = pick(y.get(fu) ?? [], i.ma, 7); const brl = pick(fx.get('BRL') ?? [], i.ma, 7); const eur = pick(fx.get('EUR') ?? [], i.ma, 7);
   const missing = [!yh && 'no Brazil 10Y yield', !cpi && 'no Germany CPI a year apart', (!brl || !eur) && 'no BRL / EUR rate'].filter(Boolean) as string[];
   if (missing.length) { const m = [...missing, ...fails].join(' · '); throw first instanceof FetchError && !used.length ? new FetchError('blocked', m) : new Error(m); }
   const c = cpi as unknown as [number, string];
   return { live: { yHigh: yh![0] / 100, yFund: yf ? yf[0] / 100 : null, infl: c[0] / 100, brlUsd: brl![0], brlEur: brl![0] / eur![0], basis: `Yield ${yh![1]}, CPI ${c[1]}, FX ${brl![1]}`, fails },
-    by: used.join(' + '), asOf: (fx.get('BRL') ?? []).map((x) => x[0]).sort().pop() ?? '' };
+    by: [...new Set(used)].join(' + '), asOf: (fx.get('BRL') ?? []).map((x) => x[0]).sort().pop() ?? '' };
 }
 
 export async function emPanel(panel: Panel, f: Fetch, ctx: Ctx): Promise<PanelData> {

@@ -88,6 +88,14 @@ describe('PM D1 / D0 panels on live feeds', () => {
     expect(200000 * ((1 + real(0.1498, 0.027)) * (1 - be) - 1) / 12).toBeCloseTo(0, 6);
     expect(m['Net EUR per month if BRL -10% in 12M']).not.toBe(m['Net EUR per month if BRL +10% in 12M']);
   });
+  it('Frankfurter down: BRL and EUR come from the ECB reference rates on DBnomics', async () => {
+    const d = await loadPanel(dash.panels.find((p) => p.id === 'calc')!, dash, ctx(async (url) => {
+      if (url.includes('frankfurter')) throw new FetchError('blocked', 'Failed to fetch');
+      if (url.includes('EXR')) return JSON.stringify({ series: { docs: [{ series_code: 'D.BRL.EUR.SP00.A', period: ['2026-10-29', '2026-10-30'], value: [6.1, 6.1728] }, { series_code: 'D.USD.EUR.SP00.A', period: ['2026-10-29', '2026-10-30'], value: [1.12, 1.1246] }] } });
+      return ok(url);
+    }));
+    expect(d.rows[5].slice(0, 2)).toEqual(['5.49', '6.17']); expect(d.note).toContain('Frankfurter unavailable'); expect(d.servedBy).toBe('DBnomics');
+  });
   it('no feed answered: the blocked key row, naming the reason', async () => {
     await expect(loadPanel(dash.panels.find((p) => p.id === 'calc')!, dash, ctx(async () => { throw new FetchError('blocked', 'Failed to fetch'); }))).rejects.toThrow(/no Brazil 10Y yield/);
   });
