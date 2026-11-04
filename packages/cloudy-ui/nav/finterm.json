@@ -1353,7 +1353,8 @@
       "docs": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
       "cors": true,
       "paths": {
-        "filing": "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/{document}"
+        "filing": "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/{document}",
+        "tickers": "https://www.sec.gov/files/company_tickers.json"
       },
       "connector": "sec_submissions",
       "feeds": [
