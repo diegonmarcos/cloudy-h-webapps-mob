@@ -53,6 +53,16 @@ describe('gen-finterm (pure)', () => {
     a = clone(); a.dashboards.dashboards[0].panels[0].source = 'ghost'; expect(() => buildFinterm(a)).toThrow(/unknown source ghost/);
     a = clone(); a.services.services = []; expect(() => buildFinterm(a)).toThrow(/not declared in cloudy-u-containers/);
   });
+  it('fails when a PM portfolio has no risk tier or one that its equity share does not take (#1462)', () => {
+    const a = clone();
+    a.dashboards.pm_risk_tabs = { tabs: [{ id: 'all', label: 'All' }, { id: 'A', label: 'A Low', header: 'A Low risk', equity_max: 30 }, { id: 'B', label: 'B Middle', header: 'B Middle risk', equity_max: 100 }] };
+    a.dashboards.dashboards.push({ id: 'p1', entry: 'P1', tab: 'pm', equity_pct: 40, risk: 'B', panels: [] });
+    a.build.ui.stacks.pm.push({ kind: 'dashboard', title: 'P1', subtitle: 's', dashboard: 'p1' });
+    const ok = buildFinterm(a);
+    expect(ok.risk_tabs.map((t: { id: string }) => t.id)).toEqual(['all', 'A', 'B']);
+    let b = JSON.parse(JSON.stringify(a)); delete b.dashboards.dashboards[1].risk; expect(() => buildFinterm(b)).toThrow(/no risk tier/);
+    b = JSON.parse(JSON.stringify(a)); b.dashboards.dashboards[1].risk = 'A'; expect(() => buildFinterm(b)).toThrow(/does not follow its equity share/);
+  });
   it('slug: lower-case, underscores to dashes', () => { expect(slugOf('mp_70_30_DM_EM')).toBe('mp-70-30-dm-em'); });
 });
 

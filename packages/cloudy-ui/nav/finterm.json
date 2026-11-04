@@ -161,7 +161,7 @@
       },
       {
         "kind": "section_title",
-        "title": "A) Low risk"
+        "title": "A Low risk"
       },
       {
         "kind": "dashboard",
@@ -176,8 +176,20 @@
         "dashboard": "pm_a2_low"
       },
       {
+        "kind": "dashboard",
+        "title": "70/30",
+        "subtitle": "70% bonds, 30% equity",
+        "dashboard": "mp_70_30"
+      },
+      {
         "kind": "section_title",
-        "title": "B) Middle risk"
+        "title": "B Middle risk"
+      },
+      {
+        "kind": "dashboard",
+        "title": "60/40",
+        "subtitle": "60% bonds, 40% equity",
+        "dashboard": "mp_60_40"
       },
       {
         "kind": "dashboard",
@@ -187,7 +199,19 @@
       },
       {
         "kind": "section_title",
-        "title": "C) Risky"
+        "title": "C Risky"
+      },
+      {
+        "kind": "dashboard",
+        "title": "40/60",
+        "subtitle": "40% bonds, 60% equity",
+        "dashboard": "mp_40_60"
+      },
+      {
+        "kind": "dashboard",
+        "title": "30/70",
+        "subtitle": "30% bonds, 70% equity",
+        "dashboard": "mp_30_70"
       },
       {
         "kind": "dashboard",
@@ -197,7 +221,7 @@
       },
       {
         "kind": "section_title",
-        "title": "D) High risk"
+        "title": "D High risk"
       },
       {
         "kind": "dashboard",
@@ -210,38 +234,6 @@
         "title": "D0 EM Carry Trade",
         "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
         "dashboard": "pm_d0_carry"
-      },
-      {
-        "kind": "section_title",
-        "title": "Model portfolios: bonds / equity"
-      },
-      {
-        "kind": "dashboard",
-        "title": "40/60",
-        "subtitle": "40% bonds, 60% equity",
-        "dashboard": "mp_40_60"
-      },
-      {
-        "kind": "dashboard",
-        "title": "70/30",
-        "subtitle": "70% bonds, 30% equity",
-        "dashboard": "mp_70_30"
-      },
-      {
-        "kind": "dashboard",
-        "title": "60/40",
-        "subtitle": "60% bonds, 40% equity",
-        "dashboard": "mp_60_40"
-      },
-      {
-        "kind": "dashboard",
-        "title": "30/70",
-        "subtitle": "30% bonds, 70% equity",
-        "dashboard": "mp_30_70"
-      },
-      {
-        "kind": "section_title",
-        "title": "Model portfolios: DM / EM"
       },
       {
         "kind": "dashboard",
@@ -421,88 +413,132 @@
         "slug": "pm-a1-cash",
         "title": "A1 Cash (DM - Cash)",
         "icon": "payments",
-        "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)"
+        "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)",
+        "risk": "A"
       },
       {
         "slug": "pm-a2-low",
         "title": "A2 Low Risk",
         "icon": "pie_chart",
-        "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0"
-      },
-      {
-        "slug": "pm-b1-mid",
-        "title": "B1 Middle Risk",
-        "icon": "pie_chart",
-        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10"
-      },
-      {
-        "slug": "pm-c1-risky",
-        "title": "C1 Risky",
-        "icon": "pie_chart",
-        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10"
-      },
-      {
-        "slug": "pm-d1-em-bonds",
-        "title": "D1 EM Bonds",
-        "icon": "calculate",
-        "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes"
-      },
-      {
-        "slug": "pm-d0-carry",
-        "title": "D0 EM Carry Trade",
-        "icon": "trending_up",
-        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return"
-      },
-      {
-        "slug": "mp-40-60",
-        "title": "40/60",
-        "icon": "pie_chart",
-        "subtitle": "40% bonds, 60% equity"
+        "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0",
+        "risk": "A"
       },
       {
         "slug": "mp-70-30",
         "title": "70/30",
         "icon": "pie_chart",
-        "subtitle": "70% bonds, 30% equity"
+        "subtitle": "70% bonds, 30% equity",
+        "risk": "A"
       },
       {
         "slug": "mp-60-40",
         "title": "60/40",
         "icon": "pie_chart",
-        "subtitle": "60% bonds, 40% equity"
+        "subtitle": "60% bonds, 40% equity",
+        "risk": "B"
+      },
+      {
+        "slug": "pm-b1-mid",
+        "title": "B1 Middle Risk",
+        "icon": "pie_chart",
+        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
+        "risk": "B"
+      },
+      {
+        "slug": "mp-40-60",
+        "title": "40/60",
+        "icon": "pie_chart",
+        "subtitle": "40% bonds, 60% equity",
+        "risk": "C"
       },
       {
         "slug": "mp-30-70",
         "title": "30/70",
         "icon": "pie_chart",
-        "subtitle": "30% bonds, 70% equity"
+        "subtitle": "30% bonds, 70% equity",
+        "risk": "C"
+      },
+      {
+        "slug": "pm-c1-risky",
+        "title": "C1 Risky",
+        "icon": "pie_chart",
+        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
+        "risk": "C"
+      },
+      {
+        "slug": "pm-d1-em-bonds",
+        "title": "D1 EM Bonds",
+        "icon": "calculate",
+        "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes",
+        "risk": "D"
+      },
+      {
+        "slug": "pm-d0-carry",
+        "title": "D0 EM Carry Trade",
+        "icon": "trending_up",
+        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
+        "risk": "D"
       },
       {
         "slug": "mp-70-30-dm-em",
         "title": "70/30 DM/EM",
         "icon": "pie_chart",
-        "subtitle": "70% Developed Markets, 30% Emerging Markets"
+        "subtitle": "70% Developed Markets, 30% Emerging Markets",
+        "risk": "D"
       },
       {
         "slug": "mp-60-40-dm-em",
         "title": "60/40 DM/EM",
         "icon": "pie_chart",
-        "subtitle": "60% Developed Markets, 40% Emerging Markets"
+        "subtitle": "60% Developed Markets, 40% Emerging Markets",
+        "risk": "D"
       },
       {
         "slug": "mp-40-60-dm-em",
         "title": "40/60 DM/EM",
         "icon": "pie_chart",
-        "subtitle": "40% Developed Markets, 60% Emerging Markets"
+        "subtitle": "40% Developed Markets, 60% Emerging Markets",
+        "risk": "D"
       },
       {
         "slug": "mp-30-70-dm-em",
         "title": "30/70 DM/EM",
         "icon": "pie_chart",
-        "subtitle": "30% Developed Markets, 70% Emerging Markets"
+        "subtitle": "30% Developed Markets, 70% Emerging Markets",
+        "risk": "D"
       }
     ]
   },
+  "risk_tabs": [
+    {
+      "id": "all",
+      "label": "All"
+    },
+    {
+      "id": "A",
+      "label": "A Low",
+      "header": "A Low risk",
+      "equity_max": 30
+    },
+    {
+      "id": "B",
+      "label": "B Middle",
+      "header": "B Middle risk",
+      "equity_max": 50
+    },
+    {
+      "id": "C",
+      "label": "C Risky",
+      "header": "C Risky",
+      "equity_max": 80
+    },
+    {
+      "id": "D",
+      "label": "D High",
+      "header": "D High risk",
+      "equity_max": 100
+    }
+  ],
   "redirects": [
     {
       "slug": "market-monitor",
@@ -6018,6 +6054,8 @@
       "id": "pm_a1_cash",
       "entry": "A1 Cash (DM - Cash)",
       "tab": "pm",
+      "risk": "A",
+      "equity_pct": 0,
       "model_portfolio": {
         "legs": [
           [
@@ -6061,6 +6099,8 @@
       "id": "pm_a2_low",
       "entry": "A2 Low Risk",
       "tab": "pm",
+      "risk": "A",
+      "equity_pct": 30,
       "model_portfolio": {
         "legs": [
           [
@@ -6093,9 +6133,159 @@
       "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0"
     },
     {
+      "id": "mp_70_30",
+      "entry": "70/30",
+      "tab": "pm",
+      "risk": "A",
+      "equity_pct": 30,
+      "model_portfolio": {
+        "legs": [
+          [
+            "Bonds",
+            70
+          ],
+          [
+            "Equity",
+            30
+          ]
+        ]
+      },
+      "panels": [
+        {
+          "id": "alloc",
+          "title": "Allocation",
+          "source": "fincept_data_api",
+          "view": "alloc"
+        },
+        {
+          "id": "perf",
+          "title": "Performance and risk (ETF proxies, daily rebalanced)",
+          "source": "cboe",
+          "view": "table",
+          "derive": "portfolio_performance",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "proxies": {
+              "Bonds": "AGG",
+              "Equity": "ACWI"
+            },
+            "each": [
+              "AGG",
+              "ACWI"
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y",
+            "Vol 1Y",
+            "MaxDD 1Y"
+          ],
+          "unit": "%"
+        }
+      ],
+      "slug": "mp-70-30",
+      "subtitle": "70% bonds, 30% equity"
+    },
+    {
+      "id": "mp_60_40",
+      "entry": "60/40",
+      "tab": "pm",
+      "risk": "B",
+      "equity_pct": 40,
+      "model_portfolio": {
+        "legs": [
+          [
+            "Bonds",
+            60
+          ],
+          [
+            "Equity",
+            40
+          ]
+        ]
+      },
+      "panels": [
+        {
+          "id": "alloc",
+          "title": "Allocation",
+          "source": "fincept_data_api",
+          "view": "alloc"
+        },
+        {
+          "id": "perf",
+          "title": "Performance and risk (ETF proxies, daily rebalanced)",
+          "source": "cboe",
+          "view": "table",
+          "derive": "portfolio_performance",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "proxies": {
+              "Bonds": "AGG",
+              "Equity": "ACWI"
+            },
+            "each": [
+              "AGG",
+              "ACWI"
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y",
+            "Vol 1Y",
+            "MaxDD 1Y"
+          ],
+          "unit": "%"
+        }
+      ],
+      "slug": "mp-60-40",
+      "subtitle": "60% bonds, 40% equity"
+    },
+    {
       "id": "pm_b1_mid",
       "entry": "B1 Middle Risk",
       "tab": "pm",
+      "risk": "B",
+      "equity_pct": 50,
       "model_portfolio": {
         "legs": [
           [
@@ -6128,211 +6318,11 @@
       "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10"
     },
     {
-      "id": "pm_c1_risky",
-      "entry": "C1 Risky",
-      "tab": "pm",
-      "model_portfolio": {
-        "legs": [
-          [
-            "DM Equity",
-            50
-          ],
-          [
-            "DM Bonds",
-            10
-          ],
-          [
-            "EM Equity",
-            30
-          ],
-          [
-            "EM Bonds",
-            10
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation (placeholder tier): DM 50 / 10, EM 30 / 10",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        }
-      ],
-      "slug": "pm-c1-risky",
-      "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10"
-    },
-    {
-      "id": "pm_d1_em_bonds",
-      "entry": "D1 EM Bonds",
-      "tab": "pm",
-      "model_portfolio": {
-        "legs": [
-          [
-            "DM",
-            0
-          ],
-          [
-            "EM Equity",
-            0
-          ],
-          [
-            "EM Bonds",
-            100
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation: DM 0, EM equity 0 / bonds 100",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        },
-        {
-          "id": "calc",
-          "title": "EM Bonds CALCULATOR: return after inflation and taxes (EUR MoM)",
-          "source": "dbnomics",
-          "view": "table",
-          "derive": "em_calc",
-          "fetch": {
-            "provider": "dbnomics_series",
-            "path": "/series",
-            "fx_source": "frankfurter",
-            "oecd_source": "dbnomics",
-            "oecd": {
-              "path": "/series",
-              "prefix": "OECD/DSD_KEI@DF_KEI/",
-              "suffix": ".M.IRLT.PA._Z._Z._Z",
-              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
-            },
-            "high_a3": "BRA",
-            "fund_a3": "DEU",
-            "infl_a3": "DEU",
-            "part": "matrix",
-            "inputs": {
-              "nav_eur": 200000,
-              "cg": 0.17,
-              "spread": 0.02,
-              "exch_step": 0.05,
-              "yield_step": 0.0075,
-              "center": "now",
-              "center_diff": 0,
-              "round": 250,
-              "n": 3
-            },
-            "ecb_fx": {
-              "path": "/series",
-              "prefix": "ECB/EXR/",
-              "brl": "D.BRL.EUR.SP00.A",
-              "usd": "D.USD.EUR.SP00.A"
-            }
-          }
-        },
-        {
-          "id": "inputs",
-          "title": "Calculator inputs",
-          "source": "dbnomics",
-          "view": "table",
-          "derive": "em_calc",
-          "columns": [
-            "Input",
-            "Value"
-          ],
-          "fetch": {
-            "provider": "dbnomics_series",
-            "path": "/series",
-            "fx_source": "frankfurter",
-            "oecd_source": "dbnomics",
-            "oecd": {
-              "path": "/series",
-              "prefix": "OECD/DSD_KEI@DF_KEI/",
-              "suffix": ".M.IRLT.PA._Z._Z._Z",
-              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
-            },
-            "high_a3": "BRA",
-            "fund_a3": "DEU",
-            "infl_a3": "DEU",
-            "part": "inputs",
-            "inputs": {
-              "nav_eur": 200000,
-              "cg": 0.17,
-              "spread": 0.02,
-              "exch_step": 0.05,
-              "yield_step": 0.0075,
-              "center": "now",
-              "center_diff": 0,
-              "round": 250,
-              "n": 3
-            },
-            "ecb_fx": {
-              "path": "/series",
-              "prefix": "ECB/EXR/",
-              "brl": "D.BRL.EUR.SP00.A",
-              "usd": "D.USD.EUR.SP00.A"
-            }
-          }
-        }
-      ],
-      "slug": "pm-d1-em-bonds",
-      "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes"
-    },
-    {
-      "id": "pm_d0_carry",
-      "entry": "D0 EM Carry Trade",
-      "tab": "pm",
-      "panels": [
-        {
-          "id": "carry",
-          "title": "EM Carry Trade: EUR funding against BRL",
-          "source": "dbnomics",
-          "view": "table",
-          "derive": "em_carry",
-          "columns": [
-            "Metric",
-            "Value"
-          ],
-          "fetch": {
-            "provider": "dbnomics_series",
-            "path": "/series",
-            "fx_source": "frankfurter",
-            "oecd_source": "dbnomics",
-            "oecd": {
-              "path": "/series",
-              "prefix": "OECD/DSD_KEI@DF_KEI/",
-              "suffix": ".M.IRLT.PA._Z._Z._Z",
-              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
-            },
-            "high_a3": "BRA",
-            "fund_a3": "DEU",
-            "infl_a3": "DEU",
-            "inputs": {
-              "nav_eur": 200000,
-              "cg": 0.17,
-              "spread": 0.02,
-              "exch_step": 0.05,
-              "yield_step": 0.0075,
-              "center": "now",
-              "center_diff": 0,
-              "round": 250,
-              "n": 3
-            },
-            "ecb_fx": {
-              "path": "/series",
-              "prefix": "ECB/EXR/",
-              "brl": "D.BRL.EUR.SP00.A",
-              "usd": "D.USD.EUR.SP00.A"
-            }
-          }
-        }
-      ],
-      "slug": "pm-d0-carry",
-      "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return"
-    },
-    {
       "id": "mp_40_60",
       "entry": "40/60",
       "tab": "pm",
+      "risk": "C",
+      "equity_pct": 60,
       "model_portfolio": {
         "legs": [
           [
@@ -6464,153 +6454,11 @@
       "subtitle": "40% bonds, 60% equity"
     },
     {
-      "id": "mp_70_30",
-      "entry": "70/30",
-      "tab": "pm",
-      "model_portfolio": {
-        "legs": [
-          [
-            "Bonds",
-            70
-          ],
-          [
-            "Equity",
-            30
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        },
-        {
-          "id": "perf",
-          "title": "Performance and risk (ETF proxies, daily rebalanced)",
-          "source": "cboe",
-          "view": "table",
-          "derive": "portfolio_performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "proxies": {
-              "Bonds": "AGG",
-              "Equity": "ACWI"
-            },
-            "each": [
-              "AGG",
-              "ACWI"
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y",
-            "Vol 1Y",
-            "MaxDD 1Y"
-          ],
-          "unit": "%"
-        }
-      ],
-      "slug": "mp-70-30",
-      "subtitle": "70% bonds, 30% equity"
-    },
-    {
-      "id": "mp_60_40",
-      "entry": "60/40",
-      "tab": "pm",
-      "model_portfolio": {
-        "legs": [
-          [
-            "Bonds",
-            60
-          ],
-          [
-            "Equity",
-            40
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        },
-        {
-          "id": "perf",
-          "title": "Performance and risk (ETF proxies, daily rebalanced)",
-          "source": "cboe",
-          "view": "table",
-          "derive": "portfolio_performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "proxies": {
-              "Bonds": "AGG",
-              "Equity": "ACWI"
-            },
-            "each": [
-              "AGG",
-              "ACWI"
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y",
-            "Vol 1Y",
-            "MaxDD 1Y"
-          ],
-          "unit": "%"
-        }
-      ],
-      "slug": "mp-60-40",
-      "subtitle": "60% bonds, 40% equity"
-    },
-    {
       "id": "mp_30_70",
       "entry": "30/70",
       "tab": "pm",
+      "risk": "C",
+      "equity_pct": 70,
       "model_portfolio": {
         "legs": [
           [
@@ -6680,9 +6528,220 @@
       "subtitle": "30% bonds, 70% equity"
     },
     {
+      "id": "pm_c1_risky",
+      "entry": "C1 Risky",
+      "tab": "pm",
+      "risk": "C",
+      "equity_pct": 80,
+      "model_portfolio": {
+        "legs": [
+          [
+            "DM Equity",
+            50
+          ],
+          [
+            "DM Bonds",
+            10
+          ],
+          [
+            "EM Equity",
+            30
+          ],
+          [
+            "EM Bonds",
+            10
+          ]
+        ]
+      },
+      "panels": [
+        {
+          "id": "alloc",
+          "title": "Allocation (placeholder tier): DM 50 / 10, EM 30 / 10",
+          "source": "fincept_data_api",
+          "view": "alloc"
+        }
+      ],
+      "slug": "pm-c1-risky",
+      "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10"
+    },
+    {
+      "id": "pm_d1_em_bonds",
+      "entry": "D1 EM Bonds",
+      "tab": "pm",
+      "risk": "D",
+      "equity_pct": 0,
+      "risk_basis": "declared: 100% EM bonds / EM carry trade, no equity share but the highest credit and FX risk (owner, #1447)",
+      "model_portfolio": {
+        "legs": [
+          [
+            "DM",
+            0
+          ],
+          [
+            "EM Equity",
+            0
+          ],
+          [
+            "EM Bonds",
+            100
+          ]
+        ]
+      },
+      "panels": [
+        {
+          "id": "calc",
+          "title": "EM Bonds CALCULATOR: return after inflation and taxes (EUR MoM)",
+          "source": "dbnomics",
+          "view": "table",
+          "derive": "em_calc",
+          "fetch": {
+            "provider": "dbnomics_series",
+            "path": "/series",
+            "fx_source": "frankfurter",
+            "oecd_source": "dbnomics",
+            "oecd": {
+              "path": "/series",
+              "prefix": "OECD/DSD_KEI@DF_KEI/",
+              "suffix": ".M.IRLT.PA._Z._Z._Z",
+              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
+            },
+            "high_a3": "BRA",
+            "fund_a3": "DEU",
+            "infl_a3": "DEU",
+            "part": "matrix",
+            "inputs": {
+              "nav_eur": 200000,
+              "cg": 0.17,
+              "spread": 0.02,
+              "exch_step": 0.05,
+              "yield_step": 0.0075,
+              "center": "now",
+              "center_diff": 0,
+              "round": 250,
+              "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
+            }
+          }
+        },
+        {
+          "id": "alloc",
+          "title": "Allocation: DM 0, EM equity 0 / bonds 100",
+          "source": "fincept_data_api",
+          "view": "alloc"
+        },
+        {
+          "id": "inputs",
+          "title": "Calculator inputs",
+          "source": "dbnomics",
+          "view": "table",
+          "derive": "em_calc",
+          "columns": [
+            "Input",
+            "Value"
+          ],
+          "fetch": {
+            "provider": "dbnomics_series",
+            "path": "/series",
+            "fx_source": "frankfurter",
+            "oecd_source": "dbnomics",
+            "oecd": {
+              "path": "/series",
+              "prefix": "OECD/DSD_KEI@DF_KEI/",
+              "suffix": ".M.IRLT.PA._Z._Z._Z",
+              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
+            },
+            "high_a3": "BRA",
+            "fund_a3": "DEU",
+            "infl_a3": "DEU",
+            "part": "inputs",
+            "inputs": {
+              "nav_eur": 200000,
+              "cg": 0.17,
+              "spread": 0.02,
+              "exch_step": 0.05,
+              "yield_step": 0.0075,
+              "center": "now",
+              "center_diff": 0,
+              "round": 250,
+              "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
+            }
+          }
+        }
+      ],
+      "slug": "pm-d1-em-bonds",
+      "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes"
+    },
+    {
+      "id": "pm_d0_carry",
+      "entry": "D0 EM Carry Trade",
+      "tab": "pm",
+      "risk": "D",
+      "risk_basis": "declared: 100% EM bonds / EM carry trade, no equity share but the highest credit and FX risk (owner, #1447)",
+      "panels": [
+        {
+          "id": "carry",
+          "title": "EM Carry Trade: EUR funding against BRL",
+          "source": "dbnomics",
+          "view": "table",
+          "derive": "em_carry",
+          "columns": [
+            "Metric",
+            "Value"
+          ],
+          "fetch": {
+            "provider": "dbnomics_series",
+            "path": "/series",
+            "fx_source": "frankfurter",
+            "oecd_source": "dbnomics",
+            "oecd": {
+              "path": "/series",
+              "prefix": "OECD/DSD_KEI@DF_KEI/",
+              "suffix": ".M.IRLT.PA._Z._Z._Z",
+              "cpi_suffix": ".M.CP.IX._Z._Z._Z"
+            },
+            "high_a3": "BRA",
+            "fund_a3": "DEU",
+            "infl_a3": "DEU",
+            "inputs": {
+              "nav_eur": 200000,
+              "cg": 0.17,
+              "spread": 0.02,
+              "exch_step": 0.05,
+              "yield_step": 0.0075,
+              "center": "now",
+              "center_diff": 0,
+              "round": 250,
+              "n": 3
+            },
+            "ecb_fx": {
+              "path": "/series",
+              "prefix": "ECB/EXR/",
+              "brl": "D.BRL.EUR.SP00.A",
+              "usd": "D.USD.EUR.SP00.A"
+            }
+          }
+        }
+      ],
+      "slug": "pm-d0-carry",
+      "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return"
+    },
+    {
       "id": "mp_70_30_DM_EM",
       "entry": "70/30 DM/EM",
       "tab": "pm",
+      "risk": "D",
+      "equity_pct": 100,
       "model_portfolio": {
         "legs": [
           [
@@ -6755,6 +6814,8 @@
       "id": "mp_60_40_DM_EM",
       "entry": "60/40 DM/EM",
       "tab": "pm",
+      "risk": "D",
+      "equity_pct": 100,
       "model_portfolio": {
         "legs": [
           [
@@ -6827,6 +6888,8 @@
       "id": "mp_40_60_DM_EM",
       "entry": "40/60 DM/EM",
       "tab": "pm",
+      "risk": "D",
+      "equity_pct": 100,
       "model_portfolio": {
         "legs": [
           [
@@ -6899,6 +6962,8 @@
       "id": "mp_30_70_DM_EM",
       "entry": "30/70 DM/EM",
       "tab": "pm",
+      "risk": "D",
+      "equity_pct": 100,
       "model_portfolio": {
         "legs": [
           [

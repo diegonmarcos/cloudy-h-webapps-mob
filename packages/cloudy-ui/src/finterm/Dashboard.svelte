@@ -15,6 +15,7 @@
   import FinRows, { type Row } from './components/FinRows.svelte';
   import FinHeat from './components/FinHeat.svelte';
   import FinTable from './components/FinTable.svelte';
+import FinMatrix from './components/FinMatrix.svelte';
   import FinChart from './components/FinChart.svelte';
   import FinStack from './components/FinStack.svelte';
   import FinCalendar from './components/FinCalendar.svelte';
@@ -329,8 +330,10 @@
             {#if d.rows.length}
               {#if p.view === 'bars' || p.view === 'alloc'}
                 <details class="tbl"><summary class="cap">Table ({d.rows.length})</summary><FinTable columns={d.columns} rows={d.rows} links={d.links} limit={50} /></details>
+              {:else if d.heat}
+                <FinMatrix columns={d.columns} rows={d.rows} heat={d.heat} bold={d.bold} />
               {:else}
-                <FinTable columns={d.columns} rows={d.rows} links={d.links} details={d.details ?? []} beat={actualBeat(p)} heat={d.heat} bold={d.bold} limit={d.heat ? d.rows.length : 8} />
+                <FinTable columns={d.columns} rows={d.rows} links={d.links} details={d.details ?? []} beat={actualBeat(p)} />
               {/if}
             {/if}
           {/if}

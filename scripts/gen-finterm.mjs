@@ -63,8 +63,16 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
       const dash = tabStacks[tab].filter((e) => e.kind === 'dashboard');
       const want = dash.map((e) => slugOf(e.dashboard)).join(',');
       if (pages.slice(1).map((p) => p.id).join(',') !== want) fail(`${tab}: the Homepage pages ${pages.slice(1).map((p) => p.id)} are not the tab's dashboards ${want}`);
-      homes[tab] = pages.slice(1).map((p, i) => ({ slug: p.id, title: p.label, icon: p.icon, subtitle: dash[i].subtitle }));
+      // #1462 a card carries its declared risk tier (dashboards.json `risk`; left out = none) so the Homepage can draw the PM risk tabs and section headers
+      homes[tab] = pages.slice(1).map((p, i) => ({ slug: p.id, title: p.label, icon: p.icon, subtitle: dash[i].subtitle, ...(byId.get(dash[i].dashboard).risk ? { risk: byId.get(dash[i].dashboard).risk } : {}) }));
     }
+  }
+  // #1462 the PM risk tabs (All | A | B | C | D, dashboards.json pm_risk_tabs): every PM portfolio declares a tier that exists, and the tier is the one its equity share takes
+  const riskTabs = strip(dashboards.pm_risk_tabs?.tabs ?? []);
+  const tiers = riskTabs.filter((t) => t.id !== 'all');
+  if (tiers.length) for (const d of out.filter((x) => x.tab === 'pm' && x.id !== 'portfolio_risk')) {
+    if (!tiers.some((t) => t.id === d.risk)) fail(`${d.id}: no risk tier (${d.risk ?? 'none'}): every PM portfolio declares one of ${tiers.map((t) => t.id)}`);
+    if (!d.risk_basis && tiers.find((t) => d.equity_pct <= t.equity_max)?.id !== d.risk) fail(`${d.id}: risk ${d.risk} does not follow its equity share ${d.equity_pct}`);
   }
   const redirects = (build.ui.redirects ?? []).map((r) => {
     if (byId.has(r.from)) fail(`redirect from ${r.from}: that dashboard still exists`);
@@ -102,6 +110,7 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
     tabs: build.ui.bottom_nav.filter((t) => TABS.includes(t)),
     stacks: tabStacks,
     homes,
+    risk_tabs: riskTabs,
     redirects,
     sources: slim,
     dashboards: out,

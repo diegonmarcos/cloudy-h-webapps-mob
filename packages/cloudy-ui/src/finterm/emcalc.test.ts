@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
 import { FetchError, loadPanel, type Ctx, type Dashboard } from './engine';
+import { matrixFont, matrixWidths } from './fin';
+import { RISK_ALL, riskGroups, type RiskTab } from './risk';
 import { EM_DEFAULTS, axis, emMatrix, fxs, grid, heat, money, monthlyNet, netOf, pct, real, roundTo, type EmLive } from './emcalc';
 
 // #1447 PM > D1 EM Bonds CALCULATOR and D0 EM Carry Trade: the same numbers as EmCalcTest.kt (APK), checked against the owner's image
@@ -23,6 +25,12 @@ describe('EM Bonds calculator maths', () => {
   it('the whole 7 x 7 grid, the FX levels and the yield steps are the image', () => {
     const g = grid(live, EM_DEFAULTS);
     expect(g.cells).toEqual(IMAGE);
+    // #1462 orientation against the image: the axes ascend (yield left to right, FX top to bottom), the centre is the middle row and column, the most (2,000) is top right, the least (1,000) bottom left
+    for (const a of [g.yields, g.fxUsd, g.fxEur]) expect(a).toEqual([...a].sort((x, y) => x - y));
+    expect(g.yields[3]).toBe(live.yHigh); expect(g.fxUsd[3]).toBeCloseTo(live.brlUsd, 12); expect(g.fxEur[3]).toBeCloseTo(live.brlEur, 12);
+    expect(g.cells[0][6]).toBe(2000); expect(g.cells[6][0]).toBe(1000); expect(Math.max(...g.cells.flat())).toBe(2000); expect(Math.min(...g.cells.flat())).toBe(1000);
+    for (let r = 0; r < 7; r++) for (let c = 1; c < 7; c++) expect(g.cells[r][c]).toBeGreaterThanOrEqual(g.cells[r][c - 1]); // a higher yield never pays less
+    for (let r = 1; r < 7; r++) for (let c = 0; c < 7; c++) expect(g.cells[r][c]).toBeLessThanOrEqual(g.cells[r - 1][c]); // a higher BRL level never pays more EUR
     expect(g.fxUsd.map(fxs)).toEqual(['4.67', '4.94', '5.21', '5.49', '5.76', '6.04', '6.31']);
     expect(g.fxEur.map(fxs)).toEqual(['5.25', '5.56', '5.86', '6.17', '6.48', '6.79', '7.10']);
     expect(g.yields.map((y) => pct(y))).toEqual(['12.73%', '13.48%', '14.23%', '14.98%', '15.73%', '16.48%', '17.23%']);
@@ -36,7 +44,11 @@ describe('EM Bonds calculator maths', () => {
   });
   it('the matrix table: header, Inflation and real rows, the centre bold, exact values when rounding is off', () => {
     const d = emMatrix({ id: 'calc', title: 't' } as never, live, EM_DEFAULTS, 'test', '2026-10-30');
-    expect(d.columns).toEqual(['BRL/USD', 'BRL/EUR', '12.73%', '13.48%', '14.23%', '14.98%', '15.73%', '16.48%', '17.23%']);
+    expect(d.columns).toEqual(['', 'Gross Yield', '12.73%', '13.48%', '14.23%', '14.98%', '15.73%', '16.48%', '17.23%']);
+    expect(d.rows[0].slice(0, 3)).toEqual(['', 'Inflation', '3.63%']); expect(d.rows[1].slice(0, 3)).toEqual(['USD', 'EUR / (-Infl) Yield', '8.78%']);
+    expect(d.rows[2]).toEqual(['4.67', '5.25', '1,500.00', '1,500.00', '1,750.00', '1,750.00', '1,750.00', '2,000.00', '2,000.00']);
+    expect(d.rows[8]).toEqual(['6.31', '7.10', '1,000.00', '1,000.00', '1,250.00', '1,250.00', '1,500.00', '1,500.00', '1,500.00']);
+    expect(d.bold).toContainEqual([-1, 5]); expect(d.bold).toContainEqual([5, 0]); expect(d.bold).toContainEqual([5, 1]);
     expect(d.rows[1][5]).toBe('10.95%'); expect(d.rows[5].slice(0, 4)).toEqual(['5.49', '6.17', '1,250.00', '1,250.00']);
     expect(d.bold).toContainEqual([5, 5]); expect(d.heat![5][5]).toBe(0); expect(d.heat![0].every((x) => x === null)).toBe(true);
     const exact = emMatrix({ id: 'calc', title: 't' } as never, live, { ...EM_DEFAULTS, round: 0 }, 'test', '');
@@ -57,10 +69,10 @@ describe('PM D1 / D0 panels on live feeds', () => {
   };
   it('the pages are grouped low to high risk and the calculator sits in D1', () => {
     const pm = FINTERM.dashboards.filter((d) => d.tab === 'pm').map((d) => d.id);
-    expect(pm.indexOf('pm_a1_cash')).toBeLessThan(pm.indexOf('pm_a2_low')); expect(pm.indexOf('pm_a2_low')).toBeLessThan(pm.indexOf('pm_b1_mid'));
-    expect(pm.indexOf('pm_b1_mid')).toBeLessThan(pm.indexOf('pm_c1_risky')); expect(pm.indexOf('pm_c1_risky')).toBeLessThan(pm.indexOf('pm_d1_em_bonds'));
+    const tier = (id: string) => (FINTERM.dashboards.find((d) => d.id === id) as unknown as { risk: string }).risk;
+    expect(pm.map((id) => (id === 'portfolio_risk' ? '' : tier(id))).join('')).toBe('AAABBCCCDDDDDD');
     expect(pm.indexOf('pm_d1_em_bonds')).toBeLessThan(pm.indexOf('pm_d0_carry'));
-    expect(dash.panels.map((p) => p.derive)).toEqual([undefined, 'em_calc', 'em_calc']);
+    expect(dash.panels.map((p) => p.derive)).toEqual(['em_calc', undefined, 'em_calc']); // the matrix first: it is on the first screen
   });
   it('A1 Cash weights follow the DXY basket (whole percents of the ICE weights)', () => {
     const a1 = (FINTERM.dashboards.find((d) => d.id === 'pm_a1_cash') as unknown as { model_portfolio: { legs: [string, number][] } }).model_portfolio.legs;
@@ -98,5 +110,43 @@ describe('PM D1 / D0 panels on live feeds', () => {
   });
   it('no feed answered: the blocked key row, naming the reason', async () => {
     await expect(loadPanel(dash.panels.find((p) => p.id === 'calc')!, dash, ctx(async () => { throw new FetchError('blocked', 'Failed to fetch'); }))).rejects.toThrow(/no Brazil 10Y yield/);
+  });
+});
+
+// #1462 PM organised by risk: top tabs, a section header per tier in All, every portfolio (also the eight older ones) in a tier by its equity share; the matrix fits one screen
+describe('PM risk tabs and the one-screen matrix (#1462)', () => {
+  const tabs = (FINTERM as unknown as { risk_tabs: RiskTab[] }).risk_tabs;
+  type D = { id: string; tab: string; risk?: string; equity_pct?: number; risk_basis?: string };
+  const pm = (FINTERM.dashboards as unknown as D[]).filter((d) => d.tab === 'pm' && d.id !== 'portfolio_risk');
+  it('the tabs are All | A Low | B Middle | C Risky | D High with the section headers', () => {
+    expect(tabs.map((t) => t.label)).toEqual(['All', 'A Low', 'B Middle', 'C Risky', 'D High']);
+    expect(tabs.slice(1).map((t) => t.header)).toEqual(['A Low risk', 'B Middle risk', 'C Risky', 'D High risk']);
+  });
+  it('every PM portfolio declares a tier, the one its equity share takes (more equity = higher risk)', () => {
+    expect(pm.length).toBe(14);
+    for (const d of pm) {
+      expect(tabs.slice(1).map((t) => t.id), d.id).toContain(d.risk);
+      if (!d.risk_basis) expect(tabs.slice(1).find((t) => d.equity_pct! <= t.equity_max!)!.id, d.id).toBe(d.risk);
+    }
+    const byEq = pm.filter((d) => d.equity_pct != null && !d.risk_basis).sort((a, b) => a.equity_pct! - b.equity_pct!).map((d) => d.risk);
+    expect(byEq).toEqual([...byEq].sort());
+    const t = (id: string) => pm.find((d) => d.id === id)!.risk;
+    expect([t('mp_70_30'), t('mp_60_40'), t('mp_40_60'), t('mp_30_70_DM_EM'), t('pm_d1_em_bonds')]).toEqual(['A', 'B', 'C', 'D', 'D']);
+  });
+  it('All: a header per tier in order, the analytics tool first with none; a tier tab: its own cards alone', () => {
+    const cards = FINTERM.homes.pm.map((c) => c as typeof c & { risk?: string });
+    const all = riskGroups(cards, tabs, RISK_ALL);
+    expect(all.map((g) => g.header)).toEqual(['', 'A Low risk', 'B Middle risk', 'C Risky', 'D High risk']);
+    expect(all.reduce((n, g) => n + g.cards.length, 0)).toBe(cards.length);
+    expect(all[0].cards.map((c) => c.slug)).toEqual(['portfolio-risk']);
+    const c = riskGroups(cards, tabs, 'C'); expect(c.length).toBe(1); expect(c[0].header).toBe('');
+    expect(c[0].cards.map((x) => x.slug).sort()).toEqual(['mp-30-70', 'mp-40-60', 'pm-c1-risky']);
+  });
+  it('the matrix fits one 312 px card body: 9 columns, numerals within the ramp (7..11 px), 10 rows of 20 px', () => {
+    const w = matrixWidths(312, 9);
+    expect(w.length).toBe(9); expect(w.reduce((a, b) => a + b, 0)).toBeCloseTo(312, 6);
+    const f = matrixFont(w[2], '1,500.00'.length);
+    expect(f).toBeGreaterThanOrEqual(7); expect(f).toBeLessThanOrEqual(11); expect(f * 0.6 * 8).toBeLessThanOrEqual(w[2] + 1e-9);
+    expect(matrixFont(100, 8)).toBe(11); expect(matrixFont(10, 8)).toBe(7);
   });
 });

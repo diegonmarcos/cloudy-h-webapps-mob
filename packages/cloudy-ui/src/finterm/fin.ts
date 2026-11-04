@@ -158,3 +158,12 @@ export function zoomWindow<T>(points: T[], zoom: number): T[] {
   if (zoom <= 1 || points.length <= ZOOM_MIN_POINTS) return points;
   return points.slice(-Math.min(points.length, Math.max(ZOOM_MIN_POINTS, Math.floor(points.length / zoom))));
 }
+
+/** #1462 the EM Bonds matrix on one phone screen, no scrolling (FinLogic.matrixWidths): the two label columns take 8 % and 13 % of the width, the rest share the remainder. */
+export const matrixWidths = (total: number, cols: number): number[] => {
+  if (cols <= 2) return Array.from({ length: cols }, () => total / Math.max(cols, 1));
+  const a = total * 0.08; const b = total * 0.13;
+  return [a, b, ...Array.from({ length: cols - 2 }, () => (total - a - b) / (cols - 2))];
+};
+/** The matrix numeral size in px (FinLogic.matrixFont): the ramp's small mono size (11) shrunk until `chars` tabular characters (0.6 em each) fit the cell; never below 7. */
+export const matrixFont = (cell: number, chars: number): number => Math.max(7, Math.min(11, cell / (chars * 0.6)));

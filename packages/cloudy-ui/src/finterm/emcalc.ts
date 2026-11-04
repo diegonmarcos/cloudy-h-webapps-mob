@@ -38,12 +38,13 @@ const joinFails = (l: EmLive) => (l.fails.length ? ` — ${l.fails.join(' · ')}
 export function emMatrix(panel: Panel, live: EmLive, i: EmInputs, by: string, asOf: string): PanelData {
   const g = grid(live, i); const h = heat(g.cells); const c = i.n;
   const none = Array(g.yields.length + 2).fill(null) as null[];
-  const rows = [['', 'Inflation', ...g.yields.map(() => pct(live.infl))], ['', 'EUR - infl', ...g.yields.map((y) => pct(real(y, live.infl)))],
+  // the owner's image (#1462): Gross Yield and the yields ascend left to right, then Inflation, then USD / "EUR / (-Infl) Yield" and the real yields; the FX levels ascend top to bottom
+  const rows = [['', 'Inflation', ...g.yields.map(() => pct(live.infl))], ['USD', 'EUR / (-Infl) Yield', ...g.yields.map((y) => pct(real(y, live.infl)))],
     ...g.cells.map((row, r) => [fxs(g.fxUsd[r]), fxs(g.fxEur[r]), ...row.map(money)])];
   const note = `Monthly EUR net return on a ${money(i.navEur)} NAV after ${pct(i.cg, 0)} capital-gains tax and ${pct(i.spread, 0)} exchange spread${i.round > 0 ? `, rounded to ${i.round}` : ''}. ` +
-    `Real yield = (1 + gross) / (1 + inflation) - 1; rows move the BRL level by ${pct(i.exchStep, 1)}, columns the gross yield by ${pct(i.yieldStep)}.${live.basis ? ` ${live.basis}.` : ''}${joinFails(live)}`;
-  return { columns: ['BRL/USD', 'BRL/EUR', ...g.yields.map((y) => pct(y))], rows, links: [], chart: [], asOf, note, servedBy: by, heat: [none, none, ...h.map((r) => [null, null, ...r])],
-    bold: [[c + 2, c + 2], [1, c + 2], [0, c + 2], [c + 2, 0], [c + 2, 1]] };
+    `Real yield = (1 + gross) / (1 + inflation) - 1; rows (down) move the BRL level up by ${pct(i.exchStep, 1)}, columns (right) the gross yield up by ${pct(i.yieldStep)}.${live.basis ? ` ${live.basis}.` : ''}${joinFails(live)}`;
+  return { columns: ['', 'Gross Yield', ...g.yields.map((y) => pct(y))], rows, links: [], chart: [], asOf, note, servedBy: by, heat: [none, none, ...h.map((r) => [null, null, ...r])],
+    bold: [[-1, c + 2], [0, c + 2], [1, c + 2], [c + 2, 0], [c + 2, 1], [c + 2, c + 2]] }; // row -1 = the column header
 }
 
 export function emInputs(panel: Panel, live: EmLive, i: EmInputs, by: string, asOf: string): PanelData {
