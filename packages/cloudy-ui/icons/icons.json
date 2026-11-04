@@ -335,6 +335,8 @@
     "ic_p_c3_health": "monitor_heart",
     "ic_settings": "settings",
     "ic_code": "code",
+    "ic_perms": "security",
+    "ic_info": "info",
     "ic_rss": "rss_feed",
     "ic_p_logs": "description",
     "help_outline": "info",
