@@ -423,7 +423,7 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
     }
     case 'g20_bonds': {
       const g = f as unknown as { primary?: { api?: string }; rows: GRow[]; window_days?: number; min_daily?: number; fx_source: string; rub_source?: string; fred_source?: string; oecd_source?: string;
-        oecd?: { path: string; prefix: string; suffix: string; cpi_suffix?: string }; fred?: { yield: string; cpi: string }; rub?: { path: string; code: string }; footer?: string; method?: string };
+        oecd?: { path: string; prefix: string; suffix: string; cpi_suffix?: string }; fred?: { yield: string; cpi: string; dbnomics_yield?: string }; rub?: { path: string; code: string }; footer?: string; method?: string };
       if (api) {
         try { const rows = (JSON.parse(await ctx.get(buildUrl(api.base, g.primary?.api ?? '/v1/bonds/g20-real', []))) as { rows?: Record<string, unknown>[] }).rows ?? []; if (rows.length) return g20Table(panel, g, rows, api.source.name); } catch { /* the direct sources below */ }
       }
@@ -449,6 +449,12 @@ export async function tablePanel(panel: Panel, dash: Dashboard, source: Source, 
       if (fr) await read(src(g.fred_source), async (s) => {
         for (const x of parseFredCsv(await ctx.get(fredUrl(s.endpoint, fr.yield, today, back)))[fr.yield] ?? []) add(ys, 'US', [x.date, x.value]);
         cpi = cpiYoY((parseFredCsv(await ctx.get(fredUrl(s.endpoint, fr.cpi, today, 500)))[fr.cpi] ?? []).map((x) => [x.date, x.value] as [string, number]));
+      }, undefined);
+      // FRED unreachable (it times out from some networks): the daily US 10Y from the Fed H.15 mirror on DBnomics, key-free
+      if (fr?.dbnomics_yield && !(ys.get('US') ?? []).some((q) => q[0].length === 10)) await read(src(g.oecd_source), async (s) => {
+        const a = JSON.parse(await ctx.get(buildUrl(s.endpoint, `/series/${fr.dbnomics_yield}`, [['observations', '1'], ['metadata', '0']]))) as { series?: { docs?: { period: string[]; value: (number | string | null)[] }[] } };
+        for (const d of a.series?.docs ?? []) d.period.forEach((p, i) => { const v = d.value[i]; if (typeof v === 'number' && Number.isFinite(v) && p.length === 10 && p >= from) add(ys, 'US', [p, v]); });
+        fails.push('FRED unavailable: US 10Y from the Fed H.15 mirror on DBnomics');
       }, undefined);
       if (!cpi && oecdCpi) { cpi = oecdCpi; fails.push('FRED CPIAUCSL unavailable: US CPI from the OECD monthly index (DBnomics)'); }
       await read(src(g.fx_source), async (s) => {

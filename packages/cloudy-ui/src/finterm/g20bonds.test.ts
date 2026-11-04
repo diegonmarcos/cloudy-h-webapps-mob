@@ -61,6 +61,7 @@ describe('G20 Sovereign 10Y Bonds maths', () => {
     const panel = dash.panels.find((p) => p.id === 'g20_real')!;
     const ctx: Ctx = { today: '2026-10-30', sources: FINTERM.sources, mesh: FINTERM.mesh, reachable: async () => false,
       get: async (url) => {
+        if (url.includes('FED/H15')) return JSON.stringify({ series: { docs: [{ series_code: 'RIFLGFCY10_N.B', period: Array.from({ length: 12 }, (_, i) => `2026-10-${String(15 + i).padStart(2, '0')}`), value: Array(12).fill(4.2) }] } });
         if (url.includes('db.nomics')) {
           expect(url).toContain(encodeURIComponent('USA.M.CP.IX._Z._Z._Z').replace(/%2F/g, '/'));
           return JSON.stringify({ series: { docs: [
@@ -73,5 +74,7 @@ describe('G20 Sovereign 10Y Bonds maths', () => {
     const d = await loadPanel(panel, dash, ctx);
     expect(d.rows[0][10]).toBe('3.00');
     expect(d.note).toContain('US CPI from the OECD monthly index');
+    expect(d.note).toContain('US 10Y from the Fed H.15 mirror');
+    expect(d.rows[0][3]).toBe('4.20'); // y0 = the MA30 of the 12 daily points (min_daily 10 met)
   });
 });
