@@ -2479,7 +2479,7 @@
             "type": "enum",
             "values_from": "search_engines",
             "label": "Search engine",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Where a typed query that is not a URL goes.",
             "group": "search"
@@ -2489,7 +2489,7 @@
             "type": "string",
             "default": "",
             "label": "Homepage",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "What an empty New tab opens. Empty = nothing (the dialog just closes).",
             "group": "general"
@@ -2499,7 +2499,7 @@
             "type": "bool",
             "default": false,
             "label": "Reopen last tab on launch",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Launch into the last active tab instead of the tab grid.",
             "group": "tabs"
@@ -2509,7 +2509,7 @@
             "type": "bool",
             "default": false,
             "label": "Desktop site",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Desktop user agent + wide viewport for every page.",
             "group": "appearance"
@@ -2521,7 +2521,7 @@
             "min": 50,
             "max": 200,
             "label": "Text size (%)",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "WebSettings.textZoom, in percent.",
             "group": "appearance"
@@ -2531,7 +2531,7 @@
             "type": "bool",
             "default": true,
             "label": "JavaScript",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Run page scripts. Off breaks most sites; per-site shields come later.",
             "group": "site"
@@ -2541,7 +2541,7 @@
             "type": "bool",
             "default": true,
             "label": "Load images",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Off saves data on metered networks.",
             "group": "site"
@@ -2551,7 +2551,7 @@
             "type": "bool",
             "default": false,
             "label": "Block third-party cookies",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "CookieManager.setAcceptThirdPartyCookies(false) on every page.",
             "group": "privacy"
@@ -2561,7 +2561,7 @@
             "type": "string",
             "default": "",
             "label": "Download folder",
-            "section": "general",
+            "section": "browsing",
             "class": "device",
             "doc": "Sub-folder of the phone's Downloads that downloads land in. Empty = Downloads itself. Device-class: a path on this phone.",
             "group": "downloads"
@@ -2571,7 +2571,7 @@
             "type": "bool",
             "default": false,
             "label": "New tabs are private",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "A new tab opens private: no history, no preview, no HTTP cache. Cookies are shared with normal tabs (Android WebView keeps them per process).",
             "group": "privacy"
@@ -2615,7 +2615,7 @@
             ],
             "default": "model",
             "label": "Summarize with",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "#823 Where Summarize the page runs: model = the fleet's AI model (needs the network and the fleet Account's OpenRouter token; falls back on device when it cannot answer); on_device = on the phone, offline (ML Kit's summarizer where the phone has it, else the page's key sentences).",
             "group": "general"
@@ -2625,7 +2625,7 @@
             "type": "set",
             "values_from": "addons",
             "label": "Enabled add-ons",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "The add-ons that are on (Settings ▸ Add-ons). Default: each add-on's default_enabled.",
             "group": "advanced"
@@ -2635,7 +2635,7 @@
             "type": "bool",
             "default": true,
             "label": "Search suggestions",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "While you type in the address bar, ask the default search engine for query suggestions (what you type is sent to it). Off = only the search row and your own history.",
             "group": "search"
@@ -2645,7 +2645,7 @@
             "type": "bool",
             "default": true,
             "label": "Tab strip",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "A row of small tab icons under the address bar: the tabs of the current group, and a + that opens a new tab in the same group.",
             "group": "tabs"
@@ -2659,7 +2659,7 @@
             ],
             "default": "on_device",
             "label": "Translate with",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "value_labels": {
               "on_device": "On-device ML",
@@ -2687,7 +2687,7 @@
             ],
             "default": "device",
             "label": "Translate into",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "value_labels": {
               "device": "Phone language",
@@ -2713,7 +2713,7 @@
             "min": 0,
             "max": 3,
             "label": "Offline site depth",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Save site offline follows same-site links this many levels from the page you are on (0 = only that page).",
             "group": "downloads"
@@ -2725,7 +2725,7 @@
             "min": 1,
             "max": 200,
             "label": "Offline site: max pages",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Save site offline stops after this many pages.",
             "group": "downloads"
@@ -2737,7 +2737,7 @@
             "min": 5,
             "max": 500,
             "label": "Offline site: max size (MB)",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Save site offline stops when the copy reaches this size.",
             "group": "downloads"
@@ -2749,7 +2749,7 @@
             "min": 1,
             "max": 8,
             "label": "Downloads at a time",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "How many downloads (and torrents) transfer at once; the rest wait in the queue.",
             "group": "downloads"
@@ -2759,7 +2759,7 @@
             "type": "bool",
             "default": false,
             "label": "Download on Wi-Fi only",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Downloads wait (and resume by themselves) until the phone is on Wi-Fi or Ethernet.",
             "group": "downloads"
@@ -2769,7 +2769,7 @@
             "type": "bool",
             "default": true,
             "label": "Download on metered networks",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Off = downloads wait for an unmetered network (no mobile data, no metered hotspot).",
             "group": "downloads"
@@ -2781,7 +2781,7 @@
             "min": 0,
             "max": 1000000,
             "label": "Download speed limit (KB/s)",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Shared by every HTTP download; torrents get the same cap for their downloads. 0 = no limit.",
             "group": "downloads"
@@ -2793,7 +2793,7 @@
             "min": 1,
             "max": 8,
             "label": "Connections per large file",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "A large file on a server that accepts byte ranges downloads over this many connections at once; 1 = always one connection.",
             "group": "downloads"
@@ -2803,7 +2803,7 @@
             "type": "bool",
             "default": false,
             "label": "Save to cloud-shared-store",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "When cloud-shared-store is installed, finished downloads go there instead of the phone's Download folder. Without it, this does nothing.",
             "group": "downloads"
@@ -2813,7 +2813,7 @@
             "type": "bool",
             "default": false,
             "label": "Seed torrents after downloading",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "A finished torrent keeps uploading to other peers until a limit below is reached (or you turn seeding off on its row); its files are published to Download/ when seeding stops.",
             "group": "downloads"
@@ -2825,7 +2825,7 @@
             "min": 0,
             "max": 1000,
             "label": "Seed until ratio (%)",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Stop seeding once this share of the torrent's size has been uploaded (100 = 1.0); 0 = no ratio limit.",
             "group": "downloads"
@@ -2837,7 +2837,7 @@
             "min": 0,
             "max": 10080,
             "label": "Seed for at most (minutes)",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Stop seeding after this long; 0 = no time limit.",
             "group": "downloads"
@@ -2849,7 +2849,7 @@
             "min": 0,
             "max": 1000000,
             "label": "Torrent upload limit (KB/s)",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Upload speed cap for every torrent together; 0 = no limit. Downloads use the download speed limit above.",
             "group": "downloads"
@@ -2859,7 +2859,7 @@
             "type": "bool",
             "default": true,
             "label": "Block trackers",
-            "section": "general",
+            "section": "browsing",
             "class": "config",
             "doc": "Subresource requests to the declared tracker hosts are answered empty on every site. A site can allow them (page menu > This site > Block trackers here).",
             "group": "privacy"
@@ -3330,21 +3330,19 @@
               "cards",
               "vault"
             ],
-            "general": [
-              "about"
-            ]
+            "browsing": []
           },
           "rows": [
             {
               "id": "bookmarks",
               "label": "Bookmarks",
-              "page": "general",
+              "page": "browsing",
               "group": "general"
             },
             {
               "id": "default_browser",
               "label": "Set as default browser",
-              "page": "general",
+              "page": "browsing",
               "requires": [
                 "can_be_default"
               ],
@@ -3353,19 +3351,19 @@
             {
               "id": "history",
               "label": "History",
-              "page": "general",
+              "page": "browsing",
               "group": "privacy"
             },
             {
               "id": "clear_data",
               "label": "Clear browsing data…",
-              "page": "general",
+              "page": "browsing",
               "group": "privacy"
             },
             {
               "id": "storage_manage",
               "label": "Storage & cookies…",
-              "page": "general",
+              "page": "browsing",
               "group": "privacy"
             },
             {
@@ -3387,42 +3385,42 @@
             {
               "id": "downloads",
               "label": "Downloads",
-              "page": "general",
+              "page": "browsing",
               "group": "downloads"
             },
             {
               "id": "offline_manage",
               "label": "Offline copies…",
-              "page": "general",
+              "page": "browsing",
               "group": "downloads"
             },
             {
               "id": "new_tab",
               "label": "New tab",
-              "page": "general",
+              "page": "browsing",
               "group": "tabs"
             },
             {
               "id": "new_private_tab",
               "label": "New private tab",
-              "page": "general",
+              "page": "browsing",
               "group": "tabs"
             },
             {
               "id": "tab_groups",
               "label": "Tab groups…",
-              "page": "general",
+              "page": "browsing",
               "group": "tabs"
             },
             {
               "id": "addons_manage",
               "label": "Manage add-ons…",
-              "page": "general",
+              "page": "browsing",
               "group": "advanced"
             }
           ],
           "groups": {
-            "general": [
+            "browsing": [
               {
                 "id": "general",
                 "label": "General"
@@ -3476,13 +3474,14 @@
             ]
           },
           "redirects": {
-            "search": "general",
-            "privacy": "general",
+            "general": "browsing",
+            "search": "browsing",
+            "privacy": "browsing",
             "site": "sites",
-            "downloads": "general",
-            "appearance": "general",
-            "tabs": "general",
-            "advanced": "general",
+            "downloads": "browsing",
+            "appearance": "browsing",
+            "tabs": "browsing",
+            "advanced": "browsing",
             "passwords": "autocomplete",
             "payment": "autocomplete",
             "sync": "autocomplete"
@@ -3916,14 +3915,14 @@
                 "id": "search_with",
                 "label": "Search with…",
                 "scope": "global",
-                "page": "general",
+                "page": "browsing",
                 "group": "search"
               },
               {
                 "id": "search_chat",
                 "label": "Search & AI",
                 "scope": "global",
-                "page": "general",
+                "page": "browsing",
                 "group": "search"
               }
             ]
@@ -4174,12 +4173,8 @@
             "label": "Autocomplete"
           },
           {
-            "id": "general",
-            "label": "General"
-          },
-          {
-            "id": "about",
-            "label": "About"
+            "id": "browsing",
+            "label": "Browser"
           }
         ]
       },

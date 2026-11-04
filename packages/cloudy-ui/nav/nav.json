@@ -5451,6 +5451,21 @@
           "icon": "configs",
           "pages": [
             {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
               "id": "tracker",
               "label": "Tracker",
               "icon": "my_location"
@@ -5476,9 +5491,9 @@
               "icon": "layers"
             },
             {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
+              "id": "device",
+              "label": "Device",
+              "icon": "smartphone"
             }
           ]
         }
@@ -5660,9 +5675,24 @@
           "icon": "settings",
           "pages": [
             {
-              "id": "configs",
-              "label": "Configs",
+              "id": "general",
+              "label": "General",
               "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
+              "id": "news",
+              "label": "News",
+              "icon": "rss_feed"
             }
           ]
         }
@@ -6720,6 +6750,21 @@
           "icon": "configs",
           "pages": [
             {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
               "id": "sites",
               "label": "Sites",
               "icon": "public"
@@ -6735,14 +6780,9 @@
               "icon": "edit_note"
             },
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
+              "id": "browsing",
+              "label": "Browser",
+              "icon": "language"
             }
           ]
         }
@@ -7070,9 +7110,24 @@
           "icon": "ic_settings",
           "pages": [
             {
+              "id": "general",
+              "label": "General",
+              "icon": "ic_settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "ic_perms"
+            },
+            {
               "id": "about",
               "label": "About",
-              "icon": "ic_settings"
+              "icon": "ic_info"
+            },
+            {
+              "id": "build",
+              "label": "Build",
+              "icon": "ic_code"
             }
           ]
         }
@@ -8902,6 +8957,21 @@
           "background": "dark",
           "pages": [
             {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
               "id": "android",
               "label": "Android",
               "icon": "android",
@@ -9293,6 +9363,21 @@
               "id": "general",
               "label": "General",
               "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "lock"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
+            },
+            {
+              "id": "drive",
+              "label": "Drive",
+              "icon": "folder"
             },
             {
               "id": "git",
