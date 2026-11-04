@@ -2,7 +2,7 @@
   // #1370 the rate path: one 100% stacked bar, a segment per outcome (e.g. the number of Fed cuts) at falling alpha, legend below (the APK's FinStackBar).
   type P = { label: string; y: number };
   let { points }: { points: P[] } = $props();
-  const legs = $derived(points.filter((p) => p.y >= 1));
+  const legs = $derived(points.filter((p) => p.y >= 0.3));
   const sum = $derived(legs.reduce((a, p) => a + p.y, 0) || 1);
   const pct = (v: number) => ((v / sum) * 100).toFixed(1).replace(/\.0$/, '');
 </script>
