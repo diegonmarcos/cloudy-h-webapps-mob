@@ -54,7 +54,7 @@ export const C3_OLD = {
 export const STUB_RENAMES = {
   'ai-chat': '/cloud-webapps/cloud-tools-small-llms/',
   'c3-bot': '/cloud-webapps/c3/',
-  'c3-dns-routing': '/cloudy-c3/ops/network/',
+  'c3-dns-routing': '/cloudy-c3/ops/net/net_dns/',
   'c3-mail': '/cloud-webapps/cloud-mail/',
   'c3-mcp-apis': '/cloudy-c3/portal/mcp/',
   'c3-observability': '/cloudy-c3/observ/',
