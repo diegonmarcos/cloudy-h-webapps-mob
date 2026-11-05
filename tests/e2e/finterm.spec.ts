@@ -221,6 +221,26 @@ test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard
   await expect(page.getByTestId('finterm-dash')).toHaveAttribute('data-dash', fin.dashboards.find((d) => d.tab === 'fi' && d.slug === fin.homes.fi[0].slug)!.id);
 });
 
+// #1478 PM Vol: the portfolio table with the four risk levels as filters, each row opening its portfolio; Commodities and Profiles are tables of the same matrix
+test('PM Vol, Commodities and Profiles: the declared tables, the level filter and the row links', async ({ page }) => {
+  await net(page);
+  const wide = fin as unknown as { pm: Record<string, { rows?: { dashboard?: string }[]; tabs?: unknown[] }>; risk_tabs: { id: string }[]; dashboards: { id: string; risk?: string }[] };
+  const pm = wide.pm;
+  await page.goto(`${BASE}/${fin.app_id}/pm/pm-vol/`);
+  const tabs = page.getByTestId('pm-tab');
+  await expect(tabs).toHaveCount(wide.risk_tabs.length);
+  const rows = page.getByTestId('finterm-matrix-row');
+  await expect(rows).toHaveCount(pm.vol.rows!.length);
+  await tabs.nth(3).click();
+  await expect(rows).toHaveCount(pm.vol.rows!.filter((r) => wide.dashboards.find((d) => d.id === r.dashboard)!.risk === wide.risk_tabs[3].id).length);
+  await rows.first().click();
+  await expect(page.getByTestId('finterm-dash')).toBeVisible();
+  await page.goto(`${BASE}/${fin.app_id}/pm/pm-commodities/`);
+  await expect(page.getByTestId('finterm-matrix')).toContainText('Gold');
+  await page.goto(`${BASE}/${fin.app_id}/pm/pm-profiles/`);
+  await expect(page.getByTestId('pm-tab')).toHaveCount(pm.profiles.tabs!.length);
+});
+
 test('the removed FI Market Monitor deep link opens the FI Homepage', async ({ page }) => {
   await net(page);
   await page.goto(`${BASE}/${fin.app_id}/fi/market-monitor/`);

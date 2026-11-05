@@ -159,11 +159,13 @@ export function zoomWindow<T>(points: T[], zoom: number): T[] {
   return points.slice(-Math.min(points.length, Math.max(ZOOM_MIN_POINTS, Math.floor(points.length / zoom))));
 }
 
-/** #1462 the EM Bonds matrix on one phone screen, no scrolling (FinLogic.matrixWidths): the two label columns take 8 % and 13 % of the width, the rest share the remainder. */
-export const matrixWidths = (total: number, cols: number): number[] => {
-  if (cols <= 2) return Array.from({ length: cols }, () => total / Math.max(cols, 1));
-  const a = total * 0.08; const b = total * 0.13;
-  return [a, b, ...Array.from({ length: cols - 2 }, () => (total - a - b) / (cols - 2))];
+/** The default label columns of a matrix (FinLogic.MATRIX_LABELS): the first two take 8 % and 13 % of the width; a table may declare its own `label_fracs` (#1478). */
+export const MATRIX_LABELS = [0.08, 0.13];
+/** #1462 the matrix on one phone screen, no scrolling (FinLogic.matrixWidths): the label columns take their fraction of the width, the rest share the remainder. */
+export const matrixWidths = (total: number, cols: number, labels: number[] = MATRIX_LABELS): number[] => {
+  if (cols <= labels.length) return Array.from({ length: cols }, () => total / Math.max(cols, 1));
+  const fixed = labels.map((f) => total * f); const rest = total - fixed.reduce((a, b) => a + b, 0);
+  return [...fixed, ...Array.from({ length: cols - labels.length }, () => rest / (cols - labels.length))];
 };
 /** The matrix numeral size in px (FinLogic.matrixFont): the ramp's small mono size (11) shrunk until `chars` tabular characters (0.6 em each) fit the cell; never below 7. */
 export const matrixFont = (cell: number, chars: number): number => Math.max(7, Math.min(11, cell / (chars * 0.6)));

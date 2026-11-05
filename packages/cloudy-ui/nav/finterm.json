@@ -154,110 +154,123 @@
     ],
     "pm": [
       {
+        "kind": "pm_table",
+        "title": "Vol",
+        "subtitle": "The portfolios by risk level: allocation in DM and EM, Swap and expected annualised volatility; a row opens the portfolio",
+        "page": "pm-vol",
+        "table": "vol"
+      },
+      {
+        "kind": "pm_table",
+        "title": "Commodities",
+        "subtitle": "Commodities by the currency they are held in: sample allocation weights and volatility",
+        "page": "pm-commodities",
+        "table": "commodities"
+      },
+      {
+        "kind": "pm_table",
+        "title": "Profiles",
+        "subtitle": "Companies by business-cycle profile: Growth, Value, Quality, Cyclical, Defensive, Dividend, Momentum, Small-cap",
+        "page": "pm-profiles",
+        "table": "profiles"
+      },
+      {
         "kind": "dashboard",
         "title": "Portfolio & Risk Analytics",
         "subtitle": "Comprehensive portfolio tracking, attribution analysis, factor exposures and scenario stress testing for well-known portfolios",
-        "dashboard": "portfolio_risk"
-      },
-      {
-        "kind": "section_title",
-        "title": "DM · Low risk"
+        "dashboard": "portfolio_risk",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "A1 Cash (DM - Cash)",
+        "title": "DM Cash B100",
         "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)",
-        "dashboard": "pm_a1_cash"
+        "dashboard": "pm_a1_cash",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "A2 Low Risk",
-        "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0",
-        "dashboard": "pm_a2_low"
-      },
-      {
-        "kind": "dashboard",
-        "title": "70/30",
+        "title": "DM E30B70",
         "subtitle": "70% bonds, 30% equity",
-        "dashboard": "mp_70_30"
-      },
-      {
-        "kind": "section_title",
-        "title": "DM · Middle risk"
+        "dashboard": "mp_70_30",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "60/40",
+        "title": "DM E40B60",
         "subtitle": "60% bonds, 40% equity",
-        "dashboard": "mp_60_40"
+        "dashboard": "mp_60_40",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "40/60",
+        "title": "DM E60B40",
         "subtitle": "40% bonds, 60% equity",
-        "dashboard": "mp_40_60"
+        "dashboard": "mp_40_60",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "30/70",
+        "title": "DM E70B30",
         "subtitle": "30% bonds, 70% equity",
-        "dashboard": "mp_30_70"
-      },
-      {
-        "kind": "section_title",
-        "title": "EM · Middle-High risk"
+        "dashboard": "mp_30_70",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "D1 EM Bonds",
-        "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes",
-        "dashboard": "pm_d1_em_bonds"
-      },
-      {
-        "kind": "dashboard",
-        "title": "B1 Middle Risk",
+        "title": "DM E40B40 · EM E10B10",
         "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
-        "dashboard": "pm_b1_mid"
+        "dashboard": "pm_b1_mid",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "C1 Risky",
+        "title": "EM B100",
+        "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes",
+        "dashboard": "pm_d1_em_bonds",
+        "detail": true
+      },
+      {
+        "kind": "dashboard",
+        "title": "DM E50B10 · EM E30B10",
         "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
-        "dashboard": "pm_c1_risky"
-      },
-      {
-        "kind": "section_title",
-        "title": "EM · High risk"
+        "dashboard": "pm_c1_risky",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "70/30 DM/EM",
+        "title": "DM E70 · EM E30",
         "subtitle": "70% Developed Markets, 30% Emerging Markets",
-        "dashboard": "mp_70_30_DM_EM"
+        "dashboard": "mp_70_30_DM_EM",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "60/40 DM/EM",
+        "title": "DM E60 · EM E40",
         "subtitle": "60% Developed Markets, 40% Emerging Markets",
-        "dashboard": "mp_60_40_DM_EM"
+        "dashboard": "mp_60_40_DM_EM",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "40/60 DM/EM",
+        "title": "DM E40 · EM E60",
         "subtitle": "40% Developed Markets, 60% Emerging Markets",
-        "dashboard": "mp_40_60_DM_EM"
+        "dashboard": "mp_40_60_DM_EM",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "30/70 DM/EM",
+        "title": "DM E30 · EM E70",
         "subtitle": "30% Developed Markets, 70% Emerging Markets",
-        "dashboard": "mp_30_70_DM_EM"
+        "dashboard": "mp_30_70_DM_EM",
+        "detail": true
       },
       {
         "kind": "dashboard",
-        "title": "D0 EM Carry Trade",
+        "title": "EM Carry EUR→BRL",
         "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
-        "dashboard": "pm_d0_carry"
+        "dashboard": "pm_d0_carry",
+        "detail": true
       }
     ]
   },
@@ -404,108 +417,22 @@
     ],
     "pm": [
       {
-        "slug": "portfolio-risk",
-        "title": "Portfolio & Risk Analytics",
-        "icon": "insights",
-        "subtitle": "Comprehensive portfolio tracking, attribution analysis, factor exposures and scenario stress testing for well-known portfolios"
+        "slug": "pm-vol",
+        "title": "Vol",
+        "icon": "table_chart",
+        "subtitle": "The portfolios by risk level: allocation in DM and EM, Swap and expected annualised volatility; a row opens the portfolio"
       },
       {
-        "slug": "pm-a1-cash",
-        "title": "A1 Cash (DM - Cash)",
-        "icon": "payments",
-        "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)",
-        "risk": "dm_low"
+        "slug": "pm-commodities",
+        "title": "Commodities",
+        "icon": "inventory_2",
+        "subtitle": "Commodities by the currency they are held in: sample allocation weights and volatility"
       },
       {
-        "slug": "pm-a2-low",
-        "title": "A2 Low Risk",
-        "icon": "pie_chart",
-        "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0",
-        "risk": "dm_low"
-      },
-      {
-        "slug": "mp-70-30",
-        "title": "70/30",
-        "icon": "pie_chart",
-        "subtitle": "70% bonds, 30% equity",
-        "risk": "dm_low"
-      },
-      {
-        "slug": "mp-60-40",
-        "title": "60/40",
-        "icon": "pie_chart",
-        "subtitle": "60% bonds, 40% equity",
-        "risk": "dm_mid"
-      },
-      {
-        "slug": "mp-40-60",
-        "title": "40/60",
-        "icon": "pie_chart",
-        "subtitle": "40% bonds, 60% equity",
-        "risk": "dm_mid"
-      },
-      {
-        "slug": "mp-30-70",
-        "title": "30/70",
-        "icon": "pie_chart",
-        "subtitle": "30% bonds, 70% equity",
-        "risk": "dm_mid"
-      },
-      {
-        "slug": "pm-d1-em-bonds",
-        "title": "D1 EM Bonds",
-        "icon": "calculate",
-        "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes",
-        "risk": "em_mid"
-      },
-      {
-        "slug": "pm-b1-mid",
-        "title": "B1 Middle Risk",
-        "icon": "pie_chart",
-        "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10",
-        "risk": "em_mid"
-      },
-      {
-        "slug": "pm-c1-risky",
-        "title": "C1 Risky",
-        "icon": "pie_chart",
-        "subtitle": "Placeholder tier: DM equity 50 / bonds 10, EM equity 30 / bonds 10",
-        "risk": "em_mid"
-      },
-      {
-        "slug": "mp-70-30-dm-em",
-        "title": "70/30 DM/EM",
-        "icon": "pie_chart",
-        "subtitle": "70% Developed Markets, 30% Emerging Markets",
-        "risk": "em_high"
-      },
-      {
-        "slug": "mp-60-40-dm-em",
-        "title": "60/40 DM/EM",
-        "icon": "pie_chart",
-        "subtitle": "60% Developed Markets, 40% Emerging Markets",
-        "risk": "em_high"
-      },
-      {
-        "slug": "mp-40-60-dm-em",
-        "title": "40/60 DM/EM",
-        "icon": "pie_chart",
-        "subtitle": "40% Developed Markets, 60% Emerging Markets",
-        "risk": "em_high"
-      },
-      {
-        "slug": "mp-30-70-dm-em",
-        "title": "30/70 DM/EM",
-        "icon": "pie_chart",
-        "subtitle": "30% Developed Markets, 70% Emerging Markets",
-        "risk": "em_high"
-      },
-      {
-        "slug": "pm-d0-carry",
-        "title": "D0 EM Carry Trade",
-        "icon": "trending_up",
-        "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return",
-        "risk": "em_high"
+        "slug": "pm-profiles",
+        "title": "Profiles",
+        "icon": "groups",
+        "subtitle": "Companies by business-cycle profile: Growth, Value, Quality, Cyclical, Defensive, Dividend, Momentum, Small-cap"
       }
     ]
   },
@@ -517,39 +444,683 @@
     {
       "id": "dm_low",
       "label": "DM · Low",
-      "header": "DM · Low risk",
       "market": "DM",
       "equity_max": 30
     },
     {
       "id": "dm_mid",
-      "label": "DM · Mid",
-      "header": "DM · Middle risk",
+      "label": "DM · Middle",
       "market": "DM",
       "equity_max": 100
     },
     {
       "id": "em_mid",
-      "label": "EM · Mid-High",
-      "header": "EM · Middle-High risk",
+      "label": "DM+EM · Middle-High",
       "market": "EM",
       "equity_max": 80
     },
     {
       "id": "em_high",
-      "label": "EM · High",
-      "header": "EM · High risk",
+      "label": "DM+EM · High",
       "market": "EM",
       "equity_max": 100
     }
   ],
   "redirects": [
     {
+      "slug": "pm-a2-low",
+      "tab": "pm",
+      "to": "pm-home"
+    },
+    {
       "slug": "market-monitor",
       "tab": "fi",
       "to": "fi-home"
     }
   ],
+  "pm": {
+    "vol": {
+      "columns": [
+        "Portfolio",
+        "DM",
+        "DM\nBonds",
+        "DM\nEquity",
+        "EM",
+        "EM\nBonds",
+        "EM\nEquity",
+        "Swap",
+        "Vol"
+      ],
+      "label_fracs": [
+        0.36
+      ],
+      "note": "Model values, not live. Vol: expected annualised volatility in %, from assumed long-run volatility (DM bonds 5, DM equity 16, EM local bonds unhedged 11, EM equity 20) and correlations (DM equity with EM equity 0.75). Swap: Yes = FX swap hedges the EM currency; No = unhedged. Cash and carry rows: the Vol is a rough currency-move estimate (~).",
+      "tool": {
+        "label": "Portfolio & Risk Analytics",
+        "dashboard": "portfolio_risk"
+      },
+      "rows": [
+        {
+          "dashboard": "pm_a1_cash",
+          "cells": [
+            "100",
+            "100",
+            "0",
+            "0",
+            "0",
+            "0",
+            "",
+            "~4"
+          ]
+        },
+        {
+          "dashboard": "mp_70_30",
+          "cells": [
+            "100",
+            "70",
+            "30",
+            "0",
+            "0",
+            "0",
+            "",
+            "5.9"
+          ]
+        },
+        {
+          "dashboard": "mp_60_40",
+          "cells": [
+            "100",
+            "60",
+            "40",
+            "0",
+            "0",
+            "0",
+            "",
+            "7.1"
+          ]
+        },
+        {
+          "dashboard": "mp_40_60",
+          "cells": [
+            "100",
+            "40",
+            "60",
+            "0",
+            "0",
+            "0",
+            "",
+            "9.8"
+          ]
+        },
+        {
+          "dashboard": "mp_30_70",
+          "cells": [
+            "100",
+            "30",
+            "70",
+            "0",
+            "0",
+            "0",
+            "",
+            "11.3"
+          ]
+        },
+        {
+          "dashboard": "pm_b1_mid",
+          "cells": [
+            "80",
+            "40",
+            "40",
+            "20",
+            "10",
+            "10",
+            "No",
+            "9.0"
+          ]
+        },
+        {
+          "dashboard": "pm_d1_em_bonds",
+          "cells": [
+            "0",
+            "0",
+            "0",
+            "100",
+            "100",
+            "0",
+            "No",
+            "11.0"
+          ]
+        },
+        {
+          "dashboard": "pm_c1_risky",
+          "cells": [
+            "60",
+            "10",
+            "50",
+            "40",
+            "10",
+            "30",
+            "No",
+            "13.8"
+          ]
+        },
+        {
+          "dashboard": "mp_70_30_DM_EM",
+          "cells": [
+            "70",
+            "0",
+            "70",
+            "30",
+            "0",
+            "30",
+            "No",
+            "16.2"
+          ]
+        },
+        {
+          "dashboard": "mp_60_40_DM_EM",
+          "cells": [
+            "60",
+            "0",
+            "60",
+            "40",
+            "0",
+            "40",
+            "No",
+            "16.5"
+          ]
+        },
+        {
+          "dashboard": "mp_40_60_DM_EM",
+          "cells": [
+            "40",
+            "0",
+            "40",
+            "60",
+            "0",
+            "60",
+            "No",
+            "17.3"
+          ]
+        },
+        {
+          "dashboard": "mp_30_70_DM_EM",
+          "cells": [
+            "30",
+            "0",
+            "30",
+            "70",
+            "0",
+            "70",
+            "No",
+            "17.9"
+          ]
+        },
+        {
+          "dashboard": "pm_d0_carry",
+          "cells": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "No",
+            "~15"
+          ]
+        }
+      ]
+    },
+    "commodities": {
+      "columns": [
+        "Commodity",
+        "USD",
+        "EUR",
+        "GBP",
+        "CHF",
+        "JPY",
+        "CNY",
+        "BRL",
+        "Vol"
+      ],
+      "label_fracs": [
+        0.2
+      ],
+      "heat": [
+        1,
+        7
+      ],
+      "note": "Sample model weights, not live: % of each commodity's allocation held through each currency (a row sums to 100). Vol: assumed annual volatility in %.",
+      "rows": [
+        {
+          "name": "Gold",
+          "cells": [
+            "50",
+            "15",
+            "5",
+            "10",
+            "10",
+            "10",
+            "0",
+            "15"
+          ]
+        },
+        {
+          "name": "Silver",
+          "cells": [
+            "55",
+            "15",
+            "5",
+            "5",
+            "10",
+            "10",
+            "0",
+            "28"
+          ]
+        },
+        {
+          "name": "Platinum",
+          "cells": [
+            "40",
+            "20",
+            "5",
+            "10",
+            "15",
+            "10",
+            "0",
+            "22"
+          ]
+        },
+        {
+          "name": "Copper",
+          "cells": [
+            "30",
+            "10",
+            "5",
+            "0",
+            "10",
+            "45",
+            "0",
+            "24"
+          ]
+        },
+        {
+          "name": "Brent",
+          "cells": [
+            "60",
+            "15",
+            "10",
+            "0",
+            "5",
+            "5",
+            "5",
+            "35"
+          ]
+        },
+        {
+          "name": "WTI",
+          "cells": [
+            "85",
+            "5",
+            "5",
+            "0",
+            "0",
+            "5",
+            "0",
+            "37"
+          ]
+        },
+        {
+          "name": "Nat Gas",
+          "cells": [
+            "65",
+            "20",
+            "10",
+            "0",
+            "5",
+            "0",
+            "0",
+            "55"
+          ]
+        },
+        {
+          "name": "Wheat",
+          "cells": [
+            "40",
+            "25",
+            "5",
+            "0",
+            "0",
+            "10",
+            "20",
+            "30"
+          ]
+        },
+        {
+          "name": "Corn",
+          "cells": [
+            "45",
+            "10",
+            "0",
+            "0",
+            "5",
+            "10",
+            "30",
+            "26"
+          ]
+        },
+        {
+          "name": "Soybeans",
+          "cells": [
+            "30",
+            "10",
+            "0",
+            "0",
+            "5",
+            "25",
+            "30",
+            "20"
+          ]
+        },
+        {
+          "name": "Coffee",
+          "cells": [
+            "35",
+            "20",
+            "5",
+            "5",
+            "0",
+            "0",
+            "35",
+            "32"
+          ]
+        },
+        {
+          "name": "Sugar",
+          "cells": [
+            "30",
+            "15",
+            "5",
+            "0",
+            "5",
+            "15",
+            "30",
+            "28"
+          ]
+        }
+      ]
+    },
+    "profiles": {
+      "columns": [
+        "Ticker",
+        "Company",
+        "Sector"
+      ],
+      "label_fracs": [
+        0.16,
+        0.46
+      ],
+      "note": "Sample companies per profile, not a screen result; a profile's phases are where it tends to lead the business cycle (Early, Mid, Late, Recession).",
+      "tabs": [
+        {
+          "id": "growth",
+          "label": "Growth",
+          "leads": "Early, Mid",
+          "rows": [
+            [
+              "NVDA",
+              "Nvidia",
+              "Technology"
+            ],
+            [
+              "AMZN",
+              "Amazon",
+              "Consumer Disc."
+            ],
+            [
+              "META",
+              "Meta Platforms",
+              "Communication"
+            ],
+            [
+              "TSLA",
+              "Tesla",
+              "Consumer Disc."
+            ],
+            [
+              "NOW",
+              "ServiceNow",
+              "Technology"
+            ]
+          ]
+        },
+        {
+          "id": "value",
+          "label": "Value",
+          "leads": "Early, Late",
+          "rows": [
+            [
+              "BRK-B",
+              "Berkshire Hathaway",
+              "Financials"
+            ],
+            [
+              "JPM",
+              "JPMorgan Chase",
+              "Financials"
+            ],
+            [
+              "XOM",
+              "Exxon Mobil",
+              "Energy"
+            ],
+            [
+              "CVX",
+              "Chevron",
+              "Energy"
+            ],
+            [
+              "INTC",
+              "Intel",
+              "Technology"
+            ]
+          ]
+        },
+        {
+          "id": "quality",
+          "label": "Quality",
+          "leads": "Mid, Late",
+          "rows": [
+            [
+              "MSFT",
+              "Microsoft",
+              "Technology"
+            ],
+            [
+              "V",
+              "Visa",
+              "Financials"
+            ],
+            [
+              "COST",
+              "Costco",
+              "Consumer Staples"
+            ],
+            [
+              "ADBE",
+              "Adobe",
+              "Technology"
+            ],
+            [
+              "LIN",
+              "Linde",
+              "Materials"
+            ]
+          ]
+        },
+        {
+          "id": "cyclical",
+          "label": "Cyclical",
+          "leads": "Early, Mid",
+          "rows": [
+            [
+              "CAT",
+              "Caterpillar",
+              "Industrials"
+            ],
+            [
+              "F",
+              "Ford Motor",
+              "Consumer Disc."
+            ],
+            [
+              "DOW",
+              "Dow",
+              "Materials"
+            ],
+            [
+              "FCX",
+              "Freeport-McMoRan",
+              "Materials"
+            ],
+            [
+              "UAL",
+              "United Airlines",
+              "Industrials"
+            ]
+          ]
+        },
+        {
+          "id": "defensive",
+          "label": "Defensive",
+          "leads": "Late, Recession",
+          "rows": [
+            [
+              "PG",
+              "Procter & Gamble",
+              "Consumer Staples"
+            ],
+            [
+              "KO",
+              "Coca-Cola",
+              "Consumer Staples"
+            ],
+            [
+              "JNJ",
+              "Johnson & Johnson",
+              "Health Care"
+            ],
+            [
+              "WMT",
+              "Walmart",
+              "Consumer Staples"
+            ],
+            [
+              "DUK",
+              "Duke Energy",
+              "Utilities"
+            ]
+          ]
+        },
+        {
+          "id": "dividend",
+          "label": "Dividend",
+          "leads": "Late, Recession",
+          "rows": [
+            [
+              "VZ",
+              "Verizon",
+              "Communication"
+            ],
+            [
+              "MO",
+              "Altria",
+              "Consumer Staples"
+            ],
+            [
+              "ABBV",
+              "AbbVie",
+              "Health Care"
+            ],
+            [
+              "PEP",
+              "PepsiCo",
+              "Consumer Staples"
+            ],
+            [
+              "O",
+              "Realty Income",
+              "Real Estate"
+            ]
+          ]
+        },
+        {
+          "id": "momentum",
+          "label": "Momentum",
+          "leads": "Early, Mid",
+          "rows": [
+            [
+              "AVGO",
+              "Broadcom",
+              "Technology"
+            ],
+            [
+              "LLY",
+              "Eli Lilly",
+              "Health Care"
+            ],
+            [
+              "ANET",
+              "Arista Networks",
+              "Technology"
+            ],
+            [
+              "PLTR",
+              "Palantir",
+              "Technology"
+            ],
+            [
+              "NFLX",
+              "Netflix",
+              "Communication"
+            ]
+          ]
+        },
+        {
+          "id": "small_cap",
+          "label": "Small-cap",
+          "leads": "Early",
+          "rows": [
+            [
+              "CELH",
+              "Celsius Holdings",
+              "Consumer Staples"
+            ],
+            [
+              "DUOL",
+              "Duolingo",
+              "Technology"
+            ],
+            [
+              "ONON",
+              "On Holding",
+              "Consumer Disc."
+            ],
+            [
+              "SFM",
+              "Sprouts Farmers Market",
+              "Consumer Staples"
+            ],
+            [
+              "AIT",
+              "Applied Industrial",
+              "Industrials"
+            ]
+          ]
+        }
+      ]
+    }
+  },
   "sources": [
     {
       "id": "cloud_fincept",
@@ -698,8 +1269,8 @@
         {
           "tab": "pm",
           "entries": [
-            "D1 EM Bonds",
-            "D0 EM Carry Trade"
+            "EM B100",
+            "EM Carry EUR→BRL"
           ]
         }
       ],
@@ -1367,8 +1938,8 @@
         {
           "tab": "pm",
           "entries": [
-            "D1 EM Bonds",
-            "D0 EM Carry Trade"
+            "EM B100",
+            "EM Carry EUR→BRL"
           ]
         }
       ],
@@ -1466,14 +2037,14 @@
         {
           "tab": "pm",
           "entries": [
-            "40/60",
-            "70/30",
-            "60/40",
-            "30/70",
-            "70/30 DM/EM",
-            "60/40 DM/EM",
-            "40/60 DM/EM",
-            "30/70 DM/EM"
+            "DM E60B40",
+            "DM E30B70",
+            "DM E40B60",
+            "DM E70B30",
+            "DM E70 · EM E30",
+            "DM E60 · EM E40",
+            "DM E40 · EM E60",
+            "DM E30 · EM E70"
           ]
         }
       ],
@@ -6056,7 +6627,7 @@
     },
     {
       "id": "pm_a1_cash",
-      "entry": "A1 Cash (DM - Cash)",
+      "entry": "DM Cash B100",
       "tab": "pm",
       "market": "DM",
       "equity_pct": 0,
@@ -6102,47 +6673,8 @@
       "subtitle": "100% short-term sovereign bonds, each currency at its USD Dollar Index weight (the index only tracks FX; the bonds are held)"
     },
     {
-      "id": "pm_a2_low",
-      "entry": "A2 Low Risk",
-      "tab": "pm",
-      "market": "DM",
-      "equity_pct": 30,
-      "em_pct": 0,
-      "risk": "dm_low",
-      "model_portfolio": {
-        "legs": [
-          [
-            "DM Equity",
-            30
-          ],
-          [
-            "DM Bonds",
-            70
-          ],
-          [
-            "EM Equity",
-            0
-          ],
-          [
-            "EM Bonds",
-            0
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation: DM (equity 30 / bonds 70), EM (equity 0 / bonds 0)",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        }
-      ],
-      "slug": "pm-a2-low",
-      "subtitle": "DM equity 30 / bonds 70, EM equity 0 / bonds 0"
-    },
-    {
       "id": "mp_70_30",
-      "entry": "70/30",
+      "entry": "DM E30B70",
       "tab": "pm",
       "market": "DM",
       "equity_pct": 30,
@@ -6218,7 +6750,7 @@
     },
     {
       "id": "mp_60_40",
-      "entry": "60/40",
+      "entry": "DM E40B60",
       "tab": "pm",
       "market": "DM",
       "equity_pct": 40,
@@ -6294,7 +6826,7 @@
     },
     {
       "id": "mp_40_60",
-      "entry": "40/60",
+      "entry": "DM E60B40",
       "tab": "pm",
       "market": "DM",
       "equity_pct": 60,
@@ -6432,7 +6964,7 @@
     },
     {
       "id": "mp_30_70",
-      "entry": "30/70",
+      "entry": "DM E70B30",
       "tab": "pm",
       "market": "DM",
       "equity_pct": 70,
@@ -6507,8 +7039,47 @@
       "subtitle": "30% bonds, 70% equity"
     },
     {
+      "id": "pm_b1_mid",
+      "entry": "DM E40B40 · EM E10B10",
+      "tab": "pm",
+      "market": "EM",
+      "equity_pct": 50,
+      "em_pct": 20,
+      "risk": "em_mid",
+      "model_portfolio": {
+        "legs": [
+          [
+            "DM Equity",
+            40
+          ],
+          [
+            "DM Bonds",
+            40
+          ],
+          [
+            "EM Equity",
+            10
+          ],
+          [
+            "EM Bonds",
+            10
+          ]
+        ]
+      },
+      "panels": [
+        {
+          "id": "alloc",
+          "title": "Allocation (placeholder tier): DM 40 / 40, EM 10 / 10",
+          "source": "fincept_data_api",
+          "view": "alloc"
+        }
+      ],
+      "slug": "pm-b1-mid",
+      "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10"
+    },
+    {
       "id": "pm_d1_em_bonds",
-      "entry": "D1 EM Bonds",
+      "entry": "EM B100",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 0,
@@ -6626,47 +7197,8 @@
       "subtitle": "DM 0, EM equity 0 / bonds 100: the EM Bonds calculator, return after inflation and taxes"
     },
     {
-      "id": "pm_b1_mid",
-      "entry": "B1 Middle Risk",
-      "tab": "pm",
-      "market": "EM",
-      "equity_pct": 50,
-      "em_pct": 20,
-      "risk": "em_mid",
-      "model_portfolio": {
-        "legs": [
-          [
-            "DM Equity",
-            40
-          ],
-          [
-            "DM Bonds",
-            40
-          ],
-          [
-            "EM Equity",
-            10
-          ],
-          [
-            "EM Bonds",
-            10
-          ]
-        ]
-      },
-      "panels": [
-        {
-          "id": "alloc",
-          "title": "Allocation (placeholder tier): DM 40 / 40, EM 10 / 10",
-          "source": "fincept_data_api",
-          "view": "alloc"
-        }
-      ],
-      "slug": "pm-b1-mid",
-      "subtitle": "Placeholder tier: DM equity 40 / bonds 40, EM equity 10 / bonds 10"
-    },
-    {
       "id": "pm_c1_risky",
-      "entry": "C1 Risky",
+      "entry": "DM E50B10 · EM E30B10",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 80,
@@ -6705,7 +7237,7 @@
     },
     {
       "id": "mp_70_30_DM_EM",
-      "entry": "70/30 DM/EM",
+      "entry": "DM E70 · EM E30",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 100,
@@ -6781,7 +7313,7 @@
     },
     {
       "id": "mp_60_40_DM_EM",
-      "entry": "60/40 DM/EM",
+      "entry": "DM E60 · EM E40",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 100,
@@ -6857,7 +7389,7 @@
     },
     {
       "id": "mp_40_60_DM_EM",
-      "entry": "40/60 DM/EM",
+      "entry": "DM E40 · EM E60",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 100,
@@ -6933,7 +7465,7 @@
     },
     {
       "id": "mp_30_70_DM_EM",
-      "entry": "30/70 DM/EM",
+      "entry": "DM E30 · EM E70",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 100,
@@ -7009,7 +7541,7 @@
     },
     {
       "id": "pm_d0_carry",
-      "entry": "D0 EM Carry Trade",
+      "entry": "EM Carry EUR→BRL",
       "tab": "pm",
       "market": "EM",
       "equity_pct": 100,

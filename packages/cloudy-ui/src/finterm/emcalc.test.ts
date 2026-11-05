@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { FINTERM } from './catalog';
 import { FetchError, loadPanel, type Ctx, type Dashboard } from './engine';
 import { matrixFont, matrixWidths } from './fin';
-import { RISK_ALL, riskGroups, type RiskTab } from './risk';
+import { RISK_ALL, filterRows, heatOf, matrixRows, type PmTableDecl, type RiskTab } from './risk';
 import { EM_DEFAULTS, axis, emMatrix, fxs, grid, heat, money, monthlyNet, netOf, pct, real, roundTo, type EmLive } from './emcalc';
 
 // #1447 PM > D1 EM Bonds CALCULATOR and D0 EM Carry Trade: the same numbers as EmCalcTest.kt (APK), checked against the owner's image
@@ -115,17 +115,20 @@ describe('PM D1 / D0 panels on live feeds', () => {
   });
 });
 
-// #1462 PM organised by risk: top tabs, a section header per tier in All, every portfolio (also the eight older ones) in a tier by its equity share; the matrix fits one screen
-describe('PM risk tabs and the one-screen matrix (#1462)', () => {
-  const tabs = (FINTERM as unknown as { risk_tabs: RiskTab[] & { market?: string }[] }).risk_tabs as (RiskTab & { market?: string })[];
-  type D = { id: string; tab: string; risk?: string; market?: string; equity_pct?: number; em_pct?: number; risk_basis?: string };
+// #1462 / #1478 PM Vol organised by risk level: filter tabs, every portfolio in a tier by its market and equity share, the rows of the Vol table by level; the matrix fits one screen
+describe('PM Vol risk levels and the one-screen matrix (#1462, #1478)', () => {
+  const tabs = (FINTERM as unknown as { risk_tabs: RiskTab[] }).risk_tabs;
+  const pmDecl = (FINTERM as unknown as { pm: Record<string, PmTableDecl> }).pm;
+  type D = { id: string; entry: string; tab: string; risk?: string; market?: string; equity_pct?: number; em_pct?: number; risk_basis?: string };
   const pm = (FINTERM.dashboards as unknown as D[]).filter((d) => d.tab === 'pm' && d.id !== 'portfolio_risk');
-  it('the tabs are All | DM Low | DM Mid | EM Mid-High | EM High with the section headers', () => {
-    expect(tabs.map((t) => t.label)).toEqual(['All', 'DM · Low', 'DM · Mid', 'EM · Mid-High', 'EM · High']);
-    expect(tabs.slice(1).map((t) => t.header)).toEqual(['DM · Low risk', 'DM · Middle risk', 'EM · Middle-High risk', 'EM · High risk']);
+  const vol = pmDecl.vol;
+  const riskOf = (id: string) => pm.find((d) => d.id === id)?.risk ?? '';
+  it('the filter tabs are All | DM · Low | DM · Middle | DM+EM · Middle-High | DM+EM · High', () => {
+    expect(tabs.map((t) => t.label)).toEqual(['All', 'DM · Low', 'DM · Middle', 'DM+EM · Middle-High', 'DM+EM · High']);
   });
-  it('every PM portfolio declares a market and a tier: DM below EM, then more equity = higher risk', () => {
-    expect(pm.length).toBe(14);
+  it('every PM portfolio declares a market and a tier: DM below EM, then more equity = higher risk; A2 is dropped', () => {
+    expect(pm.length).toBe(13);
+    expect(pm.find((d) => d.id === 'pm_a2_low')).toBeUndefined();
     for (const d of pm) {
       expect(['DM', 'EM'], d.id).toContain(d.market);
       expect(tabs.slice(1).map((t) => t.id), d.id).toContain(d.risk);
@@ -133,22 +136,36 @@ describe('PM risk tabs and the one-screen matrix (#1462)', () => {
       expect(d.market === 'EM', d.id).toBe(d.em_pct! > 0);
     }
     const key = (d: D) => (d.market === 'DM' ? 0 : 1e6) + d.equity_pct! * 1000 + d.em_pct!;
-    const order = pm.map((d) => FINTERM.homes.pm.findIndex((c) => c.slug === d.id.toLowerCase().replace(/_/g, '-')));
-    const byPage = [...pm].sort((a, b) => FINTERM.homes.pm.findIndex((c) => c.slug === a.id.toLowerCase().replace(/_/g, '-')) - FINTERM.homes.pm.findIndex((c) => c.slug === b.id.toLowerCase().replace(/_/g, '-'))).map(key);
-    expect(order.every((i) => i >= 0)).toBe(true);
-    expect(byPage).toEqual([...byPage].sort((a, b) => a - b));
     const t = (id: string) => pm.find((d) => d.id === id)!.risk;
     expect(['pm_a1_cash', 'mp_70_30', 'mp_60_40', 'mp_30_70', 'pm_d1_em_bonds', 'pm_c1_risky', 'mp_30_70_DM_EM', 'pm_d0_carry'].map(t)).toEqual(['dm_low', 'dm_low', 'dm_mid', 'dm_mid', 'em_mid', 'em_mid', 'em_high', 'em_high']);
     expect(pm.reduce((m, d) => (key(d) > key(m) ? d : m)).id).toBe('pm_d0_carry');
   });
-  it('All: a header per tier in order, the analytics tool first with none; a tier tab: its own cards alone', () => {
-    const cards = FINTERM.homes.pm.map((c) => c as typeof c & { risk?: string });
-    const all = riskGroups(cards, tabs, RISK_ALL);
-    expect(all.map((g) => g.header)).toEqual(['', 'DM · Low risk', 'DM · Middle risk', 'EM · Middle-High risk', 'EM · High risk']);
-    expect(all.reduce((n, g) => n + g.cards.length, 0)).toBe(cards.length);
-    expect(all[0].cards.map((c) => c.slug)).toEqual(['portfolio-risk']);
-    const c = riskGroups(cards, tabs, 'em_mid'); expect(c.length).toBe(1); expect(c[0].header).toBe('');
-    expect(c[0].cards.map((x) => x.slug).sort()).toEqual(['pm-b1-mid', 'pm-c1-risky', 'pm-d1-em-bonds']);
+  it('Vol: the owner columns and names, one row per portfolio by level (level 3 by Vol: B1, D1, C1), the carry trade last', () => {
+    expect(vol.columns).toEqual(['Portfolio', 'DM', 'DM\nBonds', 'DM\nEquity', 'EM', 'EM\nBonds', 'EM\nEquity', 'Swap', 'Vol']);
+    const rows = vol.rows!;
+    expect(rows.map((r) => r.dashboard).sort()).toEqual(pm.map((d) => d.id).sort());
+    const nameOf = (id: string) => pm.find((d) => d.id === id)!.entry;
+    expect(matrixRows(rows, nameOf).map((r) => r[0])).toEqual(['DM Cash B100', 'DM E30B70', 'DM E40B60', 'DM E60B40', 'DM E70B30', 'DM E40B40 · EM E10B10', 'EM B100', 'DM E50B10 · EM E30B10', 'DM E70 · EM E30', 'DM E60 · EM E40', 'DM E40 · EM E60', 'DM E30 · EM E70', 'EM Carry EUR→BRL']);
+    const tier = rows.map((r) => tabs.findIndex((t) => t.id === riskOf(r.dashboard!)));
+    expect(tier).toEqual([...tier].sort((a, b) => a - b));
+    expect(filterRows(rows, riskOf, 'em_mid').map((r) => r.dashboard)).toEqual(['pm_b1_mid', 'pm_d1_em_bonds', 'pm_c1_risky']);
+    expect(filterRows(rows, riskOf, 'dm_low').map((r) => r.dashboard)).toEqual(['pm_a1_cash', 'mp_70_30']);
+    expect(filterRows(rows, riskOf, RISK_ALL)).toEqual(rows);
+    expect(rows[rows.length - 1].dashboard).toBe('pm_d0_carry');
+    for (const r of rows.filter((x) => x.dashboard !== 'pm_d0_carry')) { const n = r.cells.slice(0, 6).map(Number); expect(n[0] + n[3], r.dashboard).toBe(100); expect(n[0]).toBe(n[1] + n[2]); expect(n[3]).toBe(n[4] + n[5]); }
+    for (const r of rows) expect(r.cells[6], r.dashboard).toBe(pm.find((d) => d.id === r.dashboard)!.market === 'EM' ? 'No' : '');
+  });
+  it('Commodities: 12 rows by the 7 currency columns, sample weights adding up to 100, heat only on the weights; Profiles: the 8 cycle profiles', () => {
+    const c = pmDecl.commodities;
+    expect(c.columns).toEqual(['Commodity', 'USD', 'EUR', 'GBP', 'CHF', 'JPY', 'CNY', 'BRL', 'Vol']);
+    expect(c.rows!.map((r) => r.name)).toEqual(['Gold', 'Silver', 'Platinum', 'Copper', 'Brent', 'WTI', 'Nat Gas', 'Wheat', 'Corn', 'Soybeans', 'Coffee', 'Sugar']);
+    for (const r of c.rows!) expect(r.cells.slice(0, 7).reduce((a, x) => a + Number(x), 0), r.name).toBe(100);
+    expect(c.note).toContain('Sample');
+    const h = heatOf(c.rows!, c.heat);
+    expect(Math.max(...h.flat().filter((x): x is number => x != null))).toBe(1);
+    expect(h[0][0]).toBeNull(); expect(h[0][8]).toBeNull(); expect(h[0][1]).not.toBeNull();
+    expect(pmDecl.profiles.tabs!.map((t) => t.label)).toEqual(['Growth', 'Value', 'Quality', 'Cyclical', 'Defensive', 'Dividend', 'Momentum', 'Small-cap']);
+    expect(FINTERM.homes.pm.map((c) => c.slug)).toEqual(['pm-vol', 'pm-commodities', 'pm-profiles']);
   });
   it('the matrix fits one 312 px card body: 9 columns, numerals within the ramp (7..11 px), 10 rows of 20 px', () => {
     const w = matrixWidths(312, 9);
@@ -156,5 +173,8 @@ describe('PM risk tabs and the one-screen matrix (#1462)', () => {
     const f = matrixFont(w[2], '1,500.00'.length);
     expect(f).toBeGreaterThanOrEqual(7); expect(f).toBeLessThanOrEqual(11); expect(f * 0.6 * 8).toBeLessThanOrEqual(w[2] + 1e-9);
     expect(matrixFont(100, 8)).toBe(11); expect(matrixFont(10, 8)).toBe(7);
+    // a table declares its own label columns (Vol: one at 36 %); the default is 8 % and 13 %
+    const v = matrixWidths(300, 9, [0.36]); expect(v.length).toBe(9); expect(v[0]).toBeCloseTo(108, 6); expect(v.reduce((a, b) => a + b, 0)).toBeCloseTo(300, 6);
+    expect(matrixWidths(312, 9, [0.08, 0.13])).toEqual(w);
   });
 });

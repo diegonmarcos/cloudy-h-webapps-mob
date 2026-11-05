@@ -31,7 +31,7 @@ export const strip = (v) => Array.isArray(v) ? v.map(strip)
 export const slugOf = (id) => id.toLowerCase().replace(/_/g, '-');
 
 /** Pure: the Android declarations + the containers declaration -> the web file. Throws on any contradiction. */
-export function buildFinterm({ sources, dashboards, build, services, appId, declared = {}, universe = null }) {
+export function buildFinterm({ sources, dashboards, build, services, appId, declared = {}, universe = null, pm = null }) {
   const fail = (m) => { throw new Error(m); };
   const stacks = build.ui?.stacks ?? fail('build.json has no ui.stacks');
   const byId = new Map(dashboards.dashboards.map((d) => [d.id, d]));
@@ -39,9 +39,13 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
   const tabStacks = {};
   const out = [];
   for (const tab of TABS) {
-    tabStacks[tab] = (stacks[tab] ?? fail(`ui.stacks has no ${tab}`)).filter((e) => e.kind === 'dashboard' || e.kind === 'section_title')
-      .map((e) => e.kind === 'section_title' ? { kind: 'section_title', title: e.title } : { kind: 'dashboard', title: e.title, subtitle: e.subtitle ?? '', dashboard: e.dashboard });
+    // #1478 a `pm_table` entry is a PM sub-page drawn from data/pm.json (Vol, Commodities, Profiles); a `detail` dashboard is opened from a Vol row, not a sub-page of the nav
+    tabStacks[tab] = (stacks[tab] ?? fail(`ui.stacks has no ${tab}`)).filter((e) => e.kind === 'dashboard' || e.kind === 'section_title' || e.kind === 'pm_table')
+      .map((e) => e.kind === 'section_title' ? { kind: 'section_title', title: e.title }
+        : e.kind === 'pm_table' ? { kind: 'pm_table', title: e.title, subtitle: e.subtitle ?? '', page: e.page, table: e.table }
+        : { kind: 'dashboard', title: e.title, subtitle: e.subtitle ?? '', dashboard: e.dashboard, ...(e.detail ? { detail: true } : {}) });
     for (const e of tabStacks[tab]) {
+      if (e.kind === 'pm_table' && !pm?.[e.table]) fail(`${tab}/${e.title}: data/pm.json has no table ${e.table}`);
       if (e.kind !== 'dashboard') continue;
       const d = byId.get(e.dashboard) ?? fail(`${tab}/${e.title}: no dashboard ${e.dashboard}`);
       if (d.tab !== tab || d.entry !== e.title) fail(`${e.dashboard}: dashboards.json says ${d.tab}/${d.entry}, ui.stacks says ${tab}/${e.title}`);
@@ -60,14 +64,13 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
       if ((s.nav_mode ?? 'horizontal_one_row') !== 'horizontal_one_row' || s.groups?.length) fail(`${tab}: the sub-page nav is not one row`);
       const pages = s.pages ?? [];
       if (pages[0]?.id !== `${tab}-home`) fail(`${tab}: the first sub-page is not home (${tab}-home)`);
-      const dash = tabStacks[tab].filter((e) => e.kind === 'dashboard');
-      const want = dash.map((e) => slugOf(e.dashboard)).join(',');
-      if (pages.slice(1).map((p) => p.id).join(',') !== want) fail(`${tab}: the Homepage pages ${pages.slice(1).map((p) => p.id)} are not the tab's dashboards ${want}`);
-      // #1462 a card carries its declared risk tier (dashboards.json `risk`; left out = none) so the Homepage can draw the PM risk tabs and section headers
-      homes[tab] = pages.slice(1).map((p, i) => ({ slug: p.id, title: p.label, icon: p.icon, subtitle: dash[i].subtitle, ...(byId.get(dash[i].dashboard).risk ? { risk: byId.get(dash[i].dashboard).risk } : {}) }));
+      const dash = tabStacks[tab].filter((e) => e.kind === 'pm_table' || (e.kind === 'dashboard' && !e.detail));
+      const slugs = dash.map((e) => e.page ?? slugOf(e.dashboard));
+      if (pages.slice(1).map((p) => p.id).join(',') !== slugs.join(',')) fail(`${tab}: the Homepage pages ${pages.slice(1).map((p) => p.id)} are not the tab's sub-pages ${slugs}`);
+      homes[tab] = pages.slice(1).map((p, i) => ({ slug: p.id, title: p.label, icon: p.icon, subtitle: dash[i].subtitle }));
     }
   }
-  // #1462 the PM risk tabs (All | DM Low | DM Mid | EM Mid-High | EM High, dashboards.json pm_risk_tabs): every PM portfolio declares a market (DM | EM), an equity share and a tier that exists,
+  // #1462 the PM risk tabs (the Vol filter: All | DM · Low | DM · Middle | DM+EM · Middle-High | DM+EM · High, dashboards.json pm_risk_tabs): every PM portfolio declares a market (DM | EM), an equity share and a tier that exists,
   // and the tier is the first of its market whose equity_max takes the share (DM below EM, then more equity = higher risk)
   const riskTabs = strip(dashboards.pm_risk_tabs?.tabs ?? []);
   const tiers = riskTabs.filter((t) => t.id !== 'all');
@@ -115,6 +118,8 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
     homes,
     risk_tabs: riskTabs,
     redirects,
+    // #1478 the PM tables (data/pm.json: Vol, Commodities, Profiles), model / sample values as declared; a Vol row names its portfolio dashboard
+    pm: strip(pm ?? {}),
     sources: slim,
     dashboards: out,
     declared: files,
@@ -144,6 +149,7 @@ if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {
     doc = buildFinterm({
       sources: JSON.parse(need(`${dir}/data/sources.json`)), dashboards: JSON.parse(need(`${dir}/data/dashboards.json`)), build: JSON.parse(need(`${dir}/build.json`)),
       services: JSON.parse(readFileSync(join(root, 'scripts/fallback-services.json'), 'utf8')), appId,
+      pm: JSON.parse(need(`${dir}/data/pm.json`)),
       // a declared data file is read when the app has it; a panel naming one that is missing fails the render (buildFinterm)
       universe: (() => { const t = readRaw(`${dir}/data/universe.json`); return t == null ? null : JSON.parse(t); })(),
       declared: Object.fromEntries(['central-banks.json'].flatMap((n) => { const t = readRaw(`${dir}/data/${n}`); return t == null ? [] : [[n, JSON.parse(t)]]; })),

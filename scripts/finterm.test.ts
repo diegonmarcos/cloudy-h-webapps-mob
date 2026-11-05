@@ -32,6 +32,13 @@ describe('gen-finterm (pure)', () => {
     expect(JSON.stringify(o)).not.toContain('prose');
     expect(o.app_id).toBe('the-app');
   });
+  it('#1478 a pm_table entry needs its table in data/pm.json and is emitted with it', () => {
+    const a = clone(); a.build.ui.stacks.pm = [{ kind: 'pm_table', title: 'Vol', subtitle: 's', page: 'pm-vol', table: 'vol' }];
+    expect(() => buildFinterm(a)).toThrow(/no table vol/);
+    const o = buildFinterm({ ...a, pm: { _doc: 'prose', vol: { columns: ['A'] } } });
+    expect(o.stacks.pm[0]).toMatchObject({ kind: 'pm_table', page: 'pm-vol', table: 'vol' });
+    expect(o.pm).toEqual({ vol: { columns: ['A'] } });
+  });
   it('embeds exactly the declared data files a panel reads through an asset: source, and fails loudly on a missing one (#1351)', () => {
     const a = clone();
     a.sources.sources.push({ id: 'cb', name: 'CB', priority: 10, endpoint: 'asset:', auth: { type: 'none' }, connector: 'declared_events', feeds: [{ tab: 'fi', entries: ['Yield Curves'] }] });
@@ -128,10 +135,10 @@ describe('gen-finterm --check (the CI drift guard)', () => {
 });
 
 describe('the committed web FinTerm declarations', () => {
-  it('37 dashboards: FI 8, EQ 7, EX 4, NW 3, PM 15 (the APK entries; #1399 FI Market Monitor removed; #1447 PM A1, A2, B1, C1, D1, D0), each with at least one panel', () => {
+  it('36 dashboards: FI 8, EQ 7, EX 4, NW 3, PM 14 (the APK entries; #1399 FI Market Monitor removed; #1447 PM A1, B1, C1, D1, D0; #1478 A2 dropped), each with at least one panel', () => {
     const by = (t: string) => fin.dashboards.filter((d: { tab: string }) => d.tab === t).length;
-    expect([by('fi'), by('eq'), by('ex'), by('nw'), by('pm')]).toEqual([8, 7, 4, 3, 15]);
-    expect(fin.dashboards).toHaveLength(37);
+    expect([by('fi'), by('eq'), by('ex'), by('nw'), by('pm')]).toEqual([8, 7, 4, 3, 14]);
+    expect(fin.dashboards).toHaveLength(36);
     for (const d of fin.dashboards) expect(d.panels.length, d.id).toBeGreaterThan(0);
   });
   it('every panel is a live fetch, a dashed placeholder or a static allocation; every source named exists', () => {
