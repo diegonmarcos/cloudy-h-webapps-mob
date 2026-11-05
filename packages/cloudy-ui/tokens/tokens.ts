@@ -73,6 +73,9 @@ export const tokens = {
     "lnktree": {
       "tile_group": "Lnktree"
     },
+    "services": {
+      "tile_group": "Services"
+    },
     "tools": {
       "tile_group": "Tools Primary"
     }
@@ -98,6 +101,10 @@ export const tokens = {
       "lnktree": {
         "end": "#1e1b4b",
         "start": "#0f766e"
+      },
+      "services": {
+        "end": "#1e3a8a",
+        "start": "#0369a1"
       },
       "tools": {
         "end": "#312e81",
@@ -570,4 +577,4 @@ export type Tokens = typeof tokens;
 export const THEME_IDS = ["cloud","cloud_minimalist_black"] as const;
 export type ThemeId = (typeof THEME_IDS)[number];
 export const PALETTE_ROLES = ["window","surface","surface_selected","text_primary","text_secondary","accent","hairline","tile_ink"] as const;
-export const TOKEN_COUNT = 410;
+export const TOKEN_COUNT = 413;

@@ -4278,7 +4278,13 @@
           "public": "containers/all_table",
           "private": "containers/all_table",
           "table": "containers/all_table",
-          "stack": "infra/providers"
+          "stack": "infra/providers",
+          "service": "ops/orch_service",
+          "infrastructure": "ops/orch_infrastructure",
+          "orchestration": "ops/orch_orchestration",
+          "network": "ops/net_network",
+          "release": "ops/orch_release",
+          "agents": "ops/orch_agents"
         }
       },
       "icon_default": "ic_p_c3_stack",
@@ -4879,12 +4885,6 @@
                 "label": "Cont. Cloud",
                 "icon": "ic_p_c3_stack",
                 "target": "anchor:containers-cloud"
-              },
-              {
-                "id": "containers-project",
-                "label": "Cont. Project",
-                "icon": "ic_p_c3_stack",
-                "target": "anchor:containers-project"
               }
             ]
           },
@@ -4903,12 +4903,6 @@
             "anchor": "containers-cloud",
             "title": "Cloud Apps",
             "group": "cloud"
-          },
-          {
-            "kind": "cloud_dashboard",
-            "anchor": "containers-project",
-            "title": "Project Apps",
-            "group": "project"
           }
         ]
       },

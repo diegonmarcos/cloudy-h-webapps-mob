@@ -7465,34 +7465,106 @@
           "icon": "ic_robot",
           "pages": [
             {
-              "id": "service",
-              "label": "Service",
-              "icon": "ic_p_c3_workflows"
-            },
-            {
-              "id": "infrastructure",
-              "label": "Infrastructure",
-              "icon": "ic_p_c3_vms"
-            },
-            {
-              "id": "orchestration",
-              "label": "Orchestration",
-              "icon": "ic_p_c3_stack"
-            },
-            {
-              "id": "network",
+              "id": "net",
               "label": "Network",
-              "icon": "ic_wg"
+              "icon": "ic_wg",
+              "pages": [
+                {
+                  "id": "net_wg",
+                  "label": "WireGuard",
+                  "icon": "ic_wg"
+                },
+                {
+                  "id": "net_auth",
+                  "label": "Auth",
+                  "icon": "ic_check_all"
+                },
+                {
+                  "id": "net_dns",
+                  "label": "DNS & Caddy",
+                  "icon": "ic_link_tile"
+                },
+                {
+                  "id": "net_network",
+                  "label": "Routes",
+                  "icon": "ic_wg"
+                }
+              ]
             },
             {
-              "id": "release",
-              "label": "Release",
-              "icon": "ic_code"
+              "id": "mail",
+              "label": "Mail",
+              "icon": "mail",
+              "pages": [
+                {
+                  "id": "mail_map",
+                  "label": "Mail",
+                  "icon": "mail"
+                }
+              ]
             },
             {
-              "id": "agents",
-              "label": "Agents",
-              "icon": "ic_robot"
+              "id": "orch",
+              "label": "Orchestration",
+              "icon": "ic_p_c3_stack",
+              "separator_before": true,
+              "pages": [
+                {
+                  "id": "orch_flow",
+                  "label": "Flow",
+                  "icon": "ic_p_c3_workflows"
+                },
+                {
+                  "id": "orch_service",
+                  "label": "Service",
+                  "icon": "ic_p_c3_workflows"
+                },
+                {
+                  "id": "orch_infrastructure",
+                  "label": "Infrastructure",
+                  "icon": "ic_p_c3_vms"
+                },
+                {
+                  "id": "orch_orchestration",
+                  "label": "Declared",
+                  "icon": "ic_p_c3_stack"
+                },
+                {
+                  "id": "orch_release",
+                  "label": "Release",
+                  "icon": "ic_code"
+                },
+                {
+                  "id": "orch_agents",
+                  "label": "Agents",
+                  "icon": "ic_robot"
+                }
+              ]
+            },
+            {
+              "id": "health",
+              "label": "Health",
+              "icon": "ic_p_c3_health",
+              "separator_before": true,
+              "pages": [
+                {
+                  "id": "health_uptime",
+                  "label": "Uptime",
+                  "icon": "ic_p_c3_health"
+                }
+              ]
+            },
+            {
+              "id": "obs",
+              "label": "Observability",
+              "icon": "ic_p_logs",
+              "pages": [
+                {
+                  "id": "obs_logs",
+                  "label": "Logs",
+                  "icon": "ic_p_logs"
+                }
+              ]
             }
           ]
         },
