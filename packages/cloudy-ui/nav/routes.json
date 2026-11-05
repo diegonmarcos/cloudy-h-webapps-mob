@@ -6053,258 +6053,46 @@
       "app": "cloud-account"
     },
     {
-      "path": "cloud-account/personal/",
+      "path": "cloud-account/vault/",
       "kind": "app-section",
       "app": "cloud-account",
-      "section": "personal"
+      "section": "vault"
     },
     {
-      "path": "cloud-account/personal/ids/",
+      "path": "cloud-account/vault/ids/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "personal",
+      "section": "vault",
       "page": [
         "ids"
       ],
       "depth": 1
     },
     {
-      "path": "cloud-account/personal/cards/",
+      "path": "cloud-account/vault/cards/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "personal",
+      "section": "vault",
       "page": [
         "cards"
       ],
       "depth": 1
     },
     {
-      "path": "cloud-account/personal/others/",
+      "path": "cloud-account/vault/secrets/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "others"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/personal/others/entries/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "others",
-        "entries"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/personal/others/me/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "others",
-        "me"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/personal/autocomplete/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "autocomplete"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/personal/autocomplete/personal/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "autocomplete",
-        "personal"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/personal/autocomplete/sites/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "autocomplete",
-        "sites"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/personal/autocomplete/snippets/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "personal",
-      "page": [
-        "autocomplete",
-        "snippets"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/configs/",
-      "kind": "app-section",
-      "app": "cloud-account",
-      "section": "configs"
-    },
-    {
-      "path": "cloud-account/configs/general/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "general"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/configs/perms/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "perms"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/configs/about/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "about"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/configs/android/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "android"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/configs/android/cloud-apps/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "android",
-        "cloud-apps"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/configs/android/phone-apps/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "android",
-        "phone-apps"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/configs/android/runbook/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "android",
-        "runbook"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/configs/desktop/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "desktop"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/configs/c3/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "c3"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/configs/c3/infra/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "c3",
-        "infra"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/configs/c3/containers/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "c3",
-        "containers"
-      ],
-      "depth": 2
-    },
-    {
-      "path": "cloud-account/configs/repos/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "configs",
-      "page": [
-        "repos"
-      ],
-      "depth": 1
-    },
-    {
-      "path": "cloud-account/data/",
-      "kind": "app-section",
-      "app": "cloud-account",
-      "section": "data"
-    },
-    {
-      "path": "cloud-account/data/secrets/",
-      "kind": "app-page",
-      "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
         "secrets"
       ],
       "depth": 1
     },
     {
-      "path": "cloud-account/data/secrets/providers/",
+      "path": "cloud-account/vault/secrets/providers/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
         "secrets",
         "providers"
@@ -6312,10 +6100,10 @@
       "depth": 2
     },
     {
-      "path": "cloud-account/data/secrets/keys/",
+      "path": "cloud-account/vault/secrets/keys/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
         "secrets",
         "keys"
@@ -6323,10 +6111,10 @@
       "depth": 2
     },
     {
-      "path": "cloud-account/data/secrets/tokens/",
+      "path": "cloud-account/vault/secrets/tokens/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
         "secrets",
         "tokens"
@@ -6334,10 +6122,10 @@
       "depth": 2
     },
     {
-      "path": "cloud-account/data/secrets/grants/",
+      "path": "cloud-account/vault/secrets/grants/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
         "secrets",
         "grants"
@@ -6345,10 +6133,10 @@
       "depth": 2
     },
     {
-      "path": "cloud-account/data/secrets/import/",
+      "path": "cloud-account/vault/secrets/import/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
         "secrets",
         "import"
@@ -6356,90 +6144,159 @@
       "depth": 2
     },
     {
-      "path": "cloud-account/data/backups/",
+      "path": "cloud-account/vault/secrets/entries/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
-        "backups"
+        "secrets",
+        "entries"
+      ],
+      "depth": 2
+    },
+    {
+      "path": "cloud-account/vault/autocomplete/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "vault",
+      "page": [
+        "autocomplete"
       ],
       "depth": 1
     },
     {
-      "path": "cloud-account/data/backups/databases/",
+      "path": "cloud-account/vault/autocomplete/personal/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
-        "backups",
-        "databases"
+        "autocomplete",
+        "personal"
       ],
       "depth": 2
     },
     {
-      "path": "cloud-account/data/backups/bundle/",
+      "path": "cloud-account/vault/autocomplete/sites/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
-        "backups",
-        "bundle"
+        "autocomplete",
+        "sites"
       ],
       "depth": 2
     },
     {
-      "path": "cloud-account/data/devices/",
+      "path": "cloud-account/vault/autocomplete/snippets/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "vault",
       "page": [
-        "devices"
+        "autocomplete",
+        "snippets"
+      ],
+      "depth": 2
+    },
+    {
+      "path": "cloud-account/config/",
+      "kind": "app-section",
+      "app": "cloud-account",
+      "section": "config"
+    },
+    {
+      "path": "cloud-account/config/android/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "config",
+      "page": [
+        "android"
       ],
       "depth": 1
     },
     {
-      "path": "cloud-account/data/devices/mesh/",
+      "path": "cloud-account/config/android/cloud-apps/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "config",
       "page": [
-        "devices",
-        "mesh"
+        "android",
+        "cloud-apps"
       ],
       "depth": 2
     },
     {
-      "path": "cloud-account/data/devices/files/",
+      "path": "cloud-account/config/android/phone-apps/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "config",
       "page": [
-        "devices",
-        "files"
+        "android",
+        "phone-apps"
       ],
       "depth": 2
     },
     {
-      "path": "cloud-account/data/devices/working/",
+      "path": "cloud-account/config/android/runbook/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "config",
       "page": [
-        "devices",
-        "working"
+        "android",
+        "runbook"
       ],
       "depth": 2
     },
     {
-      "path": "cloud-account/data/devices/diff/",
+      "path": "cloud-account/config/desktop/",
       "kind": "app-page",
       "app": "cloud-account",
-      "section": "data",
+      "section": "config",
       "page": [
-        "devices",
-        "diff"
+        "desktop"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/config/c3/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "config",
+      "page": [
+        "c3"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/config/c3/infra/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "config",
+      "page": [
+        "c3",
+        "infra"
       ],
       "depth": 2
+    },
+    {
+      "path": "cloud-account/config/c3/containers/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "config",
+      "page": [
+        "c3",
+        "containers"
+      ],
+      "depth": 2
+    },
+    {
+      "path": "cloud-account/config/repos/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "config",
+      "page": [
+        "repos"
+      ],
+      "depth": 1
     },
     {
       "path": "cloud-account/connect/",
@@ -6599,6 +6456,105 @@
       "depth": 2
     },
     {
+      "path": "cloud-account/devices/",
+      "kind": "app-section",
+      "app": "cloud-account",
+      "section": "devices"
+    },
+    {
+      "path": "cloud-account/devices/mesh/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "mesh"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/devices/peer-control/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "peer-control"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/devices/backup/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "backup"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/devices/backup/databases/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "backup",
+        "databases"
+      ],
+      "depth": 2
+    },
+    {
+      "path": "cloud-account/devices/backup/bundle/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "backup",
+        "bundle"
+      ],
+      "depth": 2
+    },
+    {
+      "path": "cloud-account/devices/backup/me/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "backup",
+        "me"
+      ],
+      "depth": 2
+    },
+    {
+      "path": "cloud-account/devices/files/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "files"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/devices/working/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "working"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/devices/diff/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "devices",
+      "page": [
+        "diff"
+      ],
+      "depth": 1
+    },
+    {
       "path": "cloud-account/activity/",
       "kind": "app-section",
       "app": "cloud-account",
@@ -6611,6 +6567,42 @@
       "section": "activity",
       "page": [
         "activity"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/configs/",
+      "kind": "app-section",
+      "app": "cloud-account",
+      "section": "configs"
+    },
+    {
+      "path": "cloud-account/configs/general/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "configs",
+      "page": [
+        "general"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/configs/perms/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "configs",
+      "page": [
+        "perms"
+      ],
+      "depth": 1
+    },
+    {
+      "path": "cloud-account/configs/about/",
+      "kind": "app-page",
+      "app": "cloud-account",
+      "section": "configs",
+      "page": [
+        "about"
       ],
       "depth": 1
     },

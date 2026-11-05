@@ -9290,12 +9290,12 @@
       "description": "Diego's Cloud Account — turns an empty phone into the owner's phone and keeps it that way: the account and its sign-in ways, the per-device profile backed up to and restored from the private vault repo, setup, and the fleet secrets (a0_docs/eng-specs/cloud-account-redesign.md). Hosts libs:account, the same code SuperApp links.",
       "kind": "app",
       "wasm": "cloud-account",
-      "default_section": "personal",
+      "default_section": "vault",
       "bottom_nav": [
-        "personal",
-        "configs",
-        "data",
+        "vault",
+        "config",
         "connect",
+        "devices",
         "activity"
       ],
       "top_bar": null,
@@ -9305,9 +9305,9 @@
       ],
       "sections": [
         {
-          "id": "personal",
-          "label": "Personal Info",
-          "icon": "personal",
+          "id": "vault",
+          "label": "Vault",
+          "icon": "key",
           "background": "dark",
           "pages": [
             {
@@ -9317,23 +9317,43 @@
             },
             {
               "id": "cards",
-              "label": "Pay Cards",
+              "label": "PayCards",
               "icon": "payments"
             },
             {
-              "id": "others",
-              "label": "Others",
-              "icon": "edit_note",
+              "id": "secrets",
+              "label": "Secrets",
+              "icon": "key",
               "pages": [
+                {
+                  "id": "providers",
+                  "label": "Providers",
+                  "icon": "hub"
+                },
+                {
+                  "id": "keys",
+                  "label": "Fleet keys",
+                  "icon": "vpn_key"
+                },
+                {
+                  "id": "tokens",
+                  "label": "Tokens",
+                  "icon": "token"
+                },
+                {
+                  "id": "grants",
+                  "label": "Grants",
+                  "icon": "verified_user"
+                },
+                {
+                  "id": "import",
+                  "label": "Import",
+                  "icon": "file_upload"
+                },
                 {
                   "id": "entries",
                   "label": "Entries",
                   "icon": "folder"
-                },
-                {
-                  "id": "me",
-                  "label": "Me",
-                  "icon": "account_circle"
                 }
               ]
             },
@@ -9362,26 +9382,11 @@
           ]
         },
         {
-          "id": "configs",
-          "label": "Configs",
+          "id": "config",
+          "label": "Config",
           "icon": "configs",
           "background": "dark",
           "pages": [
-            {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "security"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
-            },
             {
               "id": "android",
               "label": "Android",
@@ -9430,90 +9435,6 @@
               "id": "repos",
               "label": "Repos",
               "icon": "sync"
-            }
-          ]
-        },
-        {
-          "id": "data",
-          "label": "Data",
-          "icon": "data",
-          "background": "dark",
-          "pages": [
-            {
-              "id": "secrets",
-              "label": "Secrets",
-              "icon": "key",
-              "pages": [
-                {
-                  "id": "providers",
-                  "label": "Providers",
-                  "icon": "hub"
-                },
-                {
-                  "id": "keys",
-                  "label": "Fleet keys",
-                  "icon": "vpn_key"
-                },
-                {
-                  "id": "tokens",
-                  "label": "Tokens",
-                  "icon": "token"
-                },
-                {
-                  "id": "grants",
-                  "label": "Grants",
-                  "icon": "verified_user"
-                },
-                {
-                  "id": "import",
-                  "label": "Import",
-                  "icon": "file_upload"
-                }
-              ]
-            },
-            {
-              "id": "backups",
-              "label": "Backups",
-              "icon": "backup",
-              "pages": [
-                {
-                  "id": "databases",
-                  "label": "Databases",
-                  "icon": "storage"
-                },
-                {
-                  "id": "bundle",
-                  "label": "Bundle",
-                  "icon": "inventory_2"
-                }
-              ]
-            },
-            {
-              "id": "devices",
-              "label": "Devices",
-              "icon": "devices",
-              "pages": [
-                {
-                  "id": "mesh",
-                  "label": "Mesh",
-                  "icon": "lan"
-                },
-                {
-                  "id": "files",
-                  "label": "Files",
-                  "icon": "folder"
-                },
-                {
-                  "id": "working",
-                  "label": "Working",
-                  "icon": "edit_note"
-                },
-                {
-                  "id": "diff",
-                  "label": "Diff",
-                  "icon": "compare_arrows"
-                }
-              ]
             }
           ]
         },
@@ -9602,6 +9523,80 @@
           ]
         },
         {
+          "id": "devices",
+          "label": "Devices",
+          "icon": "devices",
+          "background": "dark",
+          "pages": [
+            {
+              "id": "mesh",
+              "label": "Mesh",
+              "icon": "lan"
+            },
+            {
+              "id": "peer-control",
+              "label": "Peer Control",
+              "icon": "hub",
+              "sample": {
+                "rows": [
+                  {
+                    "title": "Sample peer A",
+                    "caption": "reachable over the mesh",
+                    "state": "ok"
+                  },
+                  {
+                    "title": "Sample peer B",
+                    "caption": "asleep, wake-on-LAN offered",
+                    "state": "warn"
+                  },
+                  {
+                    "title": "Sample peer C",
+                    "caption": "unreachable",
+                    "state": "bad"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "backup",
+              "label": "Backup",
+              "icon": "backup",
+              "pages": [
+                {
+                  "id": "databases",
+                  "label": "Databases",
+                  "icon": "storage"
+                },
+                {
+                  "id": "bundle",
+                  "label": "Bundle",
+                  "icon": "inventory_2"
+                },
+                {
+                  "id": "me",
+                  "label": "Me",
+                  "icon": "account_circle"
+                }
+              ]
+            },
+            {
+              "id": "files",
+              "label": "Files",
+              "icon": "folder"
+            },
+            {
+              "id": "working",
+              "label": "Working",
+              "icon": "edit_note"
+            },
+            {
+              "id": "diff",
+              "label": "Diff",
+              "icon": "compare_arrows"
+            }
+          ]
+        },
+        {
           "id": "activity",
           "label": "Activity",
           "icon": "activity",
@@ -9611,6 +9606,29 @@
               "id": "activity",
               "label": "Activity",
               "icon": "history"
+            }
+          ]
+        },
+        {
+          "id": "configs",
+          "label": "Configs",
+          "icon": "configs",
+          "background": "dark",
+          "pages": [
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
             }
           ]
         }

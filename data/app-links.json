@@ -243,6 +243,11 @@
       "id": "cloud-store",
       "kind": "phone-only",
       "reason": "Store: the fleet app store, installs APKs on the phone"
+    },
+    {
+      "id": "cloud-shopping",
+      "kind": "phone-only",
+      "reason": "Shopping (#1473): an offline deals and listings browser over mock data, no web service behind it"
     }
   ]
 }
