@@ -149,7 +149,7 @@ if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {
     doc = buildFinterm({
       sources: JSON.parse(need(`${dir}/data/sources.json`)), dashboards: JSON.parse(need(`${dir}/data/dashboards.json`)), build: JSON.parse(need(`${dir}/build.json`)),
       services: JSON.parse(readFileSync(join(root, 'scripts/fallback-services.json'), 'utf8')), appId,
-      pm: JSON.parse(need(`${dir}/data/pm.json`)),
+      pm: (() => { const t = readRaw(`${dir}/data/pm.json`); return t == null ? null : JSON.parse(t); })(),
       // a declared data file is read when the app has it; a panel naming one that is missing fails the render (buildFinterm)
       universe: (() => { const t = readRaw(`${dir}/data/universe.json`); return t == null ? null : JSON.parse(t); })(),
       declared: Object.fromEntries(['central-banks.json'].flatMap((n) => { const t = readRaw(`${dir}/data/${n}`); return t == null ? [] : [[n, JSON.parse(t)]]; })),

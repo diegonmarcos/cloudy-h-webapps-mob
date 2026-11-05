@@ -100,7 +100,7 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
   });
   it('the committed declarations: every tab opens on Home listing all its dashboards; Market Monitor is gone and redirected', () => {
     for (const tab of fin.tabs) {
-      const dash = fin.stacks[tab].filter((e: { kind: string }) => e.kind === 'dashboard').map((e: { dashboard: string }) => slugOf(e.dashboard));
+      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
       expect(fin.homes[tab].map((c: { slug: string }) => c.slug), tab).toEqual(dash);
       for (const c of fin.homes[tab]) expect(c.icon && c.title && c.subtitle, `${tab}/${c.slug}`).toBeTruthy();
     }

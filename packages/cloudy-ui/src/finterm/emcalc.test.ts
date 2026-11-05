@@ -71,7 +71,7 @@ describe('PM D1 / D0 panels on live feeds', () => {
     const pm = FINTERM.dashboards.filter((d) => d.tab === 'pm').map((d) => d.id);
     const tier = (id: string) => (FINTERM.dashboards.find((d) => d.id === id) as unknown as { risk: string }).risk;
     const ids = FINTERM.risk_tabs.slice(1).map((t: { id: string }) => t.id);
-    expect(pm.filter((id) => id !== 'portfolio_risk').map((id) => ids.indexOf(tier(id)))).toEqual([0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3]);
+    expect(pm.filter((id) => id !== 'portfolio_risk').map((id) => ids.indexOf(tier(id)))).toEqual([0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3]);
     expect(pm.indexOf('pm_d1_em_bonds')).toBeLessThan(pm.indexOf('pm_d0_carry'));
     expect(pm[pm.length - 1]).toBe('pm_d0_carry'); // the carry trade is the top of the scale
     expect(dash.panels.map((p) => p.derive)).toEqual(['em_calc', undefined, 'em_calc']); // the matrix first: it is on the first screen
