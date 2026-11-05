@@ -35,6 +35,13 @@ test('each FinTerm tab lists its dashboards as web pages, plus the Backend (mesh
   for (const tab of ['fi', 'eq', 'ex', 'nw', 'pm']) {
     await page.goto(`${BASE}/${fin.app_id}/${tab}/`);
     const entries = fin.stacks[tab];
+    if (tab === 'pm') {
+      // #1478: the PM tab opens on its Homepage (a card per sub-page: Vol, Commodities, Profiles); the portfolios are reached from the Vol table rows
+      const home = page.getByTestId('home-card');
+      await expect(home, tab).toHaveCount(fin.homes[tab].length);
+      for (const [i, c] of fin.homes[tab].entries()) await expect(home.nth(i), c.slug).toHaveAttribute('href', `${BASE}/${fin.app_id}/${tab}/${c.slug}/`);
+      continue;
+    }
     const cards = page.getByTestId('stack-card');
     await expect(cards, tab).toHaveCount(entries.length + 1);
     for (const [i, e] of entries.entries()) {
