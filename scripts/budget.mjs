@@ -17,7 +17,7 @@ const LIMITS = { 'cloudy-webapps': { shell: 57.5 * K, css: 22.5 * K }, 'cloudy-c
 const LIMIT = { shell: 60 * K, chunk: 39 * K, css: 30 * K, sprite: 58 * K };
 const gz = (f) => gzipSync(readFileSync(f), { level: 9 }).length;
 const walk = (d) => readdirSync(d).flatMap((n) => { const p = join(d, n); return statSync(p).isDirectory() ? walk(p) : [p]; });
-const kb = (n) => (n / 1024).toFixed(1) + ' kB';
+const kb = (n) => (n / 1024).toFixed(2) + ' kB';
 let bad = 0;
 for (const site of ['cloudy-webapps', 'cloudy-c3']) {
   Object.assign(LIMIT, LIMITS[site]);
@@ -39,7 +39,10 @@ for (const site of ['cloudy-webapps', 'cloudy-c3']) {
     for (const [rel, n, ids] of [...initial].filter((r) => existsSync(join(dist, r))).map((r) => { const t = readFileSync(join(dist, r), 'utf8'); return [r, gz(join(dist, r)), [...new Set([...t.matchAll(/data-testid="([^"$]+)"/g)].map((m) => m[1]))].slice(0, 6)]; }).sort((a, b) => b[1] - a[1]))
       console.error(`  ${kb(n).padStart(8)}  ${rel}  ${ids.join(' ')}`);
   }
-  if (css > LIMIT.css) { console.error(`FAIL ${site}: CSS over budget`); bad++; }
+  if (css > LIMIT.css) {
+    console.error(`FAIL ${site}: CSS over budget`); bad++;
+    for (const [f, n] of files.filter((x) => x.endsWith('.css')).map((x) => [x, gz(x)]).sort((a, b) => b[1] - a[1]).slice(0, 8)) console.error(`  ${kb(n).padStart(9)}  ${f.slice(dist.length)}`);
+  }
   for (const [f, n] of big) { console.error(`FAIL ${site}: chunk ${f.slice(dist.length)} ${kb(n)} > ${kb(LIMIT.chunk)}`); bad++; }
   if (sprite && statSync(sprite).size > LIMIT.sprite) { console.error(`FAIL ${site}: sprite over budget`); bad++; }
 }
