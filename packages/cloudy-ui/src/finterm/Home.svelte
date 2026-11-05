@@ -17,7 +17,7 @@
 </section>
 
 <style>
-  .home { --s: var(--fin-surface, #121A23); --h: var(--fin-hairline, #243040); --t: var(--fin-text, #E6EDF3); --a: var(--fin-accent, #5AA7FF); --t2: var(--fin-text2, #9AA7B4); padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 12px; }
+  .home { --s: #121A23; --h: #243040; --t: #E6EDF3; --a: #5AA7FF; --t2: #9AA7B4; padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 12px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
   .card { display: flex; flex-direction: column; gap: 6px; min-height: 96px; padding: 12px; border-radius: 12px; text-decoration: none;
     background: var(--s); border: 1px solid var(--h); color: var(--t); }
