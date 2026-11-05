@@ -3977,23 +3977,23 @@
       "depth": 2
     },
     {
-      "path": "cloud-c3/ops/health/",
+      "path": "cloud-c3/ops/ops_health/",
       "kind": "app-page",
       "app": "cloud-c3",
       "section": "ops",
       "page": [
-        "health"
+        "ops_health"
       ],
       "depth": 1
     },
     {
-      "path": "cloud-c3/ops/health/health_uptime/",
+      "path": "cloud-c3/ops/ops_health/ops_health_uptime/",
       "kind": "app-page",
       "app": "cloud-c3",
       "section": "ops",
       "page": [
-        "health",
-        "health_uptime"
+        "ops_health",
+        "ops_health_uptime"
       ],
       "depth": 2
     },
