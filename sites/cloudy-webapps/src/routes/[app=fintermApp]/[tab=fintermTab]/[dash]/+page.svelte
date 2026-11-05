@@ -1,6 +1,5 @@
 <script lang="ts">
   import { FleetShell } from '@cloudy/ui';
-  import '@cloudy/ui/src/finterm/components/fin.css'; // the FinTerm tokens (--fin-*) every FinTerm page draws with, also the Homepage and PM tables that do not load the dashboard chunk
   import FinTermHome from '@cloudy/ui/src/finterm/Home.svelte';
   import FinTermPm from '@cloudy/ui/src/finterm/PmTable.svelte';
   import { FINTERM } from '@cloudy/ui/src/finterm/catalog.ts';

@@ -36,12 +36,12 @@
 {/if}
 
 <style>
-  .pm { padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 8px; }
+  .pm { --h: var(--fin-hairline, #243040); --t2: var(--fin-text2, #9AA7B4); --a: var(--fin-accent, #5AA7FF); --t3: var(--fin-text3, #6B7886); padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 8px; }
   .tabs { display: flex; gap: 8px; overflow-x: auto; }
   .chip { all: unset; cursor: pointer; box-sizing: border-box; min-height: 32px; padding: 0 10px; display: flex; align-items: center; border-radius: 8px; white-space: nowrap;
-    border: 1px solid var(--fin-hairline, #243040); color: var(--fin-text2, #9AA7B4); font: 500 11px/16px var(--fin-sans); letter-spacing: .4px; }
-  .chip.on { border-color: var(--fin-accent, #5AA7FF); color: var(--fin-accent, #5AA7FF); background: color-mix(in srgb, var(--fin-accent, #5AA7FF) 20%, transparent); }
-  .note { margin: 0; color: var(--fin-text2, #9AA7B4); font: 400 11px/16px var(--fin-sans); }
-  .note.faint { color: var(--fin-text3, #6B7886); }
-  .tool { color: var(--fin-accent, #5AA7FF); font: 600 15px/20px var(--fin-sans); text-decoration: none; }
+    border: 1px solid var(--h); color: var(--t2); font: 500 11px/16px var(--fin-sans); letter-spacing: .4px; }
+  .chip.on { border-color: var(--a); color: var(--a); background: color-mix(in srgb, var(--a) 20%, transparent); }
+  .note { margin: 0; color: var(--t2); font: 400 11px/16px var(--fin-sans); }
+  .note.faint { color: var(--t3); }
+  .tool { color: var(--a); font: 600 15px/20px var(--fin-sans); text-decoration: none; }
 </style>

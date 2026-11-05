@@ -17,12 +17,12 @@
 </section>
 
 <style>
-  .home { padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 12px; }
+  .home { --s: var(--fin-surface, #121A23); --h: var(--fin-hairline, #243040); --t: var(--fin-text, #E6EDF3); --a: var(--fin-accent, #5AA7FF); --t2: var(--fin-text2, #9AA7B4); padding: 12px 16px 96px; display: flex; flex-direction: column; gap: 12px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
   .card { display: flex; flex-direction: column; gap: 6px; min-height: 96px; padding: 12px; border-radius: 12px; text-decoration: none;
-    background: var(--fin-surface, #121A23); border: 1px solid var(--fin-hairline, #243040); color: var(--fin-text, #E6EDF3); }
-  .card:hover, .card:focus-visible { border-color: var(--fin-accent, #5AA7FF); }
-  .head { display: flex; align-items: center; gap: 8px; color: var(--fin-accent, #5AA7FF); }
-  .name { color: var(--fin-text, #E6EDF3); font-weight: 600; font-size: 15px; line-height: 1.25; }
-  .sub { color: var(--fin-text2, #9AA7B4); font-size: 12px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    background: var(--s); border: 1px solid var(--h); color: var(--t); }
+  .card:hover, .card:focus-visible { border-color: var(--a); }
+  .head { display: flex; align-items: center; gap: 8px; color: var(--a); }
+  .name { color: var(--t); font-weight: 600; font-size: 15px; line-height: 1.25; }
+  .sub { color: var(--t2); font-size: 12px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 </style>
