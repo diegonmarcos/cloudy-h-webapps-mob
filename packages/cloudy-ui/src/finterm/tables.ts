@@ -8,11 +8,12 @@ import { parseNum, signedFmt } from './fin';
 import { fxPppRow, type FxRow, type S } from './fxppp';
 import { bigMac, dxyRow, fxMatrixCells, fxMatrixRow, reasonsOf, type Dxy, type MRow } from './fxmatrix';
 import { cpiYoY, g20Cells, g20Notes, g20Row, type GRow } from './g20bonds';
+import { TABLE_DERIVES } from './tablederives';
 
 export const PERF_COLUMNS = ['WTD', 'MTD', 'YTD', '1M', '3M', '1Y', '3Y', '10Y'];
 export const COL_VOL = 'Vol 1Y';
 export const COL_MDD = 'MaxDD 1Y';
-export const TABLE_DERIVES = ['performance', 'portfolio_performance', 'yields_matrix', 'em_usd', 'world_bonds', 'risk_compare', 'fx_ppp', 'fx_matrix', 'g20_bonds', 'em_calc', 'em_carry'];
+export { TABLE_DERIVES };
 
 export type Close = [string, number]; // [YYYY-MM-DD, close]
 

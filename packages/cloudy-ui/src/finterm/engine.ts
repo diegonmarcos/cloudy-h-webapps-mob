@@ -6,7 +6,7 @@
 // Access-Control-Allow-Origin) is never asked from the browser: the engine goes straight to the next source, so the page never waits on it.
 
 import { signedFmt } from './fin';
-import { TABLE_DERIVES, tablePanel } from './tables';
+import { TABLE_DERIVES } from './tablederives';
 
 export type Obs = { date: string; value: number };
 export type ChartPoint = { label: string; x: number; y: number };
@@ -241,7 +241,7 @@ export async function loadPanel(panel: Panel, dash: Dashboard, ctx: Ctx): Promis
   const f = panel.fetch;
   const source = ctx.sources.find((s) => s.id === panel.source);
   if (!f || !source) throw new Error(`panel ${panel.id} has no fetch`);
-  if (TABLE_DERIVES.includes(panel.derive ?? '')) return tablePanel(panel, dash, source, f, ctx);
+  if (TABLE_DERIVES.includes(panel.derive ?? '')) return (await import('./tables')).tablePanel(panel, dash, source, f, ctx);
   if (MODEL_DERIVES.includes(panel.derive ?? '')) return modelPanel(panel, dash, source, f, ctx);
   const fred = ['latest_curve', 'forward_grid', 'level_change', 'fx_spot', 'fx_cross'].includes(panel.derive ?? '');
   if (!fred && !browserReadable(source)) throw blocked(source); // no request: the source is known to be CORS-blocked
