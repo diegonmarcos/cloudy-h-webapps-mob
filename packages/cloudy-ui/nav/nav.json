@@ -9649,8 +9649,7 @@
       "default_section": "git",
       "bottom_nav": [
         "explorer",
-        "manage",
-        "agents",
+        "editor",
         "home",
         "git",
         "fsync",
@@ -9710,28 +9709,10 @@
           ]
         },
         {
-          "id": "manage",
-          "label": "Manage",
+          "id": "editor",
+          "label": "Editor",
           "title_row": false,
-          "icon": "storage",
-          "pages": [
-            {
-              "id": "apps",
-              "label": "Apps",
-              "icon": "apps"
-            },
-            {
-              "id": "data",
-              "label": "Data",
-              "icon": "bar_chart"
-            }
-          ]
-        },
-        {
-          "id": "agents",
-          "label": "Agents",
-          "title_row": false,
-          "icon": "smart_toy"
+          "icon": "edit_note"
         },
         {
           "id": "ai",
@@ -9743,7 +9724,31 @@
           "id": "home",
           "label": "Home",
           "title_row": false,
-          "icon": "home"
+          "icon": "home",
+          "pages": [
+            {
+              "id": "home_apps",
+              "label": "Apps",
+              "icon": "apps"
+            },
+            {
+              "id": "manage",
+              "label": "Manage",
+              "icon": "storage",
+              "pages": [
+                {
+                  "id": "apps",
+                  "label": "Apps",
+                  "icon": "apps"
+                },
+                {
+                  "id": "data",
+                  "label": "Data",
+                  "icon": "bar_chart"
+                }
+              ]
+            }
+          ]
         },
         {
           "id": "git",
@@ -9767,7 +9772,24 @@
           "id": "fsync",
           "label": "Fsync",
           "title_row": false,
-          "icon": "sync"
+          "icon": "sync",
+          "pages": [
+            {
+              "id": "folders",
+              "label": "Folders",
+              "icon": "sync"
+            },
+            {
+              "id": "agents",
+              "label": "Agents",
+              "icon": "smart_toy"
+            },
+            {
+              "id": "projects",
+              "label": "Projects",
+              "icon": "folder"
+            }
+          ]
         },
         {
           "id": "mounts",
