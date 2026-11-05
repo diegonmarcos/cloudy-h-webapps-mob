@@ -18,7 +18,9 @@ export const entries: EntryGenerator = () => [
 export const load = ({ params }) => {
   const moved = finterm.redirects.find((r) => r.tab === params.tab && r.slug === params.dash);
   if (moved) redirect(308, `${base}/${params.app}/${moved.tab}/${moved.to}/`);
-  const view = appView(base, `${params.app}/${params.tab}/${params.dash}/`);
+  // A dashboard that is not a page of the Android nav (#1478: PM keeps Homepage, Vol, Commodities, Profiles; a table row opens the portfolio) is drawn in its tab's chrome.
+  const isDash = finterm.dashboards.some((d) => d.tab === params.tab && d.slug === params.dash);
+  const view = appView(base, `${params.app}/${params.tab}/${params.dash}/`) ?? (isDash ? appView(base, `${params.app}/${params.tab}/`) : null);
   if (params.dash === `${params.tab}-home`) {
     const cards = (finterm.homes as Record<string, { slug: string; title: string; icon: string; subtitle: string }[]>)[params.tab];
     if (!cards || !view) error(404, `No FinTerm tab ${params.tab}`);
