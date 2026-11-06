@@ -5,13 +5,37 @@
     "capital-stack-finterminal-api": "https://capital-stack-finterminal-api.mesh.diegonmarcos.com"
   },
   "tabs": [
+    "cb",
     "fi",
     "eq",
-    "ex",
     "nw",
-    "pm"
+    "pm",
+    "hg"
   ],
   "stacks": {
+    "cb": [
+      {
+        "kind": "cb_table",
+        "title": "Countries",
+        "subtitle": "Central-bank macro by country: DM, euro area, BRICS EM; DM / EM / World rows pinned, simple or full indicators, forecast year",
+        "page": "cb-countries",
+        "view": "countries"
+      },
+      {
+        "kind": "cb_table",
+        "title": "DM / EM / World",
+        "subtitle": "GDP-weighted aggregates of the countries, weighted by IMF PPP or market-FX GDP",
+        "page": "cb-groups",
+        "view": "groups"
+      },
+      {
+        "kind": "cb_table",
+        "title": "Predictions",
+        "subtitle": "IMF and OECD forecasts for the current year, +1 and +2, the banks' own projections and a Taylor-rule policy-rate path",
+        "page": "cb-predictions",
+        "view": "predictions"
+      }
+    ],
     "fi": [
       {
         "kind": "dashboard",
@@ -104,26 +128,20 @@
         "title": "Watchlist & Alerts",
         "subtitle": "Your symbols, price alerts and event alerts, kept on this device",
         "dashboard": "watchlist"
-      }
-    ],
-    "ex": [
-      {
-        "kind": "dashboard",
-        "title": "FX",
-        "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards",
-        "dashboard": "fx"
       },
       {
-        "kind": "dashboard",
-        "title": "Onshore USD Rates",
-        "subtitle": "Onshore USD rate benchmarks and curves",
-        "dashboard": "onshore_usd_rates"
+        "kind": "quote_board",
+        "title": "Exchange Rates",
+        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix",
+        "page": "fx-rates",
+        "view": "fx_rates"
       },
       {
-        "kind": "dashboard",
-        "title": "Crypto",
-        "subtitle": "Crypto spot, 24h change and daily candles",
-        "dashboard": "crypto"
+        "kind": "quote_board",
+        "title": "Commodity Prices",
+        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency",
+        "page": "commodity-prices",
+        "view": "commodities"
       },
       {
         "kind": "dashboard",
@@ -155,24 +173,17 @@
     "pm": [
       {
         "kind": "pm_table",
-        "title": "Vol",
-        "subtitle": "The portfolios by risk level: allocation in DM and EM, Swap and expected annualised volatility; a row opens the portfolio",
-        "page": "pm-vol",
-        "table": "vol"
+        "title": "Portfolios",
+        "subtitle": "Portfolios DM vs EM and Portfolios US Cyclicals: Vol, the Top 3 allocations and the full allocation list",
+        "page": "pm-portfolios",
+        "table": "portfolios"
       },
       {
         "kind": "pm_table",
-        "title": "Commodities",
-        "subtitle": "Commodities by the currency they are held in: sample allocation weights and volatility",
-        "page": "pm-commodities",
-        "table": "commodities"
-      },
-      {
-        "kind": "pm_table",
-        "title": "Profiles",
-        "subtitle": "Companies by business-cycle profile: Growth, Value, Quality, Cyclical, Defensive, Dividend, Momentum, Small-cap",
-        "page": "pm-profiles",
-        "table": "profiles"
+        "title": "Performance",
+        "subtitle": "Every portfolio: Today, Last 7d, Last 30d, MTD, YTD, Last 1y and the Last 3y CAGR, from real delayed prices of its legs",
+        "page": "pm-performance",
+        "table": "performance"
       },
       {
         "kind": "dashboard",
@@ -272,9 +283,112 @@
         "dashboard": "pm_d0_carry",
         "detail": true
       }
+    ],
+    "hg": [
+      {
+        "kind": "futures_board",
+        "title": "Rates Futures",
+        "subtitle": "SOFR, Fed Funds, Euribor, EUR STR, SONIA, TONA and the 2y, 5y, 10y, 30y bond futures (Treasury, Bund, BTP, OAT, Gilt, JGB): delayed quotes, term structure, implied rate",
+        "page": "hg-rates",
+        "view": "rates"
+      },
+      {
+        "kind": "futures_board",
+        "title": "Equity Index Futures",
+        "subtitle": "ES, NQ, YM, RTY, Euro Stoxx 50, DAX, FTSE, Nikkei, Hang Seng, KOSPI, Nifty, Ibovespa, ASX: delayed quotes and term structure",
+        "page": "hg-equity",
+        "view": "equity"
+      },
+      {
+        "kind": "futures_board",
+        "title": "FX Futures",
+        "subtitle": "6E, 6J, 6B, 6A, 6C, 6S, 6M, BRL, INR, CNH and the dollar index: delayed quotes and term structure",
+        "page": "hg-fx",
+        "view": "fx"
+      },
+      {
+        "kind": "futures_board",
+        "title": "Energy Futures",
+        "subtitle": "WTI, Brent, natural gas (HH, TTF), RBOB, heating oil, gasoil, coal: delayed quotes and term structure",
+        "page": "hg-energy",
+        "view": "energy"
+      },
+      {
+        "kind": "futures_board",
+        "title": "Metals Futures",
+        "subtitle": "Gold, silver, copper, platinum, palladium, aluminium, nickel, zinc, iron ore: delayed quotes and term structure",
+        "page": "hg-metals",
+        "view": "metals"
+      },
+      {
+        "kind": "futures_board",
+        "title": "Agriculture Futures",
+        "subtitle": "Corn, wheat, the soy complex, coffee, sugar, cocoa, cotton, cattle, hogs: delayed quotes and term structure",
+        "page": "hg-agriculture",
+        "view": "agriculture"
+      },
+      {
+        "kind": "futures_board",
+        "title": "Crypto Futures",
+        "subtitle": "Bitcoin and Ether futures on CME: delayed quotes and term structure",
+        "page": "hg-crypto",
+        "view": "crypto"
+      },
+      {
+        "kind": "futures_board",
+        "title": "Volatility Futures",
+        "subtitle": "VIX and VSTOXX: delayed quotes (the VIX index is the cash level)",
+        "page": "hg-volatility",
+        "view": "volatility"
+      },
+      {
+        "kind": "hedge_calc",
+        "title": "Hedge Calculator",
+        "subtitle": "Hedge ratio and notional: contracts needed from a future's declared multiplier and its delayed price",
+        "page": "hedge-calculator",
+        "view": "hedge"
+      },
+      {
+        "kind": "dashboard",
+        "title": "FX",
+        "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards",
+        "dashboard": "fx"
+      },
+      {
+        "kind": "dashboard",
+        "title": "Onshore USD Rates",
+        "subtitle": "Onshore USD rate benchmarks and curves",
+        "dashboard": "onshore_usd_rates"
+      },
+      {
+        "kind": "dashboard",
+        "title": "Crypto",
+        "subtitle": "Crypto spot, 24h change and daily candles",
+        "dashboard": "crypto"
+      }
     ]
   },
   "homes": {
+    "cb": [
+      {
+        "slug": "cb-countries",
+        "title": "Countries",
+        "icon": "public",
+        "subtitle": "Central-bank macro by country: DM, euro area, BRICS EM; DM / EM / World rows pinned, simple or full indicators, forecast year"
+      },
+      {
+        "slug": "cb-groups",
+        "title": "DM / EM / World",
+        "icon": "table_chart",
+        "subtitle": "GDP-weighted aggregates of the countries, weighted by IMF PPP or market-FX GDP"
+      },
+      {
+        "slug": "cb-predictions",
+        "title": "Predictions",
+        "icon": "insights",
+        "subtitle": "IMF and OECD forecasts for the current year, +1 and +2, the banks' own projections and a Taylor-rule policy-rate path"
+      }
+    ],
     "fi": [
       {
         "slug": "yield-curves",
@@ -367,26 +481,18 @@
         "title": "Watchlist & Alerts",
         "icon": "bookmark",
         "subtitle": "Your symbols, price alerts and event alerts, kept on this device"
-      }
-    ],
-    "ex": [
+      },
       {
-        "slug": "fx",
-        "title": "FX",
+        "slug": "fx-rates",
+        "title": "Exchange Rates",
         "icon": "swap_horiz",
-        "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards"
+        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
       },
       {
-        "slug": "onshore-usd-rates",
-        "title": "Onshore USD Rates",
-        "icon": "account_balance",
-        "subtitle": "Onshore USD rate benchmarks and curves"
-      },
-      {
-        "slug": "crypto",
-        "title": "Crypto",
-        "icon": "token",
-        "subtitle": "Crypto spot, 24h change and daily candles"
+        "slug": "commodity-prices",
+        "title": "Commodity Prices",
+        "icon": "inventory_2",
+        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
       },
       {
         "slug": "commodities",
@@ -417,22 +523,90 @@
     ],
     "pm": [
       {
-        "slug": "pm-vol",
-        "title": "Vol",
+        "slug": "pm-portfolios",
+        "title": "Portfolios",
         "icon": "table_chart",
-        "subtitle": "The portfolios by risk level: allocation in DM and EM, Swap and expected annualised volatility; a row opens the portfolio"
+        "subtitle": "Portfolios DM vs EM and Portfolios US Cyclicals: Vol, the Top 3 allocations and the full allocation list"
       },
       {
-        "slug": "pm-commodities",
-        "title": "Commodities",
+        "slug": "pm-performance",
+        "title": "Performance",
+        "icon": "bar_chart",
+        "subtitle": "Every portfolio: Today, Last 7d, Last 30d, MTD, YTD, Last 1y and the Last 3y CAGR, from real delayed prices of its legs"
+      }
+    ],
+    "hg": [
+      {
+        "slug": "hg-rates",
+        "title": "Rates Futures",
+        "icon": "account_balance",
+        "subtitle": "SOFR, Fed Funds, Euribor, EUR STR, SONIA, TONA and the 2y, 5y, 10y, 30y bond futures (Treasury, Bund, BTP, OAT, Gilt, JGB): delayed quotes, term structure, implied rate"
+      },
+      {
+        "slug": "hg-equity",
+        "title": "Equity Index Futures",
+        "icon": "trending_up",
+        "subtitle": "ES, NQ, YM, RTY, Euro Stoxx 50, DAX, FTSE, Nikkei, Hang Seng, KOSPI, Nifty, Ibovespa, ASX: delayed quotes and term structure"
+      },
+      {
+        "slug": "hg-fx",
+        "title": "FX Futures",
+        "icon": "swap_horiz",
+        "subtitle": "6E, 6J, 6B, 6A, 6C, 6S, 6M, BRL, INR, CNH and the dollar index: delayed quotes and term structure"
+      },
+      {
+        "slug": "hg-energy",
+        "title": "Energy Futures",
+        "icon": "speed",
+        "subtitle": "WTI, Brent, natural gas (HH, TTF), RBOB, heating oil, gasoil, coal: delayed quotes and term structure"
+      },
+      {
+        "slug": "hg-metals",
+        "title": "Metals Futures",
         "icon": "inventory_2",
-        "subtitle": "Commodities by the currency they are held in: sample allocation weights and volatility"
+        "subtitle": "Gold, silver, copper, platinum, palladium, aluminium, nickel, zinc, iron ore: delayed quotes and term structure"
       },
       {
-        "slug": "pm-profiles",
-        "title": "Profiles",
-        "icon": "groups",
-        "subtitle": "Companies by business-cycle profile: Growth, Value, Quality, Cyclical, Defensive, Dividend, Momentum, Small-cap"
+        "slug": "hg-agriculture",
+        "title": "Agriculture Futures",
+        "icon": "explore",
+        "subtitle": "Corn, wheat, the soy complex, coffee, sugar, cocoa, cotton, cattle, hogs: delayed quotes and term structure"
+      },
+      {
+        "slug": "hg-crypto",
+        "title": "Crypto Futures",
+        "icon": "token",
+        "subtitle": "Bitcoin and Ether futures on CME: delayed quotes and term structure"
+      },
+      {
+        "slug": "hg-volatility",
+        "title": "Volatility Futures",
+        "icon": "insights",
+        "subtitle": "VIX and VSTOXX: delayed quotes (the VIX index is the cash level)"
+      },
+      {
+        "slug": "hedge-calculator",
+        "title": "Hedge Calculator",
+        "icon": "compare_arrows",
+        "subtitle": "Hedge ratio and notional: contracts needed from a future's declared multiplier and its delayed price"
+      },
+      {
+        "slug": "fx",
+        "title": "FX",
+        "icon": "swap_horiz",
+        "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards"
+      },
+      {
+        "slug": "onshore-usd-rates",
+        "title": "Onshore USD Rates",
+        "icon": "account_balance",
+        "subtitle": "Onshore USD rate benchmarks and curves"
+      },
+      {
+        "slug": "crypto",
+        "title": "Crypto",
+        "icon": "token",
+        "subtitle": "Crypto spot, 24h change and daily candles"
       }
     ]
   },
@@ -476,6 +650,46 @@
       "slug": "market-monitor",
       "tab": "fi",
       "to": "fi-home"
+    },
+    {
+      "slug": "ex",
+      "tab": "hg",
+      "to": "hg-home"
+    },
+    {
+      "slug": "ex-home",
+      "tab": "hg",
+      "to": "hg-home"
+    },
+    {
+      "slug": "cm",
+      "tab": "eq",
+      "to": "commodity-prices"
+    },
+    {
+      "slug": "ex-commodities",
+      "tab": "eq",
+      "to": "commodity-prices"
+    },
+    {
+      "slug": "pm-commodities",
+      "tab": "eq",
+      "to": "commodity-prices"
+    },
+    {
+      "slug": "pm-commodities",
+      "tab": "eq",
+      "to": "commodity-prices"
+    },
+    {
+      "slug": "pm-vol",
+      "tab": "pm",
+      "to": "pm-portfolios"
+    },
+    {
+      "slug": "pm-profiles",
+      "tab": "pm",
+      "to": "pm-portfolios"
     }
   ],
   "pm": {
@@ -667,185 +881,6 @@
             "",
             "No",
             "~15"
-          ]
-        }
-      ]
-    },
-    "commodities": {
-      "columns": [
-        "Commodity",
-        "USD",
-        "EUR",
-        "GBP",
-        "CHF",
-        "JPY",
-        "CNY",
-        "BRL",
-        "Vol"
-      ],
-      "label_fracs": [
-        0.2
-      ],
-      "heat": [
-        1,
-        7
-      ],
-      "note": "Sample model weights, not live: % of each commodity's allocation held through each currency (a row sums to 100). Vol: assumed annual volatility in %.",
-      "rows": [
-        {
-          "name": "Gold",
-          "cells": [
-            "50",
-            "15",
-            "5",
-            "10",
-            "10",
-            "10",
-            "0",
-            "15"
-          ]
-        },
-        {
-          "name": "Silver",
-          "cells": [
-            "55",
-            "15",
-            "5",
-            "5",
-            "10",
-            "10",
-            "0",
-            "28"
-          ]
-        },
-        {
-          "name": "Platinum",
-          "cells": [
-            "40",
-            "20",
-            "5",
-            "10",
-            "15",
-            "10",
-            "0",
-            "22"
-          ]
-        },
-        {
-          "name": "Copper",
-          "cells": [
-            "30",
-            "10",
-            "5",
-            "0",
-            "10",
-            "45",
-            "0",
-            "24"
-          ]
-        },
-        {
-          "name": "Brent",
-          "cells": [
-            "60",
-            "15",
-            "10",
-            "0",
-            "5",
-            "5",
-            "5",
-            "35"
-          ]
-        },
-        {
-          "name": "WTI",
-          "cells": [
-            "85",
-            "5",
-            "5",
-            "0",
-            "0",
-            "5",
-            "0",
-            "37"
-          ]
-        },
-        {
-          "name": "Nat Gas",
-          "cells": [
-            "65",
-            "20",
-            "10",
-            "0",
-            "5",
-            "0",
-            "0",
-            "55"
-          ]
-        },
-        {
-          "name": "Wheat",
-          "cells": [
-            "40",
-            "25",
-            "5",
-            "0",
-            "0",
-            "10",
-            "20",
-            "30"
-          ]
-        },
-        {
-          "name": "Corn",
-          "cells": [
-            "45",
-            "10",
-            "0",
-            "0",
-            "5",
-            "10",
-            "30",
-            "26"
-          ]
-        },
-        {
-          "name": "Soybeans",
-          "cells": [
-            "30",
-            "10",
-            "0",
-            "0",
-            "5",
-            "25",
-            "30",
-            "20"
-          ]
-        },
-        {
-          "name": "Coffee",
-          "cells": [
-            "35",
-            "20",
-            "5",
-            "5",
-            "0",
-            "0",
-            "35",
-            "32"
-          ]
-        },
-        {
-          "name": "Sugar",
-          "cells": [
-            "30",
-            "15",
-            "5",
-            "0",
-            "5",
-            "15",
-            "30",
-            "28"
           ]
         }
       ]
@@ -1119,6 +1154,143 @@
           ]
         }
       ]
+    },
+    "portfolios": {
+      "columns": [
+        "Portfolio",
+        "Vol",
+        "Top 3",
+        "See all"
+      ],
+      "label_fracs": [
+        0.3
+      ],
+      "top": 3,
+      "see_all": "See all",
+      "all_title": "Full allocation",
+      "weight_unit": "%",
+      "tables": [
+        {
+          "id": "dm_em",
+          "title": "Portfolios DM vs EM",
+          "table": "vol",
+          "vol_basis": "model",
+          "vol_cell": 7,
+          "no_legs": [
+            "pm_d0_carry"
+          ],
+          "legs": [
+            {
+              "name": "DM Bonds",
+              "cell": 1
+            },
+            {
+              "name": "DM Equity",
+              "cell": 2
+            },
+            {
+              "name": "EM Bonds",
+              "cell": 4
+            },
+            {
+              "name": "EM Equity",
+              "cell": 5
+            }
+          ]
+        },
+        {
+          "id": "us_cyclicals",
+          "title": "Portfolios US Cyclicals",
+          "table": "profiles",
+          "vol_basis": "history",
+          "weighting": "equal"
+        }
+      ],
+      "note": "Vol of the DM vs EM portfolios is the model's assumed annual volatility (%); Vol of the US Cyclicals is the realised volatility of the last year (%) from real daily closes, n/a where a leg has no free history. Top 3 = the three largest allocations (weights in %); equal weights in the cyclical profiles. A tap on a row lists the full allocation."
+    },
+    "performance": {
+      "windows": [
+        {
+          "id": "today",
+          "label": "Today"
+        },
+        {
+          "id": "d7",
+          "label": "Last 7d",
+          "days": 7
+        },
+        {
+          "id": "d30",
+          "label": "Last 30d",
+          "days": 30
+        },
+        {
+          "id": "mtd",
+          "label": "Month (MTD)"
+        },
+        {
+          "id": "ytd",
+          "label": "Year (YTD)"
+        },
+        {
+          "id": "y1",
+          "label": "Last 1y",
+          "years": 1
+        },
+        {
+          "id": "y3",
+          "label": "Last 3y (CAGR, annualised)",
+          "years": 3,
+          "cagr": true
+        }
+      ],
+      "columns": [
+        "Portfolio",
+        "Today",
+        "Last\n7d",
+        "Last\n30d",
+        "Month\n(MTD)",
+        "Year\n(YTD)",
+        "Last\n1y",
+        "Last 3y\nCAGR",
+        "As of"
+      ],
+      "label_fracs": [
+        0.26
+      ],
+      "rebalance": "monthly",
+      "rebalance_rules": {
+        "daily": "back to the target weights at every close",
+        "monthly": "back to the target weights at the first close of each month",
+        "none": "buy and hold"
+      },
+      "proxies": {
+        "DM Bonds": "AGG",
+        "DM Equity": "URTH",
+        "EM Bonds": "EMB",
+        "EM Equity": "EEM"
+      },
+      "no_history": {
+        "pm_a1_cash": "short-term sovereign bonds by currency: no free price history",
+        "pm_d0_carry": "a carry trade has no price history of legs"
+      },
+      "history": {
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}?range=5y&interval=1d",
+        "user_agent": "Mozilla/5.0",
+        "source": "Yahoo Finance chart API (delayed daily closes)",
+        "ttl_s": 300
+      },
+      "ui": {
+        "refresh": "Refresh",
+        "refreshing": "Refreshing",
+        "na": "n/a",
+        "na_long": "n/a (no free source)",
+        "asof": "As of",
+        "source": "Source",
+        "rebalance": "Rebalanced",
+        "note": "Simple returns from the last close of each window; the 3y column is the annualised CAGR. Every row is the weighted ETF-proxy portfolio of its legs rebalanced by the declared rule, from real delayed daily closes. n/a where a leg has no free history; nothing is estimated."
+      },
+      "heat_pct": 10
     }
   },
   "sources": [
@@ -1157,7 +1329,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "*"
           ]
@@ -1205,7 +1377,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX",
             "Onshore USD Rates"
@@ -1218,7 +1390,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "eq",
           "entries": [
             "Commodities"
           ]
@@ -1254,7 +1426,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX",
             "Onshore USD Rates"
@@ -1344,7 +1516,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX"
           ]
@@ -1374,7 +1546,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "Onshore USD Rates"
           ]
@@ -1414,7 +1586,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "*"
           ]
@@ -1448,7 +1620,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX"
           ]
@@ -1634,7 +1806,7 @@
       "connector": "nyfed_rates",
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "Onshore USD Rates"
           ]
@@ -1930,7 +2102,7 @@
       "connector": "frankfurter_rates",
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX"
           ]
@@ -1962,9 +2134,14 @@
       "connector": "coinbase_exchange",
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
-            "Crypto",
+            "Crypto"
+          ]
+        },
+        {
+          "tab": "eq",
+          "entries": [
             "Commodities"
           ]
         }
@@ -1988,7 +2165,7 @@
       "connector": "cftc_cot",
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "eq",
           "entries": [
             "Commodities"
           ]
@@ -2029,7 +2206,7 @@
           ]
         },
         {
-          "tab": "ex",
+          "tab": "eq",
           "entries": [
             "Commodities"
           ]
@@ -2235,7 +2412,7 @@
       "connector": null,
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "eq",
           "entries": [
             "Commodities"
           ]
@@ -2257,7 +2434,7 @@
       "cors": false,
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX"
           ]
@@ -2281,7 +2458,7 @@
       "cors": true,
       "feeds": [
         {
-          "tab": "ex",
+          "tab": "hg",
           "entries": [
             "FX"
           ]
@@ -5055,835 +5232,9 @@
       "subtitle": "Your symbols, price alerts and event alerts, kept on this device"
     },
     {
-      "id": "fx",
-      "entry": "FX",
-      "tab": "ex",
-      "panels": [
-        {
-          "id": "ppp_matrix",
-          "title": "G20 FX & PPP Matrix: today vs real 30MA (-1y, -3y), macro PPP and Big Mac PPP (LCU/USD)",
-          "source": "frankfurter",
-          "view": "table",
-          "derive": "fx_matrix",
-          "fetch": {
-            "provider": "frankfurter_rates",
-            "path": "/v1/latest",
-            "fx_source": "frankfurter",
-            "rub_source": "cbr",
-            "bigmac_source": "economist_bigmac",
-            "window_days": 30,
-            "lags_years": [
-              1,
-              3
-            ],
-            "wb": {
-              "source": "worldbank",
-              "indicators": {
-                "ppp": "PA.NUS.PPP",
-                "cpi": "FP.CPI.TOTL"
-              }
-            },
-            "bigmac": {
-              "path": "/TheEconomist/big-mac-data/master/output-data/big-mac-full-index.csv",
-              "us": "USA"
-            },
-            "rub": {
-              "path": "/scripts/XML_dynamic.asp",
-              "code": "R01235"
-            },
-            "dxy": {
-              "label": "DXY (USD index, ICE weights)",
-              "constant": 50.14348112,
-              "legs": [
-                {
-                  "ccy": "EUR",
-                  "cc": "DE",
-                  "a3": "EUZ",
-                  "weight": 0.576
-                },
-                {
-                  "ccy": "JPY",
-                  "cc": "JP",
-                  "a3": "JPN",
-                  "weight": 0.136
-                },
-                {
-                  "ccy": "GBP",
-                  "cc": "GB",
-                  "a3": "GBR",
-                  "weight": 0.119
-                },
-                {
-                  "ccy": "CAD",
-                  "cc": "CA",
-                  "a3": "CAN",
-                  "weight": 0.091
-                },
-                {
-                  "ccy": "SEK",
-                  "cc": "SE",
-                  "a3": "SWE",
-                  "weight": 0.042
-                },
-                {
-                  "ccy": "CHF",
-                  "cc": "CH",
-                  "a3": "CHE",
-                  "weight": 0.036
-                }
-              ]
-            },
-            "rows": [
-              {
-                "ccy": "EUR",
-                "cc": "DE",
-                "a3": "EUZ",
-                "seg": "DM",
-                "label": "Euro (CPI and PPP of Germany)",
-                "market_quote": true
-              },
-              {
-                "ccy": "JPY",
-                "cc": "JP",
-                "a3": "JPN",
-                "seg": "DM",
-                "label": "Japanese yen"
-              },
-              {
-                "ccy": "GBP",
-                "cc": "GB",
-                "a3": "GBR",
-                "seg": "DM",
-                "label": "Pound sterling",
-                "market_quote": true
-              },
-              {
-                "ccy": "CAD",
-                "cc": "CA",
-                "a3": "CAN",
-                "seg": "DM",
-                "label": "Canadian dollar"
-              },
-              {
-                "ccy": "AUD",
-                "cc": "AU",
-                "a3": "AUS",
-                "seg": "DM",
-                "label": "Australian dollar",
-                "market_quote": true
-              },
-              {
-                "ccy": "KRW",
-                "cc": "KR",
-                "a3": "KOR",
-                "seg": "DM",
-                "label": "Korean won"
-              },
-              {
-                "ccy": "CNY",
-                "cc": "CN",
-                "a3": "CHN",
-                "seg": "BRICS",
-                "label": "Chinese yuan"
-              },
-              {
-                "ccy": "INR",
-                "cc": "IN",
-                "a3": "IND",
-                "seg": "BRICS",
-                "label": "Indian rupee"
-              },
-              {
-                "ccy": "BRL",
-                "cc": "BR",
-                "a3": "BRA",
-                "seg": "BRICS",
-                "label": "Brazilian real"
-              },
-              {
-                "ccy": "RUB",
-                "cc": "RU",
-                "a3": "RUS",
-                "seg": "BRICS",
-                "label": "Russian rouble",
-                "fx": "cbr"
-              },
-              {
-                "ccy": "ZAR",
-                "cc": "ZA",
-                "a3": "ZAF",
-                "seg": "BRICS",
-                "label": "South African rand"
-              },
-              {
-                "ccy": "IDR",
-                "cc": "ID",
-                "a3": "IDN",
-                "seg": "EM",
-                "label": "Indonesian rupiah"
-              }
-            ],
-            "reading": "Positive: today needs more local currency per USD than the benchmark (USD premium, local currency undervalued against it). Negative: fewer (USD discount, local currency strong).",
-            "method": "ECB reference rates (Frankfurter) and Bank of Russia (RUB), daily; World Bank PA.NUS.PPP and FP.CPI.TOTL, annual; The Economist Big Mac index (MIT); DXY from the ICE weights.",
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/fx/ppp-matrix",
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Currency",
-            "Seg.",
-            "Today",
-            "30MA -1y adj",
-            "30MA -3y adj",
-            "Macro PPP",
-            "Retail PPP",
-            "diff 30MA-1y %",
-            "diff 30MA-3y %",
-            "diff Macro %",
-            "diff Retail %"
-          ]
-        },
-        {
-          "id": "ecb",
-          "title": "ECB reference rates (per USD, Frankfurter)",
-          "source": "frankfurter",
-          "view": "quotes",
-          "derive": "points",
-          "fetch": {
-            "provider": "frankfurter_rates",
-            "path": "/v1/{from}..",
-            "params": {
-              "base": "USD",
-              "symbols": "EUR,GBP,JPY,CHF,CAD,AUD,CNY,MXN,BRL,INR"
-            },
-            "lookback_days": 30,
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/fx/spot",
-              "params": {
-                "base": "USD",
-                "symbols": "EUR,GBP,JPY,CHF,CAD,AUD,CNY,MXN,BRL,INR"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "Chg",
-            "Chg %",
-            "As of"
-          ],
-          "tape": true
-        },
-        {
-          "id": "spot",
-          "title": "Spot vs USD (Federal Reserve H.10 noon buying rates)",
-          "source": "fred",
-          "view": "table",
-          "derive": "fx_spot",
-          "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 30,
-            "series": [
-              {
-                "id": "DEXUSEU",
-                "label": "EUR",
-                "ccy": "EUR",
-                "quote": "usd_per",
-                "pair": "EUR/USD",
-                "dbnomics": "FED/H10/RXI$US_N.B.EU"
-              },
-              {
-                "id": "DEXUSUK",
-                "label": "GBP",
-                "ccy": "GBP",
-                "quote": "usd_per",
-                "pair": "GBP/USD",
-                "dbnomics": "FED/H10/RXI$US_N.B.UK"
-              },
-              {
-                "id": "DEXUSAL",
-                "label": "AUD",
-                "ccy": "AUD",
-                "quote": "usd_per",
-                "pair": "AUD/USD",
-                "dbnomics": "FED/H10/RXI$US_N.B.AL"
-              },
-              {
-                "id": "DEXJPUS",
-                "label": "JPY",
-                "ccy": "JPY",
-                "quote": "per_usd",
-                "pair": "USD/JPY",
-                "dbnomics": "FED/H10/RXI_N.B.JA"
-              },
-              {
-                "id": "DEXSZUS",
-                "label": "CHF",
-                "ccy": "CHF",
-                "quote": "per_usd",
-                "pair": "USD/CHF",
-                "dbnomics": "FED/H10/RXI_N.B.SZ"
-              },
-              {
-                "id": "DEXCAUS",
-                "label": "CAD",
-                "ccy": "CAD",
-                "quote": "per_usd",
-                "pair": "USD/CAD",
-                "dbnomics": "FED/H10/RXI_N.B.CA"
-              },
-              {
-                "id": "DEXCHUS",
-                "label": "CNY",
-                "ccy": "CNY",
-                "quote": "per_usd",
-                "pair": "USD/CNY",
-                "dbnomics": "FED/H10/RXI_N.B.CH"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
-            },
-            "fallback": {
-              "source": "dbnomics"
-            }
-          },
-          "columns": [
-            "Pair",
-            "Rate",
-            "1d %",
-            "Date"
-          ]
-        },
-        {
-          "id": "cross",
-          "title": "Cross matrix (units of column per 1 of row)",
-          "source": "fred",
-          "view": "table",
-          "derive": "fx_cross",
-          "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 30,
-            "series": [
-              {
-                "id": "DEXUSEU",
-                "label": "EUR",
-                "ccy": "EUR",
-                "quote": "usd_per",
-                "pair": "EUR/USD",
-                "dbnomics": "FED/H10/RXI$US_N.B.EU"
-              },
-              {
-                "id": "DEXUSUK",
-                "label": "GBP",
-                "ccy": "GBP",
-                "quote": "usd_per",
-                "pair": "GBP/USD",
-                "dbnomics": "FED/H10/RXI$US_N.B.UK"
-              },
-              {
-                "id": "DEXUSAL",
-                "label": "AUD",
-                "ccy": "AUD",
-                "quote": "usd_per",
-                "pair": "AUD/USD",
-                "dbnomics": "FED/H10/RXI$US_N.B.AL"
-              },
-              {
-                "id": "DEXJPUS",
-                "label": "JPY",
-                "ccy": "JPY",
-                "quote": "per_usd",
-                "pair": "USD/JPY",
-                "dbnomics": "FED/H10/RXI_N.B.JA"
-              },
-              {
-                "id": "DEXSZUS",
-                "label": "CHF",
-                "ccy": "CHF",
-                "quote": "per_usd",
-                "pair": "USD/CHF",
-                "dbnomics": "FED/H10/RXI_N.B.SZ"
-              },
-              {
-                "id": "DEXCAUS",
-                "label": "CAD",
-                "ccy": "CAD",
-                "quote": "per_usd",
-                "pair": "USD/CAD",
-                "dbnomics": "FED/H10/RXI_N.B.CA"
-              },
-              {
-                "id": "DEXCHUS",
-                "label": "CNY",
-                "ccy": "CNY",
-                "quote": "per_usd",
-                "pair": "USD/CNY",
-                "dbnomics": "FED/H10/RXI_N.B.CH"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
-            },
-            "fallback": {
-              "source": "dbnomics"
-            }
-          },
-          "columns": [
-            "1 of"
-          ]
-        },
-        {
-          "id": "rt",
-          "title": "Real-time quotes and forwards",
-          "source": "polygon",
-          "view": "table",
-          "placeholder": {
-            "reason": "needs a key or a connector"
-          }
-        },
-        {
-          "id": "ppp",
-          "title": "FX vs PPP: major DM and EM currencies against USD (spot, PPP, real change)",
-          "source": "frankfurter",
-          "view": "table",
-          "derive": "fx_ppp",
-          "fetch": {
-            "provider": "frankfurter_rates",
-            "path": "/v1/latest",
-            "fx_source": "frankfurter",
-            "window_days": 30,
-            "wb": {
-              "source": "worldbank",
-              "indicators": {
-                "ppp": "PA.NUS.PPP",
-                "cpi": "FP.CPI.TOTL"
-              }
-            },
-            "rows": [
-              {
-                "cc": "DE",
-                "ccy": "EUR",
-                "label": "Euro (PPP and CPI of Germany)",
-                "group": "dm"
-              },
-              {
-                "cc": "JP",
-                "ccy": "JPY",
-                "label": "Japanese yen",
-                "group": "dm"
-              },
-              {
-                "cc": "GB",
-                "ccy": "GBP",
-                "label": "Pound sterling",
-                "group": "dm"
-              },
-              {
-                "cc": "CH",
-                "ccy": "CHF",
-                "label": "Swiss franc",
-                "group": "dm"
-              },
-              {
-                "cc": "CA",
-                "ccy": "CAD",
-                "label": "Canadian dollar",
-                "group": "dm"
-              },
-              {
-                "cc": "AU",
-                "ccy": "AUD",
-                "label": "Australian dollar",
-                "group": "dm"
-              },
-              {
-                "cc": "NZ",
-                "ccy": "NZD",
-                "label": "New Zealand dollar",
-                "group": "dm"
-              },
-              {
-                "cc": "SE",
-                "ccy": "SEK",
-                "label": "Swedish krona",
-                "group": "dm"
-              },
-              {
-                "cc": "NO",
-                "ccy": "NOK",
-                "label": "Norwegian krone",
-                "group": "dm"
-              },
-              {
-                "cc": "CN",
-                "ccy": "CNY",
-                "label": "Chinese yuan",
-                "group": "em"
-              },
-              {
-                "cc": "IN",
-                "ccy": "INR",
-                "label": "Indian rupee",
-                "group": "em"
-              },
-              {
-                "cc": "BR",
-                "ccy": "BRL",
-                "label": "Brazilian real",
-                "group": "em"
-              },
-              {
-                "cc": "MX",
-                "ccy": "MXN",
-                "label": "Mexican peso",
-                "group": "em"
-              },
-              {
-                "cc": "KR",
-                "ccy": "KRW",
-                "label": "Korean won",
-                "group": "em"
-              },
-              {
-                "cc": "ID",
-                "ccy": "IDR",
-                "label": "Indonesian rupiah",
-                "group": "em"
-              },
-              {
-                "cc": "TR",
-                "ccy": "TRY",
-                "label": "Turkish lira",
-                "group": "em"
-              },
-              {
-                "cc": "ZA",
-                "ccy": "ZAR",
-                "label": "South African rand",
-                "group": "em"
-              },
-              {
-                "cc": "RU",
-                "ccy": "RUB",
-                "label": "Russian rouble",
-                "group": "em",
-                "no_fx": "the ECB stopped the rouble reference rate in March 2022; no other free official daily USD rate"
-              },
-              {
-                "cc": "PL",
-                "ccy": "PLN",
-                "label": "Polish zloty",
-                "group": "em"
-              },
-              {
-                "cc": "TH",
-                "ccy": "THB",
-                "label": "Thai baht",
-                "group": "em"
-              },
-              {
-                "cc": "SA",
-                "ccy": "SAR",
-                "label": "Saudi riyal",
-                "group": "em",
-                "no_fx": "the ECB publishes no riyal reference rate (the riyal is pegged at 3.75 per USD); no free official daily series"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/fx/ppp",
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Currency",
-            "Spot",
-            "PPP",
-            "Over/under %",
-            "30d avg",
-            "30d 1y ago real",
-            "Real YoY %"
-          ]
-        }
-      ],
-      "default": true,
-      "slug": "fx",
-      "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards"
-    },
-    {
-      "id": "onshore_usd_rates",
-      "entry": "Onshore USD Rates",
-      "tab": "ex",
-      "panels": [
-        {
-          "id": "nyfed",
-          "title": "NY Fed reference rates",
-          "source": "nyfed",
-          "view": "bars",
-          "derive": "points",
-          "fetch": {
-            "provider": "nyfed_rates",
-            "path": "/api/rates/all/latest.json",
-            "labels": {
-              "SOFR": "SOFR",
-              "EFFR": "EFFR",
-              "OBFR": "OBFR",
-              "TGCR": "TGCR",
-              "BGCR": "BGCR",
-              "SOFRAI_30D": "SOFR 30d avg",
-              "SOFRAI_90D": "SOFR 90d avg",
-              "SOFRAI_180D": "SOFR 180-day average"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/series",
-              "params": {
-                "ids": "nyfed:SOFR,nyfed:EFFR,nyfed:OBFR,nyfed:TGCR,nyfed:BGCR,nyfed:SOFRAI_30D,nyfed:SOFRAI_90D,nyfed:SOFRAI_180D"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Benchmark",
-            "Rate %",
-            "Chg bp",
-            "Date"
-          ],
-          "chart_value": "level",
-          "unit": "%",
-          "change_unit": "bp"
-        },
-        {
-          "id": "benchmarks",
-          "title": "Onshore USD benchmark rates",
-          "source": "fred",
-          "view": "bars",
-          "derive": "level_change",
-          "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 21,
-            "series": [
-              {
-                "id": "SOFR",
-                "label": "SOFR"
-              },
-              {
-                "id": "EFFR",
-                "label": "EFFR",
-                "dbnomics": "FED/H15/RIFSPFF_N.B"
-              },
-              {
-                "id": "OBFR",
-                "label": "OBFR"
-              },
-              {
-                "id": "IORB",
-                "label": "IORB",
-                "dbnomics": "FED/PRATES_PRATES_POLICY_RATES/RESBM_N.D"
-              },
-              {
-                "id": "DPRIME",
-                "label": "Prime",
-                "dbnomics": "FED/H15/RIFSPBLP_N.B"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
-            },
-            "fallback": {
-              "source": "dbnomics"
-            }
-          },
-          "columns": [
-            "Benchmark",
-            "Rate %",
-            "1d bp",
-            "Date"
-          ],
-          "chart_value": "level",
-          "unit": "%",
-          "change_unit": "bp"
-        },
-        {
-          "id": "term",
-          "title": "Term SOFR, swap curve and basis",
-          "source": "premium_fi",
-          "view": "table",
-          "placeholder": {
-            "reason": "needs a key or a connector"
-          }
-        }
-      ],
-      "slug": "onshore-usd-rates",
-      "subtitle": "Onshore USD rate benchmarks and curves"
-    },
-    {
-      "id": "crypto",
-      "entry": "Crypto",
-      "tab": "ex",
-      "panels": [
-        {
-          "id": "spot",
-          "title": "Crypto spot (24h)",
-          "source": "coinbase",
-          "view": "quotes",
-          "derive": "points",
-          "fetch": {
-            "provider": "coinbase_exchange",
-            "path": "/products/{each}/stats",
-            "each": [
-              "BTC-USD",
-              "ETH-USD",
-              "SOL-USD",
-              "XRP-USD",
-              "DOGE-USD",
-              "ADA-USD"
-            ],
-            "labels": {
-              "BTC-USD": "Bitcoin",
-              "ETH-USD": "Ether",
-              "SOL-USD": "Solana",
-              "XRP-USD": "XRP",
-              "DOGE-USD": "Dogecoin",
-              "ADA-USD": "Cardano"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes",
-              "params": {
-                "symbols": "BTC-USD,ETH-USD,SOL-USD,XRP-USD,DOGE-USD,ADA-USD"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "Chg",
-            "Chg %",
-            "As of"
-          ],
-          "tape": true
-        },
-        {
-          "id": "top20",
-          "title": "Crypto top 20 on Coinbase (USD, daily close, 7-day sparkline)",
-          "source": "coinbase",
-          "view": "quotes",
-          "derive": "points",
-          "fetch": {
-            "provider": "coinbase_exchange",
-            "path": "/products/{each}/candles",
-            "params": {
-              "granularity": "86400"
-            },
-            "each": [
-              "BTC-USD",
-              "ETH-USD",
-              "XRP-USD",
-              "SOL-USD",
-              "DOGE-USD",
-              "ADA-USD",
-              "LINK-USD",
-              "AVAX-USD",
-              "XLM-USD",
-              "LTC-USD",
-              "DOT-USD",
-              "BCH-USD",
-              "SHIB-USD",
-              "UNI-USD",
-              "HBAR-USD",
-              "SUI-USD",
-              "AAVE-USD",
-              "NEAR-USD",
-              "ICP-USD",
-              "ETC-USD"
-            ],
-            "labels": {
-              "BTC-USD": "Bitcoin",
-              "ETH-USD": "Ether",
-              "XRP-USD": "XRP",
-              "SOL-USD": "Solana",
-              "DOGE-USD": "Dogecoin",
-              "ADA-USD": "Cardano",
-              "LINK-USD": "Chainlink",
-              "AVAX-USD": "Avalanche",
-              "XLM-USD": "Stellar",
-              "LTC-USD": "Litecoin",
-              "DOT-USD": "Polkadot",
-              "BCH-USD": "Bitcoin Cash",
-              "SHIB-USD": "Shiba Inu",
-              "UNI-USD": "Uniswap",
-              "HBAR-USD": "Hedera",
-              "SUI-USD": "Sui",
-              "AAVE-USD": "Aave",
-              "NEAR-USD": "NEAR",
-              "ICP-USD": "Internet Computer",
-              "ETC-USD": "Ethereum Classic"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes",
-              "params": {
-                "symbols": "BTC-USD,ETH-USD,XRP-USD,SOL-USD,DOGE-USD,ADA-USD,LINK-USD,AVAX-USD,XLM-USD,LTC-USD,DOT-USD,BCH-USD,SHIB-USD,UNI-USD,HBAR-USD,SUI-USD,AAVE-USD,NEAR-USD,ICP-USD,ETC-USD"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "Chg",
-            "Chg %",
-            "As of"
-          ]
-        },
-        {
-          "id": "btc",
-          "title": "Bitcoin, daily (300 days)",
-          "source": "coinbase",
-          "view": "candles",
-          "derive": "candles",
-          "fetch": {
-            "provider": "coinbase_exchange",
-            "path": "/products/BTC-USD/candles",
-            "params": {
-              "granularity": "86400"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes/BTC-USD/history",
-              "params": {
-                "interval": "1d",
-                "range": "1y"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Date",
-            "Open",
-            "High",
-            "Low",
-            "Close"
-          ]
-        }
-      ],
-      "slug": "crypto",
-      "subtitle": "Crypto spot, 24h change and daily candles"
-    },
-    {
       "id": "commodities",
       "entry": "Commodities",
-      "tab": "ex",
+      "tab": "eq",
       "panels": [
         {
           "id": "energy",
@@ -7595,6 +6946,832 @@
       ],
       "slug": "pm-d0-carry",
       "subtitle": "EM carry trade: funding currency against the EM high-yielder, breakeven and net return"
+    },
+    {
+      "id": "fx",
+      "entry": "FX",
+      "tab": "hg",
+      "panels": [
+        {
+          "id": "ppp_matrix",
+          "title": "G20 FX & PPP Matrix: today vs real 30MA (-1y, -3y), macro PPP and Big Mac PPP (LCU/USD)",
+          "source": "frankfurter",
+          "view": "table",
+          "derive": "fx_matrix",
+          "fetch": {
+            "provider": "frankfurter_rates",
+            "path": "/v1/latest",
+            "fx_source": "frankfurter",
+            "rub_source": "cbr",
+            "bigmac_source": "economist_bigmac",
+            "window_days": 30,
+            "lags_years": [
+              1,
+              3
+            ],
+            "wb": {
+              "source": "worldbank",
+              "indicators": {
+                "ppp": "PA.NUS.PPP",
+                "cpi": "FP.CPI.TOTL"
+              }
+            },
+            "bigmac": {
+              "path": "/TheEconomist/big-mac-data/master/output-data/big-mac-full-index.csv",
+              "us": "USA"
+            },
+            "rub": {
+              "path": "/scripts/XML_dynamic.asp",
+              "code": "R01235"
+            },
+            "dxy": {
+              "label": "DXY (USD index, ICE weights)",
+              "constant": 50.14348112,
+              "legs": [
+                {
+                  "ccy": "EUR",
+                  "cc": "DE",
+                  "a3": "EUZ",
+                  "weight": 0.576
+                },
+                {
+                  "ccy": "JPY",
+                  "cc": "JP",
+                  "a3": "JPN",
+                  "weight": 0.136
+                },
+                {
+                  "ccy": "GBP",
+                  "cc": "GB",
+                  "a3": "GBR",
+                  "weight": 0.119
+                },
+                {
+                  "ccy": "CAD",
+                  "cc": "CA",
+                  "a3": "CAN",
+                  "weight": 0.091
+                },
+                {
+                  "ccy": "SEK",
+                  "cc": "SE",
+                  "a3": "SWE",
+                  "weight": 0.042
+                },
+                {
+                  "ccy": "CHF",
+                  "cc": "CH",
+                  "a3": "CHE",
+                  "weight": 0.036
+                }
+              ]
+            },
+            "rows": [
+              {
+                "ccy": "EUR",
+                "cc": "DE",
+                "a3": "EUZ",
+                "seg": "DM",
+                "label": "Euro (CPI and PPP of Germany)",
+                "market_quote": true
+              },
+              {
+                "ccy": "JPY",
+                "cc": "JP",
+                "a3": "JPN",
+                "seg": "DM",
+                "label": "Japanese yen"
+              },
+              {
+                "ccy": "GBP",
+                "cc": "GB",
+                "a3": "GBR",
+                "seg": "DM",
+                "label": "Pound sterling",
+                "market_quote": true
+              },
+              {
+                "ccy": "CAD",
+                "cc": "CA",
+                "a3": "CAN",
+                "seg": "DM",
+                "label": "Canadian dollar"
+              },
+              {
+                "ccy": "AUD",
+                "cc": "AU",
+                "a3": "AUS",
+                "seg": "DM",
+                "label": "Australian dollar",
+                "market_quote": true
+              },
+              {
+                "ccy": "KRW",
+                "cc": "KR",
+                "a3": "KOR",
+                "seg": "DM",
+                "label": "Korean won"
+              },
+              {
+                "ccy": "CNY",
+                "cc": "CN",
+                "a3": "CHN",
+                "seg": "BRICS",
+                "label": "Chinese yuan"
+              },
+              {
+                "ccy": "INR",
+                "cc": "IN",
+                "a3": "IND",
+                "seg": "BRICS",
+                "label": "Indian rupee"
+              },
+              {
+                "ccy": "BRL",
+                "cc": "BR",
+                "a3": "BRA",
+                "seg": "BRICS",
+                "label": "Brazilian real"
+              },
+              {
+                "ccy": "RUB",
+                "cc": "RU",
+                "a3": "RUS",
+                "seg": "BRICS",
+                "label": "Russian rouble",
+                "fx": "cbr"
+              },
+              {
+                "ccy": "ZAR",
+                "cc": "ZA",
+                "a3": "ZAF",
+                "seg": "BRICS",
+                "label": "South African rand"
+              },
+              {
+                "ccy": "IDR",
+                "cc": "ID",
+                "a3": "IDN",
+                "seg": "EM",
+                "label": "Indonesian rupiah"
+              }
+            ],
+            "reading": "Positive: today needs more local currency per USD than the benchmark (USD premium, local currency undervalued against it). Negative: fewer (USD discount, local currency strong).",
+            "method": "ECB reference rates (Frankfurter) and Bank of Russia (RUB), daily; World Bank PA.NUS.PPP and FP.CPI.TOTL, annual; The Economist Big Mac index (MIT); DXY from the ICE weights.",
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/fx/ppp-matrix",
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Currency",
+            "Seg.",
+            "Today",
+            "30MA -1y adj",
+            "30MA -3y adj",
+            "Macro PPP",
+            "Retail PPP",
+            "diff 30MA-1y %",
+            "diff 30MA-3y %",
+            "diff Macro %",
+            "diff Retail %"
+          ]
+        },
+        {
+          "id": "ecb",
+          "title": "ECB reference rates (per USD, Frankfurter)",
+          "source": "frankfurter",
+          "view": "quotes",
+          "derive": "points",
+          "fetch": {
+            "provider": "frankfurter_rates",
+            "path": "/v1/{from}..",
+            "params": {
+              "base": "USD",
+              "symbols": "EUR,GBP,JPY,CHF,CAD,AUD,CNY,MXN,BRL,INR"
+            },
+            "lookback_days": 30,
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/fx/spot",
+              "params": {
+                "base": "USD",
+                "symbols": "EUR,GBP,JPY,CHF,CAD,AUD,CNY,MXN,BRL,INR"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "Chg",
+            "Chg %",
+            "As of"
+          ],
+          "tape": true
+        },
+        {
+          "id": "spot",
+          "title": "Spot vs USD (Federal Reserve H.10 noon buying rates)",
+          "source": "fred",
+          "view": "table",
+          "derive": "fx_spot",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 30,
+            "series": [
+              {
+                "id": "DEXUSEU",
+                "label": "EUR",
+                "ccy": "EUR",
+                "quote": "usd_per",
+                "pair": "EUR/USD",
+                "dbnomics": "FED/H10/RXI$US_N.B.EU"
+              },
+              {
+                "id": "DEXUSUK",
+                "label": "GBP",
+                "ccy": "GBP",
+                "quote": "usd_per",
+                "pair": "GBP/USD",
+                "dbnomics": "FED/H10/RXI$US_N.B.UK"
+              },
+              {
+                "id": "DEXUSAL",
+                "label": "AUD",
+                "ccy": "AUD",
+                "quote": "usd_per",
+                "pair": "AUD/USD",
+                "dbnomics": "FED/H10/RXI$US_N.B.AL"
+              },
+              {
+                "id": "DEXJPUS",
+                "label": "JPY",
+                "ccy": "JPY",
+                "quote": "per_usd",
+                "pair": "USD/JPY",
+                "dbnomics": "FED/H10/RXI_N.B.JA"
+              },
+              {
+                "id": "DEXSZUS",
+                "label": "CHF",
+                "ccy": "CHF",
+                "quote": "per_usd",
+                "pair": "USD/CHF",
+                "dbnomics": "FED/H10/RXI_N.B.SZ"
+              },
+              {
+                "id": "DEXCAUS",
+                "label": "CAD",
+                "ccy": "CAD",
+                "quote": "per_usd",
+                "pair": "USD/CAD",
+                "dbnomics": "FED/H10/RXI_N.B.CA"
+              },
+              {
+                "id": "DEXCHUS",
+                "label": "CNY",
+                "ccy": "CNY",
+                "quote": "per_usd",
+                "pair": "USD/CNY",
+                "dbnomics": "FED/H10/RXI_N.B.CH"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            },
+            "fallback": {
+              "source": "dbnomics"
+            }
+          },
+          "columns": [
+            "Pair",
+            "Rate",
+            "1d %",
+            "Date"
+          ]
+        },
+        {
+          "id": "cross",
+          "title": "Cross matrix (units of column per 1 of row)",
+          "source": "fred",
+          "view": "table",
+          "derive": "fx_cross",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 30,
+            "series": [
+              {
+                "id": "DEXUSEU",
+                "label": "EUR",
+                "ccy": "EUR",
+                "quote": "usd_per",
+                "pair": "EUR/USD",
+                "dbnomics": "FED/H10/RXI$US_N.B.EU"
+              },
+              {
+                "id": "DEXUSUK",
+                "label": "GBP",
+                "ccy": "GBP",
+                "quote": "usd_per",
+                "pair": "GBP/USD",
+                "dbnomics": "FED/H10/RXI$US_N.B.UK"
+              },
+              {
+                "id": "DEXUSAL",
+                "label": "AUD",
+                "ccy": "AUD",
+                "quote": "usd_per",
+                "pair": "AUD/USD",
+                "dbnomics": "FED/H10/RXI$US_N.B.AL"
+              },
+              {
+                "id": "DEXJPUS",
+                "label": "JPY",
+                "ccy": "JPY",
+                "quote": "per_usd",
+                "pair": "USD/JPY",
+                "dbnomics": "FED/H10/RXI_N.B.JA"
+              },
+              {
+                "id": "DEXSZUS",
+                "label": "CHF",
+                "ccy": "CHF",
+                "quote": "per_usd",
+                "pair": "USD/CHF",
+                "dbnomics": "FED/H10/RXI_N.B.SZ"
+              },
+              {
+                "id": "DEXCAUS",
+                "label": "CAD",
+                "ccy": "CAD",
+                "quote": "per_usd",
+                "pair": "USD/CAD",
+                "dbnomics": "FED/H10/RXI_N.B.CA"
+              },
+              {
+                "id": "DEXCHUS",
+                "label": "CNY",
+                "ccy": "CNY",
+                "quote": "per_usd",
+                "pair": "USD/CNY",
+                "dbnomics": "FED/H10/RXI_N.B.CH"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            },
+            "fallback": {
+              "source": "dbnomics"
+            }
+          },
+          "columns": [
+            "1 of"
+          ]
+        },
+        {
+          "id": "rt",
+          "title": "Real-time quotes and forwards",
+          "source": "polygon",
+          "view": "table",
+          "placeholder": {
+            "reason": "needs a key or a connector"
+          }
+        },
+        {
+          "id": "ppp",
+          "title": "FX vs PPP: major DM and EM currencies against USD (spot, PPP, real change)",
+          "source": "frankfurter",
+          "view": "table",
+          "derive": "fx_ppp",
+          "fetch": {
+            "provider": "frankfurter_rates",
+            "path": "/v1/latest",
+            "fx_source": "frankfurter",
+            "window_days": 30,
+            "wb": {
+              "source": "worldbank",
+              "indicators": {
+                "ppp": "PA.NUS.PPP",
+                "cpi": "FP.CPI.TOTL"
+              }
+            },
+            "rows": [
+              {
+                "cc": "DE",
+                "ccy": "EUR",
+                "label": "Euro (PPP and CPI of Germany)",
+                "group": "dm"
+              },
+              {
+                "cc": "JP",
+                "ccy": "JPY",
+                "label": "Japanese yen",
+                "group": "dm"
+              },
+              {
+                "cc": "GB",
+                "ccy": "GBP",
+                "label": "Pound sterling",
+                "group": "dm"
+              },
+              {
+                "cc": "CH",
+                "ccy": "CHF",
+                "label": "Swiss franc",
+                "group": "dm"
+              },
+              {
+                "cc": "CA",
+                "ccy": "CAD",
+                "label": "Canadian dollar",
+                "group": "dm"
+              },
+              {
+                "cc": "AU",
+                "ccy": "AUD",
+                "label": "Australian dollar",
+                "group": "dm"
+              },
+              {
+                "cc": "NZ",
+                "ccy": "NZD",
+                "label": "New Zealand dollar",
+                "group": "dm"
+              },
+              {
+                "cc": "SE",
+                "ccy": "SEK",
+                "label": "Swedish krona",
+                "group": "dm"
+              },
+              {
+                "cc": "NO",
+                "ccy": "NOK",
+                "label": "Norwegian krone",
+                "group": "dm"
+              },
+              {
+                "cc": "CN",
+                "ccy": "CNY",
+                "label": "Chinese yuan",
+                "group": "em"
+              },
+              {
+                "cc": "IN",
+                "ccy": "INR",
+                "label": "Indian rupee",
+                "group": "em"
+              },
+              {
+                "cc": "BR",
+                "ccy": "BRL",
+                "label": "Brazilian real",
+                "group": "em"
+              },
+              {
+                "cc": "MX",
+                "ccy": "MXN",
+                "label": "Mexican peso",
+                "group": "em"
+              },
+              {
+                "cc": "KR",
+                "ccy": "KRW",
+                "label": "Korean won",
+                "group": "em"
+              },
+              {
+                "cc": "ID",
+                "ccy": "IDR",
+                "label": "Indonesian rupiah",
+                "group": "em"
+              },
+              {
+                "cc": "TR",
+                "ccy": "TRY",
+                "label": "Turkish lira",
+                "group": "em"
+              },
+              {
+                "cc": "ZA",
+                "ccy": "ZAR",
+                "label": "South African rand",
+                "group": "em"
+              },
+              {
+                "cc": "RU",
+                "ccy": "RUB",
+                "label": "Russian rouble",
+                "group": "em",
+                "no_fx": "the ECB stopped the rouble reference rate in March 2022; no other free official daily USD rate"
+              },
+              {
+                "cc": "PL",
+                "ccy": "PLN",
+                "label": "Polish zloty",
+                "group": "em"
+              },
+              {
+                "cc": "TH",
+                "ccy": "THB",
+                "label": "Thai baht",
+                "group": "em"
+              },
+              {
+                "cc": "SA",
+                "ccy": "SAR",
+                "label": "Saudi riyal",
+                "group": "em",
+                "no_fx": "the ECB publishes no riyal reference rate (the riyal is pegged at 3.75 per USD); no free official daily series"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/fx/ppp",
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Currency",
+            "Spot",
+            "PPP",
+            "Over/under %",
+            "30d avg",
+            "30d 1y ago real",
+            "Real YoY %"
+          ]
+        }
+      ],
+      "default": true,
+      "slug": "fx",
+      "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards"
+    },
+    {
+      "id": "onshore_usd_rates",
+      "entry": "Onshore USD Rates",
+      "tab": "hg",
+      "panels": [
+        {
+          "id": "nyfed",
+          "title": "NY Fed reference rates",
+          "source": "nyfed",
+          "view": "bars",
+          "derive": "points",
+          "fetch": {
+            "provider": "nyfed_rates",
+            "path": "/api/rates/all/latest.json",
+            "labels": {
+              "SOFR": "SOFR",
+              "EFFR": "EFFR",
+              "OBFR": "OBFR",
+              "TGCR": "TGCR",
+              "BGCR": "BGCR",
+              "SOFRAI_30D": "SOFR 30d avg",
+              "SOFRAI_90D": "SOFR 90d avg",
+              "SOFRAI_180D": "SOFR 180-day average"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/series",
+              "params": {
+                "ids": "nyfed:SOFR,nyfed:EFFR,nyfed:OBFR,nyfed:TGCR,nyfed:BGCR,nyfed:SOFRAI_30D,nyfed:SOFRAI_90D,nyfed:SOFRAI_180D"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Benchmark",
+            "Rate %",
+            "Chg bp",
+            "Date"
+          ],
+          "chart_value": "level",
+          "unit": "%",
+          "change_unit": "bp"
+        },
+        {
+          "id": "benchmarks",
+          "title": "Onshore USD benchmark rates",
+          "source": "fred",
+          "view": "bars",
+          "derive": "level_change",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 21,
+            "series": [
+              {
+                "id": "SOFR",
+                "label": "SOFR"
+              },
+              {
+                "id": "EFFR",
+                "label": "EFFR",
+                "dbnomics": "FED/H15/RIFSPFF_N.B"
+              },
+              {
+                "id": "OBFR",
+                "label": "OBFR"
+              },
+              {
+                "id": "IORB",
+                "label": "IORB",
+                "dbnomics": "FED/PRATES_PRATES_POLICY_RATES/RESBM_N.D"
+              },
+              {
+                "id": "DPRIME",
+                "label": "Prime",
+                "dbnomics": "FED/H15/RIFSPBLP_N.B"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            },
+            "fallback": {
+              "source": "dbnomics"
+            }
+          },
+          "columns": [
+            "Benchmark",
+            "Rate %",
+            "1d bp",
+            "Date"
+          ],
+          "chart_value": "level",
+          "unit": "%",
+          "change_unit": "bp"
+        },
+        {
+          "id": "term",
+          "title": "Term SOFR, swap curve and basis",
+          "source": "premium_fi",
+          "view": "table",
+          "placeholder": {
+            "reason": "needs a key or a connector"
+          }
+        }
+      ],
+      "slug": "onshore-usd-rates",
+      "subtitle": "Onshore USD rate benchmarks and curves"
+    },
+    {
+      "id": "crypto",
+      "entry": "Crypto",
+      "tab": "hg",
+      "panels": [
+        {
+          "id": "spot",
+          "title": "Crypto spot (24h)",
+          "source": "coinbase",
+          "view": "quotes",
+          "derive": "points",
+          "fetch": {
+            "provider": "coinbase_exchange",
+            "path": "/products/{each}/stats",
+            "each": [
+              "BTC-USD",
+              "ETH-USD",
+              "SOL-USD",
+              "XRP-USD",
+              "DOGE-USD",
+              "ADA-USD"
+            ],
+            "labels": {
+              "BTC-USD": "Bitcoin",
+              "ETH-USD": "Ether",
+              "SOL-USD": "Solana",
+              "XRP-USD": "XRP",
+              "DOGE-USD": "Dogecoin",
+              "ADA-USD": "Cardano"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes",
+              "params": {
+                "symbols": "BTC-USD,ETH-USD,SOL-USD,XRP-USD,DOGE-USD,ADA-USD"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "Chg",
+            "Chg %",
+            "As of"
+          ],
+          "tape": true
+        },
+        {
+          "id": "top20",
+          "title": "Crypto top 20 on Coinbase (USD, daily close, 7-day sparkline)",
+          "source": "coinbase",
+          "view": "quotes",
+          "derive": "points",
+          "fetch": {
+            "provider": "coinbase_exchange",
+            "path": "/products/{each}/candles",
+            "params": {
+              "granularity": "86400"
+            },
+            "each": [
+              "BTC-USD",
+              "ETH-USD",
+              "XRP-USD",
+              "SOL-USD",
+              "DOGE-USD",
+              "ADA-USD",
+              "LINK-USD",
+              "AVAX-USD",
+              "XLM-USD",
+              "LTC-USD",
+              "DOT-USD",
+              "BCH-USD",
+              "SHIB-USD",
+              "UNI-USD",
+              "HBAR-USD",
+              "SUI-USD",
+              "AAVE-USD",
+              "NEAR-USD",
+              "ICP-USD",
+              "ETC-USD"
+            ],
+            "labels": {
+              "BTC-USD": "Bitcoin",
+              "ETH-USD": "Ether",
+              "XRP-USD": "XRP",
+              "SOL-USD": "Solana",
+              "DOGE-USD": "Dogecoin",
+              "ADA-USD": "Cardano",
+              "LINK-USD": "Chainlink",
+              "AVAX-USD": "Avalanche",
+              "XLM-USD": "Stellar",
+              "LTC-USD": "Litecoin",
+              "DOT-USD": "Polkadot",
+              "BCH-USD": "Bitcoin Cash",
+              "SHIB-USD": "Shiba Inu",
+              "UNI-USD": "Uniswap",
+              "HBAR-USD": "Hedera",
+              "SUI-USD": "Sui",
+              "AAVE-USD": "Aave",
+              "NEAR-USD": "NEAR",
+              "ICP-USD": "Internet Computer",
+              "ETC-USD": "Ethereum Classic"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes",
+              "params": {
+                "symbols": "BTC-USD,ETH-USD,XRP-USD,SOL-USD,DOGE-USD,ADA-USD,LINK-USD,AVAX-USD,XLM-USD,LTC-USD,DOT-USD,BCH-USD,SHIB-USD,UNI-USD,HBAR-USD,SUI-USD,AAVE-USD,NEAR-USD,ICP-USD,ETC-USD"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "Chg",
+            "Chg %",
+            "As of"
+          ]
+        },
+        {
+          "id": "btc",
+          "title": "Bitcoin, daily (300 days)",
+          "source": "coinbase",
+          "view": "candles",
+          "derive": "candles",
+          "fetch": {
+            "provider": "coinbase_exchange",
+            "path": "/products/BTC-USD/candles",
+            "params": {
+              "granularity": "86400"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes/BTC-USD/history",
+              "params": {
+                "interval": "1d",
+                "range": "1y"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Date",
+            "Open",
+            "High",
+            "Low",
+            "Close"
+          ]
+        }
+      ],
+      "slug": "crypto",
+      "subtitle": "Crypto spot, 24h change and daily candles"
     }
   ],
   "declared": {

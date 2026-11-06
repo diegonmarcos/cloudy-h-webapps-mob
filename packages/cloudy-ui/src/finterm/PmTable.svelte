@@ -17,7 +17,9 @@
   const href = (r: number) => { const d = dashOf(shown[r]?.dashboard ?? ''); return d ? `${base}${FINTERM.app_id}/${d.tab}/${d.slug}/` : null; };
 </script>
 
-{#if decl}
+{#if decl && !decl.rows && !decl.tabs}
+<p class="note" data-testid="pm-app-only">Drawn in the Android app from real delayed prices of each portfolio's legs.</p>
+{:else if decl}
 <section class="pm" data-testid="finterm-pm" data-table={table}>
   {#if chips.length}
     <div class="tabs" role="tablist" aria-label={table} data-testid="pm-tabs">

@@ -17,8 +17,8 @@ const ANDROID = {
     { id: 'fred', name: 'FRED', priority: 10, endpoint: 'https://f.test/g.csv', auth: { type: 'none' }, connector: 'fred_series', feeds: [{ tab: 'fi', entries: ['Yield Curves'] }] },
   ] },
   dashboards: { _doc: 'x', dashboards: [{ id: 'yield_curves', entry: 'Yield Curves', tab: 'fi', panels: [{ id: 'ust', title: 'UST', source: 'fred', view: 'curve' }] }] },
-  build: { ui: { bottom_nav: ['fi', 'eq', 'ex', 'nw', 'pm', 'my-pm'], stacks: {
-    fi: [{ kind: 'dashboard', title: 'Yield Curves', subtitle: 'Sub', dashboard: 'yield_curves' }], eq: [], ex: [], nw: [], pm: [{ kind: 'section_title', title: 'T' }] } } },
+  build: { ui: { bottom_nav: ['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm'], stacks: {
+    cb: [], fi: [{ kind: 'dashboard', title: 'Yield Curves', subtitle: 'Sub', dashboard: 'yield_curves' }], eq: [], hg: [], nw: [], pm: [{ kind: 'section_title', title: 'T' }] } } },
   services: { services: [{ slug: 'fin-api', mesh: 'fin-api.mesh.example.test' }] },
   appId: 'the-app',
 };
@@ -82,7 +82,7 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
   const withNav = () => {
     const a = clone();
     a.build.ui.nav_ui = { mode: 'classic' };
-    a.build.ui.sections = ['fi', 'eq', 'ex', 'nw', 'pm'].map((id) => ({ id, nav_mode: 'horizontal_one_row', pages: [{ id: `${id}-home`, label: 'Home', icon: 'home' }, ...(id === 'fi' ? [{ id: 'yield-curves', label: 'Yield Curves', icon: 'timeline' }] : [])] }));
+    a.build.ui.sections = ['cb', 'fi', 'eq', 'nw', 'pm', 'hg'].map((id) => ({ id, nav_mode: 'horizontal_one_row', pages: [{ id: `${id}-home`, label: 'Home', icon: 'home' }, ...(id === 'fi' ? [{ id: 'yield-curves', label: 'Yield Curves', icon: 'timeline' }] : [])] }));
     a.build.ui.redirects = [{ from: 'market_monitor', tab: 'fi', to: 'home' }];
     return a;
   };
@@ -92,15 +92,27 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
     expect(o.redirects).toEqual([{ slug: 'market-monitor', tab: 'fi', to: 'fi-home' }]);
   });
   it('fails on: a tab that does not open on Home, a missing sub-page, more than one row, the clean chrome, a redirect to a live page', () => {
-    let a = withNav(); a.build.ui.sections[0].pages.shift(); expect(() => buildFinterm(a)).toThrow(/first sub-page is not home/);
-    a = withNav(); a.build.ui.sections[0].pages.pop(); expect(() => buildFinterm(a)).toThrow(/Homepage pages/);
-    a = withNav(); a.build.ui.sections[1].nav_mode = 'horizontal_two_rows'; expect(() => buildFinterm(a)).toThrow(/not one row/);
+    let a = withNav(); a.build.ui.sections[1].pages.shift(); expect(() => buildFinterm(a)).toThrow(/first sub-page is not home/);
+    a = withNav(); a.build.ui.sections[1].pages.pop(); expect(() => buildFinterm(a)).toThrow(/Homepage pages/);
+    a = withNav(); a.build.ui.sections[2].nav_mode = 'horizontal_two_rows'; expect(() => buildFinterm(a)).toThrow(/not one row/);
     a = withNav(); a.build.ui.nav_ui.mode = 'clean'; expect(() => buildFinterm(a)).toThrow(/only classic/);
     a = withNav(); a.build.ui.redirects[0].from = 'yield_curves'; expect(() => buildFinterm(a)).toThrow(/still exists/);
   });
+  it('#1539 a redirect may land on a sub-page of its tab (the CM / PM Commodities links open EQ Commodity prices); an unknown page fails; app-only pages are listed', () => {
+    const a = withNav();
+    a.build.ui.stacks.eq = [{ kind: 'quote_board', title: 'Commodity Prices', subtitle: 's', page: 'commodity-prices', view: 'commodities' }];
+    a.build.ui.sections.find((s: { id: string }) => s.id === 'eq').pages.push({ id: 'commodity-prices', label: 'Commodity Prices', icon: 'inventory_2' });
+    a.build.ui.redirects = [{ from: 'cm', tab: 'eq', to: 'commodity-prices' }];
+    const o = buildFinterm(a);
+    expect(o.redirects).toEqual([{ slug: 'cm', tab: 'eq', to: 'commodity-prices' }]);
+    expect(o.stacks.eq[0]).toMatchObject({ kind: 'quote_board', page: 'commodity-prices', view: 'commodities' });
+    expect(o.homes.eq).toEqual([{ slug: 'commodity-prices', title: 'Commodity Prices', icon: 'inventory_2', subtitle: 's' }]);
+    a.build.ui.redirects[0].to = 'no-such-page';
+    expect(() => buildFinterm(a)).toThrow(/Homepage or one of its sub-pages/);
+  });
   it('the committed declarations: every tab opens on Home listing all its dashboards; Market Monitor is gone and redirected', () => {
     for (const tab of fin.tabs) {
-      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
+      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || e.kind === 'cb_table' || ['quote_board', 'futures_board', 'hedge_calc'].includes(e.kind) || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
       expect(fin.homes[tab].map((c: { slug: string }) => c.slug), tab).toEqual(dash);
       for (const c of fin.homes[tab]) expect(c.icon && c.title && c.subtitle, `${tab}/${c.slug}`).toBeTruthy();
     }
@@ -135,9 +147,9 @@ describe('gen-finterm --check (the CI drift guard)', () => {
 });
 
 describe('the committed web FinTerm declarations', () => {
-  it('36 dashboards: FI 8, EQ 7, EX 4, NW 3, PM 14 (the APK entries; #1399 FI Market Monitor removed; #1447 PM A1, B1, C1, D1, D0; #1478 A2 dropped), each with at least one panel', () => {
+  it('36 dashboards: FI 8, EQ 8, HG 3, NW 3, PM 14, CB none (the APK entries; #1539 the Commodities dashboard moved from EX to EQ; #1399 FI Market Monitor removed; #1447 PM A1, B1, C1, D1, D0; #1478 A2 dropped), each with at least one panel', () => {
     const by = (t: string) => fin.dashboards.filter((d: { tab: string }) => d.tab === t).length;
-    expect([by('fi'), by('eq'), by('ex'), by('nw'), by('pm')]).toEqual([8, 7, 4, 3, 14]);
+    expect([by('fi'), by('eq'), by('hg'), by('nw'), by('pm'), by('cb')]).toEqual([8, 8, 3, 3, 14, 0]);
     expect(fin.dashboards).toHaveLength(36);
     for (const d of fin.dashboards) expect(d.panels.length, d.id).toBeGreaterThan(0);
   });

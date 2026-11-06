@@ -155,17 +155,13 @@ describe('PM Vol risk levels and the one-screen matrix (#1462, #1478)', () => {
     for (const r of rows.filter((x) => x.dashboard !== 'pm_d0_carry')) { const n = r.cells.slice(0, 6).map(Number); expect(n[0] + n[3], r.dashboard).toBe(100); expect(n[0]).toBe(n[1] + n[2]); expect(n[3]).toBe(n[4] + n[5]); }
     for (const r of rows) expect(r.cells[6], r.dashboard).toBe(pm.find((d) => d.id === r.dashboard)!.market === 'EM' ? 'No' : '');
   });
-  it('Commodities: 12 rows by the 7 currency columns, sample weights adding up to 100, heat only on the weights; Profiles: the 8 cycle profiles', () => {
-    const c = pmDecl.commodities;
-    expect(c.columns).toEqual(['Commodity', 'USD', 'EUR', 'GBP', 'CHF', 'JPY', 'CNY', 'BRL', 'Vol']);
-    expect(c.rows!.map((r) => r.name)).toEqual(['Gold', 'Silver', 'Platinum', 'Copper', 'Brent', 'WTI', 'Nat Gas', 'Wheat', 'Corn', 'Soybeans', 'Coffee', 'Sugar']);
-    for (const r of c.rows!) expect(r.cells.slice(0, 7).reduce((a, x) => a + Number(x), 0), r.name).toBe(100);
-    expect(c.note).toContain('Sample');
-    const h = heatOf(c.rows!, c.heat);
-    expect(Math.max(...h.flat().filter((x): x is number => x != null))).toBe(1);
-    expect(h[0][0]).toBeNull(); expect(h[0][8]).toBeNull(); expect(h[0][1]).not.toBeNull();
+  it('Commodities left PM for the EQ tab (an app-only quote board, #1539); Profiles: the 8 cycle profiles; the PM Homepage is Portfolios and Performance', () => {
+    expect(pmDecl.commodities).toBeUndefined();
+    expect((FINTERM.dashboards as unknown as D[]).find((d) => d.id === 'commodities')?.tab).toBe('eq');
     expect(pmDecl.profiles.tabs!.map((t) => t.label)).toEqual(['Growth', 'Value', 'Quality', 'Cyclical', 'Defensive', 'Dividend', 'Momentum', 'Small-cap']);
-    expect(FINTERM.homes.pm.map((c) => c.slug)).toEqual(['pm-vol', 'pm-commodities', 'pm-profiles']);
+    expect(pmDecl.portfolios.columns).toEqual(['Portfolio', 'Vol', 'Top 3', 'See all']);
+    expect(pmDecl.performance.columns![0]).toBe('Portfolio');
+    expect(FINTERM.homes.pm.map((c) => c.slug)).toEqual(['pm-portfolios', 'pm-performance']);
   });
   it('the matrix fits one 312 px card body: 9 columns, numerals within the ramp (7..11 px), 10 rows of 20 px', () => {
     const w = matrixWidths(312, 9);

@@ -6,10 +6,16 @@ import type { EntryGenerator } from './$types';
 
 // One prerendered page per FinTerm dashboard (#1342), per PM table page (#1478: Vol, Commodities, Profiles), plus (#1399) each tab's Homepage (`<tab>-home`, the tab's first sub-page: a grid of
 // cards, one per dashboard) and the removed pages' deep links (finterm.redirects: FI Market Monitor -> the FI Homepage).
-type PmPage = { kind: string; title: string; page?: string; table?: string };
+type PmPage = { kind: string; title: string; page?: string; table?: string; view?: string };
 const pmPages = (tab: string) => ((finterm.stacks as unknown as Record<string, PmPage[]>)[tab] ?? []).filter((e) => e.kind === 'pm_table');
+// #1539 the CB page's sub-pages (Countries, DM / EM / World, Predictions): `cb_table` entries drawn from finterm-cb.json
+const cbPages = (tab: string) => ((finterm.stacks as unknown as Record<string, PmPage[]>)[tab] ?? []).filter((e) => e.kind === 'cb_table');
+// #1539 the pages the APK draws from live delayed quotes (futures boards, hedge calculator, exchange rates, commodity prices): listed on the web, drawn in the app
+const appPages = (tab: string) => ((finterm.stacks as unknown as Record<string, PmPage[]>)[tab] ?? []).filter((e) => ['quote_board', 'futures_board', 'hedge_calc'].includes(e.kind));
 export const entries: EntryGenerator = () => [
   ...finterm.tabs.flatMap((tab) => pmPages(tab).map((e) => ({ app: finterm.app_id, tab, dash: e.page! }))),
+  ...finterm.tabs.flatMap((tab) => cbPages(tab).map((e) => ({ app: finterm.app_id, tab, dash: e.page! }))),
+  ...finterm.tabs.flatMap((tab) => appPages(tab).map((e) => ({ app: finterm.app_id, tab, dash: e.page! }))),
   ...finterm.dashboards.map((d) => ({ app: finterm.app_id, tab: d.tab, dash: d.slug })),
   ...finterm.tabs.map((tab) => ({ app: finterm.app_id, tab, dash: `${tab}-home` })),
   ...finterm.redirects.map((r) => ({ app: finterm.app_id, tab: r.tab, dash: r.slug })),
@@ -24,17 +30,29 @@ export const load = ({ params }) => {
   if (params.dash === `${params.tab}-home`) {
     const cards = (finterm.homes as Record<string, { slug: string; title: string; icon: string; subtitle: string }[]>)[params.tab];
     if (!cards || !view) error(404, `No FinTerm tab ${params.tab}`);
-    return { view, dashId: null, home: cards.map((c) => ({ ...c, href: `${base}/${params.app}/${params.tab}/${c.slug}/` })), pmTable: null, base };
+    return { view, dashId: null, home: cards.map((c) => ({ ...c, href: `${base}/${params.app}/${params.tab}/${c.slug}/` })), pmTable: null, cbView: null, appOnly: null, base };
+  }
+  const cbPage = cbPages(params.tab).find((e) => e.page === params.dash);
+  if (cbPage && view) {
+    view.crumbs = [...view.crumbs, { label: cbPage.title, href: null }];
+    view.title = `${cbPage.title} · ${view.title}`;
+    return { view, dashId: null, home: null, pmTable: null, cbView: cbPage.view!, appOnly: null, base };
+  }
+  const appPage = appPages(params.tab).find((e) => e.page === params.dash);
+  if (appPage && view) {
+    view.crumbs = [...view.crumbs, { label: appPage.title, href: null }];
+    view.title = `${appPage.title} · ${view.title}`;
+    return { view, dashId: null, home: null, pmTable: null, cbView: null, appOnly: appPage.title, base };
   }
   const pmPage = pmPages(params.tab).find((e) => e.page === params.dash);
   if (pmPage && view) {
     view.crumbs = [...view.crumbs, { label: pmPage.title, href: null }];
     view.title = `${pmPage.title} · ${view.title}`;
-    return { view, dashId: null, home: null, pmTable: pmPage.table!, base };
+    return { view, dashId: null, home: null, pmTable: pmPage.table!, cbView: null, appOnly: null, base };
   }
   const dash = finterm.dashboards.find((d) => d.tab === params.tab && d.slug === params.dash);
   if (!dash || !view) error(404, `No dashboard ${params.tab}/${params.dash}`);
   view.crumbs = [...view.crumbs, { label: dash.entry, href: null }];
   view.title = `${dash.entry} · ${view.title}`;
-  return { view, dashId: dash.id, home: null, pmTable: null, base };
+  return { view, dashId: dash.id, home: null, pmTable: null, cbView: null, appOnly: null, base };
 };

@@ -1463,7 +1463,7 @@
               },
               {
                 "id": "myroadmap",
-                "label": "RoadMap",
+                "label": "Tasks",
                 "icon": "ic_tree",
                 "target": "extapp:cloud-me#page:tasks/roadmaps"
               },
@@ -1474,7 +1474,7 @@
               },
               {
                 "id": "myduties",
-                "label": "Me-Duties",
+                "label": "Me-Inventory",
                 "icon": "ic_check_all",
                 "target": "extapp:cloud-me#page:tasks/backlogs"
               },
@@ -1505,7 +1505,7 @@
             ]
           },
           {
-            "title": "Weby Services",
+            "title": "Weby Services & Markets",
             "tiles": [
               {
                 "id": "search",
@@ -1706,10 +1706,10 @@
                 "target": "page:config/controls"
               },
               {
-                "id": "configs-firewall",
-                "label": "Firewall",
-                "icon": "ic_lock",
-                "target": "page:config/firewall"
+                "id": "configs-watchdog",
+                "label": "Watchdog",
+                "icon": "ic_p_watchdog",
+                "target": "page:config/watchdog"
               },
               {
                 "id": "configs-sep-3",
@@ -3279,6 +3279,11 @@
               "wifi-link",
               "wifi-tools",
               "wifi-log",
+              "xray",
+              "logcat",
+              "perms",
+              "app-about",
+              "battery",
               "presets",
               "panels",
               "panels-ui",
@@ -3295,9 +3300,9 @@
             "label": "Fleet",
             "icon": "ic_hub",
             "pages": [
-              "bluetooth",
               "c3",
               "kde",
+              "bluetooth",
               "bluetooth-find",
               "bluetooth-analyze",
               "bluetooth-locate",
@@ -3308,15 +3313,12 @@
             ]
           },
           {
-            "id": "observability",
-            "label": "Observability",
-            "icon": "ic_monitor_heart",
+            "id": "agents",
+            "label": "Agents",
+            "icon": "ic_p_watchdog",
             "pages": [
-              "xray",
-              "logcat",
-              "perms",
-              "app-about",
-              "battery"
+              "watchdog",
+              "watchtower"
             ]
           }
         ],
@@ -3467,6 +3469,48 @@
             "subgroup": "Network"
           },
           {
+            "id": "xray",
+            "label": "X-Ray",
+            "icon": "ic_monitor_heart",
+            "group": "Setup",
+            "subgroup": "Observability"
+          },
+          {
+            "id": "logcat",
+            "label": "LogCat",
+            "icon": "ic_subject",
+            "group": "Setup",
+            "subgroup": "Observability"
+          },
+          {
+            "id": "perms",
+            "label": "Permissions",
+            "icon": "ic_key",
+            "group": "Setup",
+            "subgroup": "Observability"
+          },
+          {
+            "id": "app-about",
+            "label": "About",
+            "icon": "ic_info",
+            "group": "Setup",
+            "subgroup": "Observability"
+          },
+          {
+            "id": "c3",
+            "label": "C3",
+            "icon": "ic_cloud_control",
+            "action": "extapp:cloud-c3",
+            "group": "Fleet"
+          },
+          {
+            "id": "kde",
+            "label": "Peer Control",
+            "icon": "ic_hub",
+            "separator_before": true,
+            "group": "Fleet"
+          },
+          {
             "id": "bluetooth",
             "label": "Bluetooth",
             "icon": "ic_bluetooth",
@@ -3482,41 +3526,23 @@
             "group": "Fleet"
           },
           {
-            "id": "c3",
-            "label": "C3 Fleet Control",
+            "id": "watchdog",
+            "label": "Watchdog",
             "icon": "ic_p_watchdog",
-            "action": "extapp:cloud-c3",
-            "group": "Fleet"
+            "hub_sections": [
+              "Network",
+              "Observability"
+            ],
+            "group": "Agents"
           },
           {
-            "id": "kde",
-            "label": "Peer Control",
-            "icon": "ic_hub",
-            "group": "Fleet"
-          },
-          {
-            "id": "xray",
-            "label": "X-Ray",
-            "icon": "ic_monitor_heart",
-            "group": "Observability"
-          },
-          {
-            "id": "logcat",
-            "label": "LogCat",
-            "icon": "ic_subject",
-            "group": "Observability"
-          },
-          {
-            "id": "perms",
-            "label": "Permissions",
-            "icon": "ic_key",
-            "group": "Observability"
-          },
-          {
-            "id": "app-about",
-            "label": "About",
-            "icon": "ic_info",
-            "group": "Observability"
+            "id": "watchtower",
+            "label": "Watchtower",
+            "icon": "ic_watchtower",
+            "hub_sections": [
+              "Observability"
+            ],
+            "group": "Agents"
           },
           {
             "id": "presets",
@@ -3550,7 +3576,9 @@
             "id": "battery",
             "label": "Battery",
             "icon": "ic_settings",
-            "hidden": true
+            "hidden": true,
+            "group": "Setup",
+            "subgroup": "Observability"
           },
           {
             "id": "bluetooth-find",
@@ -4952,12 +4980,13 @@
       "wasm": "cloud-dialer",
       "default_section": "home",
       "bottom_nav": [
-        "contacts",
-        "keypad",
-        "home",
-        "recents",
         "sms",
-        "sims"
+        "keypad",
+        "recents",
+        "home",
+        "voip",
+        "sims",
+        "contacts"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -5034,6 +5063,18 @@
               "id": "keypad",
               "label": "Keypad",
               "icon": "dialpad"
+            }
+          ]
+        },
+        {
+          "id": "voip",
+          "label": "VoIP",
+          "icon": "public",
+          "pages": [
+            {
+              "id": "voip",
+              "label": "VoIP",
+              "icon": "public"
             }
           ]
         },
@@ -5603,9 +5644,14 @@
           "background": "theme",
           "pages": [
             {
-              "id": "inboxes",
-              "label": "Inboxes",
-              "icon": "inbox"
+              "id": "notes",
+              "label": "Notes",
+              "icon": "edit_note"
+            },
+            {
+              "id": "synced",
+              "label": "Synced",
+              "icon": "sync"
             }
           ]
         },
@@ -5733,7 +5779,7 @@
       "name": "Cloud Shopping",
       "label": "Shopping",
       "icon": "ic_shopping",
-      "group": "Weby Services",
+      "group": "Weby Services & Markets",
       "category": "android",
       "description": "Cloud Shopping (#1473): a deals and listings browser over mock data. Navigation is ONE collapsed left side menu (libs:ui-nav-bars vertical_side_menu: the rail on a phone, the full menu on a wide screen) in five groups, Feed (Home: the deals of every page), Things (Groceries, Electronics, Clothing), Services (Transport, Hotels), Assets (Real Estate, Business, Jobs) and Entertainment (Events); the bottom nav holds exactly one item, a search icon with no label, which searches every page. Every page has its own top filter tabs and its rows, both declared in app/src/main/assets/shop/shop.json (mock data, nothing is fetched and no shop is contacted); a row is the ui-kit KitStoreRow (the Cloud Store's dense row) in the shared type ramp. Configs are the fleet's General | Perms | About. Offline, declares no network permission of its own.",
       "kind": "app",
@@ -5868,7 +5914,7 @@
       "name": "Cloud News",
       "label": "News",
       "icon": "ic_rss",
-      "group": "Weby Services",
+      "group": "Weby Services & Markets",
       "category": "android",
       "description": "Diego's Cloud News — standalone Android news app. WebView UI over GDELT-backed topic feeds (economy, technology, geopolitics, climate, finance, AI, energy, health): per-topic article lists, tone/sentiment timelines, and rolling topic summaries against a self-hosted GDELT proxy. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -6972,11 +7018,11 @@
       "wasm": "cloud-browser",
       "default_section": "browser",
       "bottom_nav": [
-        "favourites",
-        "tabs",
+        "weby",
+        "cloudy",
         "browser",
-        "search",
-        "scrapers"
+        "tabs",
+        "domains"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -7009,29 +7055,62 @@
           "pages": []
         },
         {
-          "id": "scrapers",
-          "label": "Scrapers",
-          "icon": "download",
+          "id": "weby",
+          "label": "Weby",
+          "icon": "apps",
+          "pages": []
+        },
+        {
+          "id": "cloudy",
+          "label": "Cloudy",
+          "icon": "cloud",
           "pages": [
             {
-              "id": "site_files",
-              "label": "Site Files",
-              "icon": "folder_open"
-            },
-            {
-              "id": "apify",
-              "label": "Apify",
-              "icon": "build"
-            },
-            {
-              "id": "cloudflare",
-              "label": "Cloudflare",
+              "id": "gh_pages",
+              "label": "GH Pages",
               "icon": "public"
             },
             {
-              "id": "self_hosted",
-              "label": "SelfHosted",
-              "icon": "music_note"
+              "id": "webserver",
+              "label": "Local Webserver",
+              "icon": "dns"
+            },
+            {
+              "id": "private_urls",
+              "label": "Cloudy Private URLs",
+              "icon": "lock"
+            },
+            {
+              "id": "public_urls",
+              "label": "Cloudy Public URLs",
+              "icon": "language"
+            }
+          ]
+        },
+        {
+          "id": "domains",
+          "label": "Domains",
+          "icon": "language",
+          "pages": [
+            {
+              "id": "files",
+              "label": "Files Cached",
+              "icon": "folder_open"
+            },
+            {
+              "id": "site_perms",
+              "label": "Perms&Actions",
+              "icon": "security"
+            },
+            {
+              "id": "history",
+              "label": "History",
+              "icon": "history"
+            },
+            {
+              "id": "visited",
+              "label": "Visited",
+              "icon": "public"
             }
           ]
         },
@@ -7073,6 +7152,16 @@
             {
               "id": "browsing",
               "label": "Browser",
+              "icon": "language"
+            },
+            {
+              "id": "headless",
+              "label": "Headless Browser",
+              "icon": "language"
+            },
+            {
+              "id": "gpu",
+              "label": "GPU",
               "icon": "language"
             }
           ]
@@ -7252,7 +7341,8 @@
               "pages": [
                 "desktop",
                 "mobile",
-                "gadgets"
+                "gadgets",
+                "control"
               ]
             },
             {
@@ -7315,6 +7405,11 @@
               "id": "gadgets",
               "label": "Gadgets",
               "icon": "ic_wg"
+            },
+            {
+              "id": "control",
+              "label": "Control",
+              "icon": "ic_robot"
             },
             {
               "id": "domains",
@@ -7488,6 +7583,11 @@
                   "id": "net_network",
                   "label": "Routes",
                   "icon": "ic_wg"
+                },
+                {
+                  "id": "net_security",
+                  "label": "Security",
+                  "icon": "security"
                 }
               ]
             },
@@ -7551,6 +7651,11 @@
                   "id": "ops_health_uptime",
                   "label": "Uptime",
                   "icon": "ic_p_c3_health"
+                },
+                {
+                  "id": "ops_health_tests",
+                  "label": "Tests",
+                  "icon": "ic_code"
                 }
               ]
             },
@@ -7563,6 +7668,21 @@
                   "id": "obs_logs",
                   "label": "Logs",
                   "icon": "ic_p_logs"
+                },
+                {
+                  "id": "obs_metrics",
+                  "label": "Metrics",
+                  "icon": "ic_p_c3_workflows"
+                },
+                {
+                  "id": "obs_alerts",
+                  "label": "Alerts",
+                  "icon": "ic_p_c3_health"
+                },
+                {
+                  "id": "obs_notify",
+                  "label": "Notify",
+                  "icon": "mail"
                 }
               ]
             }
@@ -7618,6 +7738,11 @@
             {
               "id": "build",
               "label": "Build",
+              "icon": "ic_code"
+            },
+            {
+              "id": "plugins",
+              "label": "Plugins",
               "icon": "ic_code"
             }
           ]
@@ -7795,8 +7920,10 @@
       "default_section": "photo",
       "bottom_nav": [
         "qr_scan",
+        "objects",
         "photo",
-        "video"
+        "video",
+        "vr"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -7806,6 +7933,12 @@
           "id": "qr_scan",
           "label": "QR scan",
           "icon": "qr_scan",
+          "pages": []
+        },
+        {
+          "id": "objects",
+          "label": "Objects",
+          "icon": "objects",
           "pages": []
         },
         {
@@ -7843,6 +7976,12 @@
           "id": "video",
           "label": "Video",
           "icon": "video",
+          "pages": []
+        },
+        {
+          "id": "vr",
+          "label": "VR",
+          "icon": "vr",
           "pages": []
         }
       ]
@@ -8342,7 +8481,7 @@
       "name": "Cloud Search",
       "label": "Search",
       "icon": "ic_cloud_search",
-      "group": "Weby Services",
+      "group": "Weby Services & Markets",
       "category": "android",
       "description": "Diego's Cloud Search (#779; renamed Cloud Research in #1162, back to Cloud Search in #1197) - one app for searching, on the shared bottom nav: Scrappers (Site Files, Apify, Cloudflare, SelfHosted; sample rows), Research (Reports of what agents published, the Model catalogue and Agents: #913 draft-only Buy-Side and Sell-Side agents that read your alert mails and pages and write drafts you send yourself), CGC Search (Cloud CGC and Me CGC, each with Semantic and Graph RAG over the public and the private code index), Image, Videos and 3D Models (sample rows); the AI chat over OpenRouter with the major web and AI search engines, plus the fleet's Apps, Messages and Code, is reached from the top bar. News, Shopping and Brokers are gone from the app (#1472; their declaration stays for Cloud KG Store). REAL DATA ONLY: every in-app listing or feed comes from a public API or feed this app is allowed to read (build.json::search.sources, search.feeds), cached on the phone so the last results stay readable offline; a portal whose terms forbid automated access is never fetched - its own search page opens in cloud-browser - and a source that cannot be used says why. The German payslip runs the BMF's own Lohnsteuer PAP 2026 (core/pap, generated into Kotlin by core/tools/pap2kt.py) with the 2026 social-insurance rules, golden-tested against the BMF's calculator. English is the base language (#299); dark is the default theme (#336).",
       "kind": "app",
@@ -8591,8 +8730,10 @@
       "default_section": "si",
       "bottom_nav": [
         "notebook",
+        "cgcs",
         "si",
-        "cgcs"
+        "ais",
+        "cost"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -8781,6 +8922,50 @@
           ]
         },
         {
+          "id": "ais",
+          "label": "AIs",
+          "icon": "smart_toy",
+          "pages": [
+            {
+              "id": "apis",
+              "label": "APIs",
+              "icon": "api",
+              "pages": []
+            },
+            {
+              "id": "mcp",
+              "label": "MCP",
+              "icon": "hub",
+              "pages": []
+            },
+            {
+              "id": "dotfiles",
+              "label": "Dotfiles",
+              "icon": "description",
+              "pages": []
+            },
+            {
+              "id": "plugins",
+              "label": "Plugins",
+              "icon": "build",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "cost",
+          "label": "Cost",
+          "icon": "payments",
+          "pages": [
+            {
+              "id": "cost",
+              "label": "Cost",
+              "icon": "payments",
+              "pages": []
+            }
+          ]
+        },
+        {
           "id": "settings",
           "label": "Settings",
           "icon": "settings",
@@ -8814,7 +8999,7 @@
       "name": "Cloud KG Store",
       "label": "KG Store",
       "icon": "ic_kgs",
-      "group": "Weby Services",
+      "group": "Weby Services & Markets",
       "category": "android",
       "description": "Cloud KG Store (#1207) - the fleet's knowledge-graph store and browser, three sections on the bottom nav: Cloud (two rows of groups: Application = Binary, Web/Debug, MCP search tools, API Data and API Debug with GET and POST; Repo = Code, CGC, MCP search tools, API Semantic and GraphRAG; every page is backed by the fleet endpoints declared in ac_cloud-account/build.json::fleet_endpoints - c3-infra-api, cloud-me-api, c3-public-api, the two CGC MCP services and embeddings-api - and says plainly when an endpoint is missing or does not answer), Phone (the installed Android apps index through PackageManager: package, version, permissions and components) and Web (News, Media, Shopping, Real Estate, Jobs, Business, on the sources and parsers Cloud Search declares: its build.json::search is baked by reference and its plain-JVM search-core is linked by reference, nothing is copied). The assistant behind the top bar's AI icon is libs:ai's chat over the fleet agent gateway (mesh only); no token is held or read by this app for it (decisions-use guard D5), and the fleet bearer for the public fallback route is read from Cloud Account on use and never kept. Dark is the default theme (#336); English is the base language (#299).",
       "kind": "app",
@@ -9022,16 +9207,16 @@
       "icon": "ic_tools_small_llms",
       "group": "AGI",
       "category": "android",
-      "description": "Cloud Tools Small LLMs - an AI chat that does simple, direct text jobs with small, cheap models only, calling OpenRouter directly with the user's own token. A router reads each request and names the task (Jev, TypeSafe's decision model on OpenRouter's Decisions API, while it is listed; else a small JSON chat model), and one small worker model per task answers it with a fixed prompt: translate, summarize, rewrite, fix grammar, extract, classify, reply drafts, explain simply, quick maths, JSON/CSV fix, regex/command, titles and hashtags, sentiment, keywords, Q&A on pasted text. Every answer shows its task, model and actual cost (from OpenRouter's usage, router included); Costs keeps the day and month totals. Sections: Apps (an icon grid of applications buildable from the models, each with its pipeline), Models (the owner's small, medium and retrieval model tables from app/src/main/assets/tools-models.json as a sortable table, an icon grid, descriptive cards or cards grouped by macro task), AI (the shared libs:ai chat over the fleet agent gateway, its model picker listing only the chat models, grouped by macro; every call recorded in Costs), Store and Costs. English is the base language (#299); dark is the default theme (#336).",
+      "description": "Cloud Tools Small LLMs - an AI chat that does simple, direct text jobs with small, cheap models only, calling OpenRouter directly with the user's own token. A router reads each request and names the task (Jev, TypeSafe's decision model on OpenRouter's Decisions API, while it is listed; else a small JSON chat model), and one small worker model per task answers it with a fixed prompt: translate, summarize, rewrite, fix grammar, extract, classify, reply drafts, explain simply, quick maths, JSON/CSV fix, regex/command, titles and hashtags, sentiment, keywords, Q&A on pasted text. Every answer shows its task, model and actual cost (from OpenRouter's usage, router included). Sections: Apps (an icon grid of applications buildable from the models, each with its pipeline), Models (the owner's small, medium and retrieval model tables from app/src/main/assets/tools-models.json as a sortable table, an icon grid, descriptive cards or cards grouped by macro task), AI (the shared libs:ai chat over the fleet agent gateway, its model picker listing only the chat models, grouped by macro; the call is priced per answer), Store and MLs (the Cloud Store's Lite-ML and Tiny-ML libs, derived from its fleet declaration). The bottom nav is Apps, Store, AI Models, MLs; the Apps page has a top filter All, Hybrids, Models Only, ML Only. English is the base language (#299); dark is the default theme (#336).",
       "kind": "app",
       "wasm": "cloud-tools-small-llms",
       "default_section": "models",
       "bottom_nav": [
-        "apps",
         "models",
-        "ai",
+        "mls",
+        "apps",
         "store",
-        "costs"
+        "sensors"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -9115,10 +9300,42 @@
           ]
         },
         {
-          "id": "costs",
-          "label": "Costs",
-          "icon": "costs",
-          "pages": []
+          "id": "mls",
+          "label": "MLs",
+          "icon": "hub",
+          "pages": [
+            {
+              "id": "ml_lite",
+              "label": "Lite MLs",
+              "icon": "speed",
+              "pages": []
+            },
+            {
+              "id": "ml_tiny",
+              "label": "Tiny MLs",
+              "icon": "bolt",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "sensors",
+          "label": "Sensors",
+          "icon": "sensors",
+          "pages": [
+            {
+              "id": "sensors_inbuilt",
+              "label": "Inbuilt",
+              "icon": "smartphone",
+              "pages": []
+            },
+            {
+              "id": "sensors_connected",
+              "label": "Connected",
+              "icon": "bluetooth",
+              "pages": []
+            }
+          ]
         },
         {
           "id": "settings",
@@ -9268,6 +9485,11 @@
               "id": "notifications",
               "label": "Notifications",
               "icon": "notifications"
+            },
+            {
+              "id": "data",
+              "label": "Data",
+              "icon": "storage"
             },
             {
               "id": "about",
@@ -9649,8 +9871,9 @@
       "default_section": "git",
       "bottom_nav": [
         "explorer",
+        "projects",
+        "manage",
         "editor",
-        "home",
         "git",
         "fsync",
         "mounts"
@@ -9709,6 +9932,12 @@
           ]
         },
         {
+          "id": "projects",
+          "label": "Projects",
+          "title_row": false,
+          "icon": "bookmark"
+        },
+        {
           "id": "editor",
           "label": "Editor",
           "title_row": false,
@@ -9721,32 +9950,25 @@
           "icon": "auto_awesome"
         },
         {
-          "id": "home",
-          "label": "Home",
+          "id": "manage",
+          "label": "Manage",
           "title_row": false,
-          "icon": "home",
+          "icon": "storage",
           "pages": [
             {
-              "id": "home_apps",
-              "label": "Apps",
+              "id": "overview",
+              "label": "Overview",
+              "icon": "bar_chart"
+            },
+            {
+              "id": "local_apps",
+              "label": "Local-Apps",
               "icon": "apps"
             },
             {
-              "id": "manage",
-              "label": "Manage",
-              "icon": "storage",
-              "pages": [
-                {
-                  "id": "apps",
-                  "label": "Apps",
-                  "icon": "apps"
-                },
-                {
-                  "id": "data",
-                  "label": "Data",
-                  "icon": "bar_chart"
-                }
-              ]
+              "id": "local_data",
+              "label": "Local-Data",
+              "icon": "storage"
             }
           ]
         },
@@ -9783,11 +10005,6 @@
               "id": "agents",
               "label": "Agents",
               "icon": "smart_toy"
-            },
-            {
-              "id": "projects",
-              "label": "Projects",
-              "icon": "folder"
             }
           ]
         },
@@ -9921,13 +10138,14 @@
       "description": "Capital-Stack-FinTerminal: the Capital area's capital-markets terminal as an Android app behind the SuperApp's Cloud > Lnktree row. Six tabs on the shared bottom nav, FI | EQ | EX | NW | PM | MY-PM, each entry a dashboard drawn from a DECLARED source (data/sources.json): Cloud-Fincept / fin_api on the private mesh first (with a Start / Stop / Restart control for its container), the key-free public sources (FRED, DBnomics, IMF, World Bank, GDELT) as fallback, and dashed placeholders where a source needs a key you add in Config > Sources (stored encrypted on the phone). MY-PM is a simple local holdings list. Every figure shown is what its source returned, with its date and attribution.",
       "kind": "app",
       "wasm": null,
-      "default_section": "fi",
+      "default_section": "cb",
       "bottom_nav": [
+        "cb",
         "fi",
         "eq",
-        "ex",
         "nw",
         "pm",
+        "hg",
         "my-pm"
       ],
       "top_bar": null,
@@ -9939,6 +10157,34 @@
         "nav_ui"
       ],
       "sections": [
+        {
+          "id": "cb",
+          "label": "CB",
+          "icon": "account_balance",
+          "nav_mode": "horizontal_one_row",
+          "pages": [
+            {
+              "id": "cb-home",
+              "label": "Home",
+              "icon": "home"
+            },
+            {
+              "id": "cb-countries",
+              "label": "Countries",
+              "icon": "public"
+            },
+            {
+              "id": "cb-groups",
+              "label": "DM / EM / World",
+              "icon": "table_chart"
+            },
+            {
+              "id": "cb-predictions",
+              "label": "Predictions",
+              "icon": "insights"
+            }
+          ]
+        },
         {
           "id": "fi",
           "label": "FI",
@@ -10037,34 +10283,16 @@
               "id": "watchlist",
               "label": "Watchlist & Alerts",
               "icon": "bookmark"
-            }
-          ]
-        },
-        {
-          "id": "ex",
-          "label": "EX",
-          "icon": "payments",
-          "nav_mode": "horizontal_one_row",
-          "pages": [
-            {
-              "id": "ex-home",
-              "label": "Home",
-              "icon": "home"
             },
             {
-              "id": "fx",
-              "label": "FX",
+              "id": "fx-rates",
+              "label": "Exchange Rates",
               "icon": "swap_horiz"
             },
             {
-              "id": "onshore-usd-rates",
-              "label": "Onshore USD Rates",
-              "icon": "account_balance"
-            },
-            {
-              "id": "crypto",
-              "label": "Crypto",
-              "icon": "token"
+              "id": "commodity-prices",
+              "label": "Commodity Prices",
+              "icon": "inventory_2"
             },
             {
               "id": "commodities",
@@ -10113,19 +10341,87 @@
               "icon": "home"
             },
             {
-              "id": "pm-vol",
-              "label": "Vol",
+              "id": "pm-portfolios",
+              "label": "Portfolios",
               "icon": "table_chart"
             },
             {
-              "id": "pm-commodities",
-              "label": "Commodities",
+              "id": "pm-performance",
+              "label": "Performance",
+              "icon": "bar_chart"
+            }
+          ]
+        },
+        {
+          "id": "hg",
+          "label": "HG",
+          "icon": "swap_horiz",
+          "nav_mode": "horizontal_one_row",
+          "pages": [
+            {
+              "id": "hg-home",
+              "label": "Home",
+              "icon": "home"
+            },
+            {
+              "id": "hg-rates",
+              "label": "Rates Futures",
+              "icon": "account_balance"
+            },
+            {
+              "id": "hg-equity",
+              "label": "Equity Index Futures",
+              "icon": "trending_up"
+            },
+            {
+              "id": "hg-fx",
+              "label": "FX Futures",
+              "icon": "swap_horiz"
+            },
+            {
+              "id": "hg-energy",
+              "label": "Energy Futures",
+              "icon": "speed"
+            },
+            {
+              "id": "hg-metals",
+              "label": "Metals Futures",
               "icon": "inventory_2"
             },
             {
-              "id": "pm-profiles",
-              "label": "Profiles",
-              "icon": "groups"
+              "id": "hg-agriculture",
+              "label": "Agriculture Futures",
+              "icon": "explore"
+            },
+            {
+              "id": "hg-crypto",
+              "label": "Crypto Futures",
+              "icon": "token"
+            },
+            {
+              "id": "hg-volatility",
+              "label": "Volatility Futures",
+              "icon": "insights"
+            },
+            {
+              "id": "hedge-calculator",
+              "label": "Hedge Calculator",
+              "icon": "compare_arrows"
+            },
+            {
+              "id": "fx",
+              "label": "FX",
+              "icon": "swap_horiz"
+            },
+            {
+              "id": "onshore-usd-rates",
+              "label": "Onshore USD Rates",
+              "icon": "account_balance"
+            },
+            {
+              "id": "crypto",
+              "label": "Crypto",
+              "icon": "token"
             }
           ]
         },

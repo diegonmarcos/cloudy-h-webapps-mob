@@ -37,7 +37,7 @@ describe('Lnktree apps (#1335)', () => {
     // ad_CG-Omniverse/build.json ui.bottom_nav (#1366): Avatar, Galaxy, Store
     expect(by['cg-omniverse'].bottom_nav).toEqual(['avatar', 'galaxy', 'store']);
     const fin = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
-    expect(fin.bottom_nav).toEqual(['fi', 'eq', 'ex', 'nw', 'pm', 'my-pm']);
+    expect(fin.bottom_nav).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm']);
     expect(by['hardtech-cad'].bottom_nav).toEqual(['mcad', 'bim', 'solidworks']);
     expect(by['hardtech-sim2real'].bottom_nav).toEqual(['sap2000', 'matlab', 'ansys']);
     expect(by['cg-omniverse'].name).toBe('CG-Omniverse');
@@ -101,6 +101,6 @@ describe('Lnktree apps on the web', () => {
   });
 
   it('the FinTerm tabs are FI, EQ, EX, NW, PM, MY-PM and each tab has entries', () => {
-    expect(Object.keys(stacks[fin.id].stacks).filter((k) => ['fi', 'eq', 'ex', 'nw', 'pm', 'my-pm'].includes(k))).toEqual(['fi', 'eq', 'ex', 'nw', 'pm', 'my-pm']);
+    expect(Object.keys(stacks[fin.id].stacks).filter((k) => ['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm'].includes(k))).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm']);
   });
 });

@@ -72,7 +72,7 @@
         "order": 6,
         "visible": true,
         "pet": "adb",
-        "opens": "network_popup"
+        "opens": "adb_shell_page"
       },
       {
         "id": "data",
@@ -164,6 +164,319 @@
         "opens": "battery_popup"
       }
     ],
+    "network_speed": {
+      "sample_ms": 1000,
+      "public_ip": {
+        "url": "https://cloudflare.com/cdn-cgi/trace",
+        "ttl_ms": 300000
+      },
+      "speed_test": {
+        "download_url": "https://speed.cloudflare.com/__down?bytes={bytes}",
+        "upload_url": "https://speed.cloudflare.com/__up",
+        "ping_url": "https://speed.cloudflare.com/__down?bytes=0",
+        "download_bytes": 10000000,
+        "upload_bytes": 5000000,
+        "max_seconds": 8,
+        "ping_count": 6,
+        "metered_divisor": 4
+      }
+    },
+    "network_table": {
+      "groups": [
+        {
+          "id": "connection",
+          "label": "Connection",
+          "rows": [
+            {
+              "id": "transport",
+              "label": "Active"
+            },
+            {
+              "id": "ssid",
+              "label": "SSID"
+            },
+            {
+              "id": "bssid",
+              "label": "BSSID"
+            },
+            {
+              "id": "band",
+              "label": "Band"
+            },
+            {
+              "id": "channel",
+              "label": "Channel"
+            },
+            {
+              "id": "link",
+              "label": "Link speed"
+            },
+            {
+              "id": "rssi",
+              "label": "RSSI"
+            },
+            {
+              "id": "signal",
+              "label": "Signal"
+            },
+            {
+              "id": "freq",
+              "label": "Frequency"
+            },
+            {
+              "id": "standard",
+              "label": "Wi-Fi std"
+            }
+          ]
+        },
+        {
+          "id": "mobile",
+          "label": "Mobile",
+          "rows": [
+            {
+              "id": "carrier",
+              "label": "Carrier"
+            },
+            {
+              "id": "nettype",
+              "label": "Net type"
+            },
+            {
+              "id": "msignal",
+              "label": "Signal"
+            },
+            {
+              "id": "roaming",
+              "label": "Roaming"
+            }
+          ]
+        },
+        {
+          "id": "ip",
+          "label": "IP",
+          "rows": [
+            {
+              "id": "ipv4",
+              "label": "IPv4"
+            },
+            {
+              "id": "ipv6",
+              "label": "IPv6"
+            },
+            {
+              "id": "public_ip",
+              "label": "Public IP"
+            },
+            {
+              "id": "dns",
+              "label": "DNS"
+            },
+            {
+              "id": "gateway",
+              "label": "Gateway"
+            },
+            {
+              "id": "private_dns",
+              "label": "Private DNS"
+            }
+          ]
+        },
+        {
+          "id": "vpn",
+          "label": "VPN / WireGuard mesh",
+          "rows": [
+            {
+              "id": "wg",
+              "label": "WireGuard"
+            },
+            {
+              "id": "mesh_ip",
+              "label": "Mesh IP"
+            },
+            {
+              "id": "warp",
+              "label": "WARP"
+            }
+          ]
+        },
+        {
+          "id": "metered",
+          "label": "Metered",
+          "rows": [
+            {
+              "id": "metered",
+              "label": "Metered"
+            },
+            {
+              "id": "validated",
+              "label": "Validated"
+            },
+            {
+              "id": "captive",
+              "label": "Captive portal"
+            }
+          ]
+        },
+        {
+          "id": "usage",
+          "label": "Data used",
+          "columns": [
+            {
+              "label": "Today",
+              "unit": "down"
+            },
+            {
+              "label": "Today",
+              "unit": "up"
+            },
+            {
+              "label": "24 h",
+              "unit": "down"
+            },
+            {
+              "label": "24 h",
+              "unit": "up"
+            }
+          ],
+          "rows": [
+            {
+              "id": "use_wifi",
+              "label": "Wi-Fi"
+            },
+            {
+              "id": "use_mobile",
+              "label": "Mobile"
+            },
+            {
+              "id": "use_total",
+              "label": "Total"
+            }
+          ]
+        },
+        {
+          "id": "speed",
+          "label": "Bandwidth",
+          "columns": [
+            {
+              "label": "Now",
+              "unit": "MB/s"
+            },
+            {
+              "label": "Now",
+              "unit": "Mbps"
+            },
+            {
+              "label": "24 h avg",
+              "unit": "MB/s"
+            },
+            {
+              "label": "24 h avg",
+              "unit": "Mbps"
+            }
+          ],
+          "rows": [
+            {
+              "id": "down",
+              "label": "Down"
+            },
+            {
+              "id": "up",
+              "label": "Up"
+            }
+          ]
+        },
+        {
+          "id": "peak",
+          "label": "24 h peak and total",
+          "columns": [
+            {
+              "label": "Peak",
+              "unit": "MB/s"
+            },
+            {
+              "label": "Peak",
+              "unit": "Mbps"
+            },
+            {
+              "label": "Total",
+              "unit": "MB / GB"
+            }
+          ],
+          "rows": [
+            {
+              "id": "peak_down",
+              "label": "Down"
+            },
+            {
+              "id": "peak_up",
+              "label": "Up"
+            }
+          ]
+        },
+        {
+          "id": "test",
+          "label": "Speed test",
+          "rows": [
+            {
+              "id": "st_down",
+              "label": "Download"
+            },
+            {
+              "id": "st_up",
+              "label": "Upload"
+            },
+            {
+              "id": "st_latency",
+              "label": "Latency"
+            },
+            {
+              "id": "st_jitter",
+              "label": "Jitter"
+            },
+            {
+              "id": "st_last",
+              "label": "Last test"
+            }
+          ]
+        },
+        {
+          "id": "test_hist",
+          "label": "Speed test, 24 h",
+          "columns": [
+            {
+              "label": "Best",
+              "unit": ""
+            },
+            {
+              "label": "Worst",
+              "unit": ""
+            },
+            {
+              "label": "Avg",
+              "unit": ""
+            }
+          ],
+          "rows": [
+            {
+              "id": "hd_mbps",
+              "label": "Down Mbps"
+            },
+            {
+              "id": "hd_mbs",
+              "label": "Down MB/s"
+            },
+            {
+              "id": "hu_mbps",
+              "label": "Up Mbps"
+            },
+            {
+              "id": "hu_mbs",
+              "label": "Up MB/s"
+            }
+          ]
+        }
+      ]
+    },
     "toolbar_row": [
       {
         "id": "music_pill",

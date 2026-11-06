@@ -450,6 +450,22 @@
         }
       ],
       "default_cockpit_mode": "car",
+      "day_timeline": {
+        "stay_radius_m": 100,
+        "min_dwell_min": 5,
+        "max_fix_acc_m": 200,
+        "copy_address_fields": [
+          "street",
+          "postcode",
+          "city"
+        ],
+        "full_address_fields": [
+          "street",
+          "postcode",
+          "city",
+          "country"
+        ]
+      },
       "cockpit_modes": [
         {
           "id": "bike",
@@ -2315,7 +2331,9 @@
         },
         {
           "id": "cloud-tasks",
-          "package": "com.diegonmarcos.cloudagenda"
+          "package": "com.diegonmarcos.cloudagenda",
+          "activity": "com.diegonmarcos.cloudagenda.MainActivity",
+          "label": "Cloud Tasks"
         },
         {
           "id": "cloud-media-center",
@@ -2938,6 +2956,99 @@
             "class": "config",
             "doc": "The browser fills from its own store first, then asks Cloud Vault (through Android's autofill); what Cloud Vault fills wins over the local copy, and a new password or card is also handed to Cloud Vault's save. Off = local only. Cloud Vault not installed or locked = local only, with the reason shown.",
             "group": "sync"
+          },
+          {
+            "key": "headless_backend",
+            "type": "enum",
+            "values": [
+              "cloudflare-browser-run",
+              "cloudy-browser-headless",
+              "this-app"
+            ],
+            "default": "this-app",
+            "label": "Backend",
+            "section": "headless",
+            "class": "config",
+            "doc": "Where agent browser calls run (#1498): Cloudflare-Browser-Run (the #1474 backend and store keys), Cloudy-Browser-Headless (the container on oci-apps) or This App (off-screen WebView on this phone, the default).",
+            "group": "headless"
+          },
+          {
+            "key": "headless_cloudy_url_key",
+            "type": "string",
+            "default": "headless.cloudy.url",
+            "label": "Cloudy-Browser-Headless URL (store key name)",
+            "section": "headless",
+            "class": "config",
+            "doc": "The NAME of the encrypted-store key that holds the container URL (https, mesh path route). The value is never kept here.",
+            "group": "headless"
+          },
+          {
+            "key": "headless_cloudy_token_key",
+            "type": "string",
+            "default": "headless.cloudy.token",
+            "label": "Cloudy-Browser-Headless bearer (store key name)",
+            "section": "headless",
+            "class": "config",
+            "doc": "The NAME of the encrypted-store key that holds the container bearer token. The value is never kept here; the vault holds it by name.",
+            "group": "headless"
+          },
+          {
+            "key": "headless_max_sessions",
+            "type": "int",
+            "min": 1,
+            "max": 8,
+            "default": 3,
+            "label": "Max sessions (This App)",
+            "section": "headless",
+            "class": "config",
+            "doc": "Open sessions at once on this phone, 1 to 8. A new session over the limit is refused.",
+            "group": "headless"
+          },
+          {
+            "key": "headless_idle_stop_s",
+            "type": "int",
+            "min": 15,
+            "max": 1800,
+            "default": 120,
+            "label": "Idle stop (seconds)",
+            "section": "headless",
+            "class": "config",
+            "doc": "The service stops, and a session closes, after this long without a command (15 to 1800).",
+            "group": "headless"
+          },
+          {
+            "key": "headless_call_timeout_s",
+            "type": "int",
+            "min": 1,
+            "max": 120,
+            "default": 30,
+            "label": "Per-call timeout (seconds)",
+            "section": "headless",
+            "class": "config",
+            "doc": "A command that takes longer answers a timeout (1 to 120).",
+            "group": "headless"
+          },
+          {
+            "key": "headless_cdp",
+            "type": "bool",
+            "default": false,
+            "label": "DevTools / CDP (debug, opt-in)",
+            "section": "headless",
+            "class": "config",
+            "doc": "Lets Playwright or Puppeteer connectOverCDP to the phone engine: WebView debugging on, the DevTools socket relayed to a loopback port, bearer-gated, off by itself after the minutes below. Default off.",
+            "group": "headless"
+          },
+          {
+            "key": "headless_cdp_minutes",
+            "type": "int",
+            "min": 1,
+            "max": 60,
+            "default": 10,
+            "label": "DevTools / CDP auto-off (minutes)",
+            "section": "headless",
+            "class": "config",
+            "doc": "CDP switches itself off after this long (1 to 60).",
+            "group": "headless"
           }
         ],
         "favourites": {
@@ -3173,6 +3284,24 @@
               ]
             },
             {
+              "id": "pin_site",
+              "section": "page_actions",
+              "label": "Pin this site offline",
+              "kind": "toggle",
+              "checked": "site_pinned",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "download_site",
+              "section": "page_actions",
+              "label": "Download full site (offline cache)",
+              "requires": [
+                "page"
+              ]
+            },
+            {
               "id": "fill_profile",
               "section": "page_actions",
               "label": "Autofill this page…",
@@ -3346,7 +3475,10 @@
               "cards",
               "vault"
             ],
-            "browsing": []
+            "browsing": [],
+            "gpu": [
+              "gpu"
+            ]
           },
           "rows": [
             {
@@ -4191,8 +4323,128 @@
           {
             "id": "browsing",
             "label": "Browser"
+          },
+          {
+            "id": "headless",
+            "label": "Headless Browser"
+          },
+          {
+            "id": "gpu",
+            "label": "GPU"
           }
         ]
+      },
+      "weby": {
+        "texts": {
+          "add_bookmark": "Add bookmark",
+          "add_folder": "New folder",
+          "add_short": "+",
+          "remove_short": "×",
+          "path_sep": " › ",
+          "remove_bookmark": "Remove this bookmark?",
+          "remove_folder": "Remove this folder and everything in it?",
+          "field_title": "Title",
+          "field_url": "Address",
+          "field_folder": "Folder",
+          "ok": "OK",
+          "cancel": "Cancel",
+          "empty": "No bookmarks.",
+          "menu_open": "Open",
+          "menu_refresh_icon": "Refresh icon",
+          "menu_remove": "Remove"
+        },
+        "icon_overrides": {}
+      },
+      "cloudy": {
+        "pages_url": "https://raw.githubusercontent.com/diegonmarcos/front-html/main/pages.json",
+        "webserver_base_role": "drive",
+        "timeout_ms": 1500,
+        "private_scheme": "http://",
+        "public_scheme": "https://",
+        "texts": {
+          "gh_empty": "No public GitHub Pages found yet.",
+          "ws_empty": "The Cloud-Webserver declares no pages.",
+          "up": "up",
+          "down": "down",
+          "ws_open": "Open Cloud-Webserver",
+          "ws_not_installed": "Cloud-Webserver is not installed on this phone. Install it from the constellation store first.",
+          "urls_empty": "The fleet declares no routes."
+        }
+      },
+      "domains": {
+        "media_mime_prefixes": [
+          "image/",
+          "audio/",
+          "video/"
+        ],
+        "history_default": "pages",
+        "history_modes": [
+          {
+            "id": "pages",
+            "label": "Pages"
+          },
+          {
+            "id": "domains",
+            "label": "Domains"
+          }
+        ],
+        "visited_default": "last",
+        "visited_sorts": [
+          {
+            "id": "name",
+            "label": "Name"
+          },
+          {
+            "id": "last",
+            "label": "Last visited"
+          }
+        ],
+        "actions": [
+          {
+            "id": "cookies",
+            "label": "Clear cookies",
+            "detail": "this site"
+          },
+          {
+            "id": "media",
+            "label": "Clear media",
+            "detail": "cached images, audio, video"
+          },
+          {
+            "id": "cache",
+            "label": "Clear cache",
+            "detail": "cached files"
+          },
+          {
+            "id": "storage",
+            "label": "Clear storage",
+            "detail": "local, session, IndexedDB"
+          },
+          {
+            "id": "reset_perms",
+            "label": "Reset permissions",
+            "detail": "back to the defaults"
+          }
+        ],
+        "texts": {
+          "actions": "Actions",
+          "done": "done",
+          "cached_sites": "Cached sites",
+          "cached_empty": "No site is pinned or downloaded yet.",
+          "refresh": "Refresh",
+          "unpin": "Unpin",
+          "delete": "Delete",
+          "pinned": "pinned",
+          "files": "files",
+          "refreshed": "refreshed",
+          "never": "never",
+          "waiting": "waiting",
+          "stop": "Stop",
+          "files_empty": "No cached files yet.",
+          "perms_empty": "No site visited yet.",
+          "history_empty": "No history yet.",
+          "visited_empty": "No site visited yet."
+        }
       },
       "configs_ui": [
         "nav_ui"
@@ -8212,7 +8464,11 @@
     "cloud-tools-small-llms": {
       "configs_ui": [
         "nav_ui"
-      ]
+      ],
+      "ml_pages": {
+        "ml_lite": "libs-l-ml",
+        "ml_tiny": "libs-t-ml"
+      }
     },
     "cloud-store": {
       "configs_ui": [
@@ -8319,6 +8575,47 @@
       }
     },
     "cloud-drive": {
+      "legacy_routes": [
+        {
+          "tab": "home",
+          "page": "home_apps",
+          "to": {
+            "tab": "manage",
+            "page": "local_apps"
+          }
+        },
+        {
+          "tab": "home",
+          "page": "manage",
+          "to": {
+            "tab": "manage",
+            "page": "overview"
+          }
+        },
+        {
+          "tab": "home",
+          "to": {
+            "tab": "manage",
+            "page": "overview"
+          }
+        },
+        {
+          "tab": "manage",
+          "page": "apps",
+          "to": {
+            "tab": "manage",
+            "page": "local_apps"
+          }
+        },
+        {
+          "tab": "manage",
+          "page": "data",
+          "to": {
+            "tab": "manage",
+            "page": "local_data"
+          }
+        }
+      ],
       "configs_ui": [
         "nav_ui"
       ],
@@ -8528,17 +8825,6 @@
             "why": "Manage > Apps and the Home app grid list every installed app. Granted at install.",
             "permissions": [
               "android.permission.QUERY_ALL_PACKAGES"
-            ],
-            "check": "permission",
-            "grant": "none",
-            "intents": []
-          },
-          {
-            "id": "write_secure_settings",
-            "label": "Write secure settings",
-            "why": "Held through a one-time adb grant so the adb-shell channel can keep wireless debugging available; the app does not write settings itself.",
-            "permissions": [
-              "android.permission.WRITE_SECURE_SETTINGS"
             ],
             "check": "permission",
             "grant": "none",
@@ -8839,6 +9125,69 @@
               "folders_only": false
             }
           ]
+        }
+      },
+      "manage": {
+        "overview": {
+          "local": [
+            {
+              "id": "emulated",
+              "label": "Emulated",
+              "icon": "smartphone",
+              "kind": "emulated"
+            },
+            {
+              "id": "termux",
+              "label": "Termux home",
+              "icon": "terminal",
+              "kind": "terminal_home"
+            },
+            {
+              "id": "nix",
+              "label": "Nix home",
+              "icon": "terminal",
+              "kind": "app_home",
+              "fleet": "nix-on-droid",
+              "relative": "files/home"
+            },
+            {
+              "id": "external",
+              "label": "External drive",
+              "icon": "usb",
+              "kind": "external_drives"
+            }
+          ],
+          "cloud": [
+            {
+              "id": "cloud-s3",
+              "label": "Cloud-S3",
+              "icon": "cloud",
+              "kind": "remote",
+              "remote": "oracle_s3"
+            },
+            {
+              "id": "gdrive",
+              "label": "Google Drive",
+              "icon": "cloud",
+              "kind": "remote",
+              "remote": "gdrive"
+            },
+            {
+              "id": "mounts",
+              "label": "Mounts",
+              "icon": "cloud",
+              "kind": "mount_providers"
+            }
+          ]
+        },
+        "local_data": {
+          "switcher": [
+            "emulated",
+            "termux",
+            "nix",
+            "external"
+          ],
+          "default_volume": "emulated"
         }
       },
       "icons": {},
@@ -9212,17 +9561,36 @@
               "icon": "storage"
             }
           ],
-          "depth_actions": [
+          "clone_modes": [
             {
-              "id": "clone_all_depth1",
-              "label": "Clone all (depth 1)",
-              "icon": "download",
-              "kind": "clone_missing",
-              "scope": "all",
-              "depth": 1,
-              "workers": 2,
-              "confirm": true
+              "id": "full",
+              "label": "Full"
             },
+            {
+              "id": "depth3",
+              "label": "Full Depth 3",
+              "depth": 3
+            },
+            {
+              "id": "bare_main",
+              "label": "Bare Main Only",
+              "bare": true,
+              "single_branch": true
+            },
+            {
+              "id": "bare_blobless",
+              "label": "Bare Blobless",
+              "bare": true,
+              "filter": "blob:none"
+            },
+            {
+              "id": "bare_treeless",
+              "label": "Bare Treeless",
+              "bare": true,
+              "filter": "tree:0"
+            }
+          ],
+          "depth_actions": [
             {
               "id": "keep_depth1_all",
               "label": "Keep depth 1 (all)",
@@ -9232,16 +9600,6 @@
               "depth": 1,
               "workers": 2,
               "confirm": true
-            },
-            {
-              "id": "clone_repo_depth1",
-              "label": "Clone (depth 1)",
-              "icon": "download",
-              "kind": "clone_missing",
-              "scope": "repo",
-              "depth": 1,
-              "workers": 1,
-              "confirm": false
             },
             {
               "id": "keep_repo_depth1",
@@ -9254,42 +9612,102 @@
               "confirm": true
             },
             {
-              "id": "clone_all_bare",
-              "label": "Clone all bare",
+              "id": "clone_all_full",
+              "label": "Clone all: Full",
               "icon": "download",
-              "kind": "clone_bare",
+              "kind": "clone_mode",
+              "mode": "full",
               "scope": "all",
-              "depth": 1,
               "workers": 2,
               "confirm": true
             },
             {
-              "id": "clone_repo_bare",
-              "label": "Clone bare",
+              "id": "clone_all_depth3",
+              "label": "Clone all: Full Depth 3",
               "icon": "download",
-              "kind": "clone_bare",
+              "kind": "clone_mode",
+              "mode": "depth3",
+              "scope": "all",
+              "workers": 2,
+              "confirm": true
+            },
+            {
+              "id": "clone_all_bare_main",
+              "label": "Clone all: Bare Main Only",
+              "icon": "archive",
+              "kind": "clone_mode",
+              "mode": "bare_main",
+              "scope": "all",
+              "workers": 2,
+              "confirm": true
+            },
+            {
+              "id": "clone_all_bare_blobless",
+              "label": "Clone all: Bare Blobless",
+              "icon": "archive",
+              "kind": "clone_mode",
+              "mode": "bare_blobless",
+              "scope": "all",
+              "workers": 2,
+              "confirm": true
+            },
+            {
+              "id": "clone_all_bare_treeless",
+              "label": "Clone all: Bare Treeless",
+              "icon": "archive",
+              "kind": "clone_mode",
+              "mode": "bare_treeless",
+              "scope": "all",
+              "workers": 2,
+              "confirm": true
+            },
+            {
+              "id": "clone_repo_full",
+              "label": "Full",
+              "icon": "download",
+              "kind": "clone_mode",
+              "mode": "full",
               "scope": "repo",
-              "depth": 1,
               "workers": 1,
               "confirm": false
             },
             {
-              "id": "clone_all_bare_nohist",
-              "label": "Clone Bare All (no hist)",
-              "icon": "archive",
-              "kind": "clone_bare_nohist",
-              "scope": "all",
-              "depth": 1,
-              "workers": 2,
-              "confirm": true
+              "id": "clone_repo_depth3",
+              "label": "Full Depth 3",
+              "icon": "download",
+              "kind": "clone_mode",
+              "mode": "depth3",
+              "scope": "repo",
+              "workers": 1,
+              "confirm": false
             },
             {
-              "id": "clone_repo_bare_nohist",
-              "label": "Clone bare (no hist)",
+              "id": "clone_repo_bare_main",
+              "label": "Bare Main Only",
               "icon": "archive",
-              "kind": "clone_bare_nohist",
+              "kind": "clone_mode",
+              "mode": "bare_main",
               "scope": "repo",
-              "depth": 1,
+              "workers": 1,
+              "confirm": false
+            },
+            {
+              "id": "clone_repo_bare_blobless",
+              "label": "Bare Blobless",
+              "icon": "archive",
+              "kind": "clone_mode",
+              "mode": "bare_blobless",
+              "scope": "repo",
+              "workers": 1,
+              "confirm": false
+            },
+            {
+              "id": "clone_repo_bare_treeless",
+              "label": "Bare Treeless",
+              "icon": "archive",
+              "kind": "clone_mode",
+              "mode": "bare_treeless",
+              "scope": "repo",
               "workers": 1,
               "confirm": false
             }
@@ -9393,24 +9811,38 @@
                 "layout": "chips",
                 "items": [
                   {
-                    "id": "clone_full",
-                    "label": "Clone full",
+                    "id": "clone_repo_full",
+                    "label": "Full",
                     "i18n": {
                       "es": "Clonar completo"
                     }
                   },
                   {
-                    "id": "clone_depth1",
-                    "label": "Clone depth 1",
+                    "id": "clone_repo_depth3",
+                    "label": "Full Depth 3",
                     "i18n": {
-                      "es": "Clonar profundidad 1"
+                      "es": "Clonar profundidad 3"
                     }
                   },
                   {
-                    "id": "clone_repo_depth1",
-                    "label": "Clone (depth 1)",
+                    "id": "clone_repo_bare_main",
+                    "label": "Bare Main Only",
                     "i18n": {
-                      "es": "Clonar (profundidad 1)"
+                      "es": "Clonar bare solo rama principal"
+                    }
+                  },
+                  {
+                    "id": "clone_repo_bare_blobless",
+                    "label": "Bare Blobless",
+                    "i18n": {
+                      "es": "Clonar bare sin blobs"
+                    }
+                  },
+                  {
+                    "id": "clone_repo_bare_treeless",
+                    "label": "Bare Treeless",
+                    "i18n": {
+                      "es": "Clonar bare sin árboles"
                     }
                   },
                   {
@@ -9418,20 +9850,6 @@
                     "label": "Keep depth 1",
                     "i18n": {
                       "es": "Mantener profundidad 1"
-                    }
-                  },
-                  {
-                    "id": "clone_repo_bare",
-                    "label": "Clone bare",
-                    "i18n": {
-                      "es": "Clonar bare"
-                    }
-                  },
-                  {
-                    "id": "clone_repo_bare_nohist",
-                    "label": "Clone bare (no hist)",
-                    "i18n": {
-                      "es": "Clonar bare (sin historial)"
                     }
                   }
                 ]
@@ -9856,8 +10274,6 @@
               "duplicates_hint": "A second clone of a repository another folder already holds; the primary keeps the row above. Archive or delete the copy.",
               "duplicate_of": "copy of",
               "archive_all": "Archive all",
-              "bare": "Bare mirrors",
-              "bare_hint": "The bare mirrors under the declared bare root (Clone bare / Mirror all).",
               "debris": "Leftover folders",
               "debris_hint": "Folders an interrupted copy or fetch left behind (declared debris patterns); not repositories.",
               "no_origin": "no origin",
@@ -10188,19 +10604,43 @@
                 "icon": "download",
                 "items": [
                   {
-                    "id": "clone_missing",
+                    "id": "clone_all_full",
                     "kind": "depth",
-                    "action": "clone_all_depth1",
-                    "label": "Clone Depth 1 All",
-                    "hint": "normal checkout with files, depth 1",
+                    "action": "clone_all_full",
+                    "label": "Full",
+                    "hint": "git clone",
                     "icon": "download"
                   },
                   {
-                    "id": "clone_bare_nohist",
+                    "id": "clone_all_depth3",
                     "kind": "depth",
-                    "action": "clone_all_bare_nohist",
-                    "label": "Clone Bare All (no hist)",
-                    "hint": "--bare --depth 1: only the .git data, no files",
+                    "action": "clone_all_depth3",
+                    "label": "Full Depth 3",
+                    "hint": "git clone --depth 3",
+                    "icon": "download"
+                  },
+                  {
+                    "id": "clone_all_bare_main",
+                    "kind": "depth",
+                    "action": "clone_all_bare_main",
+                    "label": "Bare Main Only",
+                    "hint": "git clone --bare --single-branch --branch <default>",
+                    "icon": "archive"
+                  },
+                  {
+                    "id": "clone_all_bare_blobless",
+                    "kind": "depth",
+                    "action": "clone_all_bare_blobless",
+                    "label": "Bare Blobless",
+                    "hint": "git clone --bare --filter=blob:none",
+                    "icon": "archive"
+                  },
+                  {
+                    "id": "clone_all_bare_treeless",
+                    "kind": "depth",
+                    "action": "clone_all_bare_treeless",
+                    "label": "Bare Treeless",
+                    "hint": "git clone --bare --filter=tree:0",
                     "icon": "archive"
                   }
                 ]
@@ -10302,13 +10742,6 @@
                     "label": "Fetch all",
                     "icon": "sync",
                     "scope": "filtered"
-                  },
-                  {
-                    "id": "mirror_all",
-                    "kind": "depth",
-                    "action": "clone_all_bare",
-                    "label": "Mirror all (bare)",
-                    "icon": "archive"
                   },
                   {
                     "id": "shrink_all",
@@ -10561,9 +10994,80 @@
           "tab": "fi",
           "to": "home",
           "note": "#1399 FI Market Monitor removed: its deep links open the FI Homepage"
+        },
+        {
+          "from": "ex",
+          "tab": "hg",
+          "to": "home",
+          "note": "The EX tab became HG (Hedging): the old EX section deep link opens the HG Homepage"
+        },
+        {
+          "from": "ex-home",
+          "tab": "hg",
+          "to": "home",
+          "note": "The EX Homepage became the HG Homepage"
+        },
+        {
+          "from": "cm",
+          "tab": "eq",
+          "to": "commodity-prices",
+          "note": "The CM section was folded into Commodity Prices (EQ): its deep links open that page"
+        },
+        {
+          "from": "ex-commodities",
+          "tab": "eq",
+          "to": "commodity-prices",
+          "note": "The old EX Commodities page moved to EQ: Commodity Prices"
+        },
+        {
+          "from": "pm-commodities",
+          "tab": "eq",
+          "to": "commodity-prices",
+          "note": "The PM Commodities page was removed: commodity prices live in EQ Commodity Prices"
+        },
+        {
+          "from": "pm_commodities",
+          "tab": "eq",
+          "to": "commodity-prices",
+          "note": "The PM Commodities page was removed: commodity prices live in EQ Commodity Prices"
+        },
+        {
+          "from": "pm-vol",
+          "tab": "pm",
+          "to": "pm-portfolios",
+          "note": "PM Vol became Portfolios"
+        },
+        {
+          "from": "pm-profiles",
+          "tab": "pm",
+          "to": "pm-portfolios",
+          "note": "PM Profiles became Portfolios (US Cyclicals)"
         }
       ],
       "stacks": {
+        "cb": [
+          {
+            "kind": "cb_table",
+            "page": "cb-countries",
+            "view": "countries",
+            "title": "Countries",
+            "subtitle": "Central-bank macro by country: DM, euro area, BRICS EM; DM / EM / World rows pinned, simple or full indicators, forecast year"
+          },
+          {
+            "kind": "cb_table",
+            "page": "cb-groups",
+            "view": "groups",
+            "title": "DM / EM / World",
+            "subtitle": "GDP-weighted aggregates of the countries, weighted by IMF PPP or market-FX GDP"
+          },
+          {
+            "kind": "cb_table",
+            "page": "cb-predictions",
+            "view": "predictions",
+            "title": "Predictions",
+            "subtitle": "IMF and OECD forecasts for the current year, +1 and +2, the banks' own projections and a Taylor-rule policy-rate path"
+          }
+        ],
         "fi": [
           {
             "kind": "dashboard",
@@ -10656,26 +11160,20 @@
             "title": "Watchlist & Alerts",
             "subtitle": "Your symbols, price alerts and event alerts, kept on this device",
             "dashboard": "watchlist"
-          }
-        ],
-        "ex": [
-          {
-            "kind": "dashboard",
-            "title": "FX",
-            "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards",
-            "dashboard": "fx"
           },
           {
-            "kind": "dashboard",
-            "title": "Onshore USD Rates",
-            "subtitle": "Onshore USD rate benchmarks and curves",
-            "dashboard": "onshore_usd_rates"
+            "kind": "quote_board",
+            "page": "fx-rates",
+            "view": "fx_rates",
+            "title": "Exchange Rates",
+            "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
           },
           {
-            "kind": "dashboard",
-            "title": "Crypto",
-            "subtitle": "Crypto spot, 24h change and daily candles",
-            "dashboard": "crypto"
+            "kind": "quote_board",
+            "page": "commodity-prices",
+            "view": "commodities",
+            "title": "Commodity Prices",
+            "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
           },
           {
             "kind": "dashboard",
@@ -10707,24 +11205,17 @@
         "pm": [
           {
             "kind": "pm_table",
-            "page": "pm-vol",
-            "table": "vol",
-            "title": "Vol",
-            "subtitle": "The portfolios by risk level: allocation in DM and EM, Swap and expected annualised volatility; a row opens the portfolio"
+            "page": "pm-portfolios",
+            "table": "portfolios",
+            "title": "Portfolios",
+            "subtitle": "Portfolios DM vs EM and Portfolios US Cyclicals: Vol, the Top 3 allocations and the full allocation list"
           },
           {
             "kind": "pm_table",
-            "page": "pm-commodities",
-            "table": "commodities",
-            "title": "Commodities",
-            "subtitle": "Commodities by the currency they are held in: sample allocation weights and volatility"
-          },
-          {
-            "kind": "pm_table",
-            "page": "pm-profiles",
-            "table": "profiles",
-            "title": "Profiles",
-            "subtitle": "Companies by business-cycle profile: Growth, Value, Quality, Cyclical, Defensive, Dividend, Momentum, Small-cap"
+            "page": "pm-performance",
+            "table": "performance",
+            "title": "Performance",
+            "subtitle": "Every portfolio: Today, Last 7d, Last 30d, MTD, YTD, Last 1y and the Last 3y CAGR, from real delayed prices of its legs"
           },
           {
             "kind": "dashboard",
@@ -10825,6 +11316,89 @@
             "dashboard": "pm_d0_carry"
           }
         ],
+        "hg": [
+          {
+            "kind": "futures_board",
+            "page": "hg-rates",
+            "view": "rates",
+            "title": "Rates Futures",
+            "subtitle": "SOFR, Fed Funds, Euribor, EUR STR, SONIA, TONA and the 2y, 5y, 10y, 30y bond futures (Treasury, Bund, BTP, OAT, Gilt, JGB): delayed quotes, term structure, implied rate"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-equity",
+            "view": "equity",
+            "title": "Equity Index Futures",
+            "subtitle": "ES, NQ, YM, RTY, Euro Stoxx 50, DAX, FTSE, Nikkei, Hang Seng, KOSPI, Nifty, Ibovespa, ASX: delayed quotes and term structure"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-fx",
+            "view": "fx",
+            "title": "FX Futures",
+            "subtitle": "6E, 6J, 6B, 6A, 6C, 6S, 6M, BRL, INR, CNH and the dollar index: delayed quotes and term structure"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-energy",
+            "view": "energy",
+            "title": "Energy Futures",
+            "subtitle": "WTI, Brent, natural gas (HH, TTF), RBOB, heating oil, gasoil, coal: delayed quotes and term structure"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-metals",
+            "view": "metals",
+            "title": "Metals Futures",
+            "subtitle": "Gold, silver, copper, platinum, palladium, aluminium, nickel, zinc, iron ore: delayed quotes and term structure"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-agriculture",
+            "view": "agriculture",
+            "title": "Agriculture Futures",
+            "subtitle": "Corn, wheat, the soy complex, coffee, sugar, cocoa, cotton, cattle, hogs: delayed quotes and term structure"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-crypto",
+            "view": "crypto",
+            "title": "Crypto Futures",
+            "subtitle": "Bitcoin and Ether futures on CME: delayed quotes and term structure"
+          },
+          {
+            "kind": "futures_board",
+            "page": "hg-volatility",
+            "view": "volatility",
+            "title": "Volatility Futures",
+            "subtitle": "VIX and VSTOXX: delayed quotes (the VIX index is the cash level)"
+          },
+          {
+            "kind": "hedge_calc",
+            "page": "hedge-calculator",
+            "view": "hedge",
+            "title": "Hedge Calculator",
+            "subtitle": "Hedge ratio and notional: contracts needed from a future's declared multiplier and its delayed price"
+          },
+          {
+            "kind": "dashboard",
+            "title": "FX",
+            "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards",
+            "dashboard": "fx"
+          },
+          {
+            "kind": "dashboard",
+            "title": "Onshore USD Rates",
+            "subtitle": "Onshore USD rate benchmarks and curves",
+            "dashboard": "onshore_usd_rates"
+          },
+          {
+            "kind": "dashboard",
+            "title": "Crypto",
+            "subtitle": "Crypto spot, 24h change and daily candles",
+            "dashboard": "crypto"
+          }
+        ],
         "my-pm": [
           {
             "kind": "holdings",
@@ -10860,6 +11434,11 @@
             "title": "MCAD",
             "subtitle": "Mechanical CAD: FreeCAD and AutoCAD agents (MCP)",
             "url": "https://github.com/diegonmarcos/HardTech-Stack-CAD-Simulators/tree/main/Structural-Designer/OpenCAD"
+          },
+          {
+            "kind": "models",
+            "title": "Models",
+            "subtitle": "Every model as one table: filter by category, extension and software; tap a row for the 3D view and the full data"
           },
           {
             "kind": "section_title",

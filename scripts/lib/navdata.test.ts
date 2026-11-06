@@ -29,8 +29,8 @@ describe('nav.json', () => {
     const sections = new Set(nav.superapp.sections.map((s: { id: string }) => s.id));
     for (const id of appIds) expect(sections.has(id), id).toBe(false);
   });
-  it('icon sprites: 170 SuperApp glyphs, the UiIcons catalog, a fallback', () => {
-    expect(icons.sa.length).toBe(170);
+  it('icon sprites: 172 SuperApp glyphs, the UiIcons catalog, a fallback', () => {
+    expect(icons.sa.length).toBe(172);
     expect(Object.keys(icons.ui).length).toBeGreaterThanOrEqual(150);
     expect(icons.fallback).toBe('tab');
   });
