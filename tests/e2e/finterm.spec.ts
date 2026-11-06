@@ -32,14 +32,15 @@ const settle = (page: Page) => expect(page.locator('[data-state="loading"]')).to
 
 test('each FinTerm tab lists its dashboards as web pages, plus the Backend (mesh) link with the lock badge', async ({ page }, info) => {
   await net(page);
-  for (const tab of ['fi', 'eq', 'ex', 'nw', 'pm']) {
+  // #1539 the tabs are the Android nav's (CB | FI | EQ | NW | PM | HG); a table page (CB, PM) opens its web page, a live-quote page (HG, EQ boards) is greyed
+  expect(fin.tabs).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg']);
+  for (const tab of fin.tabs) {
     await page.goto(`${BASE}/${fin.app_id}/${tab}/`);
-    const entries = fin.stacks[tab];
-    // #1478: PM has no dashboard stack page any more (Homepage + Vol | Commodities | Profiles tables); its Homepage cards are asserted in the Homepage test below
-    if (tab === 'pm') continue;
+    const entries = fin.stacks[tab] as { kind?: string; title: string; page?: string; dashboard?: string }[];
     const cards = page.getByTestId('stack-card');
     await expect(cards, tab).toHaveCount(entries.length + 1);
     for (const [i, e] of entries.entries()) {
+      if (e.kind === 'pm_table' || e.kind === 'cb_table') { await expect(cards.nth(i).locator('a.open'), `${tab}/${e.title}`).toHaveAttribute('href', `${BASE}/${fin.app_id}/${tab}/${e.page}/`); continue; }
       if (e.kind !== 'dashboard') { await expect(cards.nth(i).locator('a.open'), `${tab}/${e.title}`).toHaveCount(0); continue; }
       const d = fin.dashboards.find((x) => x.id === e.dashboard)!;
       const open = cards.nth(i).locator('a.open');
@@ -223,24 +224,23 @@ test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard
   await expect(page.getByTestId('finterm-dash')).toHaveAttribute('data-dash', fin.dashboards.find((d) => d.tab === 'fi' && d.slug === fin.homes.fi[0].slug)!.id);
 });
 
-// #1478 PM Vol: the portfolio table with the four risk levels as filters, each row opening its portfolio; Commodities and Profiles are tables of the same matrix
-test('PM Vol, Commodities and Profiles: the declared tables, the level filter and the row links', async ({ page }) => {
+// #1539 PM follows the Android nav: Portfolios and Performance (drawn in the app from delayed prices; the web page says so), the old Vol / Profiles deep links land
+// on Portfolios, Commodities moved to the EQ price board; the CB pages draw the central-bank table from the shipped snapshot
+test('PM Portfolios and Performance, the moved PM deep links, the EQ price board and the CB page', async ({ page }) => {
   await net(page);
-  const wide = fin as unknown as { pm: Record<string, { rows?: { dashboard?: string }[]; tabs?: unknown[] }>; risk_tabs: { id: string }[]; dashboards: { id: string; risk?: string }[] };
-  const pm = wide.pm;
-  await page.goto(`${BASE}/${fin.app_id}/pm/pm-vol/`);
-  const tabs = page.getByTestId('pm-tab');
-  await expect(tabs).toHaveCount(wide.risk_tabs.length);
-  const rows = page.getByTestId('finterm-matrix-row');
-  await expect(rows).toHaveCount(pm.vol.rows!.length);
-  await tabs.nth(3).click();
-  await expect(rows).toHaveCount(pm.vol.rows!.filter((r) => wide.dashboards.find((d) => d.id === r.dashboard)!.risk === wide.risk_tabs[3].id).length);
-  await rows.first().click();
-  await expect(page.getByTestId('finterm-dash')).toBeVisible();
-  await page.goto(`${BASE}/${fin.app_id}/pm/pm-commodities/`);
-  await expect(page.getByTestId('finterm-matrix')).toContainText('Gold');
-  await page.goto(`${BASE}/${fin.app_id}/pm/pm-profiles/`);
-  await expect(page.getByTestId('pm-tab')).toHaveCount(pm.profiles.tabs!.length);
+  for (const old of ['pm-vol', 'pm-profiles']) {
+    await page.goto(`${BASE}/${fin.app_id}/pm/${old}/`);
+    await expect(page).toHaveURL(new RegExp(`/${fin.app_id}/pm/pm-portfolios/$`));
+  }
+  await expect(page.getByTestId('pm-app-only')).toBeVisible();
+  await page.goto(`${BASE}/${fin.app_id}/pm/pm-performance/`);
+  await expect(page.getByTestId('pm-app-only')).toBeVisible();
+  await page.goto(`${BASE}/${fin.app_id}/eq/commodity-prices/`);
+  await expect(page.getByTestId('finterm-app-only')).toBeVisible();
+  await page.goto(`${BASE}/${fin.app_id}/cb/cb-countries/`);
+  await expect(page.getByTestId('finterm-cb')).toHaveAttribute('data-view', 'countries', { timeout: 15_000 });
+  await expect(page.getByTestId('cb-failed')).toHaveCount(0);
+  await expect(page.getByTestId('finterm-matrix')).toBeVisible();
 });
 
 test('the removed FI Market Monitor deep link opens the FI Homepage', async ({ page }) => {

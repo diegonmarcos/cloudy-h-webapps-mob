@@ -161,7 +161,10 @@ function stackCards(base: string, declared: { kind?: string; title: string; subt
   return out;
 }
 
-type AppEntry = { kind?: string; title?: string; subtitle?: string; url?: string; planned?: boolean; note?: string };
+type AppEntry = { kind?: string; title?: string; subtitle?: string; url?: string; planned?: boolean; note?: string; page?: string };
+/** #1539 FinTerm page kinds: drawn on the web (a page of its own) or only in the APK (live delayed quotes; the web page says so). */
+const WEB_PAGE_KINDS = ['pm_table', 'cb_table'];
+const APP_ONLY_KINDS = ['quote_board', 'futures_board', 'hedge_calc'];
 /**
  * The page body of a Lnktree app section (#1335): the app's own ui.stacks[<section>] entries (apps-ui.json, GENERATED), each a card with ONE target.
  * An `entry` opens the URL gen-navdata resolved from its declared source (greyed "planned" when it has none). When the app's link says
@@ -191,6 +194,9 @@ export function appStack(appId: string, sectionId: string | null): StackCardData
       cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: url ? '' : (e.note ?? 'Planned'), href: url, planned: !url, external: !!url });
       continue;
     }
+    // #1539 a FinTerm table page (CB, PM) opens its own web page; a live-quote page (HG boards, hedge calculator, EQ price boards) is greyed: the APK draws it
+    if (e.kind && WEB_PAGE_KINDS.includes(e.kind) && e.page && own?.kind === 'webapp') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: '', href: `${own.href}${sectionId}/${e.page}/`, mesh: false, external: false }); continue; }
+    if (e.kind && APP_ONLY_KINDS.includes(e.kind)) { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: 'Live delayed quotes: drawn in the Android app.', href: null, planned: true }); continue; }
     if (e.kind === 'holdings') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: 'Kept on the phone: a browser cannot reach it.', href: null, planned: true }); continue; }
     return null; // sources and other device-only kinds: the generic body
   }
