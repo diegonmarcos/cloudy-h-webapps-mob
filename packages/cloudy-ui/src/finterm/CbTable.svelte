@@ -4,10 +4,12 @@
   // detail with a sparkline and the source and vintage of every value. All words, countries and indicators come from finterm-cb.json (generated); the data loads on first open.
   import FinMatrix from './components/FinMatrix.svelte';
   import { at, Cb, transpose, fmt, isForecast, WORLD, type CbData, type Table } from './cb';
+  import cbUrl from '../../nav/finterm-cb.json?url';
   let { view }: { view: string } = $props();
   let cb = $state<Cb | null>(null);
   let failed = $state(false);
-  $effect(() => { import('@cloudy/ui/nav/finterm-cb.json').then((m) => { cb = new Cb(m.default as unknown as CbData); }).catch(() => { failed = true; }); });
+  // the half-megabyte snapshot ships in the build as a hashed static asset (?url), not as a JS chunk: it stays out of the lazy-chunk budget and is read from the same origin on first open
+  $effect(() => { fetch(cbUrl).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))).then((d) => { cb = new Cb(d as CbData); }).catch(() => { failed = true; }); });
   let full = $state(false), group = $state(''), year = $state(0), weight = $state(''), invert = $state(false), detail = $state('');
   const AGG = [WORLD, 'DM', 'EM'];
   const g = $derived(cb ? (cb.groups(full).find((x) => x.id === group)?.id ?? cb.groups(full)[0].id) : '');
