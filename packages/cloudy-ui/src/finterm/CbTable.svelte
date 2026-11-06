@@ -39,7 +39,7 @@
       {:else}{@const s = cb.series(detail, r.id)}
         <div class="item" data-testid="cb-item" data-ind={r.id}>
           <div class="line"><span class="nm">{r.name}</span>
-            {#if s}{#each cb.years() as yy}<span class="v" class:fc={isForecast(s, yy)}>{@const vv = at(s, yy)}{vv != null ? fmt(vv) : cb.ui.na}</span>{/each}
+            {#if s}{#each cb.years() as yy}{@const vv = at(s, yy)}<span class="v" class:fc={isForecast(s, yy)}>{vv != null ? fmt(vv) : cb.ui.na}</span>{/each}
               {@const sp = spark(Object.keys(s.hist ?? {}).sort().map((k) => s.hist![k]), Object.keys(s.fc ?? {}).sort().map((k) => s.fc![k]))}
               <svg width="96" height="20" viewBox="0 0 96 20" aria-hidden="true"><polyline points={sp.h} fill="none" stroke="var(--fin-text2)" stroke-width="1.5" /><polyline points={sp.f} fill="none" stroke="var(--fin-amber, #E3B341)" stroke-width="1.5" /></svg>
             {:else}<span class="miss">{(r as { model_only?: boolean }).model_only ? cb.ui.model_only : cb.ui.na_long}</span>{/if}
