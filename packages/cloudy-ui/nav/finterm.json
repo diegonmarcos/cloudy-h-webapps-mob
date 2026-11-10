@@ -88,28 +88,38 @@
     ],
     "eq": [
       {
+        "kind": "section_title",
+        "title": "Performance"
+      },
+      {
         "kind": "dashboard",
-        "title": "World Equity Indices",
-        "subtitle": "Major equity index levels and moves worldwide",
+        "title": "World Indices Equity",
+        "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap an index for its holdings treemap",
         "dashboard": "world_equity_indices"
       },
       {
         "kind": "dashboard",
-        "title": "DM Equity (US)",
-        "subtitle": "US sectors and strategies (growth, value, momentum, quality, min-vol, small-cap, dividend, equal-weight)",
-        "dashboard": "eq_dm_us"
+        "title": "Commodities",
+        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)",
+        "dashboard": "commodities"
       },
       {
-        "kind": "dashboard",
-        "title": "EM Equity",
-        "subtitle": "EM sectors and EM government bonds in USD (1y, 10y, 25y)",
-        "dashboard": "eq_em"
+        "kind": "quote_board",
+        "title": "Commodity Prices",
+        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency",
+        "page": "commodity-prices",
+        "view": "commodities"
       },
       {
-        "kind": "dashboard",
-        "title": "Quotes & Charts",
-        "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices",
-        "dashboard": "equity_quote"
+        "kind": "quote_board",
+        "title": "Exchange Rates",
+        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix",
+        "page": "fx-rates",
+        "view": "fx_rates"
+      },
+      {
+        "kind": "section_title",
+        "title": "Data"
       },
       {
         "kind": "dashboard",
@@ -125,29 +135,15 @@
       },
       {
         "kind": "dashboard",
-        "title": "Watchlist & Alerts",
-        "subtitle": "Your symbols, price alerts and event alerts, kept on this device",
-        "dashboard": "watchlist"
-      },
-      {
-        "kind": "quote_board",
-        "title": "Exchange Rates",
-        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix",
-        "page": "fx-rates",
-        "view": "fx_rates"
-      },
-      {
-        "kind": "quote_board",
-        "title": "Commodity Prices",
-        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency",
-        "page": "commodity-prices",
-        "view": "commodities"
+        "title": "Quotes",
+        "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices",
+        "dashboard": "equity_quote"
       },
       {
         "kind": "dashboard",
-        "title": "Commodities",
-        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)",
-        "dashboard": "commodities"
+        "title": "Watchlist",
+        "subtitle": "Your symbols, price alerts and event alerts, kept on this device",
+        "dashboard": "watchlist"
       }
     ],
     "nw": [
@@ -442,27 +438,27 @@
     "eq": [
       {
         "slug": "world-equity-indices",
-        "title": "World Equity Indices",
+        "title": "World Indices Equity",
         "icon": "public",
-        "subtitle": "Major equity index levels and moves worldwide"
+        "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap an index for its holdings treemap"
       },
       {
-        "slug": "eq-dm-us",
-        "title": "DM Equity (US)",
-        "icon": "trending_up",
-        "subtitle": "US sectors and strategies (growth, value, momentum, quality, min-vol, small-cap, dividend, equal-weight)"
+        "slug": "commodities",
+        "title": "Commodities",
+        "icon": "inventory_2",
+        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
       },
       {
-        "slug": "eq-em",
-        "title": "EM Equity",
-        "icon": "explore",
-        "subtitle": "EM sectors and EM government bonds in USD (1y, 10y, 25y)"
+        "slug": "commodity-prices",
+        "title": "Commodity Prices",
+        "icon": "inventory_2",
+        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
       },
       {
-        "slug": "equity-quote",
-        "title": "Quotes & Charts",
-        "icon": "chart",
-        "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices"
+        "slug": "fx-rates",
+        "title": "Exchange Rates",
+        "icon": "swap_horiz",
+        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
       },
       {
         "slug": "equity-fundamentals",
@@ -477,28 +473,16 @@
         "subtitle": "Earnings this week with EPS consensus and last year's EPS"
       },
       {
+        "slug": "equity-quote",
+        "title": "Quotes",
+        "icon": "chart",
+        "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices"
+      },
+      {
         "slug": "watchlist",
-        "title": "Watchlist & Alerts",
+        "title": "Watchlist",
         "icon": "bookmark",
         "subtitle": "Your symbols, price alerts and event alerts, kept on this device"
-      },
-      {
-        "slug": "fx-rates",
-        "title": "Exchange Rates",
-        "icon": "swap_horiz",
-        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
-      },
-      {
-        "slug": "commodity-prices",
-        "title": "Commodity Prices",
-        "icon": "inventory_2",
-        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
-      },
-      {
-        "slug": "commodities",
-        "title": "Commodities",
-        "icon": "inventory_2",
-        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
       }
     ],
     "nw": [
@@ -690,6 +674,16 @@
       "slug": "pm-profiles",
       "tab": "pm",
       "to": "pm-portfolios"
+    },
+    {
+      "slug": "eq-dm-us",
+      "tab": "eq",
+      "to": "world-equity-indices"
+    },
+    {
+      "slug": "eq-em",
+      "tab": "eq",
+      "to": "world-equity-indices"
     }
   ],
   "pm": {
@@ -4379,7 +4373,7 @@
     },
     {
       "id": "world_equity_indices",
-      "entry": "World Equity Indices",
+      "entry": "World Indices Equity",
       "tab": "eq",
       "panels": [
         {
@@ -4562,19 +4556,9 @@
             "10Y"
           ],
           "unit": "%"
-        }
-      ],
-      "default": true,
-      "slug": "world-equity-indices",
-      "subtitle": "Major equity index levels and moves worldwide"
-    },
-    {
-      "id": "eq_dm_us",
-      "entry": "DM Equity (US)",
-      "tab": "eq",
-      "panels": [
+        },
         {
-          "id": "sectors",
+          "id": "dm_sectors",
           "title": "US sectors (SPDR ETFs, total return USD)",
           "source": "cboe",
           "view": "table",
@@ -4637,7 +4621,7 @@
           "unit": "%"
         },
         {
-          "id": "strategies",
+          "id": "dm_strategies",
           "title": "US strategies / factors (ETFs, USD)",
           "source": "cboe",
           "view": "table",
@@ -4694,7 +4678,7 @@
           "unit": "%"
         },
         {
-          "id": "screener",
+          "id": "dm_screener",
           "title": "Equity screener: 12 US mega-caps ranked by performance (price return, USD; tap a column to sort)",
           "source": "cboe",
           "view": "table",
@@ -4755,18 +4739,9 @@
             "10Y"
           ],
           "unit": "%"
-        }
-      ],
-      "slug": "eq-dm-us",
-      "subtitle": "US sectors and strategies (growth, value, momentum, quality, min-vol, small-cap, dividend, equal-weight)"
-    },
-    {
-      "id": "eq_em",
-      "entry": "EM Equity",
-      "tab": "eq",
-      "panels": [
+        },
         {
-          "id": "sectors",
+          "id": "em_sectors",
           "title": "EM sectors (MSCI EM sector indices, USD)",
           "source": "cboe",
           "view": "table",
@@ -4850,7 +4825,7 @@
           "unit": "%"
         },
         {
-          "id": "bonds",
+          "id": "em_bonds",
           "title": "EM government bonds in USD (total return)",
           "source": "cboe",
           "view": "table",
@@ -4912,324 +4887,9 @@
           "unit": "%"
         }
       ],
-      "slug": "eq-em",
-      "subtitle": "EM sectors and EM government bonds in USD (1y, 10y, 25y)"
-    },
-    {
-      "id": "equity_quote",
-      "entry": "Quotes & Charts",
-      "tab": "eq",
-      "panels": [
-        {
-          "id": "quote",
-          "title": "Quotes (15-min delayed)",
-          "source": "cboe",
-          "view": "quotes",
-          "derive": "points",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/quotes/{each}.json",
-            "each": [
-              "AAPL",
-              "MSFT",
-              "NVDA",
-              "AMZN",
-              "SPY",
-              "QQQ"
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes",
-              "params": {
-                "symbols": "AAPL,MSFT,NVDA,AMZN,SPY,QQQ"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "Chg",
-            "Chg %",
-            "As of"
-          ]
-        },
-        {
-          "id": "spx",
-          "title": "S&P 500, daily (1 year)",
-          "source": "cboe",
-          "view": "candles",
-          "derive": "candles",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/_SPX.json",
-            "last": 252,
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes/^SPX/history",
-              "params": {
-                "interval": "1d",
-                "range": "1y"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Date",
-            "Open",
-            "High",
-            "Low",
-            "Close"
-          ]
-        },
-        {
-          "id": "rt",
-          "title": "Real-time quotes and intraday charts",
-          "source": "finnhub",
-          "view": "table",
-          "placeholder": {
-            "reason": "needs a key or a connector"
-          }
-        }
-      ],
-      "search": true,
-      "slug": "equity-quote",
-      "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices"
-    },
-    {
-      "id": "equity_fundamentals",
-      "entry": "Fundamentals",
-      "tab": "eq",
-      "panels": [
-        {
-          "id": "profile",
-          "title": "Company profile (SEC EDGAR): Apple Inc.",
-          "source": "sec_edgar",
-          "view": "kv",
-          "derive": "kv",
-          "fetch": {
-            "provider": "sec_submissions",
-            "path": "/submissions/CIK{cik}.json",
-            "cik": "0000320193",
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/fundamentals/AAPL",
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Field",
-            "Value"
-          ]
-        },
-        {
-          "id": "netincome",
-          "title": "Net income by fiscal year (10-K, USD bn)",
-          "source": "sec_xbrl",
-          "view": "bars",
-          "derive": "points",
-          "fetch": {
-            "provider": "sec_concept",
-            "path": "/companyconcept/CIK{cik}/us-gaap/NetIncomeLoss.json",
-            "cik": "0000320193",
-            "scale": 1e-9,
-            "last": 6,
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/fundamentals/AAPL",
-              "params": {
-                "concept": "NetIncomeLoss"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Fiscal year",
-            "Actual",
-            "Previous",
-            "Period end"
-          ],
-          "value_columns": "actual_previous"
-        },
-        {
-          "id": "filings",
-          "title": "Latest filings (10-K, 10-Q, 8-K)",
-          "source": "sec_edgar",
-          "view": "news",
-          "derive": "filings",
-          "fetch": {
-            "provider": "sec_submissions",
-            "path": "/submissions/CIK{cik}.json",
-            "cik": "0000320193",
-            "forms": [
-              "10-K",
-              "10-Q",
-              "8-K"
-            ],
-            "last": 12,
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/fundamentals/AAPL",
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Filing",
-            "Form",
-            "Filed"
-          ]
-        }
-      ],
-      "slug": "equity-fundamentals",
-      "subtitle": "SEC EDGAR company profile, reported financials and filings"
-    },
-    {
-      "id": "earnings_calendar",
-      "entry": "Earnings Calendar",
-      "tab": "eq",
-      "panels": [
-        {
-          "id": "week",
-          "title": "Earnings this week",
-          "source": "nasdaq_calendar",
-          "view": "calendar",
-          "derive": "events",
-          "fetch": {
-            "provider": "nasdaq_earnings",
-            "path": "/earnings",
-            "params": {
-              "date": "{each}"
-            },
-            "each_days": 7,
-            "merge": true,
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/calendar/earnings",
-              "params": {
-                "days": "7"
-              },
-              "parse": "finterm_v1"
-            },
-            "filter": {
-              "days_back": 0,
-              "days_ahead": 7,
-              "importance_min": 2
-            }
-          },
-          "columns": [
-            "Date",
-            "Ctry",
-            "Company",
-            "Imp",
-            "EPS est.",
-            "EPS",
-            "EPS last yr"
-          ]
-        },
-        {
-          "id": "rt",
-          "title": "Earnings with actuals and surprise (real time)",
-          "source": "finnhub",
-          "view": "table",
-          "placeholder": {
-            "reason": "needs a key or a connector"
-          }
-        }
-      ],
-      "slug": "earnings-calendar",
-      "subtitle": "Earnings this week with EPS consensus and last year's EPS"
-    },
-    {
-      "id": "watchlist",
-      "entry": "Watchlist & Alerts",
-      "tab": "eq",
-      "panels": [
-        {
-          "id": "quotes",
-          "title": "Your watchlist (15-min delayed)",
-          "source": "cboe",
-          "view": "quotes",
-          "derive": "points",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/quotes/{each}.json",
-            "each": [
-              "AAPL",
-              "MSFT",
-              "_SPX"
-            ],
-            "each_user": "watchlist",
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes",
-              "params": {
-                "symbols": "{each_csv}"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "Chg",
-            "Chg %",
-            "As of"
-          ],
-          "alerts": "price",
-          "display": "watch"
-        },
-        {
-          "id": "events",
-          "title": "Alerts: events at or above your importance level",
-          "source": "forexfactory",
-          "view": "calendar",
-          "derive": "events",
-          "fetch": {
-            "provider": "ff_calendar",
-            "path": "/ff_calendar_thisweek.json",
-            "merge": true,
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/calendar/economic",
-              "params": {
-                "days": "7",
-                "importance": "2"
-              },
-              "parse": "finterm_v1"
-            },
-            "fallbacks": [
-              {
-                "source": "forexfactory",
-                "provider": "ff_calendar",
-                "path": "/ff_calendar_nextweek.json"
-              },
-              {
-                "source": "central_banks",
-                "provider": "declared_events",
-                "path": "central-banks.json"
-              }
-            ],
-            "filter": {
-              "days_back": 0,
-              "days_ahead": 7,
-              "importance_min": 2
-            }
-          },
-          "columns": [
-            "Time (UTC)",
-            "Ctry",
-            "Event",
-            "Imp",
-            "Cons.",
-            "Actual",
-            "Prev."
-          ],
-          "alerts": "event"
-        }
-      ],
-      "search": true,
-      "slug": "watchlist",
-      "subtitle": "Your symbols, price alerts and event alerts, kept on this device"
+      "default": true,
+      "slug": "world-equity-indices",
+      "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap an index for its holdings treemap"
     },
     {
       "id": "commodities",
@@ -5608,6 +5268,322 @@
       ],
       "slug": "commodities",
       "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
+    },
+    {
+      "id": "equity_fundamentals",
+      "entry": "Fundamentals",
+      "tab": "eq",
+      "panels": [
+        {
+          "id": "profile",
+          "title": "Company profile (SEC EDGAR): Apple Inc.",
+          "source": "sec_edgar",
+          "view": "kv",
+          "derive": "kv",
+          "fetch": {
+            "provider": "sec_submissions",
+            "path": "/submissions/CIK{cik}.json",
+            "cik": "0000320193",
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/fundamentals/AAPL",
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Field",
+            "Value"
+          ]
+        },
+        {
+          "id": "netincome",
+          "title": "Net income by fiscal year (10-K, USD bn)",
+          "source": "sec_xbrl",
+          "view": "bars",
+          "derive": "points",
+          "fetch": {
+            "provider": "sec_concept",
+            "path": "/companyconcept/CIK{cik}/us-gaap/NetIncomeLoss.json",
+            "cik": "0000320193",
+            "scale": 1e-9,
+            "last": 6,
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/fundamentals/AAPL",
+              "params": {
+                "concept": "NetIncomeLoss"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Fiscal year",
+            "Actual",
+            "Previous",
+            "Period end"
+          ],
+          "value_columns": "actual_previous"
+        },
+        {
+          "id": "filings",
+          "title": "Latest filings (10-K, 10-Q, 8-K)",
+          "source": "sec_edgar",
+          "view": "news",
+          "derive": "filings",
+          "fetch": {
+            "provider": "sec_submissions",
+            "path": "/submissions/CIK{cik}.json",
+            "cik": "0000320193",
+            "forms": [
+              "10-K",
+              "10-Q",
+              "8-K"
+            ],
+            "last": 12,
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/fundamentals/AAPL",
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Filing",
+            "Form",
+            "Filed"
+          ]
+        }
+      ],
+      "slug": "equity-fundamentals",
+      "subtitle": "SEC EDGAR company profile, reported financials and filings"
+    },
+    {
+      "id": "earnings_calendar",
+      "entry": "Earnings Calendar",
+      "tab": "eq",
+      "panels": [
+        {
+          "id": "week",
+          "title": "Earnings this week",
+          "source": "nasdaq_calendar",
+          "view": "calendar",
+          "derive": "events",
+          "fetch": {
+            "provider": "nasdaq_earnings",
+            "path": "/earnings",
+            "params": {
+              "date": "{each}"
+            },
+            "each_days": 7,
+            "merge": true,
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/calendar/earnings",
+              "params": {
+                "days": "7"
+              },
+              "parse": "finterm_v1"
+            },
+            "filter": {
+              "days_back": 0,
+              "days_ahead": 7,
+              "importance_min": 2
+            }
+          },
+          "columns": [
+            "Date",
+            "Ctry",
+            "Company",
+            "Imp",
+            "EPS est.",
+            "EPS",
+            "EPS last yr"
+          ]
+        },
+        {
+          "id": "rt",
+          "title": "Earnings with actuals and surprise (real time)",
+          "source": "finnhub",
+          "view": "table",
+          "placeholder": {
+            "reason": "needs a key or a connector"
+          }
+        }
+      ],
+      "slug": "earnings-calendar",
+      "subtitle": "Earnings this week with EPS consensus and last year's EPS"
+    },
+    {
+      "id": "equity_quote",
+      "entry": "Quotes",
+      "tab": "eq",
+      "panels": [
+        {
+          "id": "quote",
+          "title": "Quotes (15-min delayed)",
+          "source": "cboe",
+          "view": "quotes",
+          "derive": "points",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/quotes/{each}.json",
+            "each": [
+              "AAPL",
+              "MSFT",
+              "NVDA",
+              "AMZN",
+              "SPY",
+              "QQQ"
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes",
+              "params": {
+                "symbols": "AAPL,MSFT,NVDA,AMZN,SPY,QQQ"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "Chg",
+            "Chg %",
+            "As of"
+          ]
+        },
+        {
+          "id": "spx",
+          "title": "S&P 500, daily (1 year)",
+          "source": "cboe",
+          "view": "candles",
+          "derive": "candles",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/_SPX.json",
+            "last": 252,
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes/^SPX/history",
+              "params": {
+                "interval": "1d",
+                "range": "1y"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Date",
+            "Open",
+            "High",
+            "Low",
+            "Close"
+          ]
+        },
+        {
+          "id": "rt",
+          "title": "Real-time quotes and intraday charts",
+          "source": "finnhub",
+          "view": "table",
+          "placeholder": {
+            "reason": "needs a key or a connector"
+          }
+        }
+      ],
+      "search": true,
+      "slug": "equity-quote",
+      "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices"
+    },
+    {
+      "id": "watchlist",
+      "entry": "Watchlist",
+      "tab": "eq",
+      "panels": [
+        {
+          "id": "quotes",
+          "title": "Your watchlist (15-min delayed)",
+          "source": "cboe",
+          "view": "quotes",
+          "derive": "points",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/quotes/{each}.json",
+            "each": [
+              "AAPL",
+              "MSFT",
+              "_SPX"
+            ],
+            "each_user": "watchlist",
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes",
+              "params": {
+                "symbols": "{each_csv}"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "Chg",
+            "Chg %",
+            "As of"
+          ],
+          "alerts": "price",
+          "display": "watch"
+        },
+        {
+          "id": "events",
+          "title": "Alerts: events at or above your importance level",
+          "source": "forexfactory",
+          "view": "calendar",
+          "derive": "events",
+          "fetch": {
+            "provider": "ff_calendar",
+            "path": "/ff_calendar_thisweek.json",
+            "merge": true,
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/calendar/economic",
+              "params": {
+                "days": "7",
+                "importance": "2"
+              },
+              "parse": "finterm_v1"
+            },
+            "fallbacks": [
+              {
+                "source": "forexfactory",
+                "provider": "ff_calendar",
+                "path": "/ff_calendar_nextweek.json"
+              },
+              {
+                "source": "central_banks",
+                "provider": "declared_events",
+                "path": "central-banks.json"
+              }
+            ],
+            "filter": {
+              "days_back": 0,
+              "days_ahead": 7,
+              "importance_min": 2
+            }
+          },
+          "columns": [
+            "Time (UTC)",
+            "Ctry",
+            "Event",
+            "Imp",
+            "Cons.",
+            "Actual",
+            "Prev."
+          ],
+          "alerts": "event"
+        }
+      ],
+      "search": true,
+      "slug": "watchlist",
+      "subtitle": "Your symbols, price alerts and event alerts, kept on this device"
     },
     {
       "id": "economic_calendar",
@@ -8087,6 +8063,333 @@
           ]
         }
       ]
+    }
+  },
+  "index_holdings": {
+    "as_of": "2026-11",
+    "note": "Declared sample values (weights from published index fact sheets; pct are placeholder daily moves). Not live market data.",
+    "indices": {
+      "^GSPC": {
+        "name": "S&P 500",
+        "country": "USA",
+        "aliases": [
+          "_SPX",
+          "SPX",
+          "^SPX",
+          "SPY",
+          "S&P 500"
+        ],
+        "holdings": [
+          {
+            "ticker": "AAPL",
+            "name": "Apple",
+            "weight": 7,
+            "pct": 0.9
+          },
+          {
+            "ticker": "MSFT",
+            "name": "Microsoft",
+            "weight": 6.5,
+            "pct": 0.4
+          },
+          {
+            "ticker": "NVDA",
+            "name": "Nvidia",
+            "weight": 6.2,
+            "pct": 2.1
+          },
+          {
+            "ticker": "AMZN",
+            "name": "Amazon",
+            "weight": 3.9,
+            "pct": -0.6
+          },
+          {
+            "ticker": "META",
+            "name": "Meta",
+            "weight": 2.6,
+            "pct": 1.3
+          },
+          {
+            "ticker": "GOOGL",
+            "name": "Alphabet",
+            "weight": 2.3,
+            "pct": -0.3
+          },
+          {
+            "ticker": "AVGO",
+            "name": "Broadcom",
+            "weight": 2.1,
+            "pct": 1.7
+          },
+          {
+            "ticker": "BRK.B",
+            "name": "Berkshire B",
+            "weight": 1.7,
+            "pct": 0.2
+          },
+          {
+            "ticker": "TSLA",
+            "name": "Tesla",
+            "weight": 1.6,
+            "pct": -1.8
+          },
+          {
+            "ticker": "LLY",
+            "name": "Eli Lilly",
+            "weight": 1.4,
+            "pct": 0.5
+          },
+          {
+            "ticker": "JPM",
+            "name": "JPMorgan",
+            "weight": 1.3,
+            "pct": -0.4
+          },
+          {
+            "ticker": "Other",
+            "name": "Other constituents",
+            "weight": 63.4,
+            "pct": 0.1
+          }
+        ]
+      },
+      "^NDX": {
+        "name": "Nasdaq-100",
+        "country": "USA",
+        "aliases": [
+          "_NDX",
+          "NDX",
+          "QQQ",
+          "Nasdaq-100",
+          "Nasdaq 100"
+        ],
+        "holdings": [
+          {
+            "ticker": "AAPL",
+            "name": "Apple",
+            "weight": 8.8,
+            "pct": 0.9
+          },
+          {
+            "ticker": "MSFT",
+            "name": "Microsoft",
+            "weight": 8.1,
+            "pct": 0.4
+          },
+          {
+            "ticker": "NVDA",
+            "name": "Nvidia",
+            "weight": 7.8,
+            "pct": 2.1
+          },
+          {
+            "ticker": "AMZN",
+            "name": "Amazon",
+            "weight": 5.2,
+            "pct": -0.6
+          },
+          {
+            "ticker": "AVGO",
+            "name": "Broadcom",
+            "weight": 4.9,
+            "pct": 1.7
+          },
+          {
+            "ticker": "META",
+            "name": "Meta",
+            "weight": 3.9,
+            "pct": 1.3
+          },
+          {
+            "ticker": "GOOGL",
+            "name": "Alphabet",
+            "weight": 3.4,
+            "pct": -0.3
+          },
+          {
+            "ticker": "TSLA",
+            "name": "Tesla",
+            "weight": 2.9,
+            "pct": -1.8
+          },
+          {
+            "ticker": "COST",
+            "name": "Costco",
+            "weight": 2.5,
+            "pct": 0.3
+          },
+          {
+            "ticker": "NFLX",
+            "name": "Netflix",
+            "weight": 2.2,
+            "pct": 0.7
+          },
+          {
+            "ticker": "Other",
+            "name": "Other constituents",
+            "weight": 50.3,
+            "pct": 0.2
+          }
+        ]
+      },
+      "^N225": {
+        "name": "Nikkei 225",
+        "country": "Japan",
+        "aliases": [
+          "N225",
+          "^NKX",
+          "Nikkei 225",
+          "Nikkei",
+          "EWJ"
+        ],
+        "holdings": [
+          {
+            "ticker": "9983.T",
+            "name": "Fast Retailing",
+            "weight": 10.2,
+            "pct": 1.1
+          },
+          {
+            "ticker": "8035.T",
+            "name": "Tokyo Electron",
+            "weight": 6.8,
+            "pct": 2.4
+          },
+          {
+            "ticker": "9984.T",
+            "name": "SoftBank Group",
+            "weight": 5.1,
+            "pct": -0.9
+          },
+          {
+            "ticker": "6857.T",
+            "name": "Advantest",
+            "weight": 4.3,
+            "pct": 1.9
+          },
+          {
+            "ticker": "6954.T",
+            "name": "Fanuc",
+            "weight": 2.2,
+            "pct": 0.4
+          },
+          {
+            "ticker": "6367.T",
+            "name": "Daikin",
+            "weight": 2,
+            "pct": -0.5
+          },
+          {
+            "ticker": "4063.T",
+            "name": "Shin-Etsu Chemical",
+            "weight": 1.9,
+            "pct": 0.6
+          },
+          {
+            "ticker": "8058.T",
+            "name": "Mitsubishi Corp",
+            "weight": 1.7,
+            "pct": -0.2
+          },
+          {
+            "ticker": "6098.T",
+            "name": "Recruit Holdings",
+            "weight": 1.6,
+            "pct": 0.8
+          },
+          {
+            "ticker": "7974.T",
+            "name": "Nintendo",
+            "weight": 1.5,
+            "pct": 1.4
+          },
+          {
+            "ticker": "Other",
+            "name": "Other constituents",
+            "weight": 62.7,
+            "pct": -0.1
+          }
+        ]
+      },
+      "^FTSE": {
+        "name": "FTSE 100",
+        "country": "UK",
+        "aliases": [
+          "FTSE",
+          "FTSE 100",
+          "UKX",
+          "EWU"
+        ],
+        "holdings": [
+          {
+            "ticker": "AZN.L",
+            "name": "AstraZeneca",
+            "weight": 8.4,
+            "pct": 0.5
+          },
+          {
+            "ticker": "SHEL.L",
+            "name": "Shell",
+            "weight": 8,
+            "pct": -1.2
+          },
+          {
+            "ticker": "HSBA.L",
+            "name": "HSBC",
+            "weight": 6.7,
+            "pct": 0.3
+          },
+          {
+            "ticker": "ULVR.L",
+            "name": "Unilever",
+            "weight": 4.9,
+            "pct": -0.4
+          },
+          {
+            "ticker": "BP.L",
+            "name": "BP",
+            "weight": 3.6,
+            "pct": -1.5
+          },
+          {
+            "ticker": "RIO.L",
+            "name": "Rio Tinto",
+            "weight": 3.2,
+            "pct": 0.9
+          },
+          {
+            "ticker": "GSK.L",
+            "name": "GSK",
+            "weight": 3,
+            "pct": 0.2
+          },
+          {
+            "ticker": "DGE.L",
+            "name": "Diageo",
+            "weight": 2.7,
+            "pct": -0.7
+          },
+          {
+            "ticker": "REL.L",
+            "name": "RELX",
+            "weight": 2.6,
+            "pct": 0.6
+          },
+          {
+            "ticker": "RR.L",
+            "name": "Rolls-Royce",
+            "weight": 2.4,
+            "pct": 1.8
+          },
+          {
+            "ticker": "Other",
+            "name": "Other constituents",
+            "weight": 54.5,
+            "pct": 0
+          }
+        ]
+      }
     }
   },
   "free_stack": {
