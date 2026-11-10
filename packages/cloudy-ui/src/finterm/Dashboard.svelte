@@ -22,6 +22,7 @@ import FinMatrix from './components/FinMatrix.svelte';
   import FinTape, { type TapeItem } from './components/FinTape.svelte';
   import type { Quote } from './components/FinQuote.svelte';
   import FinNews from './components/FinNews.svelte';
+  import type { Holding } from './components/FinTreemap.svelte';
 
   let { dash }: { dash: Dashboard } = $props();
   type State = { phase: 'loading' } | { phase: 'data'; data: PanelData; at: number; stale: boolean; lastGood?: boolean } | { phase: 'placeholder'; ph: Placeholder };
@@ -220,8 +221,18 @@ import FinMatrix from './components/FinMatrix.svelte';
     return out.slice(0, 12);
   });
   const tapeStale = $derived(dash.panels.some((p) => p.view === 'quotes' && staleOf(p, states[p.id] ?? { phase: 'loading' })));
+  // #1612 EQ > World Indices Equity: tapping an index opens its performance breakdown by holding as a treemap.
+  type IndexEntry = { name: string; aliases?: string[]; holdings: Holding[] };
+  const INDEX_HOLDINGS = ((FINTERM as unknown as { index_holdings?: { indices?: Record<string, IndexEntry> } }).index_holdings?.indices) ?? {};
+  const normKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const holdingsByKey = new Map<string, IndexEntry>();
+  for (const [key, entry] of Object.entries(INDEX_HOLDINGS)) for (const k of [key, entry.name, ...(entry.aliases ?? [])]) holdingsByKey.set(normKey(k), entry);
+  const indexFor = (label: string): IndexEntry | undefined => holdingsByKey.get(normKey(short(label))) ?? holdingsByKey.get(normKey(label));
+  let tree = $state<IndexEntry | null>(null);
   function openQuote(p: Panel, d: PanelData, i: number) {
     const r = d.rows[i]; if (!r) return;
+    const idx = dash.id === 'world_equity_indices' ? indexFor(r[0] ?? '') : undefined;
+    if (idx) { tree = idx; return; }
     quote = { sym: short(r[0] ?? ''), name: r[0] ?? '', last: r[1] ?? DASH, chg: r[2] ?? DASH, pct: p.view === 'quotes' ? r[3] ?? DASH : DASH, asOf: r[4] ?? d.asOf, source: attribution(p).name, unit: '', hist: d.spark?.[i] ?? null };
   }
   function openSym(sym: string) {
@@ -348,9 +359,25 @@ import FinMatrix from './components/FinMatrix.svelte';
 <!-- search and the quote card are overlays, not first paint: lazy chunks mounted on first use, kept mounted after -->
 {#if searchUsed}{#await import('./components/FinSearch.svelte') then m}<m.default items={catalogue} bind:open={searchOpen} onPick={pick} />{/await}{/if}
 {#if quoteUsed}{#await import('./components/FinQuote.svelte') then m}<m.default bind:q={quote} {watched} onStar={toggleStar} />{/await}{/if}
+<!-- #1612 index holdings treemap overlay: tap an index in World Indices Equity -->
+{#if tree}
+  <div class="tmov" role="dialog" aria-modal="true" aria-label={`${tree.name} holdings`}>
+    <button type="button" class="tmbd" aria-label="Close" onclick={() => (tree = null)}></button>
+    <div class="tmcard">
+      <header class="tmhd"><b>{tree.name} — performance by holding</b><button type="button" class="tmx" aria-label="Close" onclick={() => (tree = null)}>✕</button></header>
+      {#await import('./components/FinTreemap.svelte') then m}<m.default holdings={tree.holdings} />{/await}
+    </div>
+  </div>
+{/if}
 
 <style>
   .dash { padding: 8px 12px 96px; display: flex; flex-direction: column; gap: 8px; background: var(--fin-canvas); min-height: 100%; box-sizing: border-box; }
+  .tmov { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .tmbd { all: unset; position: absolute; inset: 0; background: rgba(0, 0, 0, .55); cursor: pointer; }
+  .tmcard { position: relative; z-index: 1; width: min(640px, 100%); max-height: 86vh; overflow: auto; background: var(--fin-canvas); border: 1px solid var(--fin-line, #222); border-radius: 10px; padding: 12px 14px; box-shadow: 0 12px 40px rgba(0, 0, 0, .5); }
+  .tmhd { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-size: 14px; }
+  .tmx { all: unset; cursor: pointer; padding: 2px 8px; border-radius: 6px; color: var(--fin-text2); font-size: 14px; }
+  .tmx:hover, .tmx:focus-visible { background: var(--fin-raised); color: var(--fin-text); }
   .bar { display: flex; gap: 8px; }
   .sbtn { all: unset; box-sizing: border-box; cursor: text; flex: 1; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 10px; background: var(--fin-raised); color: var(--fin-text2); font: 400 13px var(--fin-sans); }
   .sbtn kbd { margin-left: auto; font: 500 10px var(--fin-mono); border: 1px solid var(--fin-hairline); border-radius: 4px; padding: 1px 5px; }

@@ -35,7 +35,7 @@ export const strip = (v) => Array.isArray(v) ? v.map(strip)
 export const slugOf = (id) => id.toLowerCase().replace(/_/g, '-');
 
 /** Pure: the Android declarations + the containers declaration -> the web file. Throws on any contradiction. */
-export function buildFinterm({ sources, dashboards, build, services, appId, declared = {}, universe = null, pm = null }) {
+export function buildFinterm({ sources, dashboards, build, services, appId, declared = {}, universe = null, pm = null, holdings = null }) {
   const fail = (m) => { throw new Error(m); };
   const stacks = build.ui?.stacks ?? fail('build.json has no ui.stacks');
   const byId = new Map(dashboards.dashboards.map((d) => [d.id, d]));
@@ -130,6 +130,8 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
     sources: slim,
     dashboards: out,
     declared: files,
+    // #1612 EQ > World Indices Equity: declared top constituents (weight + sample change) for the per-index performance TREEMAP (USA, Japan, UK)
+    index_holdings: holdings ? strip(holdings) : null,
     // #1416 About > Data sources: the free stack of data/universe.json, keys and flags as declared (the web holds no key)
     free_stack: universe?.free_stack ? freeStack(strip(universe.free_stack)) : null,
   };
@@ -159,6 +161,7 @@ if (process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url)) {
       pm: (() => { const t = readRaw(`${dir}/data/pm.json`); return t == null ? null : JSON.parse(t); })(),
       // a declared data file is read when the app has it; a panel naming one that is missing fails the render (buildFinterm)
       universe: (() => { const t = readRaw(`${dir}/data/universe.json`); return t == null ? null : JSON.parse(t); })(),
+      holdings: (() => { const t = readRaw(`${dir}/data/index-holdings.json`); return t == null ? null : JSON.parse(t); })(),
       declared: Object.fromEntries(['central-banks.json'].flatMap((n) => { const t = readRaw(`${dir}/data/${n}`); return t == null ? [] : [[n, JSON.parse(t)]]; })),
     });
   } catch (e) { console.error('FAIL', e.message); process.exit(1); }
