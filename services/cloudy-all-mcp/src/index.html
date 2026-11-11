@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>cloudy-all-mcp - Cloud service</title>
+<meta name="description" content="Fleet MCP router: list_servers, list_tools(server), call(server, tool, args)">
+<style>
+:root{--bg:#0b0f17;--fg:#e6e9ef;--mut:#9aa4b2;--card:#141a26;--bd:#243049;--ac:#4cc2ff}
+@media (prefers-color-scheme:light){:root{--bg:#f6f8fb;--fg:#162033;--mut:#5a6579;--card:#fff;--bd:#d6dde9;--ac:#0a6fb8}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:24px 16px 64px}a{color:var(--ac)}nav.crumbs{font-size:14px;color:var(--mut);margin-bottom:12px}
+h1{font-size:2rem;margin:.2em 0}h2{font-size:1.2rem;margin:1.8em 0 .6em;border-bottom:1px solid var(--bd);padding-bottom:.3em}
+.lead{color:var(--mut)}.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:12px 0}
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid var(--ac);text-decoration:none;font-weight:600;margin:4px 8px 4px 0}
+.btn.p{background:var(--ac);color:#04121c}code{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:1px 6px}
+</style>
+<link rel="stylesheet" href="/cloud-webapps/nav.css"><script src="/cloud-webapps/nav.js" defer></script>
+</head>
+<body>
+<main>
+<nav class="crumbs"><a href="/cloud-webapps/">Cloud apps</a> / cloudy-all-mcp</nav>
+<h1>cloudy-all-mcp</h1>
+<p class="lead">Fleet MCP router: list_servers, list_tools(server), call(server, tool, args)</p>
+<p>You reached this page because the service answered 401 or 403 for this browser. Here is how to get in.</p>
+<h2>Join the mesh</h2><div class="card"><p>Private name on the mesh: <code>cloudy-all-mcp.mesh.diegonmarcos.com</code>. Join the WireGuard mesh (or enrol the device in Cloudflare WARP) and the name resolves; off the mesh it answers 403. How to join: <a href="/cloud-webapps/c3-security-network/">Security &amp; Network</a>.</p></div>
+<h2>API access (bearer)</h2><div class="card"><p>Clients authenticate with <code>Authorization: Bearer &lt;token&gt;</code>; tokens are issued after an owner sign-in through the auth portal. Non-browser clients keep the plain 401/403 status and are never redirected here. Details: <a href="/cloud-webapps/c3-mcp-apis/">MCP &amp; APIs</a>.</p></div>
+</main>
+</body>
+</html>
