@@ -5372,6 +5372,11 @@
         }
       }
     },
+    "cloud-c3-webserver": {
+      "configs_ui": [
+        "nav_ui"
+      ]
+    },
     "cloud-gallery": {
       "configs_ui": [
         "nav_ui"
@@ -9203,6 +9208,206 @@
             "snack": "Path copied"
           }
         ],
+        "menus": {
+          "item": [
+            {
+              "id": "open",
+              "label": "Open",
+              "items": [
+                {
+                  "id": "editor",
+                  "label": "Open in Editor"
+                },
+                {
+                  "id": "edit",
+                  "label": "Edit as text"
+                },
+                {
+                  "id": "open_with",
+                  "label": "Open with app…"
+                },
+                {
+                  "id": "open_other_pane",
+                  "label": "Open in other pane"
+                },
+                {
+                  "id": "unzip",
+                  "label": "Unzip…"
+                },
+                {
+                  "id": "convert",
+                  "label": "Convert…"
+                },
+                {
+                  "id": "convert_pdf",
+                  "label": "Convert PDF…"
+                }
+              ]
+            },
+            {
+              "id": "share",
+              "label": "Share",
+              "items": [
+                {
+                  "id": "copy_path",
+                  "label": "Copy path"
+                },
+                {
+                  "id": "copy_to_downloads",
+                  "label": "Copy to Downloads"
+                },
+                {
+                  "id": "copy_to_clipboard",
+                  "label": "Copy to clipboard"
+                },
+                {
+                  "id": "share",
+                  "label": "Share…"
+                }
+              ]
+            },
+            {
+              "id": "meta",
+              "label": "Meta",
+              "items": [
+                {
+                  "id": "rename",
+                  "label": "Rename"
+                },
+                {
+                  "id": "delete",
+                  "label": "Delete"
+                },
+                {
+                  "id": "properties",
+                  "label": "Properties"
+                },
+                {
+                  "id": "compress",
+                  "label": "Compress (.zip / .tar.gz)…"
+                },
+                {
+                  "id": "bookmark",
+                  "label": "Bookmark folder"
+                }
+              ]
+            },
+            {
+              "id": "git",
+              "label": "Git",
+              "git_only": true,
+              "items": [
+                {
+                  "id": "git_rename",
+                  "label": "Git rename (git mv)"
+                },
+                {
+                  "id": "git_move",
+                  "label": "Git move (git mv)…"
+                },
+                {
+                  "id": "git_versions",
+                  "label": "Versions / history"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "id": "actions",
+              "label": "Actions",
+              "items": [
+                {
+                  "id": "delete_all",
+                  "label": "Delete all"
+                },
+                {
+                  "id": "move_all",
+                  "label": "Move all…"
+                },
+                {
+                  "id": "copy_all",
+                  "label": "Copy all…"
+                },
+                {
+                  "id": "copy_to_other_pane",
+                  "label": "Copy → other pane"
+                },
+                {
+                  "id": "move_to_other_pane",
+                  "label": "Move → other pane"
+                },
+                {
+                  "id": "zip_all",
+                  "label": "Zip all (.zip)"
+                },
+                {
+                  "id": "tar_all",
+                  "label": "Compress all (.tar.gz)"
+                },
+                {
+                  "id": "clear_selection",
+                  "label": "Clear selection"
+                },
+                {
+                  "id": "invert_selection",
+                  "label": "Invert selection"
+                },
+                {
+                  "id": "select_all",
+                  "label": "Select all"
+                }
+              ]
+            },
+            {
+              "id": "share",
+              "label": "Share",
+              "items": [
+                {
+                  "id": "copy_paths",
+                  "label": "Copy paths"
+                },
+                {
+                  "id": "copy_to_downloads",
+                  "label": "Copy to Downloads"
+                },
+                {
+                  "id": "share",
+                  "label": "Share…"
+                }
+              ]
+            },
+            {
+              "id": "meta",
+              "label": "Meta",
+              "items": [
+                {
+                  "id": "properties",
+                  "label": "Properties (size / count)"
+                },
+                {
+                  "id": "rename",
+                  "label": "Rename"
+                }
+              ]
+            },
+            {
+              "id": "git",
+              "label": "Git",
+              "git_only": true,
+              "items": [
+                {
+                  "id": "git_move_all",
+                  "label": "Move all (git mv)…"
+                },
+                {
+                  "id": "git_rename",
+                  "label": "Rename (git mv)"
+                }
+              ]
+            }
+          ]
+        },
         "default_dual_pane": true,
         "tabs_per_pane_max": 6,
         "search": {
@@ -10601,9 +10806,34 @@
             "groups": [
               {
                 "id": "check",
-                "label": "Check",
+                "label": "Refresh",
                 "icon": "sync",
                 "items": [
+                  {
+                    "id": "refresh_list",
+                    "kind": "refresh_list",
+                    "label": "Refresh repo list",
+                    "hint": "re-read the GitHub / fleet listing and the local clones; no git operation",
+                    "icon": "sync",
+                    "exclusive": false
+                  },
+                  {
+                    "id": "fetch_status",
+                    "kind": "fetch_status",
+                    "label": "Fetch status",
+                    "hint": "read-only: git fetch --dry-run and git remote show origin",
+                    "icon": "info",
+                    "exclusive": false
+                  },
+                  {
+                    "id": "fetch_now",
+                    "kind": "op",
+                    "op": "fetch",
+                    "label": "Fetch",
+                    "hint": "git fetch: really download the remote refs",
+                    "icon": "download",
+                    "scope": "filtered"
+                  },
                   {
                     "id": "check_lite",
                     "kind": "check_light",
@@ -10902,10 +11132,43 @@
                     "hint": "parentless and unlisted folders",
                     "icon": "folder",
                     "exclusive": false
+                  },
+                  {
+                    "id": "remove_auto_cloned",
+                    "kind": "remove_auto_cloned",
+                    "label": "Remove auto-cloned copies",
+                    "hint": "folders an older Cloud Drive cloned by itself: dirty / unpushed checked first, clean ones removed on one confirm",
+                    "icon": "delete",
+                    "exclusive": false
                   }
                 ]
               }
             ]
+          },
+          "auto_cloned_cleanup": {
+            "label": "Remove auto-cloned copies",
+            "hint": "These folders were cloned automatically by an older Cloud Drive. Clean copies are removed; any with uncommitted changes or unpushed commits are kept.",
+            "names": [
+              "cloudy-___",
+              "cloudy-t-infra",
+              "cloudy-u-desktop",
+              "cloudy-u-android",
+              "cloudy-u-containers",
+              "cloudy-u-linux",
+              "diegonmarcos.github.io",
+              "Projects-___",
+              "cloudy_db_assets-cdn",
+              "z-archived_front-data"
+            ],
+            "labels": {
+              "none": "No auto-cloned copy is left in the store.",
+              "reading": "Reading each folder for uncommitted changes and unpushed commits...",
+              "will_remove": "Removed (clean, nothing unpushed):",
+              "will_keep": "Kept (would lose work):",
+              "confirm": "Remove",
+              "cancel": "Cancel",
+              "no_delete": "No folder Delete action is declared."
+            }
           },
           "logs": {
             "title": "Logs",

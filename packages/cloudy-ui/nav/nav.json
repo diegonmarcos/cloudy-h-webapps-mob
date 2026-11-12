@@ -8227,15 +8227,156 @@
       "icon": null,
       "group": null,
       "category": "android",
-      "description": "The phone's local web server, as an APK, in Rust and web only: a Tauri 2 app whose Rust library starts the shared fleet web server (ab_cloud-libs-shared/libs/fleet-webserver, the Linux my-webserver UI bundled verbatim) in-process on 8002, rooted at /storage/emulated/0 and nothing else, and opens its one webview on the app shell: five bottom tabs Pages, API, Home, Files and Configs, whose Files tab is that unchanged file view. A tapped link offers Open in browser or Open embedded (build.json::links). The SuperApp's About, Logcat and Diagnose are served on 8003, and a private DNS (udp 5354) answers termux.app, nix.app, emulated.app and cloud.app.",
-      "kind": "card",
+      "description": "The phone's local web server, as an APK, a native Kotlin / Compose app (#1682) whose Rust core starts the shared fleet web server (ab_cloud-libs-shared/libs/fleet-webserver, the Linux my-webserver UI bundled verbatim) in-process on 8002, rooted at /storage/emulated/0 and nothing else, and draws the app shell natively: five bottom tabs Pages, API, Home, SSHd and ADB Shell, Configs behind the top bar's gear (the same pages the server's own web shell serves on /__app__/). A tapped link offers Open in browser or Open embedded (build.json::links). The SuperApp's About, Logcat and Diagnose are served on 8003, and a private DNS (udp 5354) answers termux.app, nix.app, emulated.app and cloud.app.",
+      "kind": "app",
       "wasm": null,
-      "default_section": null,
-      "bottom_nav": [],
+      "default_section": "home",
+      "bottom_nav": [
+        "pages",
+        "api",
+        "home",
+        "sshd",
+        "adb_shell"
+      ],
       "top_bar": null,
       "nav_ui": null,
-      "configs_ui": [],
-      "sections": []
+      "configs_ui": [
+        "nav_ui"
+      ],
+      "sections": [
+        {
+          "id": "pages",
+          "label": "Pages",
+          "icon": "description",
+          "pages": [
+            {
+              "id": "all",
+              "label": "All",
+              "icon": "apps",
+              "pages": []
+            },
+            {
+              "id": "explorer",
+              "label": "File Explorer",
+              "icon": "folder",
+              "pages": []
+            },
+            {
+              "id": "browser",
+              "label": "Pages",
+              "icon": "language",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "api",
+          "label": "API",
+          "icon": "api",
+          "pages": [
+            {
+              "id": "topology",
+              "label": "Topology",
+              "icon": "account_tree",
+              "pages": []
+            },
+            {
+              "id": "mcp",
+              "label": "MCP",
+              "icon": "hub",
+              "pages": []
+            },
+            {
+              "id": "public",
+              "label": "Public Endpoints",
+              "icon": "public",
+              "pages": []
+            },
+            {
+              "id": "mesh",
+              "label": "Mesh Endpoints",
+              "icon": "lan",
+              "pages": []
+            },
+            {
+              "id": "apps",
+              "label": "Apps Endpoints",
+              "icon": "apps",
+              "pages": []
+            },
+            {
+              "id": "ipc",
+              "label": "Apps IPC",
+              "icon": "swap_horiz",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home"
+        },
+        {
+          "id": "sshd",
+          "label": "SSHd",
+          "icon": "terminal"
+        },
+        {
+          "id": "adb_shell",
+          "label": "ADB Shell",
+          "icon": "android"
+        },
+        {
+          "id": "configs",
+          "label": "Configs",
+          "icon": "settings",
+          "pages": [
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings",
+              "pages": []
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "verified_user",
+              "pages": []
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info",
+              "pages": []
+            },
+            {
+              "id": "server",
+              "label": "Server",
+              "icon": "dns",
+              "pages": []
+            },
+            {
+              "id": "device",
+              "label": "Device",
+              "icon": "smartphone",
+              "pages": []
+            },
+            {
+              "id": "engines",
+              "label": "Engines",
+              "icon": "memory",
+              "pages": []
+            },
+            {
+              "id": "links",
+              "label": "Links",
+              "icon": "link",
+              "pages": []
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "cloud-media-center",
