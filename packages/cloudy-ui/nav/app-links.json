@@ -54,9 +54,9 @@
       "id": "cloud-news",
       "kind": "container",
       "reason": "News: the GDELT news aggregator container",
-      "href": "https://c3-pvt.diegonmarcos.com/news-gdelt/",
-      "service": "news-gdelt",
-      "dir": "user-news_news-gdelt",
+      "href": "https://c3-pvt.diegonmarcos.com/capital-stack-news-gdelt-api/",
+      "service": "capital-stack-news-gdelt-api",
+      "dir": "user-news_capital-stack-news-gdelt-api",
       "mesh": true,
       "via": "c3-pvt"
     },
@@ -213,9 +213,9 @@
       "entries_open_app": true,
       "backend": {
         "label": "Backend (mesh)",
-        "href": "https://capital-stack-finterminal-api.mesh.diegonmarcos.com/api/v1/info",
-        "service": "capital-stack-finterminal-api",
-        "dir": "user-fin_capital-stack-finterminal-api",
+        "href": "https://capital-stack-finterm-api.mesh.diegonmarcos.com/api/v1/info",
+        "service": "capital-stack-finterm-api",
+        "dir": "user-fin_capital-stack-finterm-api",
         "mesh": true,
         "via": "mesh"
       },

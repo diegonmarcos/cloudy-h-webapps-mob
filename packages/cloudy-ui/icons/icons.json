@@ -383,6 +383,7 @@
     "phone": "phone_android",
     "feed": "rss_feed",
     "access": "security",
+    "torrent": "cloud_download",
     "calendar": "date_range",
     "costs": "payments",
     "documents": "description",
@@ -412,7 +413,11 @@
     "bluetooth_connected": "bluetooth_connected",
     "wifi": "wifi",
     "bluetooth": "bluetooth",
-    "nfc": "nfc"
+    "nfc": "nfc",
+    "call": "call",
+    "mood": "mood",
+    "attach_file": "attach_file",
+    "dataset": "dataset"
   },
   "filled": [
     "account_circle",

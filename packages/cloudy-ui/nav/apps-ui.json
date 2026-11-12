@@ -2477,14 +2477,14 @@
           },
           {
             "url": "http://cloud.app",
-            "title": "Cloud"
+            "title": "X-Ray Device"
           }
         ],
         "local_pinned_tabs": {
           "Termux": "http://termux.app",
           "Nix": "http://nix.app",
           "Local": "http://emulated.app",
-          "Cloud": "http://cloud.app"
+          "X-Ray Device": "http://cloud.app"
         },
         "default_engine": "duckduckgo",
         "search_engines": [
@@ -3118,15 +3118,15 @@
         "menu": {
           "sections": [
             {
-              "id": "page_actions",
-              "label": "Page Actions"
+              "id": "actions",
+              "label": "Actions"
             },
             {
-              "id": "addons",
+              "id": "page_tools",
               "label": "Page Tools"
             },
             {
-              "id": "site",
+              "id": "site_data",
               "label": "Site Data"
             },
             {
@@ -3134,8 +3134,8 @@
               "label": "Site Perms"
             },
             {
-              "id": "devtools",
-              "label": "DevTools"
+              "id": "dev_tools",
+              "label": "Dev Tools"
             }
           ],
           "requires_why": {
@@ -3149,7 +3149,7 @@
           "items": [
             {
               "id": "back",
-              "section": "page_actions",
+              "section": "actions",
               "label": "Back",
               "requires": [
                 "page",
@@ -3159,7 +3159,7 @@
             },
             {
               "id": "forward",
-              "section": "page_actions",
+              "section": "actions",
               "label": "Forward",
               "requires": [
                 "page",
@@ -3169,7 +3169,7 @@
             },
             {
               "id": "reload",
-              "section": "page_actions",
+              "section": "actions",
               "label": "Reload",
               "requires": [
                 "page"
@@ -3178,7 +3178,7 @@
             },
             {
               "id": "hard_refresh",
-              "section": "page_actions",
+              "section": "actions",
               "label": "Hard refresh (cache, cookies, storage)",
               "requires": [
                 "page"
@@ -3186,7 +3186,7 @@
             },
             {
               "id": "light_refresh",
-              "section": "page_actions",
+              "section": "actions",
               "label": "Light refresh (cache)",
               "requires": [
                 "page"
@@ -3194,7 +3194,7 @@
             },
             {
               "id": "bookmark",
-              "section": "page_actions",
+              "section": "actions",
               "label": "Bookmark this page",
               "kind": "toggle",
               "checked": "bookmarked",
@@ -3203,116 +3203,9 @@
               ]
             },
             {
-              "id": "find",
-              "section": "page_actions",
-              "label": "Find in page",
-              "requires": [
-                "page"
-              ],
-              "api": true
-            },
-            {
-              "id": "share",
-              "section": "page_actions",
-              "label": "Share…",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "copy_url",
-              "section": "page_actions",
-              "label": "Copy URL",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "open_external",
-              "section": "page_actions",
-              "label": "Open in another app…",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "desktop",
-              "section": "page_actions",
-              "label": "Desktop site",
-              "kind": "toggle",
-              "checked": "desktop_mode",
-              "api": true
-            },
-            {
-              "id": "add_to_home",
-              "section": "page_actions",
-              "label": "Add to home screen",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "print",
-              "section": "page_actions",
-              "label": "Print / Save as PDF",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "download_page",
-              "section": "page_actions",
-              "label": "Download this page",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "save_page",
-              "section": "page_actions",
-              "label": "Save this page offline",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "save_site",
-              "section": "page_actions",
-              "label": "Save this site offline",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "pin_site",
-              "section": "page_actions",
-              "label": "Pin this site offline",
-              "kind": "toggle",
-              "checked": "site_pinned",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "download_site",
-              "section": "page_actions",
-              "label": "Download full site (offline cache)",
-              "requires": [
-                "page"
-              ]
-            },
-            {
-              "id": "fill_profile",
-              "section": "page_actions",
-              "label": "Autofill this page…",
-              "requires": [
-                "page",
-                "profile_present"
-              ]
-            },
-            {
               "id": "reader",
-              "section": "addons",
+              "section": "page_tools",
+              "category": "Reading",
               "label": "Reader mode",
               "kind": "toggle",
               "checked": "reader_on",
@@ -3323,7 +3216,8 @@
             },
             {
               "id": "translate",
-              "section": "addons",
+              "section": "page_tools",
+              "category": "Reading",
               "label": "Translate page",
               "requires": [
                 "page",
@@ -3334,7 +3228,8 @@
             },
             {
               "id": "zoom",
-              "section": "addons",
+              "section": "page_tools",
+              "category": "Reading",
               "label": "Zoom (this site)…",
               "requires": [
                 "page"
@@ -3343,7 +3238,8 @@
             },
             {
               "id": "summarize_topics",
-              "section": "addons",
+              "section": "page_tools",
+              "category": "Reading",
               "label": "Summarise page by topics",
               "requires": [
                 "page"
@@ -3351,15 +3247,132 @@
             },
             {
               "id": "view_source",
-              "section": "addons",
+              "section": "page_tools",
+              "category": "Reading",
               "label": "View source",
               "requires": [
                 "page"
               ]
             },
             {
+              "id": "print",
+              "section": "page_tools",
+              "category": "Save & Export",
+              "label": "Print / Save as PDF",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "download_page",
+              "section": "page_tools",
+              "category": "Save & Export",
+              "label": "Download this page",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "save_page",
+              "section": "page_tools",
+              "category": "Save & Export",
+              "label": "Save this page offline",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "save_site",
+              "section": "page_tools",
+              "category": "Save & Export",
+              "label": "Save this site offline",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "find",
+              "section": "page_tools",
+              "category": "Find & Share",
+              "label": "Find in page",
+              "requires": [
+                "page"
+              ],
+              "api": true
+            },
+            {
+              "id": "share",
+              "section": "page_tools",
+              "category": "Find & Share",
+              "label": "Share…",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "desktop",
+              "section": "page_tools",
+              "category": "View mode",
+              "label": "Desktop site",
+              "kind": "toggle",
+              "checked": "desktop_mode",
+              "api": true
+            },
+            {
+              "id": "fill_profile",
+              "section": "page_tools",
+              "category": "Autofill",
+              "label": "Autofill this page…",
+              "requires": [
+                "page",
+                "profile_present"
+              ]
+            },
+            {
+              "id": "copy_url",
+              "section": "actions",
+              "label": "Copy URL",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "open_external",
+              "section": "actions",
+              "label": "Open in another app…",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "add_to_home",
+              "section": "actions",
+              "label": "Add to home screen",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "pin_site",
+              "section": "actions",
+              "label": "Pin this site offline",
+              "kind": "toggle",
+              "checked": "site_pinned",
+              "requires": [
+                "page"
+              ]
+            },
+            {
+              "id": "download_site",
+              "section": "actions",
+              "label": "Download full site (offline cache)",
+              "requires": [
+                "page"
+              ]
+            },
+            {
               "id": "clear_site_data",
-              "section": "site",
+              "section": "site_data",
               "label": "Site data: cookies & storage…",
               "requires": [
                 "page"
@@ -3367,7 +3380,7 @@
             },
             {
               "id": "clear_site_cookies",
-              "section": "site",
+              "section": "site_data",
               "label": "Clear cookies for this site",
               "requires": [
                 "page"
@@ -3375,7 +3388,7 @@
             },
             {
               "id": "site_autocomplete",
-              "section": "site",
+              "section": "site_data",
               "label": "Autocomplete for this site…",
               "requires": [
                 "page"
@@ -3383,7 +3396,7 @@
             },
             {
               "id": "shield_trackers",
-              "section": "site",
+              "section": "site_data",
               "label": "Block trackers here",
               "kind": "toggle",
               "checked": "shield_trackers",
@@ -3393,7 +3406,7 @@
             },
             {
               "id": "shield_images",
-              "section": "site",
+              "section": "site_data",
               "label": "Block images here",
               "kind": "toggle",
               "checked": "shield_images",
@@ -3411,7 +3424,7 @@
             },
             {
               "id": "dev_console",
-              "section": "devtools",
+              "section": "dev_tools",
               "label": "Console and JS REPL",
               "requires": [
                 "page"
@@ -3419,7 +3432,7 @@
             },
             {
               "id": "dev_network",
-              "section": "devtools",
+              "section": "dev_tools",
               "label": "Network requests",
               "requires": [
                 "page"
@@ -3427,7 +3440,7 @@
             },
             {
               "id": "dev_elements",
-              "section": "devtools",
+              "section": "dev_tools",
               "label": "Elements (live DOM)",
               "requires": [
                 "page"
@@ -3435,22 +3448,30 @@
             },
             {
               "id": "dev_storage",
-              "section": "devtools",
+              "section": "dev_tools",
               "label": "Storage: cookies, local, session, workers",
               "requires": [
                 "page"
               ]
             },
             {
+              "id": "dev_graphics",
+              "section": "dev_tools",
+              "label": "Graphics: FPS, draw calls, GPU (debugger)",
+              "requires": [
+                "page"
+              ]
+            },
+            {
               "id": "dev_remote_debug",
-              "section": "devtools",
+              "section": "dev_tools",
               "label": "Remote debugging (chrome://inspect)",
               "kind": "toggle",
               "checked": "remote_debug"
             },
             {
               "id": "shield_js",
-              "section": "devtools",
+              "section": "dev_tools",
               "label": "Block JavaScript here",
               "kind": "toggle",
               "checked": "shield_js",
@@ -4350,6 +4371,7 @@
           "cancel": "Cancel",
           "empty": "No bookmarks.",
           "menu_open": "Open",
+          "menu_launch": "Open app",
           "menu_refresh_icon": "Refresh icon",
           "menu_remove": "Remove"
         },
@@ -4372,6 +4394,60 @@
         }
       },
       "domains": {
+        "headless": [
+          {
+            "id": "cloudflare_browser_run",
+            "title": "Cloudflare Browser Run",
+            "tagline": "Edge Chromium renderer — stateless fallback",
+            "stack": {
+              "engine": "Headless Chromium at Cloudflare's edge (Browser Rendering REST API)",
+              "proxy": "none — but egresses from Cloudflare IPs, which dodges datacenter-IP bot walls",
+              "stealth": "none",
+              "output": "rendered HTML, markdown, screenshot, PDF, JSON, links"
+            },
+            "note": "Used as the fallback when the self-hosted browser hits a bot wall; capped ~200/day.",
+            "link": {
+              "label": "Browser Rendering REST API",
+              "url": "https://developers.cloudflare.com/browser-rendering/rest-api/",
+              "detail": "API base api.cloudflare.com/client/v4/accounts/{account}/browser-rendering/"
+            }
+          },
+          {
+            "id": "cloudy_browser_headless",
+            "title": "Cloud Headless",
+            "service": "cloudy-browser-headless",
+            "tagline": "Self-hosted Playwright browser — the default",
+            "stack": {
+              "engine": "Playwright 1.55 + Chromium (mcr.microsoft.com/playwright:v1.55.0-noble) + Node, on oci-apps:3118",
+              "proxy": "none (only a per-session URL blocklist)",
+              "stealth": "none — detects a bot wall, never evades it",
+              "output": "HTML, text, readable→markdown/json/xml, screenshot, PDF, OCR (tesseract+paddle), links, scrape; stateful sessions with persistent cookies + run(steps)"
+            },
+            "link": {
+              "label": "MCP endpoint",
+              "url": "https://mcp.diegonmarcos.com/cloudy-browser-headless",
+              "detail": "WireGuard-only, BROWSER_TOKEN bearer; mesh cloudy-browser-headless.mesh.diegonmarcos.com"
+            }
+          },
+          {
+            "id": "steel_browser",
+            "title": "Cloud Stealth",
+            "service": "steel-browser",
+            "tagline": "Steel Browser — authorized security testing",
+            "stack": {
+              "engine": "upstream Steel Browser (ghcr.io/steel-dev/steel-browser, Apache-2.0) behind a Caddy bearer sidecar",
+              "proxy": "none configured (optional ZAP route 10.0.0.6:8086)",
+              "stealth": "upstream Steel defaults only — no residential/mobile proxy pool, no CAPTCHA solver configured by the fleet",
+              "output": "full stateful session browser"
+            },
+            "note": "Mesh-only, no public route; for owner-authorized security testing of own services.",
+            "link": {
+              "label": "Steel API",
+              "url": "https://steel-browser.mesh.diegonmarcos.com:3000",
+              "detail": "mesh-only, Bearer STEEL_API_KEY"
+            }
+          }
+        ],
         "media_mime_prefixes": [
           "image/",
           "audio/",
@@ -4442,6 +4518,12 @@
           "stop": "Stop",
           "files_empty": "No cached files yet.",
           "perms_empty": "No site visited yet.",
+          "stack": "Stack",
+          "engine": "Engine",
+          "proxy": "Proxy",
+          "stealth": "Stealth",
+          "output": "Output",
+          "link": "Link",
           "history_empty": "No history yet.",
           "visited_empty": "No site visited yet."
         }
@@ -8248,6 +8330,27 @@
           "kind": "image_route"
         },
         {
+          "id": "configs_agents",
+          "label": "Agents",
+          "icon": "psychology",
+          "tab": "configs",
+          "kind": "fleet_agents"
+        },
+        {
+          "id": "configs_logcat",
+          "label": "Logcat",
+          "icon": "timeline",
+          "tab": "configs",
+          "kind": "fleet_logcat"
+        },
+        {
+          "id": "configs_xray",
+          "label": "X-Ray App",
+          "icon": "sensors",
+          "tab": "configs",
+          "kind": "fleet_xray"
+        },
+        {
           "id": "history",
           "label": "History",
           "tab": "history",
@@ -8457,6 +8560,21 @@
       ]
     },
     "cloud-kg-store": {
+      "scrapped": {
+        "source": "../ac_cloud-browser/build.json",
+        "path": [
+          "ui",
+          "domains",
+          "headless"
+        ]
+      },
+      "me": {
+        "owner": "diegonmarcos",
+        "repo": "Projects-Library-KG",
+        "ref": "main",
+        "entry": "index.html",
+        "entry_fallback": "first *.html at the clone root"
+      },
       "configs_ui": [
         "nav_ui"
       ]
@@ -10450,6 +10568,7 @@
             "search_height_dp": 40,
             "counters": [
               "cloned",
+              "not_cloned",
               "needs_you",
               "ahead",
               "behind",
@@ -11042,6 +11161,18 @@
           "tab": "pm",
           "to": "pm-portfolios",
           "note": "PM Profiles became Portfolios (US Cyclicals)"
+        },
+        {
+          "from": "eq_dm_us",
+          "tab": "eq",
+          "to": "world-equity-indices",
+          "note": "#1612 DM Equity (US) merged into World Indices Equity: its deep links open that page"
+        },
+        {
+          "from": "eq_em",
+          "tab": "eq",
+          "to": "world-equity-indices",
+          "note": "#1612 EM Equity merged into World Indices Equity: its deep links open that page"
         }
       ],
       "stacks": {
@@ -11120,28 +11251,38 @@
         ],
         "eq": [
           {
+            "kind": "section_title",
+            "title": "Performance"
+          },
+          {
             "kind": "dashboard",
-            "title": "World Equity Indices",
-            "subtitle": "Major equity index levels and moves worldwide",
+            "title": "World Indices Equity",
+            "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap S&P 500, Nikkei 225 or FTSE 100 for its holdings table and treemap",
             "dashboard": "world_equity_indices"
           },
           {
             "kind": "dashboard",
-            "title": "DM Equity (US)",
-            "subtitle": "US sectors and strategies (growth, value, momentum, quality, min-vol, small-cap, dividend, equal-weight)",
-            "dashboard": "eq_dm_us"
+            "title": "Commodities",
+            "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)",
+            "dashboard": "commodities"
           },
           {
-            "kind": "dashboard",
-            "title": "EM Equity",
-            "subtitle": "EM sectors and EM government bonds in USD (1y, 10y, 25y)",
-            "dashboard": "eq_em"
+            "kind": "quote_board",
+            "page": "commodity-prices",
+            "view": "commodities",
+            "title": "Commodity Prices",
+            "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
           },
           {
-            "kind": "dashboard",
-            "title": "Quotes & Charts",
-            "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices",
-            "dashboard": "equity_quote"
+            "kind": "quote_board",
+            "page": "fx-rates",
+            "view": "fx_rates",
+            "title": "Exchange Rates",
+            "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
+          },
+          {
+            "kind": "section_title",
+            "title": "Data"
           },
           {
             "kind": "dashboard",
@@ -11157,29 +11298,15 @@
           },
           {
             "kind": "dashboard",
-            "title": "Watchlist & Alerts",
-            "subtitle": "Your symbols, price alerts and event alerts, kept on this device",
-            "dashboard": "watchlist"
-          },
-          {
-            "kind": "quote_board",
-            "page": "fx-rates",
-            "view": "fx_rates",
-            "title": "Exchange Rates",
-            "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
-          },
-          {
-            "kind": "quote_board",
-            "page": "commodity-prices",
-            "view": "commodities",
-            "title": "Commodity Prices",
-            "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
+            "title": "Quotes",
+            "subtitle": "Delayed quotes and daily charts for stocks, ETFs and indices",
+            "dashboard": "equity_quote"
           },
           {
             "kind": "dashboard",
-            "title": "Commodities",
-            "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)",
-            "dashboard": "commodities"
+            "title": "Watchlist",
+            "subtitle": "Your symbols, price alerts and event alerts, kept on this device",
+            "dashboard": "watchlist"
           }
         ],
         "nw": [

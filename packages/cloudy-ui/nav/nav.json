@@ -24,37 +24,73 @@
             "facet": true
           },
           {
+            "id": "notify-badges",
+            "label": "Persistent Badges",
+            "icon": "ic_rss",
+            "facet": true
+          },
+          {
+            "id": "notify-cloudy",
+            "label": "Cloudy Apps",
+            "icon": "ic_p_sol_cloud",
+            "facet": true
+          },
+          {
+            "id": "notify-phone",
+            "label": "Phone Apps",
+            "icon": "ic_p_inbox",
+            "facet": true
+          },
+          {
+            "id": "notify-configs",
+            "label": "Configs",
+            "icon": "ic_settings",
+            "facet": true
+          },
+          {
             "id": "rss-inboxes",
             "label": "Inboxes",
             "icon": "ic_p_inbox",
-            "facet": true
+            "facet": true,
+            "hidden": true
           },
           {
             "id": "rss-data",
             "label": "Data Apps",
             "icon": "ic_p_sol_cloud",
-            "facet": true
+            "facet": true,
+            "hidden": true
           },
           {
             "id": "rss-tools",
             "label": "Tools",
             "icon": "ic_p_sol_tools",
-            "facet": true
+            "facet": true,
+            "hidden": true
           },
           {
             "id": "rss-services",
             "label": "Services",
             "icon": "ic_p_folder",
-            "facet": true
+            "facet": true,
+            "hidden": true
           },
           {
             "id": "rss-sys",
             "label": "Sys",
             "icon": "ic_settings",
-            "facet": true
+            "facet": true,
+            "hidden": true
           }
         ],
         "tabs": true,
+        "state_pages": {
+          "my-rss": "my-rss",
+          "notify-badges": "my-rss",
+          "notify-cloudy": "my-rss",
+          "notify-phone": "my-rss",
+          "notify-configs": "my-rss"
+        },
         "filters_my-rss": [
           {
             "id": "sort",
@@ -87,10 +123,6 @@
               {
                 "id": "phone",
                 "label": "Phone"
-              },
-              {
-                "id": "c3ntfy",
-                "label": "C3 Ntfy"
               }
             ]
           },
@@ -180,155 +212,164 @@
             "kind": "notification_badges",
             "title": "Persistent badges",
             "title_res": "notify_badges_title",
+            "above_filters": true,
+            "summary": true
+          },
+          {
+            "kind": "notification_center",
+            "stream": "cloud",
+            "split": "all",
+            "title": "Notifications"
+          }
+        ],
+        "stack_notify-badges": [
+          {
+            "kind": "notification_badges",
+            "title": "Persistent badges",
+            "title_res": "notify_badges_title",
             "above_filters": true
+          }
+        ],
+        "stack_notify-cloudy": [
+          {
+            "kind": "notification_center",
+            "stream": "cloud",
+            "split": "cloudy",
+            "title": "Cloudy Apps",
+            "origin": "cloud"
+          }
+        ],
+        "stack_notify-phone": [
+          {
+            "kind": "notification_center",
+            "stream": "phone",
+            "split": "phone",
+            "title": "Phone Apps",
+            "origin": "phone"
+          }
+        ],
+        "stack_notify-configs": [
+          {
+            "kind": "tile_row",
+            "title": "Filter presets",
+            "tiles": [
+              {
+                "id": "rss-inboxes",
+                "label": "Inboxes",
+                "icon": "ic_p_inbox",
+                "target": "page:communication/rss-inboxes"
+              },
+              {
+                "id": "rss-data",
+                "label": "Data Apps",
+                "icon": "ic_p_sol_cloud",
+                "target": "page:communication/rss-data"
+              },
+              {
+                "id": "rss-tools",
+                "label": "Tools",
+                "icon": "ic_p_sol_tools",
+                "target": "page:communication/rss-tools"
+              },
+              {
+                "id": "rss-services",
+                "label": "Services",
+                "icon": "ic_p_folder",
+                "target": "page:communication/rss-services"
+              },
+              {
+                "id": "rss-sys",
+                "label": "Sys",
+                "icon": "ic_settings",
+                "target": "page:communication/rss-sys"
+              }
+            ]
           },
           {
             "kind": "notification_badge_configs",
             "title": "Configs",
             "title_res": "notify_configs_title",
             "bottom": true
-          },
-          {
-            "kind": "notification_center",
-            "stream": "cloud",
-            "title": "Cloud publishers",
-            "origin": "cloud",
-            "scopes": [
-              "advisory",
-              "user"
-            ]
-          },
-          {
-            "kind": "notification_center",
-            "stream": "phone",
-            "title": "Phone apps",
-            "origin": "phone"
-          },
-          {
-            "kind": "notification_center",
-            "stream": "channels",
-            "title": "C3 Ntfy",
-            "origin": "c3ntfy"
           }
         ],
         "stack_rss-inboxes": [
           {
             "kind": "notification_center",
             "stream": "cloud",
-            "title": "Cloud publishers",
-            "origin": "cloud",
-            "scopes": [
-              "advisory",
-              "user"
-            ]
+            "split": "cloudy",
+            "title": "Cloud Apps Notifications",
+            "origin": "cloud"
           },
           {
             "kind": "notification_center",
             "stream": "phone",
-            "title": "Phone apps",
+            "split": "phone",
+            "title": "Phone Apps Notifications",
             "origin": "phone"
-          },
-          {
-            "kind": "notification_center",
-            "stream": "channels",
-            "title": "C3 Ntfy",
-            "origin": "c3ntfy"
           }
         ],
         "stack_rss-data": [
           {
             "kind": "notification_center",
             "stream": "cloud",
-            "title": "Cloud publishers",
-            "origin": "cloud",
-            "scopes": [
-              "advisory",
-              "user"
-            ]
+            "split": "cloudy",
+            "title": "Cloud Apps Notifications",
+            "origin": "cloud"
           },
           {
             "kind": "notification_center",
             "stream": "phone",
-            "title": "Phone apps",
+            "split": "phone",
+            "title": "Phone Apps Notifications",
             "origin": "phone"
-          },
-          {
-            "kind": "notification_center",
-            "stream": "channels",
-            "title": "C3 Ntfy",
-            "origin": "c3ntfy"
           }
         ],
         "stack_rss-tools": [
           {
             "kind": "notification_center",
             "stream": "cloud",
-            "title": "Cloud publishers",
-            "origin": "cloud",
-            "scopes": [
-              "advisory",
-              "user"
-            ]
+            "split": "cloudy",
+            "title": "Cloud Apps Notifications",
+            "origin": "cloud"
           },
           {
             "kind": "notification_center",
             "stream": "phone",
-            "title": "Phone apps",
+            "split": "phone",
+            "title": "Phone Apps Notifications",
             "origin": "phone"
-          },
-          {
-            "kind": "notification_center",
-            "stream": "channels",
-            "title": "C3 Ntfy",
-            "origin": "c3ntfy"
           }
         ],
         "stack_rss-services": [
           {
             "kind": "notification_center",
             "stream": "cloud",
-            "title": "Cloud publishers",
-            "origin": "cloud",
-            "scopes": [
-              "advisory",
-              "user"
-            ]
+            "split": "cloudy",
+            "title": "Cloud Apps Notifications",
+            "origin": "cloud"
           },
           {
             "kind": "notification_center",
             "stream": "phone",
-            "title": "Phone apps",
+            "split": "phone",
+            "title": "Phone Apps Notifications",
             "origin": "phone"
-          },
-          {
-            "kind": "notification_center",
-            "stream": "channels",
-            "title": "C3 Ntfy",
-            "origin": "c3ntfy"
           }
         ],
         "stack_rss-sys": [
           {
             "kind": "notification_center",
             "stream": "cloud",
-            "title": "Cloud publishers",
-            "origin": "cloud",
-            "scopes": [
-              "advisory",
-              "user"
-            ]
+            "split": "cloudy",
+            "title": "Cloud Apps Notifications",
+            "origin": "cloud"
           },
           {
             "kind": "notification_center",
             "stream": "phone",
-            "title": "Phone apps",
+            "split": "phone",
+            "title": "Phone Apps Notifications",
             "origin": "phone"
-          },
-          {
-            "kind": "notification_center",
-            "stream": "channels",
-            "title": "C3 Ntfy",
-            "origin": "c3ntfy"
           }
         ],
         "filters_rss-inboxes": [
@@ -363,10 +404,6 @@
               {
                 "id": "phone",
                 "label": "Phone"
-              },
-              {
-                "id": "c3ntfy",
-                "label": "C3 Ntfy"
               }
             ]
           },
@@ -483,10 +520,6 @@
               {
                 "id": "phone",
                 "label": "Phone"
-              },
-              {
-                "id": "c3ntfy",
-                "label": "C3 Ntfy"
               }
             ]
           },
@@ -603,10 +636,6 @@
               {
                 "id": "phone",
                 "label": "Phone"
-              },
-              {
-                "id": "c3ntfy",
-                "label": "C3 Ntfy"
               }
             ]
           },
@@ -723,10 +752,6 @@
               {
                 "id": "phone",
                 "label": "Phone"
-              },
-              {
-                "id": "c3ntfy",
-                "label": "C3 Ntfy"
               }
             ]
           },
@@ -843,10 +868,6 @@
               {
                 "id": "phone",
                 "label": "Phone"
-              },
-              {
-                "id": "c3ntfy",
-                "label": "C3 Ntfy"
               }
             ]
           },
@@ -1286,6 +1307,70 @@
         ],
         "tile_groups": [
           {
+            "title": "Primary",
+            "tiles": [
+              {
+                "id": "drive-conn",
+                "label": "Drive",
+                "icon": "ic_drive",
+                "target": "extapp:cloud-drive"
+              },
+              {
+                "id": "browser",
+                "label": "Browser",
+                "icon": "ic_world",
+                "target": "extapp:cloud-browser"
+              },
+              {
+                "id": "primary-sep-1",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "calc",
+                "label": "Calc",
+                "icon": "ic_calc",
+                "target": "extapp:cloud-calc"
+              },
+              {
+                "id": "maps",
+                "label": "Navigation",
+                "icon": "ic_nav",
+                "target": "extapp:cloud-nav"
+              },
+              {
+                "id": "camera",
+                "label": "Camera",
+                "icon": "ic_camera",
+                "target": "extapp:cloud-camera"
+              },
+              {
+                "id": "keyboard",
+                "label": "Keyboard",
+                "icon": "ic_keyboard",
+                "target": "extapp:cloud-keyboard"
+              },
+              {
+                "id": "writer",
+                "label": "Writer",
+                "icon": "ic_writer",
+                "target": "extapp:cloud-writer"
+              },
+              {
+                "id": "primary-sep-2",
+                "label": "||",
+                "separator": true,
+                "double": true
+              },
+              {
+                "id": "wallet",
+                "label": "Wallet",
+                "icon": "ic_wallet",
+                "target": "extapp:cloud-wallet"
+              }
+            ]
+          },
+          {
             "title": "Communication",
             "tiles": [
               {
@@ -1327,72 +1412,8 @@
             ]
           },
           {
-            "title": "Tools Primary",
+            "title": "Data",
             "tiles": [
-              {
-                "id": "browser",
-                "label": "Browser",
-                "icon": "ic_world",
-                "target": "extapp:cloud-browser"
-              },
-              {
-                "id": "maps",
-                "label": "Navigation",
-                "icon": "ic_nav",
-                "target": "extapp:cloud-nav"
-              },
-              {
-                "id": "camera",
-                "label": "Camera",
-                "icon": "ic_camera",
-                "target": "extapp:cloud-camera"
-              },
-              {
-                "id": "calc",
-                "label": "Calc",
-                "icon": "ic_calc",
-                "target": "extapp:cloud-calc"
-              },
-              {
-                "id": "keyboard",
-                "label": "Keyboard",
-                "icon": "ic_keyboard",
-                "target": "extapp:cloud-keyboard"
-              },
-              {
-                "id": "writer",
-                "label": "Writer",
-                "icon": "ic_writer",
-                "target": "extapp:cloud-writer"
-              },
-              {
-                "id": "wallet",
-                "label": "Wallet",
-                "icon": "ic_wallet",
-                "target": "extapp:cloud-wallet"
-              },
-              {
-                "id": "vault",
-                "label": "Vault",
-                "icon": "ic_vault",
-                "target": "extapp:cloud-vault"
-              }
-            ]
-          },
-          {
-            "title": "Data Apps",
-            "tiles": [
-              {
-                "id": "drive-conn",
-                "label": "Drive",
-                "icon": "ic_drive",
-                "target": "extapp:cloud-drive"
-              },
-              {
-                "id": "data-apps-sep-1",
-                "label": "|",
-                "separator": true
-              },
               {
                 "id": "notes",
                 "label": "Notes",
@@ -1406,7 +1427,13 @@
                 "target": "extapp:cloud-tasks"
               },
               {
-                "id": "data-apps-sep-2",
+                "id": "sheets",
+                "label": "Office",
+                "icon": "ic_sheets",
+                "target": "extapp:cloud-office"
+              },
+              {
+                "id": "data-sep-1",
                 "label": "|",
                 "separator": true
               },
@@ -1418,20 +1445,28 @@
               },
               {
                 "id": "mediacenter",
-                "label": "Media",
+                "label": "Media Center",
                 "icon": "ic_music",
                 "target": "extapp:cloud-media-center"
               },
               {
-                "id": "data-apps-sep-3",
-                "label": "|",
-                "separator": true
+                "id": "data-sep-2",
+                "label": "||",
+                "separator": true,
+                "double": true
               },
               {
-                "id": "sheets",
-                "label": "Office",
-                "icon": "ic_sheets",
-                "target": "extapp:cloud-office"
+                "id": "data-me",
+                "label": "Me",
+                "icon": "ic_vcard",
+                "target": "extapp:cloud-me",
+                "category_skip": true
+              },
+              {
+                "id": "vault",
+                "label": "Vault",
+                "icon": "ic_vault",
+                "target": "extapp:cloud-vault"
               }
             ]
           },
@@ -1684,10 +1719,33 @@
             "title": "Configs",
             "tiles": [
               {
-                "id": "configs-account",
-                "label": "Account",
-                "icon": "ic_p_accounts",
-                "target": "page:config/profile"
+                "id": "configs-controls",
+                "label": "Quick Actions",
+                "icon": "ic_home",
+                "target": "page:config/controls"
+              },
+              {
+                "id": "configs-ui",
+                "label": "UI",
+                "icon": "ic_ctl_brightness",
+                "target": "page:config/panels-ui"
+              },
+              {
+                "id": "configs-sep-1",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "configs-firewall",
+                "label": "Firewall",
+                "icon": "ic_lock",
+                "target": "page:config/firewall"
+              },
+              {
+                "id": "configs-wifi",
+                "label": "WiFi",
+                "icon": "ic_wifi",
+                "target": "page:config/wifi"
               },
               {
                 "id": "configs-sep-2",
@@ -1695,26 +1753,21 @@
                 "separator": true
               },
               {
+                "id": "configs-store",
                 "label": "Store",
                 "icon": "ic_refresh",
                 "target": "extapp:cloud-store"
               },
               {
-                "id": "configs-controls",
-                "label": "Quick Actions",
-                "icon": "ic_home",
-                "target": "page:config/controls"
-              },
-              {
-                "id": "configs-watchdog",
-                "label": "Watchdog",
-                "icon": "ic_p_watchdog",
-                "target": "page:config/agents-watchdog"
-              },
-              {
                 "id": "configs-sep-3",
                 "label": "|",
                 "separator": true
+              },
+              {
+                "id": "configs-account",
+                "label": "Account",
+                "icon": "ic_p_accounts",
+                "target": "extapp:cloud-account"
               },
               {
                 "id": "c3",
@@ -1728,9 +1781,20 @@
                 "separator": true
               },
               {
+                "id": "configs-watchdog",
+                "label": "Watchdog",
+                "icon": "ic_p_watchdog",
+                "target": "extapp:c3-watchdog"
+              },
+              {
+                "id": "configs-sep-5",
+                "label": "|",
+                "separator": true
+              },
+              {
                 "id": "configs-about",
                 "label": "About",
-                "icon": "ic_settings",
+                "icon": "ic_info",
                 "target": "page:config/app-about"
               }
             ]
@@ -3258,60 +3322,45 @@
         "nav_mode": "horizontal_two_rows",
         "groups": [
           {
-            "id": "setup",
-            "label": "Setup",
+            "id": "launcher",
+            "label": "Launcher",
             "icon": "ic_settings",
             "pages": [
-              "profile",
-              "store",
               "controls",
-              "onehand",
+              "panels-ui",
               "app-folders",
+              "onehand",
+              "launcher-sep-1",
               "notify",
+              "presets",
+              "panels",
+              "panels-all",
+              "panels-battery",
+              "panels-tools",
+              "focus"
+            ]
+          },
+          {
+            "id": "network",
+            "label": "Network",
+            "icon": "ic_settings",
+            "pages": [
               "firewall",
               "dns",
               "webserver",
               "wg",
               "apps-access",
               "adb-shell",
+              "adb-status",
+              "adb-term",
+              "adb-perms",
+              "adb-all",
               "wifi",
               "wifi-scan",
               "wifi-channels",
               "wifi-link",
               "wifi-tools",
               "wifi-log",
-              "xray",
-              "logcat",
-              "perms",
-              "app-about",
-              "battery",
-              "presets",
-              "panels",
-              "panels-ui",
-              "panels-tools",
-              "store-cloud",
-              "store-phone",
-              "update",
-              "kde_connect",
-              "animations"
-            ]
-          },
-          {
-            "id": "agents",
-            "label": "Agents",
-            "icon": "ic_p_watchdog",
-            "pages": [
-              "agents-watchdog",
-              "agents-watchtower"
-            ]
-          },
-          {
-            "id": "fleet",
-            "label": "Fleet",
-            "icon": "ic_hub",
-            "pages": [
-              "c3",
-              "kde",
               "bluetooth",
               "bluetooth-find",
               "bluetooth-analyze",
@@ -3320,6 +3369,56 @@
               "bluetooth-interact",
               "bluetooth-debug",
               "bluetooth-dev"
+            ]
+          },
+          {
+            "id": "apps",
+            "label": "Apps",
+            "icon": "ic_settings",
+            "pages": [
+              "store",
+              "store-cloud",
+              "store-phone"
+            ]
+          },
+          {
+            "id": "connect",
+            "label": "Connect",
+            "icon": "ic_settings",
+            "pages": [
+              "profile",
+              "c3",
+              "kde"
+            ]
+          },
+          {
+            "id": "tools",
+            "label": "Tools",
+            "icon": "ic_settings",
+            "pages": [
+              "c3-watchdog",
+              "tools-sep-1",
+              "xray",
+              "logcat-fleet",
+              "agents-watchdog"
+            ]
+          },
+          {
+            "id": "configs",
+            "label": "Configs",
+            "icon": "ic_settings",
+            "pages": [
+              "perms",
+              "logcat",
+              "xray-app",
+              "app-about",
+              "battery",
+              "update",
+              "kde_connect",
+              "animations",
+              "sync-clipboard",
+              "saving-mode",
+              "focus-mode"
             ]
           }
         ],
@@ -3344,6 +3443,10 @@
           ],
           "agents-fleet": [
             "xray"
+          ],
+          "agents-watchtower": [
+            "xray",
+            "logcat-fleet"
           ]
         },
         "page_aliases": {
@@ -3353,7 +3456,8 @@
           "agents-superapp": "xray",
           "agents-fleet": "xray",
           "watchdog": "agents-watchdog",
-          "watchtower": "agents-watchtower"
+          "watchtower": "xray",
+          "agents-watchtower": "xray"
         },
         "removed_pages": {
           "apps-mesh": "Apps Mesh is Cloud Store > Access now; one Apps Access tile opens it",
@@ -3370,22 +3474,6 @@
         },
         "pages": [
           {
-            "id": "profile",
-            "label": "Account",
-            "icon": "ic_person",
-            "action": "extapp:cloud-account",
-            "group": "Setup",
-            "subgroup": "Connect"
-          },
-          {
-            "id": "store",
-            "label": "Store",
-            "icon": "ic_storefront",
-            "action": "extapp:cloud-store",
-            "group": "Setup",
-            "subgroup": "Apps"
-          },
-          {
             "id": "controls",
             "label": "Quick Actions",
             "icon": "ic_home",
@@ -3393,22 +3481,37 @@
               "presets",
               "panels"
             ],
-            "group": "Setup",
-            "subgroup": "Launcher"
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
-            "id": "onehand",
-            "label": "One-Hand",
-            "icon": "ic_onehand",
-            "group": "Setup",
-            "subgroup": "Launcher"
+            "id": "panels-ui",
+            "label": "UI",
+            "icon": "ic_ctl_brightness",
+            "hidden": false,
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
             "id": "app-folders",
             "label": "Folders",
             "icon": "ic_p_folder",
-            "group": "Setup",
-            "subgroup": "Launcher"
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
+            "id": "onehand",
+            "label": "One-Hand",
+            "icon": "ic_onehand",
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
+            "id": "launcher-sep-1",
+            "label": "|",
+            "separator": true,
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
             "id": "notify",
@@ -3416,53 +3519,59 @@
             "icon": "ic_rss",
             "facet": true,
             "mirror_page": "communication/my-rss",
-            "group": "Setup",
-            "subgroup": "Launcher"
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
             "id": "firewall",
             "label": "Firewall",
             "icon": "ic_lock",
-            "group": "Setup",
-            "subgroup": "Network"
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "dns",
             "label": "DNS",
             "icon": "ic_world",
-            "group": "Setup",
-            "subgroup": "Network"
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "webserver",
             "label": "Webserver",
             "icon": "ic_web",
             "action": "action:open_webserver",
-            "group": "Setup",
-            "subgroup": "Network"
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "wg",
             "label": "Cloud Mesh",
             "icon": "ic_wg",
             "action": "section:wg",
-            "group": "Setup",
-            "subgroup": "Network"
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "apps-access",
             "label": "Apps Access",
             "icon": "ic_apps",
             "action": "action:open_apps_access",
-            "group": "Setup",
-            "subgroup": "Network"
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "adb-shell",
             "label": "ADB Shell",
             "icon": "ic_terminal",
-            "group": "Setup",
-            "subgroup": "Network"
+            "tabs": [
+              "adb-status",
+              "adb-term",
+              "adb-perms",
+              "adb-all"
+            ],
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "wifi",
@@ -3475,69 +3584,8 @@
               "wifi-tools",
               "wifi-log"
             ],
-            "group": "Setup",
-            "subgroup": "Network"
-          },
-          {
-            "id": "xray",
-            "label": "X-Ray",
-            "icon": "ic_monitor_heart",
-            "group": "Setup",
-            "subgroup": "Observability"
-          },
-          {
-            "id": "logcat",
-            "label": "LogCat",
-            "icon": "ic_subject",
-            "group": "Setup",
-            "subgroup": "Observability"
-          },
-          {
-            "id": "perms",
-            "label": "Permissions",
-            "icon": "ic_key",
-            "group": "Setup",
-            "subgroup": "Observability"
-          },
-          {
-            "id": "app-about",
-            "label": "About",
-            "icon": "ic_info",
-            "group": "Setup",
-            "subgroup": "Observability"
-          },
-          {
-            "id": "agents-watchdog",
-            "label": "Watchdog",
-            "icon": "ic_p_watchdog",
-            "hub_sections": [
-              "Network",
-              "Observability"
-            ],
-            "group": "Agents"
-          },
-          {
-            "id": "agents-watchtower",
-            "label": "Watchtower",
-            "icon": "ic_watchtower",
-            "hub_sections": [
-              "Observability"
-            ],
-            "group": "Agents"
-          },
-          {
-            "id": "c3",
-            "label": "C3",
-            "icon": "ic_cloud_control",
-            "action": "extapp:cloud-c3",
-            "group": "Fleet"
-          },
-          {
-            "id": "kde",
-            "label": "Peer Control",
-            "icon": "ic_hub",
-            "separator_before": true,
-            "group": "Fleet"
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "bluetooth",
@@ -3552,148 +3600,365 @@
               "bluetooth-debug",
               "bluetooth-dev"
             ],
-            "group": "Fleet"
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "store",
+            "label": "Store",
+            "icon": "ic_storefront",
+            "action": "extapp:cloud-store",
+            "group": "Apps",
+            "subgroup": ""
+          },
+          {
+            "id": "profile",
+            "label": "Account",
+            "icon": "ic_person",
+            "action": "extapp:cloud-account",
+            "group": "Connect",
+            "subgroup": ""
+          },
+          {
+            "id": "c3",
+            "label": "Cloudy C3",
+            "icon": "ic_cloud_control",
+            "action": "extapp:cloud-c3",
+            "group": "Connect",
+            "subgroup": ""
+          },
+          {
+            "id": "kde",
+            "label": "Peer Control",
+            "icon": "ic_hub",
+            "group": "Connect",
+            "subgroup": ""
+          },
+          {
+            "id": "c3-watchdog",
+            "label": "Watchdog",
+            "icon": "ic_watchtower",
+            "action": "extapp:c3-watchdog",
+            "group": "Tools",
+            "subgroup": ""
+          },
+          {
+            "id": "tools-sep-1",
+            "label": "|",
+            "separator": true,
+            "group": "Tools",
+            "subgroup": ""
+          },
+          {
+            "id": "xray",
+            "label": "X-Ray Device",
+            "icon": "ic_monitor_heart",
+            "group": "Tools",
+            "subgroup": ""
+          },
+          {
+            "id": "logcat-fleet",
+            "label": "Logcat Fleet",
+            "icon": "ic_p_logs",
+            "group": "Tools",
+            "subgroup": ""
+          },
+          {
+            "id": "agents-watchdog",
+            "label": "Agents",
+            "icon": "ic_p_watchdog",
+            "hub_sections": [
+              "Network"
+            ],
+            "group": "Tools",
+            "subgroup": ""
+          },
+          {
+            "id": "perms",
+            "label": "Perms",
+            "icon": "ic_key",
+            "group": "Configs",
+            "subgroup": ""
+          },
+          {
+            "id": "logcat",
+            "label": "Logcat",
+            "icon": "ic_subject",
+            "group": "Configs",
+            "subgroup": ""
+          },
+          {
+            "id": "xray-app",
+            "label": "X-Ray App",
+            "icon": "ic_p_c3_health",
+            "group": "Configs",
+            "subgroup": ""
+          },
+          {
+            "id": "app-about",
+            "label": "About",
+            "icon": "ic_info",
+            "group": "Configs",
+            "subgroup": ""
+          },
+          {
+            "id": "adb-status",
+            "label": "Status",
+            "icon": "ic_settings",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "adb-term",
+            "label": "Shell",
+            "icon": "ic_terminal",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "adb-perms",
+            "label": "Perms",
+            "icon": "ic_settings",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "adb-all",
+            "label": "All",
+            "icon": "ic_terminal",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "wifi-scan",
+            "label": "Scan",
+            "icon": "ic_search",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "wifi-channels",
+            "label": "Channels",
+            "icon": "ic_monitor_heart",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "wifi-link",
+            "label": "Link",
+            "icon": "ic_world",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "wifi-tools",
+            "label": "Tools",
+            "icon": "ic_terminal",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "wifi-log",
+            "label": "Log",
+            "icon": "ic_p_logs",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-find",
+            "label": "Find",
+            "icon": "ic_search",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-analyze",
+            "label": "Analyze",
+            "icon": "ic_bluetooth",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-locate",
+            "label": "Locate",
+            "icon": "ic_bluetooth",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-connect",
+            "label": "Connect",
+            "icon": "ic_bluetooth",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-interact",
+            "label": "Interact",
+            "icon": "ic_terminal",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-debug",
+            "label": "Debug",
+            "icon": "ic_p_logs",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "bluetooth-dev",
+            "label": "Dev",
+            "icon": "ic_code",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
           },
           {
             "id": "presets",
             "label": "Presets",
             "icon": "ic_p_sol_personal",
-            "hidden": true
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
             "id": "panels",
             "label": "Panels",
             "icon": "ic_home",
             "tabs": [
-              "panels-ui",
+              "panels-all",
+              "panels-battery",
               "panels-tools"
             ],
-            "hidden": true
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
-            "id": "panels-ui",
-            "label": "UI",
+            "id": "panels-all",
+            "label": "All",
             "icon": "ic_home",
-            "hidden": true
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
+            "id": "panels-battery",
+            "label": "Battery Hungers",
+            "icon": "ic_settings",
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
             "id": "panels-tools",
             "label": "Tools",
             "icon": "ic_settings",
-            "hidden": true
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
           },
           {
             "id": "battery",
             "label": "Battery",
             "icon": "ic_settings",
             "hidden": true,
-            "group": "Setup",
-            "subgroup": "Observability"
+            "group": "Configs",
+            "subgroup": ""
           },
           {
-            "id": "bluetooth-find",
-            "label": "Find",
-            "icon": "ic_search",
-            "hidden": true
-          },
-          {
-            "id": "bluetooth-analyze",
-            "label": "Analyze",
-            "icon": "ic_bluetooth",
-            "hidden": true
-          },
-          {
-            "id": "bluetooth-locate",
-            "label": "Locate",
-            "icon": "ic_bluetooth",
-            "hidden": true
-          },
-          {
-            "id": "bluetooth-connect",
-            "label": "Connect",
-            "icon": "ic_bluetooth",
-            "hidden": true
-          },
-          {
-            "id": "bluetooth-interact",
-            "label": "Interact",
-            "icon": "ic_terminal",
-            "hidden": true
-          },
-          {
-            "id": "bluetooth-debug",
-            "label": "Debug",
-            "icon": "ic_p_logs",
-            "hidden": true
-          },
-          {
-            "id": "bluetooth-dev",
-            "label": "Dev",
-            "icon": "ic_code",
-            "hidden": true
-          },
-          {
-            "id": "wifi-scan",
-            "label": "Scan",
-            "icon": "ic_search",
-            "hidden": true
-          },
-          {
-            "id": "wifi-channels",
-            "label": "Channels",
-            "icon": "ic_monitor_heart",
-            "hidden": true
-          },
-          {
-            "id": "wifi-link",
-            "label": "Link",
-            "icon": "ic_world",
-            "hidden": true
-          },
-          {
-            "id": "wifi-tools",
-            "label": "Tools",
-            "icon": "ic_terminal",
-            "hidden": true
-          },
-          {
-            "id": "wifi-log",
-            "label": "Log",
-            "icon": "ic_p_logs",
-            "hidden": true
+            "id": "focus",
+            "label": "Focus Mode",
+            "icon": "ic_nav_dnd",
+            "group": "Launcher",
+            "hidden": true,
+            "subgroup": ""
           },
           {
             "id": "store-cloud",
             "label": "Cloud Constellation",
             "icon": "ic_refresh",
-            "hidden": true
+            "hidden": true,
+            "group": "Apps",
+            "subgroup": ""
           },
           {
             "id": "store-phone",
             "label": "Phone Apps",
             "icon": "ic_p_dialer",
-            "hidden": true
+            "hidden": true,
+            "group": "Apps",
+            "subgroup": ""
           },
           {
             "id": "update",
             "label": "Update All",
             "icon": "ic_system_update",
             "action": "action:update_all",
-            "is_action": true
+            "is_action": true,
+            "group": "",
+            "subgroup": ""
           },
           {
             "id": "kde_connect",
             "label": "KDE Connect",
             "icon": "ic_devices",
             "action": "action:kde_connect_now",
-            "is_action": true
+            "is_action": true,
+            "group": "",
+            "subgroup": ""
           },
           {
             "id": "animations",
             "label": "Animations",
             "icon": "ic_animation",
             "action": "action:toggle_animations",
-            "is_action": true
+            "is_action": true,
+            "group": "",
+            "subgroup": ""
+          },
+          {
+            "id": "sync-clipboard",
+            "label": "Sync Clipboard",
+            "icon": "ic_copy",
+            "action": "action:sync_clipboard",
+            "is_action": true,
+            "group": "",
+            "subgroup": ""
+          },
+          {
+            "id": "saving-mode",
+            "label": "Saving Mode",
+            "icon": "ic_settings",
+            "action": "action:saving_mode",
+            "is_action": true,
+            "group": "",
+            "subgroup": ""
+          },
+          {
+            "id": "focus-mode",
+            "label": "Focus Mode",
+            "icon": "ic_nav_dnd",
+            "action": "page:config/focus",
+            "is_action": true,
+            "group": "",
+            "subgroup": ""
           }
         ]
       }
@@ -3834,30 +4099,12 @@
     "notification_center": {
       "groups": [
         {
-          "id": "network",
-          "label": "Resources",
-          "members": [
-            "network_mesh",
-            "network_data",
-            "battery_status",
-            "ai_usage"
-          ]
-        },
-        {
           "id": "live",
-          "label": "Infos",
+          "label": "Me Infos",
           "members": [
             "weather_today",
-            "markets_prices",
-            "myhealth"
-          ]
-        },
-        {
-          "id": "actions",
-          "label": "Actions",
-          "members": [
-            "floating_nav_quick_actions",
-            "kde_status"
+            "myhealth",
+            "markets_prices"
           ]
         },
         {
@@ -3868,13 +4115,59 @@
           ]
         },
         {
-          "id": "alerts",
-          "label": "Alerts",
+          "id": "network",
+          "label": "Device Infos",
           "members": [
-            "fleet_alerts"
-          ],
-          "alerts": true,
-          "max_in_shade": 20
+            "network_mesh",
+            "network_data",
+            "battery_status",
+            "ai_usage"
+          ]
+        },
+        {
+          "id": "actions",
+          "label": "Actions",
+          "members": [
+            "floating_nav_quick_actions",
+            "kde_status"
+          ]
+        }
+      ],
+      "page_order": [
+        "media",
+        "live",
+        "network",
+        "actions"
+      ],
+      "app_sections": [
+        {
+          "id": "cloud_publisher",
+          "label": "Cloud Publisher",
+          "kind": "push",
+          "filter": "cloudy",
+          "subgroups": []
+        },
+        {
+          "id": "phone_publisher",
+          "label": "Phone Publisher",
+          "kind": "push",
+          "filter": "phone",
+          "subgroups": []
+        },
+        {
+          "id": "apps_keepalive",
+          "label": "Apps Keep Alive Badges",
+          "kind": "keepalive",
+          "subgroups": [
+            {
+              "id": "cloudy",
+              "label": "Cloudy"
+            },
+            {
+              "id": "phone",
+              "label": "Phone"
+            }
+          ]
         }
       ],
       "producers": [
@@ -3939,7 +4232,7 @@
         {
           "id": "media_now_playing",
           "card": {
-            "rank": 8,
+            "rank": 4,
             "kind": "media",
             "accent": "#FF5C8D"
           },
@@ -4063,44 +4356,9 @@
           ]
         },
         {
-          "id": "fleet_alerts",
-          "card": {
-            "rank": 7,
-            "kind": "alerts",
-            "accent": "#FFB340"
-          },
-          "label": "Alerts",
-          "subtitle": "#777 The fleet's ONE alerts channel. Every Cloud app raises its user-facing alerts through FleetAlerts (libs:core) and they land here, one child per alert under one 'Cloud SA - Alerts' summary. Only real alerts: an empty store posts nothing. It replaced the 'Grouped alerts' badge, which showed sample data baked from ui.notification_infos.",
-          "icon": "ic_stat_notify",
-          "surface": "system_notification",
-          "channel": "fleet_alerts",
-          "owner": "notificationcenter/AlertsNotifier.kt",
-          "shows_badge": true,
-          "enabled": true,
-          "badge": true,
-          "persistent": false,
-          "service": "",
-          "requires": [],
-          "shows": "One row per alert a fleet app raised: app, severity, title, text; tap opens the alert's deep link.",
-          "customization": [
-            {
-              "key": "enabled",
-              "type": "toggle",
-              "label": "Show this badge",
-              "default": true
-            },
-            {
-              "key": "persistent",
-              "type": "toggle",
-              "label": "Keep the summary pinned (ongoing)",
-              "default": false
-            }
-          ]
-        },
-        {
           "id": "network_mesh",
           "card": {
-            "rank": 1,
+            "rank": 5,
             "kind": "text",
             "accent": "#3DDC97"
           },
@@ -4137,7 +4395,7 @@
         {
           "id": "network_data",
           "card": {
-            "rank": 2,
+            "rank": 6,
             "kind": "text",
             "accent": "#4DB6FF"
           },
@@ -4174,12 +4432,12 @@
         {
           "id": "battery_status",
           "card": {
-            "rank": 3,
+            "rank": 7,
             "kind": "level",
             "accent": "#4CD964"
           },
           "label": "Battery",
-          "subtitle": "The battery at a glance, time first: charging shows the time until full, discharging the time until empty from the average drain since the last unplug or full charge (h:mm, labelled as an estimate; 'learning' until 2% is used or 15 min pass). Expanded: level, status and plug, current now and average, voltage, temperature, health, cycles, charge and capacity, time and percent used since the last charge, and the short-term rate. Refreshed on the battery-changed event only; nothing polls.",
+          "subtitle": "The battery at a glance, time first: charging shows the time until full, discharging the time until empty from the average drain since the last unplug or full charge (h:mm, labelled as an estimate; 'learning' until 2% is used or 15 min pass). Expanded: level, status and plug, current now and average, voltage, temperature, health, cycles, charge and capacity, time and percent used since the last charge, and the short-term rate. Refreshed on the battery-changed event while the app runs, on plug, unplug, low and okay, and by one inexact 15-minute alarm; a plain ongoing notification, not a foreground service.",
           "icon": "ic_stat_notify",
           "surface": "system_notification",
           "channel": "battery_status",
@@ -4211,7 +4469,7 @@
         {
           "id": "ai_usage",
           "card": {
-            "rank": 11,
+            "rank": 8,
             "kind": "text",
             "accent": "#D97757"
           },
@@ -4252,11 +4510,11 @@
             "health"
           ],
           "card": {
-            "rank": 6,
+            "rank": 2,
             "kind": "text",
             "accent": "#FF6B6B"
           },
-          "label": "MyHealth",
+          "label": "Health",
           "subtitle": "Today's steps in km with the step count, resting heart rate and last night's sleep, from the same Health Connect read as Boards > MyHealth. Never estimated; a missing grant shows the reason and a Grant access button. Tap opens Boards > MyHealth.",
           "click_target": "page:boards/my-pm",
           "icon": "ic_p_health_activity",
@@ -4318,13 +4576,13 @@
         {
           "id": "weather_today",
           "card": {
-            "rank": 4,
+            "rank": 1,
             "kind": "text",
             "accent": "#58C4FF"
           },
           "label": "Weather",
           "click_target": "https://open-meteo.com/en/docs#latitude={lat}&longitude={lon}",
-          "subtitle": "Today where the device is: current temperature, the day's max/min and the hour-by-hour forecast, from Open-Meteo (no key, no account) for the last known position. The place name comes from Android's own geocoder. Location is never actively requested — the badge reads the position someone else already paid for.",
+          "subtitle": "Today where the device is: current temperature, the day's max/min and the hour-by-hour forecast, from Open-Meteo (no key, no account) for the last known position. The place name comes from Android's own geocoder. Location is one single-shot COARSE (cell/Wi-Fi network) fix, never GPS, taken at most once every 4 hours and cached; weather refreshes on the same 4 h cadence.",
           "icon": "ic_p_weather_today",
           "surface": "system_notification",
           "channel": "weather_today",
@@ -4373,22 +4631,20 @@
               "type": "choice",
               "label": "Refresh every",
               "options": [
-                "30",
-                "60",
-                "180"
+                "240"
               ],
-              "default": "60"
+              "default": "240"
             }
           ]
         },
         {
           "id": "markets_prices",
           "card": {
-            "rank": 5,
+            "rank": 3,
             "kind": "quotes",
             "accent": "#F5C542"
           },
-          "label": "Markets",
+          "label": "Fin Terminal Markets",
           "subtitle": "Live last-traded prices for the declared instruments, from Yahoo Finance. One action button per instrument opens that instrument's Yahoo ticker page in the app's own embedded browser. A quote that could not be fetched reads '—', never the last good number.",
           "icon": "ic_p_markets_prices",
           "surface": "system_notification",
@@ -4467,7 +4723,7 @@
                 "60",
                 "120"
               ],
-              "default": "30"
+              "default": "60"
             }
           ]
         },
@@ -4544,7 +4800,7 @@
     "floating_nav": {
       "enabled": true,
       "default_on": false,
-      "poll_ms": 1000,
+      "poll_ms": 5000,
       "top_offset_dp": 150,
       "width_pct": 90,
       "root": {
@@ -5114,11 +5370,13 @@
       "description": "Diego's Cloud Contacts — standalone Android multi-channel people hub. NOT a dialer-first address book: each person is a set of reachable CHANNELS (WhatsApp, Telegram, SMS, Cloud Mail, Cloud Dialer, Matrix, Cloud Chat, LinkedIn, Instagram) and the person screen is a channel switchboard — tapping a channel opens that conversation in its app; there is no default call action. Sources merged into one identity: device contacts (local phone + synced accounts such as Gmail) read from ContactsContract, plus LinkedIn Connections.csv and Instagram followers/following JSON imports parsed natively. WebView UI over HTML/Tailwind (cloud-news pattern). Build via Nix devShell, one APK out.",
       "kind": "app",
       "wasm": null,
-      "default_section": "people",
+      "default_section": "all",
       "bottom_nav": [
+        "groups",
+        "business",
+        "all",
         "people",
-        "import",
-        "about"
+        "configs"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -5127,38 +5385,82 @@
       ],
       "sections": [
         {
-          "id": "people",
-          "label": "People",
-          "icon": "contacts",
+          "id": "groups",
+          "label": "Groups",
+          "icon": "groups",
           "pages": [
             {
-              "id": "people",
-              "label": "People",
+              "id": "groups",
+              "label": "Groups",
               "icon": "groups"
             }
           ]
         },
         {
-          "id": "import",
-          "label": "Import",
-          "icon": "download",
+          "id": "business",
+          "label": "Business",
+          "icon": "account_balance",
           "pages": [
             {
-              "id": "import",
-              "label": "Import",
-              "icon": "file_upload"
+              "id": "business",
+              "label": "Business",
+              "icon": "account_balance"
             }
           ]
         },
         {
-          "id": "about",
-          "label": "About",
-          "icon": "info",
+          "id": "all",
+          "label": "All",
+          "icon": "contacts",
           "pages": [
+            {
+              "id": "all",
+              "label": "All",
+              "icon": "contacts"
+            }
+          ]
+        },
+        {
+          "id": "people",
+          "label": "People",
+          "icon": "person",
+          "pages": [
+            {
+              "id": "people",
+              "label": "People",
+              "icon": "person"
+            }
+          ]
+        },
+        {
+          "id": "configs",
+          "label": "Configs",
+          "icon": "configs",
+          "pages": [
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
             {
               "id": "about",
               "label": "About",
               "icon": "info"
+            },
+            {
+              "id": "import",
+              "label": "Import",
+              "icon": "file_upload"
+            },
+            {
+              "id": "channels",
+              "label": "Channels",
+              "icon": "hub"
             }
           ]
         }
@@ -5228,12 +5530,12 @@
         },
         {
           "id": "rss",
-          "label": "News",
+          "label": "Alerts",
           "icon": "rss",
           "pages": [
             {
               "id": "rss",
-              "label": "News",
+              "label": "Alerts",
               "icon": "rss_feed"
             }
           ]
@@ -5396,7 +5698,7 @@
       "bottom_nav": [
         "backlog",
         "editor",
-        "repos",
+        "git",
         "ai",
         "agents",
         "browser",
@@ -5439,8 +5741,8 @@
           "icon": "code"
         },
         {
-          "id": "repos",
-          "label": "Repos",
+          "id": "git",
+          "label": "Git",
           "icon": "git"
         },
         {
@@ -5484,7 +5786,7 @@
       "name": "Cloud Nav",
       "label": "Navigation",
       "icon": "ic_nav",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "android",
       "description": "Diego's Cloud Nav — dedicated maps/navigation/tracker Android app. Single APK, gradle multi-module (app/ Google-Maps-style shell + libs/{core,maps}). MapLibre Native renderer, GPS tracker + Stop detection, multi-stop routing, driving navigation view, place-category browsing, and a timeline of visited places. Lifted out of Cloud SuperApp's libs:maps into its own focused app. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -5621,7 +5923,7 @@
       "name": "Cloud Tasks",
       "label": "Tasks",
       "icon": "ic_calendar",
-      "group": "Data Apps",
+      "group": "Data",
       "category": "android",
       "description": "Diego's Cloud Tasks (formerly Cloud Agenda, before that Cloud Calendar) — standalone Android task, calendar and event app. The applicationId stays com.diegonmarcos.cloudagenda so installed phones update in place. Jetpack Compose chrome (CloudKitTheme light/dark/system, libs:bottomnav island + page tabs, a page-managed hamburger drawer, AI and Profile buttons in the top row, libs:ai chat with persistent history) over a local tasks database (projects > lists > tasks > subtasks, statuses, tags, links to Cloud Mail / Cloud Drive items) and a mail agent that proposes tasks for review. The Feeds page is still the legacy tasks.html WebView (public-ICS feed sync, CalDAV against a self-hosted Radicale). Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -5708,6 +6010,11 @@
               "id": "mindmap",
               "label": "Mindmap",
               "icon": "account_tree"
+            },
+            {
+              "id": "clock",
+              "label": "Clock",
+              "icon": "clock"
             }
           ]
         },
@@ -6042,7 +6349,7 @@
       "name": "Cloud Keyboard",
       "label": "Keyboard",
       "icon": "ic_keyboard",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "keyboard",
       "description": "Cloud Keyboard — IME with on-device translation, voice input, and bundled sticker packs. Standalone constellation APK.",
       "kind": "card",
@@ -6061,7 +6368,7 @@
       "name": "Cloud Wallet",
       "label": "Wallet",
       "icon": "ic_wallet",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "android",
       "description": "Diego's Cloud Wallet — standalone cards/passes/tickets Android app. Lifted from Cloud SuperApp's libs:wallet into its own focused APK. Compose-based deck UI: vCards, boarding passes, loyalty cards, QR codes, .pkpass imports. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -6145,7 +6452,7 @@
       "name": "Cloud Me",
       "label": "Me",
       "icon": "ic_vcard",
-      "group": "Me",
+      "group": "Data",
       "category": "android",
       "description": "Diego's Cloud Me — the personal-administration half of the constellation. Where Cloud SuperApp is the launcher for everything the cloud runs, Cloud Me is the launcher for everything the PERSON runs: paperwork and money (Buro), what is due (Agenda), the public profile (Me), travel and health (Projects) and study (Studying). It stores almost nothing of its own — cards live in Cloud Wallet, passwords in Cloud Vault, files in cloud-myterminal, health records in Health Connect — and is the one screen that indexes all of them.",
       "kind": "app",
@@ -6818,9 +7125,19 @@
               "icon": "ids"
             },
             {
-              "id": "dd",
+              "id": "personal-dd",
               "label": "Personal DD",
               "icon": "verified_user"
+            },
+            {
+              "id": "paycards",
+              "label": "Pay Cards",
+              "icon": "payments"
+            },
+            {
+              "id": "autocomplete",
+              "label": "Autocomplete",
+              "icon": "edit_note"
             },
             {
               "id": "wallet",
@@ -6834,19 +7151,89 @@
               "action": "extapp:cloud-account"
             },
             {
-              "id": "assets",
-              "label": "Assets",
-              "icon": "inventory_2"
+              "id": "logins",
+              "label": "Logins",
+              "icon": "key"
             },
             {
-              "id": "services",
-              "label": "Services",
-              "icon": "miscellaneous_services"
+              "id": "totp",
+              "label": "TOTP",
+              "icon": "token"
             },
             {
-              "id": "liabilities",
-              "label": "Liabilities & Taxes",
+              "id": "passkeys",
+              "label": "Passkeys",
+              "icon": "fingerprint"
+            },
+            {
+              "id": "ssh",
+              "label": "SSH",
+              "icon": "vpn_key"
+            },
+            {
+              "id": "apitokens",
+              "label": "API Tokens",
+              "icon": "dns"
+            },
+            {
+              "id": "jwt",
+              "label": "JWT",
+              "icon": "code"
+            },
+            {
+              "id": "certs",
+              "label": "Certificates",
+              "icon": "security"
+            },
+            {
+              "id": "repos",
+              "label": "Repos",
+              "icon": "account_tree"
+            },
+            {
+              "id": "android",
+              "label": "Android",
+              "icon": "smartphone"
+            },
+            {
+              "id": "desktop",
+              "label": "Desktop",
+              "icon": "computer"
+            },
+            {
+              "id": "c3",
+              "label": "C3",
+              "icon": "cloud"
+            },
+            {
+              "id": "backup",
+              "label": "Import / Export",
+              "icon": "folder"
+            },
+            {
+              "id": "accounts",
+              "label": "Accounts",
               "icon": "account_balance"
+            },
+            {
+              "id": "cards",
+              "label": "Cards",
+              "icon": "wallet"
+            },
+            {
+              "id": "statements",
+              "label": "Statements",
+              "icon": "description"
+            },
+            {
+              "id": "ir",
+              "label": "IR",
+              "icon": "assessment"
+            },
+            {
+              "id": "cashflow",
+              "label": "Accounts vs Cashflow",
+              "icon": "compare_arrows"
             },
             {
               "id": "budgeting",
@@ -6854,9 +7241,34 @@
               "icon": "pie_chart"
             },
             {
-              "id": "cashflow",
-              "label": "Accounts vs Cashflow",
-              "icon": "compare_arrows"
+              "id": "services",
+              "label": "Services",
+              "icon": "hub"
+            },
+            {
+              "id": "assets",
+              "label": "Assets",
+              "icon": "inventory_2"
+            },
+            {
+              "id": "liabilities",
+              "label": "Liabilities & Taxes",
+              "icon": "account_balance"
+            },
+            {
+              "id": "nav-value",
+              "label": "NaV",
+              "icon": "assessment"
+            },
+            {
+              "id": "performance",
+              "label": "Performance",
+              "icon": "trending_up"
+            },
+            {
+              "id": "events-list",
+              "label": "List",
+              "icon": "description"
             },
             {
               "id": "calendar",
@@ -6866,40 +7278,82 @@
           ],
           "groups": [
             {
-              "id": "ids",
-              "label": "IDs & DD",
+              "id": "iddd",
+              "label": "ID & DD",
               "icon": "badge",
               "pages": [
                 "ids",
-                "dd",
+                "personal-dd",
+                "paycards",
+                "autocomplete",
                 "wallet",
                 "account"
               ]
             },
             {
-              "id": "docs",
-              "label": "Docs",
-              "icon": "folder",
+              "id": "sec-web",
+              "label": "Secrets · Web",
+              "icon": "lock",
+              "pages": [
+                "logins",
+                "totp",
+                "passkeys"
+              ]
+            },
+            {
+              "id": "sec-cli",
+              "label": "Secrets · CLI",
+              "icon": "terminal",
+              "pages": [
+                "ssh",
+                "apitokens",
+                "jwt",
+                "certs"
+              ]
+            },
+            {
+              "id": "cfg",
+              "label": "Configs",
+              "icon": "settings",
+              "pages": [
+                "repos",
+                "android",
+                "desktop",
+                "c3",
+                "backup"
+              ]
+            },
+            {
+              "id": "financial",
+              "label": "Financial",
+              "icon": "payments",
+              "pages": [
+                "accounts",
+                "cards",
+                "statements",
+                "ir",
+                "cashflow",
+                "budgeting",
+                "services"
+              ]
+            },
+            {
+              "id": "portfolio",
+              "label": "Portfolio",
+              "icon": "trending_up",
               "pages": [
                 "assets",
-                "services",
-                "liabilities"
+                "liabilities",
+                "nav-value",
+                "performance"
               ]
             },
             {
-              "id": "reports",
-              "label": "Financial Reports",
-              "icon": "assessment",
-              "pages": [
-                "budgeting",
-                "cashflow"
-              ]
-            },
-            {
-              "id": "calendar",
-              "label": "Calendar",
+              "id": "events",
+              "label": "Events",
               "icon": "event",
               "pages": [
+                "events-list",
                 "calendar"
               ]
             }
@@ -6922,7 +7376,7 @@
               "icon": "rocket_launch"
             },
             {
-              "id": "assets",
+              "id": "company-assets",
               "label": "Assets",
               "icon": "inventory_2"
             },
@@ -6932,7 +7386,7 @@
               "icon": "trending_up"
             },
             {
-              "id": "calendar",
+              "id": "llc-calendar",
               "label": "Calendar",
               "icon": "calendar_month"
             }
@@ -6952,7 +7406,7 @@
               "label": "Assets & Portfolio",
               "icon": "account_balance",
               "pages": [
-                "assets",
+                "company-assets",
                 "portfolio"
               ]
             },
@@ -6961,7 +7415,7 @@
               "label": "Calendar",
               "icon": "event",
               "pages": [
-                "calendar"
+                "llc-calendar"
               ]
             }
           ]
@@ -7021,7 +7475,7 @@
       "name": "Cloud Browser",
       "label": "Browser",
       "icon": "ic_world",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "android",
       "description": "Diego's Cloud Browser — standalone WebView-based browser Android app. Lifted from Cloud SuperApp's libs:browser into its own focused APK. Multi-tab session persistence (BrowserTabPrefs), in-app URL bar, dark-chrome WebView host. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -7102,6 +7556,11 @@
           "label": "Domains",
           "icon": "language",
           "pages": [
+            {
+              "id": "headless_browsers",
+              "label": "Headless Browsers",
+              "icon": "smart_toy"
+            },
             {
               "id": "files",
               "label": "Files Cached",
@@ -7185,7 +7644,7 @@
       "name": "Cloud Vault",
       "label": "Vault",
       "icon": "ic_vault",
-      "group": "Tools Primary",
+      "group": "Data",
       "category": "android",
       "description": "Diego's Cloud Vault — standalone Vaultwarden client Android app. Hosts vault.diegonmarcos.com (self-hosted Vaultwarden) in a dedicated BrowserHostFragment APK with the constellation updater. Extracted from Cloud SuperApp's vault section (libs:vault was a KeePassDX stub) in favour of the full Vaultwarden web-app experience. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -7232,9 +7691,9 @@
       "dir": "ac_c3-watchdog",
       "package": "com.diegonmarcos.watchdog",
       "name": "Cloud C3 Watchdog",
-      "label": "Cloud C3 Watchdog",
-      "icon": null,
-      "group": null,
+      "label": "Watchdog",
+      "icon": "ic_p_watchdog",
+      "group": "Configs",
       "category": "android",
       "description": "The c3-watchdog panel as an Android app: a WebView showing the REAL dashboard, drawn by c3-watchdog-tui inside nix-on-droid and transcribed to HTML.",
       "kind": "card",
@@ -7783,9 +8242,9 @@
       "dir": "ac_cloud-media-center",
       "package": "com.diegonmarcos.cloudmediacenter",
       "name": "Cloud Media Center",
-      "label": "Media",
+      "label": "Media Center",
       "icon": "ic_music",
-      "group": "Data Apps",
+      "group": "Data",
       "category": "android",
       "description": "The fleet's media hub, as an APK, in Rust and static web only: a Tauri 2 app whose one webview shows seven mobile-first pages — music, videos, gallery, books, feed, movies, documentaries — built from the media data of diegonmarcos.github.io pinned at one commit. Every link out goes to the phone's own apps through tauri-plugin-opener.",
       "kind": "portal",
@@ -7804,7 +8263,7 @@
       "name": "Cloud Gallery",
       "label": "Gallery",
       "icon": "ic_photos",
-      "group": "Data Apps",
+      "group": "Data",
       "category": "android",
       "description": "Cloud Gallery — a photo/video gallery app forked from IacobIonut01/ReFra (ex-com.diegonmarcos.mediacenter). Single-app fork (NOT a hub+forks constellation like ea_cloud-comms/ac_cloud-ide): one APK, one materialized upstream tracker. Extends the upstream local MediaStore gallery with two additional non-local media sources behind the SAME Album/MediaItem model: an HTTP 'manifest' source (WG-gated JSON index + thumbs, also used to mirror Instagram via a server-side gallery-dl job) and a 'newpipe' source (NewPipeExtractor, YouTube only). See data/media-profiles.json for the profile registry — Kotlin iterates it, never a hardcoded source list.",
       "kind": "app",
@@ -7903,7 +8362,7 @@
       "name": "Cloud Office",
       "label": "Office",
       "icon": "ic_sheets",
-      "group": "Data Apps",
+      "group": "Data",
       "category": null,
       "description": null,
       "kind": "portal",
@@ -7922,7 +8381,7 @@
       "name": "Cloud Camera",
       "label": "Camera",
       "icon": "ic_camera",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "android",
       "description": "Diego's Cloud Camera — our own signed build of GrapheneOS Camera. Modern CameraX (photo, video, QR/barcode scan, timer, zoom/exposure bars, in-app gallery), pure Kotlin/Java, no NDK, no Play Services. Vendored upstream tree renamed onto cld.camera so it coexists with an officially-signed GrapheneOS Camera on the same device.",
       "kind": "app",
@@ -8003,7 +8462,7 @@
       "name": "Cloud Notes",
       "label": "Notes",
       "icon": "ic_notes",
-      "group": "Data Apps",
+      "group": "Data",
       "category": "android",
       "description": "Cloud Notes — our own signed build (the local-first notes/whiteboard app), vendored at ac_cloud-notes/ as owned code. DE-CLOUDED (#469): no sync server, no Firebase/telemetry, no AI chat, no EE-licensed code. The one feature added over upstream is opening files from emulated storage (/storage/emulated/0/...) reached via the fleet rule about EAR discipline — see the ship workflow and testers.",
       "kind": "app",
@@ -8143,7 +8602,7 @@
       "name": "Cloud Writer",
       "label": "Writer",
       "icon": "ic_writer",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "android",
       "description": "Cloud Writer - the application the owner asked for: one place that owns Text Enhance, Translate, Grammar Check and Summary (Resume), with its own model choice for each of them separately. Type or paste a text, pick a tool, get the result back in an editable box.",
       "kind": "app",
@@ -8278,7 +8737,7 @@
       "name": "Cloud Calc",
       "label": "Calc",
       "icon": "ic_calc",
-      "group": "Tools Primary",
+      "group": "Primary",
       "category": "android",
       "description": "Diego's Cloud Calc (#767) - an all-in-one calculator over libqalculate, the engine behind Qalculate!. Every number is computed by Cloud-Lib-Calc.apk (ab_cloud-libs-shared/libs/calc) - save Convert ▸ Network / Data, whose fixed bit and byte factors the app applies itself in exact decimals - which this app BINDS after a contract handshake and never compiles (#763: an app compiles only what it renders). #770 three top-level sections (ui.sections) - Calculator, Measure and Jev - each a set of bottom-nav tabs, each tab a strip of modes declared below in ui.modes. Calculator: Calc (Standard, Scientific, Programmer, CAS, Physics & Constants), Convert (Units, Currency, Network / Data), Graph, Tools (Date & Time, Finance, Acoustics) and History; Measure: Sound (#772: meter/oscilloscope/tuner, Wave detection, History with waterfall and CSV/WAV export, Generator, What is it?), Camera (#772: Measure by reference object or ARCore, Level, Identify, Colour, Text-to-numbers - every image read by the shared image engine Cloud-Lib-ML-L-Image, on-device ML Kit by default or an OpenRouter decision model when Configs ▸ Image route says so) and Clock (World clock, Alarms, Timers, Stopwatch, Interval, Bedtime; #768); Jev (#770): Ask - a natural-language request routed by a decision model on OpenRouter's Decisions API to one of the app's own tools, which then computes - and Configs (Token, Routing, Models, Test). Any result can also be scored by a decision model (Ask about this result: calibrated probabilities, kept in History). A mode is DATA: its kind picks one of its renderers (expression, catalog, converter, data_converter, form, plot, meter, history, and the six Clock kinds) and everything it shows - keys, options, forms, categories - is declared here. Offline by default: the network is used only by the engine's currency-rate download, on request, by the Jev section's and Sound ▸ What is it?'s calls to OpenRouter (build.json::jev; the shared libs:decisions client is the only code in this app that opens a URL), and - only when Configs ▸ Image route picks OpenRouter - by the image engine, which falls back to on-device ML Kit on any error; Calculator and Measure work without any of it, and the Clock section uses none (time zones are the device's tzdata, alarms are AlarmManager's). English is the base language (#299); dark is the default theme (#336).",
       "kind": "app",
@@ -8742,6 +9201,7 @@
         "notebook",
         "cgcs",
         "si",
+        "tools",
         "ais",
         "cost"
       ],
@@ -8791,6 +9251,37 @@
               "id": "si",
               "label": "SI",
               "icon": "auto_awesome",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "tools",
+          "label": "Tools",
+          "icon": "memory",
+          "pages": [
+            {
+              "id": "tools_models",
+              "label": "Models",
+              "icon": "psychology",
+              "pages": []
+            },
+            {
+              "id": "tools_pickers",
+              "label": "Agent & Model",
+              "icon": "smart_toy",
+              "pages": []
+            },
+            {
+              "id": "tools_tasks",
+              "label": "Tasks",
+              "icon": "edit_note",
+              "pages": []
+            },
+            {
+              "id": "tools_mcp",
+              "label": "MCP",
+              "icon": "hub",
               "pages": []
             }
           ]
@@ -9014,11 +9505,13 @@
       "description": "Cloud KG Store (#1207) - the fleet's knowledge-graph store and browser, three sections on the bottom nav: Cloud (two rows of groups: Application = Binary, Web/Debug, MCP search tools, API Data and API Debug with GET and POST; Repo = Code, CGC, MCP search tools, API Semantic and GraphRAG; every page is backed by the fleet endpoints declared in ac_cloud-account/build.json::fleet_endpoints - c3-infra-api, cloud-me-api, c3-public-api, the two CGC MCP services and embeddings-api - and says plainly when an endpoint is missing or does not answer), Phone (the installed Android apps index through PackageManager: package, version, permissions and components) and Web (News, Media, Shopping, Real Estate, Jobs, Business, on the sources and parsers Cloud Search declares: its build.json::search is baked by reference and its plain-JVM search-core is linked by reference, nothing is copied). The assistant behind the top bar's AI icon is libs:ai's chat over the fleet agent gateway (mesh only); no token is held or read by this app for it (decisions-use guard D5), and the fleet bearer for the public fallback route is read from Cloud Account on use and never kept. Dark is the default theme (#336); English is the base language (#299).",
       "kind": "app",
       "wasm": null,
-      "default_section": "cloud",
+      "default_section": "home",
       "bottom_nav": [
-        "cloud",
-        "phone",
-        "web"
+        "api",
+        "scrapped",
+        "home",
+        "me",
+        "cloud"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -9121,6 +9614,45 @@
           ]
         },
         {
+          "id": "scrapped",
+          "label": "Scrapped",
+          "icon": "smart_toy",
+          "pages": [
+            {
+              "id": "scrapped_headless",
+              "label": "Headless Browsers",
+              "icon": "smart_toy",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
+          "pages": [
+            {
+              "id": "home_overview",
+              "label": "Overview",
+              "icon": "home",
+              "pages": []
+            }
+          ]
+        },
+        {
+          "id": "me",
+          "label": "Me",
+          "icon": "person",
+          "pages": [
+            {
+              "id": "me_library",
+              "label": "Library",
+              "icon": "menu_book",
+              "pages": []
+            }
+          ]
+        },
+        {
           "id": "phone",
           "label": "Phone",
           "icon": "smartphone",
@@ -9134,8 +9666,8 @@
           ]
         },
         {
-          "id": "web",
-          "label": "Web",
+          "id": "api",
+          "label": "API",
           "icon": "public",
           "pages": [
             {
@@ -9372,7 +9904,7 @@
         "cloud",
         "phone",
         "search",
-        "feed",
+        "torrent",
         "access"
       ],
       "top_bar": {
@@ -9415,24 +9947,29 @@
           "id": "search",
           "label": "Search",
           "icon": "search",
-          "pages": []
-        },
-        {
-          "id": "feed",
-          "label": "Feed",
-          "icon": "feed",
           "pages": [
             {
-              "id": "commits",
-              "label": "Commits",
-              "icon": "code"
+              "id": "search-cloudy",
+              "label": "Cloudy",
+              "icon": "cloud"
             },
             {
-              "id": "cicd",
-              "label": "CI-CD",
-              "icon": "build"
+              "id": "search-android",
+              "label": "Android",
+              "icon": "android"
+            },
+            {
+              "id": "search-torrent",
+              "label": "Torrent",
+              "icon": "torrent"
             }
           ]
+        },
+        {
+          "id": "torrent",
+          "label": "Torrent",
+          "icon": "torrent",
+          "pages": []
         },
         {
           "id": "access",
@@ -9497,6 +10034,11 @@
               "icon": "notifications"
             },
             {
+              "id": "torrent",
+              "label": "Torrent",
+              "icon": "torrent"
+            },
+            {
               "id": "data",
               "label": "Data",
               "icon": "storage"
@@ -9515,9 +10057,9 @@
       "dir": "ac_cloud-account",
       "package": "com.diegonmarcos.cloudaccount",
       "name": "Cloud Account",
-      "label": "Cloud Account",
-      "icon": null,
-      "group": null,
+      "label": "Account",
+      "icon": "ic_p_accounts",
+      "group": "Configs",
       "category": "android",
       "description": "Diego's Cloud Account — turns an empty phone into the owner's phone and keeps it that way: the account and its sign-in ways, the per-device profile backed up to and restored from the private vault repo, setup, and the fleet secrets (a0_docs/eng-specs/cloud-account-redesign.md). Hosts libs:account, the same code SuperApp links.",
       "kind": "app",
@@ -9838,6 +10380,11 @@
               "id": "activity",
               "label": "Activity",
               "icon": "history"
+            },
+            {
+              "id": "fleetdata",
+              "label": "Fleet Data",
+              "icon": "dataset"
             }
           ]
         },
@@ -9873,7 +10420,7 @@
       "name": "Cloud Drive",
       "label": "Drive",
       "icon": "ic_drive",
-      "group": "Data Apps",
+      "group": "Primary",
       "category": "android",
       "description": "Diego's Cloud Drive — standalone Android storage app, lifted out of the SuperApp's Cloud▸Apps▸Drive pages so the phone's storage surface is its own icon. #609 REDESIGN over #603/#604's Compose chrome: a five-tab shell drawn by the fleet's bottom-nav island (libs:bottomnav) — Files, Volumes, Home, Sync, Configs — every tab, sub-page, place, section, filter and icon name declared in ui.* below and baked through BuildConfig. Files is a FULL X-plore-class manager over shared storage with TWO declared sections (ui.files.sections): Emulated (shared storage itself, /storage/emulated/0) and cloud-drive-storage (the ONE shared store of #575, storage.shared_root, exposed to every fleet app that holds all-files access — plain shared storage, so NO webserver is needed and libs:webserver stays deliberately unlinked); the store is seeded by DEFAULT with the public cloud repositories (storage.seed + data/drive-git-repos.json seed flags — a baked manifest with a first-run SHALLOW fetch, because an APK cannot carry a working clone). Volumes consolidates the FULL FLEET: the device's removable volumes plus every mesh mount (libs:mounts) and declared fleet connection, browse-through one tap away. Home is the drive's overview, REDESIGNED by #609 into two sections: Apps (the fleet's data-app grid, moved in from the old Apps tab) and Volumes (a snapshot of the two stores, the four volume classes, the seeded git repos' clean/dirty/ahead-behind state and the container mesh's status, each reading the SAME state the Volumes and Sync tabs render, never a second source). Sync holds three sub-pages from ONE declaration (ui.sections[sync].pages) — Git, Rclone and Mounts — moved back OUT of Configs by #609 (the mirror of #603's move the other way): the native git manager, the folder↔folder sync engine and the ftp/sftp/ssh/webdav connections. Configs keeps three sub-pages (ui.sections[configs].pages): Backups (the declared mirror/rsync jobs with cancellable progress), General (the app's settings, sign-in, storage access) and Others (removable storage, about). The four engine libraries (#567) and the ONE shared store (#575) are unchanged underneath. Dark is the default theme, set at the declaration (#336, #337). Design: a0_docs/eng-specs/cloud-drive-redesign.md. The PDF reader is the #577 native pdfium engine (build.json::pdf), the fleet's one in-process renderer, opened from the Files tab and from any app's Open-with. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -10261,23 +10808,23 @@
             },
             {
               "id": "world-equity-indices",
-              "label": "World Equity Indices",
+              "label": "World Indices Equity",
               "icon": "public"
             },
             {
-              "id": "eq-dm-us",
-              "label": "DM Equity (US)",
-              "icon": "trending_up"
+              "id": "commodities",
+              "label": "Commodities",
+              "icon": "inventory_2"
             },
             {
-              "id": "eq-em",
-              "label": "EM Equity",
-              "icon": "explore"
+              "id": "commodity-prices",
+              "label": "Commodity Prices",
+              "icon": "inventory_2"
             },
             {
-              "id": "equity-quote",
-              "label": "Quotes & Charts",
-              "icon": "chart"
+              "id": "fx-rates",
+              "label": "Exchange Rates",
+              "icon": "swap_horiz"
             },
             {
               "id": "equity-fundamentals",
@@ -10290,24 +10837,14 @@
               "icon": "calendar_month"
             },
             {
+              "id": "equity-quote",
+              "label": "Quotes",
+              "icon": "chart"
+            },
+            {
               "id": "watchlist",
-              "label": "Watchlist & Alerts",
+              "label": "Watchlist",
               "icon": "bookmark"
-            },
-            {
-              "id": "fx-rates",
-              "label": "Exchange Rates",
-              "icon": "swap_horiz"
-            },
-            {
-              "id": "commodity-prices",
-              "label": "Commodity Prices",
-              "icon": "inventory_2"
-            },
-            {
-              "id": "commodities",
-              "label": "Commodities",
-              "icon": "inventory_2"
             }
           ]
         },
