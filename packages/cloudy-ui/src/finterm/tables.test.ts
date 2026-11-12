@@ -55,7 +55,7 @@ describe('Performance.row port', () => {
 describe('table panels end to end', () => {
   it('a performance table reads the container per item and keeps an unanswered item as a dashed row with its reason', async () => {
     const { ctx } = harness((u) => (u.startsWith(`${MESH}/v1/history?symbol=XLK`) ? bars(['2025-10-30', 100], ['2026-10-30', 110]) : null), true);
-    const d = await loadPanel(panel('eq_dm_us', 'sectors'), dash('eq_dm_us'), ctx);
+    const d = await loadPanel(panel('world_equity_indices', 'dm_sectors'), dash('world_equity_indices'), ctx);
     const xlk = d.rows.find((r) => r[0] === 'XLK Technology')!;
     expect(d.details?.[d.rows.indexOf(xlk)]).toBe('Technology (XLK)');
     expect(xlk[2 + PERF_COLUMNS.indexOf('1Y')]).toBe('+10.00%');
@@ -65,7 +65,7 @@ describe('table panels end to end', () => {
   });
   it('off the mesh a Cboe-only table asks nothing and is the mesh-only key row; Coinbase is read in the browser', async () => {
     const { ctx, asked } = harness(() => null, false);
-    await expect(loadPanel(panel('eq_dm_us', 'sectors'), dash('eq_dm_us'), ctx)).rejects.toMatchObject({ kind: 'blocked' });
+    await expect(loadPanel(panel('world_equity_indices', 'dm_sectors'), dash('world_equity_indices'), ctx)).rejects.toMatchObject({ kind: 'blocked' });
     expect(asked).toEqual([]);
     const cb = harness((u) => (u.includes('/products/BTC-USD/candles') ? JSON.stringify([[Date.UTC(2026, 9, 30) / 1000, 1, 1, 1, 70000, 1], [Date.UTC(2026, 8, 30) / 1000, 1, 1, 1, 50000, 1]]) : null), false);
     const d = await loadPanel(panel('commodities', 'digital'), dash('commodities'), cb.ctx);

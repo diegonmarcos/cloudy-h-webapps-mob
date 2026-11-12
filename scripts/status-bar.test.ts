@@ -15,7 +15,7 @@ describe('status bar declaration', () => {
   it('declares the left network cluster in NetworkSections order, the clock centre, R/S/C and the battery right', () => {
     expect(ids(gen.statusBar, 'left')).toEqual(['cellular', 'wifi', 'bluetooth', 'mesh', 'kde', 'adb', 'data', 'hotspot', 'gps']);
     expect(ids(gen.statusBar, 'centre')).toEqual(['clock']);
-    expect(ids(gen.statusBar, 'right')).toEqual(['ram', 'storage', 'cpu', 'battery']);
+    expect(ids(gen.statusBar, 'right')).toEqual(['ram', 'storage', 'cpu', 'fps', 'battery']);
     expect(gen.statusBar.row_height_dp).toBe(26);
   });
   it('the replica draws the declared order: swapping two declared orders swaps the chips', () => {
