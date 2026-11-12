@@ -13,7 +13,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 // Ratchet (optimisation pass, 2026-10-31): measured size + a small margin per site, so savings cannot silently grow back.
 // Measured: webapps shell 55.7 / CSS 21.1, c3 shell 52.1 / CSS 8.6, biggest lazy chunk 37.5, sprite 56.4 (raw) kB. Lower, never raise.
 const K = 1024;
-const LIMITS = { 'cloudy-webapps': { shell: 57.5 * K, css: 22.5 * K }, 'cloudy-c3': { shell: 53.5 * K, css: 9.5 * K } };
+// Raised once (#1483): webapps CSS 22.5 -> 23.25 kB for the #1612 index-holdings treemap (FinTreemap + its dialog, +0.64 kB
+// measured 22.96 kB). The growth is new feature CSS, no dead or duplicated rules (svelte prunes unused selectors; fin.css has none).
+const LIMITS = { 'cloudy-webapps': { shell: 57.5 * K, css: 23.25 * K }, 'cloudy-c3': { shell: 53.5 * K, css: 9.5 * K } };
 const LIMIT = { shell: 60 * K, chunk: 39 * K, css: 30 * K, sprite: 58 * K };
 const gz = (f) => gzipSync(readFileSync(f), { level: 9 }).length;
 const walk = (d) => readdirSync(d).flatMap((n) => { const p = join(d, n); return statSync(p).isDirectory() ? walk(p) : [p]; });
