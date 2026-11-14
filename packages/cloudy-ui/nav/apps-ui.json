@@ -3064,7 +3064,7 @@
               "id": "gh_pages",
               "label": "GH Pages",
               "from": "pages_hub",
-              "feed": "https://raw.githubusercontent.com/diegonmarcos/front-html/main/pages.json"
+              "feed": "https://raw.githubusercontent.com/diegonmarcos/_front-html___/main/pages.json"
             },
             {
               "id": "cloudy_public",
@@ -4378,7 +4378,7 @@
         "icon_overrides": {}
       },
       "cloudy": {
-        "pages_url": "https://raw.githubusercontent.com/diegonmarcos/front-html/main/pages.json",
+        "pages_url": "https://raw.githubusercontent.com/diegonmarcos/_front-html___/main/pages.json",
         "webserver_base_role": "drive",
         "timeout_ms": 1500,
         "private_scheme": "http://",
