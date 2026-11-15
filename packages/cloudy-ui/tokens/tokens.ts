@@ -71,10 +71,10 @@ export const tokens = {
       "tile_group": "Data Apps"
     },
     "lnktree": {
-      "tile_group": "Lnktree"
+      "tile_group": "Projects"
     },
     "services": {
-      "tile_group": "Services"
+      "tile_group": "Services (not checked: KG Store keeps agi colours)"
     },
     "tools": {
       "tile_group": "Tools Primary"
@@ -221,6 +221,7 @@ export const tokens = {
       "INNER_PAD": 8,
       "LABEL": 12,
       "LABEL_BOTTOM": 4,
+      "LABEL_MIN": 9,
       "LIFT": 6,
       "MAX_WIDTH": 440,
       "RADIUS": 32,
@@ -577,4 +578,4 @@ export type Tokens = typeof tokens;
 export const THEME_IDS = ["cloud","cloud_minimalist_black"] as const;
 export type ThemeId = (typeof THEME_IDS)[number];
 export const PALETTE_ROLES = ["window","surface","surface_selected","text_primary","text_secondary","accent","hairline","tile_ink"] as const;
-export const TOKEN_COUNT = 413;
+export const TOKEN_COUNT = 414;

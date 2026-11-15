@@ -15,6 +15,10 @@
   "stacks": {
     "cb": [
       {
+        "kind": "section_title",
+        "title": "Central banks"
+      },
+      {
         "kind": "cb_table",
         "title": "Countries",
         "subtitle": "Central-bank macro by country: DM, euro area, BRICS EM; DM / EM / World rows pinned, simple or full indicators, forecast year",
@@ -34,9 +38,11 @@
         "subtitle": "IMF and OECD forecasts for the current year, +1 and +2, the banks' own projections and a Taylor-rule policy-rate path",
         "page": "cb-predictions",
         "view": "predictions"
-      }
-    ],
-    "fi": [
+      },
+      {
+        "kind": "section_title",
+        "title": "Rates"
+      },
       {
         "kind": "dashboard",
         "title": "Yield Curves",
@@ -48,12 +54,6 @@
         "title": "Yields Matrix",
         "subtitle": "Government yields, country x tenor (3M-30Y), spot or 1y forward; GDP-weighted World / DM / EM averages",
         "dashboard": "yields_matrix"
-      },
-      {
-        "kind": "dashboard",
-        "title": "Bonds Market",
-        "subtitle": "US bond market: Treasuries by maturity, TIPS, aggregate, MBS, IG, HY, munis (WTD to 10Y)",
-        "dashboard": "bonds_market"
       },
       {
         "kind": "dashboard",
@@ -75,15 +75,76 @@
       },
       {
         "kind": "dashboard",
-        "title": "Credit",
-        "subtitle": "Corporate spreads (ICE BofA OAS), corporate yields and curve slopes",
-        "dashboard": "credit"
+        "title": "Bonds Market",
+        "subtitle": "US bond market: Treasuries by maturity, TIPS, aggregate, MBS, IG, HY, munis (WTD to 10Y)",
+        "dashboard": "bonds_market"
+      },
+      {
+        "kind": "section_title",
+        "title": "Macro & Credit"
       },
       {
         "kind": "dashboard",
         "title": "Macro",
         "subtitle": "Latest official prints: US (BLS), euro area (Eurostat), G7 inflation (OECD)",
         "dashboard": "macro"
+      },
+      {
+        "kind": "dashboard",
+        "title": "Credit",
+        "subtitle": "Corporate spreads (ICE BofA OAS), corporate yields and curve slopes",
+        "dashboard": "credit"
+      }
+    ],
+    "fi": [
+      {
+        "kind": "perf_portfolio",
+        "title": "All",
+        "subtitle": "Every bond group side by side: government DM and EM, AAA, AA-A, BBB and junk, each group at the same weight",
+        "page": "fi-all",
+        "view": "fi-all"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Gov Bonds DM",
+        "subtitle": "Developed-market government bonds by country: GDP-weighted, USD index or liquidity weights; table and heat map",
+        "page": "fi-gov-dm",
+        "view": "fi-gov-dm"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Gov Bonds EM",
+        "subtitle": "Emerging-market government bonds by country at the weights of the main EM government bond funds (EMB, EBND)",
+        "page": "fi-gov-em",
+        "view": "fi-gov-em"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "AAA Bonds",
+        "subtitle": "AAA-rated bonds: the listed AAA funds, performance table and graphics",
+        "page": "fi-aaa",
+        "view": "fi-aaa"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "AA-A Bonds",
+        "subtitle": "AA to A rated bonds: high-grade corporates, agencies, agency MBS and municipals",
+        "page": "fi-aa-a",
+        "view": "fi-aa-a"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "BBB Bonds",
+        "subtitle": "BBB-rated corporate bonds by maturity",
+        "page": "fi-bbb",
+        "view": "fi-bbb"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Junk",
+        "subtitle": "High-yield bonds: broad, short, by rating (BB, B, CCC) and fallen angels",
+        "page": "fi-junk",
+        "view": "fi-junk"
       }
     ],
     "eq": [
@@ -92,10 +153,84 @@
         "title": "Performance"
       },
       {
+        "kind": "perf_portfolio",
+        "title": "Growth",
+        "subtitle": "S&P 500 Growth: top constituents and returns; table and heat map",
+        "page": "eq-growth",
+        "view": "eq-growth"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Value",
+        "subtitle": "S&P 500 Value: top constituents and returns; table and heat map",
+        "page": "eq-value",
+        "view": "eq-value"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Quality",
+        "subtitle": "Quality-tilted US large caps (MSCI USA Factor Mix): top constituents and returns",
+        "page": "eq-quality",
+        "view": "eq-quality"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Vol",
+        "subtitle": "Low-volatility US large caps: top constituents and returns",
+        "page": "eq-vol",
+        "view": "eq-vol"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Top",
+        "subtitle": "The 20 largest companies of the S&P 500 and their returns",
+        "page": "eq-top",
+        "view": "eq-top"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Cyclical",
+        "subtitle": "Cyclicals: the consumer discretionary sector, constituents and returns",
+        "page": "eq-cyclical",
+        "view": "eq-cyclical"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Defensive",
+        "subtitle": "Defensives: the consumer staples sector, constituents and returns",
+        "page": "eq-defensive",
+        "view": "eq-defensive"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Dividend",
+        "subtitle": "Dividend aristocrats weighted by yield: constituents and returns",
+        "page": "eq-dividend",
+        "view": "eq-dividend"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Momentum",
+        "subtitle": "Momentum tilt of the S&P 1500: top constituents and returns",
+        "page": "eq-momentum",
+        "view": "eq-momentum"
+      },
+      {
+        "kind": "perf_portfolio",
+        "title": "Small",
+        "subtitle": "US small caps (S&P 600): top constituents and returns",
+        "page": "eq-small",
+        "view": "eq-small"
+      },
+      {
         "kind": "dashboard",
         "title": "World Indices Equity",
         "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap S&P 500, Nikkei 225 or FTSE 100 for its holdings table and treemap",
         "dashboard": "world_equity_indices"
+      },
+      {
+        "kind": "section_title",
+        "title": "Data"
       },
       {
         "kind": "dashboard",
@@ -116,10 +251,6 @@
         "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix",
         "page": "fx-rates",
         "view": "fx_rates"
-      },
-      {
-        "kind": "section_title",
-        "title": "Data"
       },
       {
         "kind": "dashboard",
@@ -383,9 +514,7 @@
         "title": "Predictions",
         "icon": "insights",
         "subtitle": "IMF and OECD forecasts for the current year, +1 and +2, the banks' own projections and a Taylor-rule policy-rate path"
-      }
-    ],
-    "fi": [
+      },
       {
         "slug": "yield-curves",
         "title": "Yield Curves",
@@ -397,12 +526,6 @@
         "title": "Yields Matrix",
         "icon": "table_chart",
         "subtitle": "Government yields, country x tenor (3M-30Y), spot or 1y forward; GDP-weighted World / DM / EM averages"
-      },
-      {
-        "slug": "bonds-market",
-        "title": "Bonds Market",
-        "icon": "bar_chart",
-        "subtitle": "US bond market: Treasuries by maturity, TIPS, aggregate, MBS, IG, HY, munis (WTD to 10Y)"
       },
       {
         "slug": "forward-rates",
@@ -423,19 +546,129 @@
         "subtitle": "Sovereign bond yields and spreads by country"
       },
       {
-        "slug": "credit",
-        "title": "Credit",
-        "icon": "assessment",
-        "subtitle": "Corporate spreads (ICE BofA OAS), corporate yields and curve slopes"
+        "slug": "bonds-market",
+        "title": "Bonds Market",
+        "icon": "bar_chart",
+        "subtitle": "US bond market: Treasuries by maturity, TIPS, aggregate, MBS, IG, HY, munis (WTD to 10Y)"
       },
       {
         "slug": "macro",
         "title": "Macro",
         "icon": "language",
         "subtitle": "Latest official prints: US (BLS), euro area (Eurostat), G7 inflation (OECD)"
+      },
+      {
+        "slug": "credit",
+        "title": "Credit",
+        "icon": "assessment",
+        "subtitle": "Corporate spreads (ICE BofA OAS), corporate yields and curve slopes"
+      }
+    ],
+    "fi": [
+      {
+        "slug": "fi-all",
+        "title": "All",
+        "icon": "dataset",
+        "subtitle": "Every bond group side by side: government DM and EM, AAA, AA-A, BBB and junk, each group at the same weight"
+      },
+      {
+        "slug": "fi-gov-dm",
+        "title": "Gov Bonds DM",
+        "icon": "public",
+        "subtitle": "Developed-market government bonds by country: GDP-weighted, USD index or liquidity weights; table and heat map"
+      },
+      {
+        "slug": "fi-gov-em",
+        "title": "Gov Bonds EM",
+        "icon": "language",
+        "subtitle": "Emerging-market government bonds by country at the weights of the main EM government bond funds (EMB, EBND)"
+      },
+      {
+        "slug": "fi-aaa",
+        "title": "AAA Bonds",
+        "icon": "verified_user",
+        "subtitle": "AAA-rated bonds: the listed AAA funds, performance table and graphics"
+      },
+      {
+        "slug": "fi-aa-a",
+        "title": "AA-A Bonds",
+        "icon": "security",
+        "subtitle": "AA to A rated bonds: high-grade corporates, agencies, agency MBS and municipals"
+      },
+      {
+        "slug": "fi-bbb",
+        "title": "BBB Bonds",
+        "icon": "assessment",
+        "subtitle": "BBB-rated corporate bonds by maturity"
+      },
+      {
+        "slug": "fi-junk",
+        "title": "Junk",
+        "icon": "bolt",
+        "subtitle": "High-yield bonds: broad, short, by rating (BB, B, CCC) and fallen angels"
       }
     ],
     "eq": [
+      {
+        "slug": "eq-growth",
+        "title": "Growth",
+        "icon": "trending_up",
+        "subtitle": "S&P 500 Growth: top constituents and returns; table and heat map"
+      },
+      {
+        "slug": "eq-value",
+        "title": "Value",
+        "icon": "payments",
+        "subtitle": "S&P 500 Value: top constituents and returns; table and heat map"
+      },
+      {
+        "slug": "eq-quality",
+        "title": "Quality",
+        "icon": "star",
+        "subtitle": "Quality-tilted US large caps (MSCI USA Factor Mix): top constituents and returns"
+      },
+      {
+        "slug": "eq-vol",
+        "title": "Vol",
+        "icon": "speed",
+        "subtitle": "Low-volatility US large caps: top constituents and returns"
+      },
+      {
+        "slug": "eq-top",
+        "title": "Top",
+        "icon": "emoji_events",
+        "subtitle": "The 20 largest companies of the S&P 500 and their returns"
+      },
+      {
+        "slug": "eq-cyclical",
+        "title": "Cyclical",
+        "icon": "cached",
+        "subtitle": "Cyclicals: the consumer discretionary sector, constituents and returns"
+      },
+      {
+        "slug": "eq-defensive",
+        "title": "Defensive",
+        "icon": "security",
+        "subtitle": "Defensives: the consumer staples sector, constituents and returns"
+      },
+      {
+        "slug": "eq-dividend",
+        "title": "Dividend",
+        "icon": "account_balance_wallet",
+        "subtitle": "Dividend aristocrats weighted by yield: constituents and returns"
+      },
+      {
+        "slug": "eq-momentum",
+        "title": "Momentum",
+        "icon": "rocket_launch",
+        "subtitle": "Momentum tilt of the S&P 1500: top constituents and returns"
+      },
+      {
+        "slug": "eq-small",
+        "title": "Small",
+        "icon": "apps",
+        "subtitle": "US small caps (S&P 600): top constituents and returns"
+      },
       {
         "slug": "world-equity-indices",
         "title": "World Indices Equity",
@@ -1311,7 +1544,7 @@
       "connector": "fincept_topic",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "*"
           ]
@@ -1358,7 +1591,7 @@
       "connector": "fred_series",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Yield Curves",
             "Forward Rates"
@@ -1378,7 +1611,7 @@
           ]
         },
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Credit"
           ]
@@ -1406,14 +1639,14 @@
       "connector": "dbnomics_series",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "World Interest Rate Probabilities",
             "World Bonds"
           ]
         },
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Yield Curves",
             "Forward Rates"
@@ -1456,7 +1689,7 @@
       "connector": "imf_datamapper",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "World Bonds"
           ]
@@ -1477,7 +1710,7 @@
       "connector": "worldbank_indicator",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "World Bonds"
           ]
@@ -1498,7 +1731,7 @@
       "connector": null,
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Yield Curves"
           ]
@@ -1532,7 +1765,7 @@
       "connector": null,
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Yield Curves",
             "World Interest Rate Probabilities",
@@ -1546,7 +1779,7 @@
           ]
         },
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Credit"
           ]
@@ -1568,7 +1801,7 @@
       "connector": null,
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "World Bonds"
           ]
@@ -1825,7 +2058,7 @@
       "connector": "treasury_xml",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Yield Curves",
             "Yields Matrix",
@@ -1852,7 +2085,7 @@
       "connector": "sdmx_json",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Yield Curves"
           ]
@@ -1877,7 +2110,7 @@
       "connector": "sdmx_json",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Macro"
           ]
@@ -1902,7 +2135,7 @@
       "connector": "jsonstat",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Macro"
           ]
@@ -1933,7 +2166,7 @@
       "connector": "bls_series",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Macro"
           ]
@@ -1989,7 +2222,7 @@
       "connector": "ff_calendar",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Macro"
           ]
@@ -2027,7 +2260,7 @@
       "connector": "declared_events",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Macro"
           ]
@@ -2065,7 +2298,7 @@
       "connector": "polymarket_events",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "World Interest Rate Probabilities"
           ]
@@ -2184,7 +2417,7 @@
       "connector": "cboe_quotes",
       "feeds": [
         {
-          "tab": "fi",
+          "tab": "cb",
           "entries": [
             "Bonds Market"
           ]
@@ -2468,7 +2701,7 @@
     {
       "id": "yield_curves",
       "entry": "Yield Curves",
-      "tab": "fi",
+      "tab": "cb",
       "panels": [
         {
           "id": "ust",
@@ -2695,7 +2928,7 @@
     {
       "id": "yields_matrix",
       "entry": "Yields Matrix",
-      "tab": "fi",
+      "tab": "cb",
       "panels": [
         {
           "id": "spot",
@@ -3153,83 +3386,9 @@
       "subtitle": "Government yields, country x tenor (3M-30Y), spot or 1y forward; GDP-weighted World / DM / EM averages"
     },
     {
-      "id": "bonds_market",
-      "entry": "Bonds Market",
-      "tab": "fi",
-      "panels": [
-        {
-          "id": "us",
-          "title": "US bond market total return (ETF, USD)",
-          "source": "cboe",
-          "view": "table",
-          "derive": "performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "each": [
-              "BIL",
-              "SHY",
-              "IEI",
-              "IEF",
-              "TLH",
-              "TLT",
-              "GOVT",
-              "TIP",
-              "AGG",
-              "MBB",
-              "LQD",
-              "HYG",
-              "MUB"
-            ],
-            "labels": {
-              "BIL": "T-bills 1-3M (BIL)",
-              "SHY": "Treasuries 1-3Y (SHY)",
-              "IEI": "Treasuries 3-7Y (IEI)",
-              "IEF": "Treasuries 7-10Y (IEF)",
-              "TLH": "Treasuries 10-20Y (TLH)",
-              "TLT": "Treasuries 20Y+ (TLT)",
-              "GOVT": "Treasuries all (GOVT)",
-              "TIP": "TIPS (TIP)",
-              "AGG": "US Aggregate (AGG)",
-              "MBB": "Agency MBS (MBB)",
-              "LQD": "IG corporate (LQD)",
-              "HYG": "High yield (HYG)",
-              "MUB": "Municipals (MUB)"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y"
-          ],
-          "unit": "%"
-        }
-      ],
-      "slug": "bonds-market",
-      "subtitle": "US bond market: Treasuries by maturity, TIPS, aggregate, MBS, IG, HY, munis (WTD to 10Y)"
-    },
-    {
       "id": "forward_rates",
       "entry": "Forward Rates",
-      "tab": "fi",
+      "tab": "cb",
       "panels": [
         {
           "id": "fwd",
@@ -3336,7 +3495,7 @@
     {
       "id": "rate_probabilities",
       "entry": "World Interest Rate Probabilities",
-      "tab": "fi",
+      "tab": "cb",
       "panels": [
         {
           "id": "policy",
@@ -3464,7 +3623,7 @@
     {
       "id": "world_bonds",
       "entry": "World Bonds",
-      "tab": "fi",
+      "tab": "cb",
       "panels": [
         {
           "id": "g20_real",
@@ -4028,166 +4187,83 @@
       "subtitle": "Sovereign bond yields and spreads by country"
     },
     {
-      "id": "credit",
-      "entry": "Credit",
-      "tab": "fi",
+      "id": "bonds_market",
+      "entry": "Bonds Market",
+      "tab": "cb",
       "panels": [
         {
-          "id": "oas",
-          "title": "ICE BofA option-adjusted spreads",
-          "better_when": "lower",
-          "source": "fred",
-          "view": "bars",
-          "derive": "level_change",
-          "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 21,
-            "series": [
-              {
-                "id": "BAMLC0A0CM",
-                "label": "US IG OAS"
-              },
-              {
-                "id": "BAMLH0A0HYM2",
-                "label": "US high yield"
-              },
-              {
-                "id": "BAMLEMCBPIOAS",
-                "label": "EM corporate"
-              },
-              {
-                "id": "BAMLHE00EHYIOAS",
-                "label": "Euro HY OAS"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
-            }
-          },
-          "columns": [
-            "Index",
-            "OAS %",
-            "1d bp",
-            "Date"
-          ],
-          "chart_value": "level",
-          "unit": "%",
-          "change_unit": "bp"
-        },
-        {
-          "id": "oas_rating",
-          "title": "ICE BofA US corporate OAS by rating (AAA to CCC)",
-          "source": "fred",
-          "view": "bars",
-          "derive": "level_change",
-          "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 21,
-            "series": [
-              {
-                "id": "BAMLC0A1CAAA",
-                "label": "AAA"
-              },
-              {
-                "id": "BAMLC0A2CAA",
-                "label": "AA"
-              },
-              {
-                "id": "BAMLC0A3CA",
-                "label": "A"
-              },
-              {
-                "id": "BAMLC0A4CBBB",
-                "label": "BBB"
-              },
-              {
-                "id": "BAMLH0A1HYBB",
-                "label": "BB"
-              },
-              {
-                "id": "BAMLH0A2HYB",
-                "label": "B"
-              },
-              {
-                "id": "BAMLH0A3HYC",
-                "label": "CCC and below"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
-            }
-          },
-          "columns": [
-            "Rating",
-            "OAS %",
-            "1d bp",
-            "Date"
-          ],
-          "chart_value": "level",
-          "unit": "%",
-          "change_unit": "bp",
-          "better_when": "lower"
-        },
-        {
-          "id": "yields",
-          "title": "Corporate yields and curve slopes",
-          "source": "fred",
+          "id": "us",
+          "title": "US bond market total return (ETF, USD)",
+          "source": "cboe",
           "view": "table",
-          "derive": "level_change",
+          "derive": "performance",
           "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 21,
-            "series": [
-              {
-                "id": "DAAA",
-                "label": "Moody's Aaa"
-              },
-              {
-                "id": "DBAA",
-                "label": "Moody's Baa"
-              },
-              {
-                "id": "T10Y2Y",
-                "label": "10Y - 2Y"
-              },
-              {
-                "id": "T10Y3M",
-                "label": "10Y - 3M"
-              }
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "each": [
+              "BIL",
+              "SHY",
+              "IEI",
+              "IEF",
+              "TLH",
+              "TLT",
+              "GOVT",
+              "TIP",
+              "AGG",
+              "MBB",
+              "LQD",
+              "HYG",
+              "MUB"
             ],
+            "labels": {
+              "BIL": "T-bills 1-3M (BIL)",
+              "SHY": "Treasuries 1-3Y (SHY)",
+              "IEI": "Treasuries 3-7Y (IEI)",
+              "IEF": "Treasuries 7-10Y (IEF)",
+              "TLH": "Treasuries 10-20Y (TLH)",
+              "TLT": "Treasuries 20Y+ (TLT)",
+              "GOVT": "Treasuries all (GOVT)",
+              "TIP": "TIPS (TIP)",
+              "AGG": "US Aggregate (AGG)",
+              "MBB": "Agency MBS (MBB)",
+              "LQD": "IG corporate (LQD)",
+              "HYG": "High yield (HYG)",
+              "MUB": "Municipals (MUB)"
+            },
             "primary": {
               "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
             }
           },
           "columns": [
-            "Measure",
-            "Level %",
-            "1d bp",
-            "Date"
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y"
           ],
-          "unit": "%",
-          "change_unit": "bp"
-        },
-        {
-          "id": "cds",
-          "title": "CDX / iTraxx indices",
-          "source": "premium_fi",
-          "view": "table",
-          "placeholder": {
-            "reason": "needs a key or a connector"
-          }
+          "unit": "%"
         }
       ],
-      "slug": "credit",
-      "subtitle": "Corporate spreads (ICE BofA OAS), corporate yields and curve slopes"
+      "slug": "bonds-market",
+      "subtitle": "US bond market: Treasuries by maturity, TIPS, aggregate, MBS, IG, HY, munis (WTD to 10Y)"
     },
     {
       "id": "macro",
       "entry": "Macro",
-      "tab": "fi",
+      "tab": "cb",
       "panels": [
         {
           "id": "next",
@@ -4368,6 +4444,163 @@
       ],
       "slug": "macro",
       "subtitle": "Latest official prints: US (BLS), euro area (Eurostat), G7 inflation (OECD)"
+    },
+    {
+      "id": "credit",
+      "entry": "Credit",
+      "tab": "cb",
+      "panels": [
+        {
+          "id": "oas",
+          "title": "ICE BofA option-adjusted spreads",
+          "better_when": "lower",
+          "source": "fred",
+          "view": "bars",
+          "derive": "level_change",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 21,
+            "series": [
+              {
+                "id": "BAMLC0A0CM",
+                "label": "US IG OAS"
+              },
+              {
+                "id": "BAMLH0A0HYM2",
+                "label": "US high yield"
+              },
+              {
+                "id": "BAMLEMCBPIOAS",
+                "label": "EM corporate"
+              },
+              {
+                "id": "BAMLHE00EHYIOAS",
+                "label": "Euro HY OAS"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            }
+          },
+          "columns": [
+            "Index",
+            "OAS %",
+            "1d bp",
+            "Date"
+          ],
+          "chart_value": "level",
+          "unit": "%",
+          "change_unit": "bp"
+        },
+        {
+          "id": "oas_rating",
+          "title": "ICE BofA US corporate OAS by rating (AAA to CCC)",
+          "source": "fred",
+          "view": "bars",
+          "derive": "level_change",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 21,
+            "series": [
+              {
+                "id": "BAMLC0A1CAAA",
+                "label": "AAA"
+              },
+              {
+                "id": "BAMLC0A2CAA",
+                "label": "AA"
+              },
+              {
+                "id": "BAMLC0A3CA",
+                "label": "A"
+              },
+              {
+                "id": "BAMLC0A4CBBB",
+                "label": "BBB"
+              },
+              {
+                "id": "BAMLH0A1HYBB",
+                "label": "BB"
+              },
+              {
+                "id": "BAMLH0A2HYB",
+                "label": "B"
+              },
+              {
+                "id": "BAMLH0A3HYC",
+                "label": "CCC and below"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            }
+          },
+          "columns": [
+            "Rating",
+            "OAS %",
+            "1d bp",
+            "Date"
+          ],
+          "chart_value": "level",
+          "unit": "%",
+          "change_unit": "bp",
+          "better_when": "lower"
+        },
+        {
+          "id": "yields",
+          "title": "Corporate yields and curve slopes",
+          "source": "fred",
+          "view": "table",
+          "derive": "level_change",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 21,
+            "series": [
+              {
+                "id": "DAAA",
+                "label": "Moody's Aaa"
+              },
+              {
+                "id": "DBAA",
+                "label": "Moody's Baa"
+              },
+              {
+                "id": "T10Y2Y",
+                "label": "10Y - 2Y"
+              },
+              {
+                "id": "T10Y3M",
+                "label": "10Y - 3M"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            }
+          },
+          "columns": [
+            "Measure",
+            "Level %",
+            "1d bp",
+            "Date"
+          ],
+          "unit": "%",
+          "change_unit": "bp"
+        },
+        {
+          "id": "cds",
+          "title": "CDX / iTraxx indices",
+          "source": "premium_fi",
+          "view": "table",
+          "placeholder": {
+            "reason": "needs a key or a connector"
+          }
+        }
+      ],
+      "slug": "credit",
+      "subtitle": "Corporate spreads (ICE BofA OAS), corporate yields and curve slopes"
     },
     {
       "id": "world_equity_indices",

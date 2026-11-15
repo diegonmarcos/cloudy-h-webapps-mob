@@ -137,19 +137,27 @@
               },
               {
                 "id": "_",
-                "label": "Sys"
+                "label": "Setup"
               },
               {
                 "id": "@",
-                "label": "Inboxes"
+                "label": "Communication"
               },
               {
                 "id": ".",
-                "label": "Data Apps"
+                "label": "Data"
               },
               {
-                "id": "=>*",
+                "id": "=~",
                 "label": "Tools"
+              },
+              {
+                "id": "*",
+                "label": "AGI"
+              },
+              {
+                "id": "#",
+                "label": "Projects"
               }
             ]
           },
@@ -163,16 +171,8 @@
                 "label": "All"
               },
               {
-                "id": "-+",
-                "label": "Services"
-              },
-              {
-                "id": "-",
-                "label": "Buro"
-              },
-              {
                 "id": "+",
-                "label": "Others"
+                "label": "Services"
               }
             ]
           },
@@ -418,19 +418,27 @@
               },
               {
                 "id": "_",
-                "label": "Sys"
+                "label": "Setup"
               },
               {
                 "id": "@",
-                "label": "Inboxes"
+                "label": "Communication"
               },
               {
                 "id": ".",
-                "label": "Data Apps"
+                "label": "Data"
               },
               {
-                "id": "=>*",
+                "id": "=~",
                 "label": "Tools"
+              },
+              {
+                "id": "*",
+                "label": "AGI"
+              },
+              {
+                "id": "#",
+                "label": "Projects"
               }
             ]
           },
@@ -444,16 +452,8 @@
                 "label": "All"
               },
               {
-                "id": "-+",
-                "label": "Services"
-              },
-              {
-                "id": "-",
-                "label": "Buro"
-              },
-              {
                 "id": "+",
-                "label": "Others"
+                "label": "Services"
               }
             ]
           },
@@ -534,19 +534,27 @@
               },
               {
                 "id": "_",
-                "label": "Sys"
+                "label": "Setup"
               },
               {
                 "id": "@",
-                "label": "Inboxes"
+                "label": "Communication"
               },
               {
                 "id": ".",
-                "label": "Data Apps"
+                "label": "Data"
               },
               {
-                "id": "=>*",
+                "id": "=~",
                 "label": "Tools"
+              },
+              {
+                "id": "*",
+                "label": "AGI"
+              },
+              {
+                "id": "#",
+                "label": "Projects"
               }
             ]
           },
@@ -560,16 +568,8 @@
                 "label": "All"
               },
               {
-                "id": "-+",
-                "label": "Services"
-              },
-              {
-                "id": "-",
-                "label": "Buro"
-              },
-              {
                 "id": "+",
-                "label": "Others"
+                "label": "Services"
               }
             ]
           },
@@ -642,7 +642,7 @@
           {
             "id": "tools",
             "label": "Source · Tools",
-            "default": "=>*",
+            "default": "=~",
             "options": [
               {
                 "id": "all",
@@ -650,19 +650,27 @@
               },
               {
                 "id": "_",
-                "label": "Sys"
+                "label": "Setup"
               },
               {
                 "id": "@",
-                "label": "Inboxes"
+                "label": "Communication"
               },
               {
                 "id": ".",
-                "label": "Data Apps"
+                "label": "Data"
               },
               {
-                "id": "=>*",
+                "id": "=~",
                 "label": "Tools"
+              },
+              {
+                "id": "*",
+                "label": "AGI"
+              },
+              {
+                "id": "#",
+                "label": "Projects"
               }
             ]
           },
@@ -676,16 +684,8 @@
                 "label": "All"
               },
               {
-                "id": "-+",
-                "label": "Services"
-              },
-              {
-                "id": "-",
-                "label": "Buro"
-              },
-              {
                 "id": "+",
-                "label": "Others"
+                "label": "Services"
               }
             ]
           },
@@ -766,42 +766,42 @@
               },
               {
                 "id": "_",
-                "label": "Sys"
+                "label": "Setup"
               },
               {
                 "id": "@",
-                "label": "Inboxes"
+                "label": "Communication"
               },
               {
                 "id": ".",
-                "label": "Data Apps"
+                "label": "Data"
               },
               {
-                "id": "=>*",
+                "id": "=~",
                 "label": "Tools"
+              },
+              {
+                "id": "*",
+                "label": "AGI"
+              },
+              {
+                "id": "#",
+                "label": "Projects"
               }
             ]
           },
           {
             "id": "services",
             "label": "Source · Services",
-            "default": "-+",
+            "default": "+",
             "options": [
               {
                 "id": "all",
                 "label": "All"
               },
               {
-                "id": "-+",
-                "label": "Services"
-              },
-              {
-                "id": "-",
-                "label": "Buro"
-              },
-              {
                 "id": "+",
-                "label": "Others"
+                "label": "Services"
               }
             ]
           },
@@ -882,19 +882,27 @@
               },
               {
                 "id": "_",
-                "label": "Sys"
+                "label": "Setup"
               },
               {
                 "id": "@",
-                "label": "Inboxes"
+                "label": "Communication"
               },
               {
                 "id": ".",
-                "label": "Data Apps"
+                "label": "Data"
               },
               {
-                "id": "=>*",
+                "id": "=~",
                 "label": "Tools"
+              },
+              {
+                "id": "*",
+                "label": "AGI"
+              },
+              {
+                "id": "#",
+                "label": "Projects"
               }
             ]
           },
@@ -908,16 +916,8 @@
                 "label": "All"
               },
               {
-                "id": "-+",
-                "label": "Services"
-              },
-              {
-                "id": "-",
-                "label": "Buro"
-              },
-              {
                 "id": "+",
-                "label": "Others"
+                "label": "Services"
               }
             ]
           },
@@ -1351,12 +1351,6 @@
                 "target": "extapp:cloud-keyboard"
               },
               {
-                "id": "writer",
-                "label": "Writer",
-                "icon": "ic_writer",
-                "target": "extapp:cloud-writer"
-              },
-              {
                 "id": "primary-sep-2",
                 "label": "||",
                 "separator": true,
@@ -1540,7 +1534,7 @@
             ]
           },
           {
-            "title": "Weby Services & Markets",
+            "title": "Services",
             "tiles": [
               {
                 "id": "search",
@@ -1616,6 +1610,9 @@
           },
           {
             "title": "AGI",
+            "store_apps": [
+              "termux"
+            ],
             "tiles": [
               {
                 "id": "si",
@@ -1666,7 +1663,7 @@
             ]
           },
           {
-            "title": "Lnktree",
+            "title": "Projects",
             "tiles": [
               {
                 "id": "cloud-superapp",
@@ -1716,7 +1713,13 @@
             ]
           },
           {
-            "title": "Configs",
+            "title": "Setup",
+            "store_apps": [
+              "c3-webserver",
+              "morpheus",
+              "watchtower",
+              "watchdog"
+            ],
             "tiles": [
               {
                 "id": "configs-controls",
@@ -1736,16 +1739,10 @@
                 "separator": true
               },
               {
-                "id": "configs-firewall",
-                "label": "Firewall",
-                "icon": "ic_lock",
-                "target": "page:config/firewall"
-              },
-              {
-                "id": "configs-wifi",
-                "label": "WiFi",
-                "icon": "ic_wifi",
-                "target": "page:config/wifi"
+                "id": "configs-ng-firewall",
+                "label": "NG Firewall",
+                "icon": "ic_act_shield",
+                "target": "page:config/ng-firewall"
               },
               {
                 "id": "configs-sep-2",
@@ -1759,15 +1756,15 @@
                 "target": "extapp:cloud-store"
               },
               {
-                "id": "configs-sep-3",
-                "label": "|",
-                "separator": true
-              },
-              {
                 "id": "configs-account",
                 "label": "Account",
                 "icon": "ic_p_accounts",
                 "target": "extapp:cloud-account"
+              },
+              {
+                "id": "configs-sep-3",
+                "label": "|",
+                "separator": true
               },
               {
                 "id": "c3",
@@ -1781,15 +1778,10 @@
                 "separator": true
               },
               {
-                "id": "configs-watchdog",
-                "label": "Watchdog",
-                "icon": "ic_p_watchdog",
-                "target": "extapp:c3-watchdog"
-              },
-              {
-                "id": "configs-sep-5",
-                "label": "|",
-                "separator": true
+                "id": "configs-profile",
+                "label": "Profile",
+                "icon": "ic_person",
+                "target": "extapp:cloud-account"
               },
               {
                 "id": "configs-about",
@@ -1875,175 +1867,278 @@
         ],
         "phone_app_groups": [
           {
-            "title": "AI",
+            "title": "Primary",
             "packages": [
               {
-                "pkg": "com.anthropic.claude",
-                "label": "Claude"
+                "pkg": "com.brave.browser",
+                "label": "Brave",
+                "subtype": "Browser"
               },
               {
-                "pkg": "com.google.android.apps.bard",
-                "label": "Gemini"
+                "pkg": "com.google.android.apps.maps",
+                "label": "Maps",
+                "subtype": "Nav"
               },
               {
-                "pkg": "com.termux",
-                "label": "Termux"
+                "pkg": "com.sec.android.app.popupcalculator",
+                "label": "Calculator",
+                "subtype": "Calc"
               },
               {
-                "pkg": "com.termux.nix",
-                "label": "Nix"
-              }
-            ],
-            "folders": [
+                "pkg": "com.sec.android.app.camera",
+                "label": "Camera",
+                "subtype": "Camera"
+              },
               {
-                "label": "Others",
-                "packages": [
-                  {
-                    "pkg": "com.foxdebug.acode",
-                    "label": "Acode"
-                  },
-                  {
-                    "pkg": "com.rhmsoft.edit",
-                    "label": "QuickEdit"
-                  }
-                ]
+                "pkg": "com.google.android.inputmethod.latin",
+                "label": "Gboard",
+                "subtype": "Keyboard"
+              },
+              {
+                "pkg": "com.google.android.apps.walletnfcrel",
+                "label": "Google Wallet",
+                "subtype": "Wallet"
+              },
+              {
+                "pkg": "com.google.android.apps.translate",
+                "label": "Translate",
+                "subtype": "Utilities"
+              },
+              {
+                "pkg": "com.sec.android.app.clockpackage",
+                "label": "Clock",
+                "subtype": "Utilities"
               }
             ]
           },
           {
-            "title": "Inboxes",
+            "title": "Communication",
             "packages": [
               {
                 "pkg": "com.google.android.gm",
-                "label": "Gmail"
+                "label": "Gmail",
+                "subtype": "Mail"
+              },
+              {
+                "pkg": "ch.protonmail.android",
+                "label": "Proton Mail",
+                "subtype": "Mail"
+              },
+              {
+                "pkg": "app.sterna",
+                "label": "Sterna Mail",
+                "subtype": "Mail"
               },
               {
                 "pkg": "com.Slack",
-                "label": "Slack"
+                "label": "Slack",
+                "subtype": "Chat"
+              },
+              {
+                "pkg": "com.mattermost.rn",
+                "label": "Mattermost",
+                "subtype": "Chat"
+              },
+              {
+                "pkg": "com.beeper.android",
+                "label": "Beeper",
+                "subtype": "Chat"
               },
               {
                 "pkg": "com.whatsapp.w4b",
-                "label": "WhatsApp Business"
+                "label": "WhatsApp Business",
+                "subtype": "Messenger"
               },
               {
-                "pkg": "com.linkedin.android",
-                "label": "LinkedIn"
+                "pkg": "org.telegram.messenger",
+                "label": "Telegram",
+                "subtype": "Messenger"
               },
               {
-                "pkg": "com.instagram.android",
-                "label": "Instagram"
-              },
-              {
-                "pkg": "com.google.android.apps.magazines",
-                "label": "Google News"
-              }
-            ],
-            "folders": [
-              {
-                "label": "Others",
-                "packages": [
-                  {
-                    "pkg": "ch.protonmail.android",
-                    "label": "Proton Mail"
-                  },
-                  {
-                    "pkg": "app.sterna",
-                    "label": "Sterna Mail"
-                  },
-                  {
-                    "pkg": "com.mattermost.rn",
-                    "label": "Mattermost"
-                  },
-                  {
-                    "pkg": "com.beeper.android",
-                    "label": "Beeper"
-                  },
-                  {
-                    "pkg": "org.telegram.messenger",
-                    "label": "Telegram"
-                  },
-                  {
-                    "pkg": "com.devhd.feedly",
-                    "label": "Feedly"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "title": "Data Apps",
-            "packages": [
-              {
-                "pkg": "com.google.android.apps.docs",
-                "label": "Google Drive"
-              },
-              {
-                "pkg": "com.google.android.calendar",
-                "label": "Google Calendar"
+                "pkg": "com.samsung.android.dialer",
+                "label": "Samsung Phone",
+                "subtype": "Dialer"
               },
               {
                 "pkg": "com.google.android.contacts",
-                "label": "Google Contacts"
+                "label": "Google Contacts",
+                "subtype": "Contacts"
               },
               {
-                "pkg": "com.microsoft.office.onenote",
-                "label": "OneNote"
-              },
-              {
-                "pkg": "com.google.android.apps.photos",
-                "label": "Google Photos"
-              },
-              {
-                "pkg": "com.aspiro.tidal",
-                "label": "Tidal"
-              }
-            ],
-            "folders": [
-              {
-                "label": "Others",
-                "packages": [
-                  {
-                    "pkg": "com.sec.android.app.myfiles",
-                    "label": "My Files"
-                  },
-                  {
-                    "pkg": "com.lonelycatgames.Xplore",
-                    "label": "X-plore"
-                  },
-                  {
-                    "pkg": "me.proton.android.drive",
-                    "label": "Proton Drive"
-                  },
-                  {
-                    "pkg": "md.obsidian",
-                    "label": "Obsidian"
-                  },
-                  {
-                    "pkg": "com.x8bit.bitwarden",
-                    "label": "Bitwarden"
-                  },
-                  {
-                    "pkg": "com.viscouspot.gitsync",
-                    "label": "Git Sync"
-                  }
-                ]
+                "pkg": "com.instagram.android",
+                "label": "Instagram",
+                "subtype": "Social"
               }
             ]
           },
           {
-            "title": "Tools Primary",
+            "title": "Data",
             "packages": [
-              "com.brave.browser",
-              "com.google.android.apps.maps",
-              "com.google.android.apps.walletnfcrel",
-              "com.google.android.apps.translate",
-              "com.sec.android.app.clockpackage",
-              "com.sec.android.app.popupcalculator",
+              {
+                "pkg": "com.google.android.apps.docs",
+                "label": "Google Drive",
+                "subtype": "Drive"
+              },
+              {
+                "pkg": "com.sec.android.app.myfiles",
+                "label": "My Files",
+                "subtype": "Drive"
+              },
+              {
+                "pkg": "com.lonelycatgames.Xplore",
+                "label": "X-plore",
+                "subtype": "Drive"
+              },
+              {
+                "pkg": "me.proton.android.drive",
+                "label": "Proton Drive",
+                "subtype": "Drive"
+              },
+              {
+                "pkg": "com.viscouspot.gitsync",
+                "label": "Git Sync",
+                "subtype": "Drive"
+              },
+              {
+                "pkg": "com.microsoft.office.onenote",
+                "label": "OneNote",
+                "subtype": "Notes"
+              },
+              {
+                "pkg": "md.obsidian",
+                "label": "Obsidian",
+                "subtype": "Notes"
+              },
+              {
+                "pkg": "com.google.android.calendar",
+                "label": "Google Calendar",
+                "subtype": "Agenda"
+              },
+              {
+                "pkg": "com.google.android.apps.docs.editors.docs",
+                "label": "Google Docs",
+                "subtype": "Office"
+              },
+              {
+                "pkg": "com.google.android.apps.photos",
+                "label": "Google Photos",
+                "subtype": "Gallery"
+              },
+              {
+                "pkg": "com.aspiro.tidal",
+                "label": "Tidal",
+                "subtype": "Media Center"
+              },
+              {
+                "pkg": "com.x8bit.bitwarden",
+                "label": "Bitwarden",
+                "subtype": "Vault"
+              }
+            ]
+          },
+          {
+            "title": "Me",
+            "packages": [
+              {
+                "pkg": "com.sec.android.app.shealth",
+                "label": "Samsung Health",
+                "subtype": "Health"
+              },
               {
                 "pkg": "es.gob.interior.policia.midni",
-                "label": "miDNI"
+                "label": "miDNI",
+                "subtype": "Gov & ID"
               },
-              "com.sec.android.app.camera"
+              {
+                "pkg": "com.strava",
+                "label": "Strava",
+                "subtype": "Outdoor & Sport"
+              },
+              {
+                "pkg": "com.memrise.android.memrisecompanion",
+                "label": "Memrise",
+                "subtype": "Learning"
+              }
+            ]
+          },
+          {
+            "title": "Services",
+            "packages": [
+              {
+                "pkg": "com.google.android.googlequicksearchbox",
+                "label": "Google",
+                "subtype": "Search"
+              },
+              {
+                "pkg": "com.google.android.apps.magazines",
+                "label": "Google News",
+                "subtype": "News"
+              },
+              {
+                "pkg": "com.devhd.feedly",
+                "label": "Feedly",
+                "subtype": "News"
+              },
+              {
+                "pkg": "com.amazon.mShop.android.shopping",
+                "label": "Amazon",
+                "subtype": "Shopping"
+              },
+              {
+                "pkg": "de.eventim.mobile.app.Android",
+                "label": "Eventim",
+                "subtype": "Events"
+              },
+              {
+                "pkg": "com.ubercab",
+                "label": "Uber",
+                "subtype": "Mobility & Travel"
+              },
+              {
+                "pkg": "com.linkedin.android",
+                "label": "LinkedIn",
+                "subtype": "Jobs & Business"
+              },
+              {
+                "pkg": "de.is24.android",
+                "label": "ImmoScout24",
+                "subtype": "Real Estate"
+              }
+            ]
+          },
+          {
+            "title": "AGI",
+            "packages": [
+              {
+                "pkg": "com.anthropic.claude",
+                "label": "Claude",
+                "subtype": "AI"
+              },
+              {
+                "pkg": "com.google.android.apps.bard",
+                "label": "Gemini",
+                "subtype": "AI"
+              },
+              {
+                "pkg": "com.foxdebug.acode",
+                "label": "Acode",
+                "subtype": "Code"
+              },
+              {
+                "pkg": "com.rhmsoft.edit",
+                "label": "QuickEdit",
+                "subtype": "Code"
+              },
+              {
+                "pkg": "com.termux",
+                "label": "Termux",
+                "subtype": "Terminal"
+              },
+              {
+                "pkg": "com.termux.nix",
+                "label": "Nix",
+                "subtype": "Terminal"
+              }
             ]
           },
           {
@@ -2127,11 +2222,23 @@
             ]
           },
           {
-            "title": "Configs",
+            "title": "Setup",
             "packages": [
-              "com.android.vending",
-              "org.fdroid.fdroid",
-              "com.android.settings"
+              {
+                "pkg": "com.android.vending",
+                "label": "Play Store",
+                "subtype": "Store"
+              },
+              {
+                "pkg": "org.fdroid.fdroid",
+                "label": "F-Droid",
+                "subtype": "Store"
+              },
+              {
+                "pkg": "com.android.settings",
+                "label": "Settings",
+                "subtype": "Settings"
+              }
             ]
           }
         ],
@@ -3326,6 +3433,8 @@
             "label": "Launcher",
             "icon": "ic_settings",
             "pages": [
+              "launcher-hub",
+              "launcher-sep-0",
               "controls",
               "panels-ui",
               "app-folders",
@@ -3345,23 +3454,29 @@
             "label": "Network",
             "icon": "ic_settings",
             "pages": [
-              "firewall",
+              "ng-firewall",
+              "network-sep-a",
+              "wifi",
+              "bluetooth",
               "dns",
-              "webserver",
               "wg",
+              "network-sep-b",
+              "firewall",
+              "os-perms",
+              "network-sep-c",
+              "webserver",
+              "proxy",
               "apps-access",
               "adb-shell",
               "adb-status",
               "adb-term",
               "adb-perms",
               "adb-all",
-              "wifi",
               "wifi-scan",
               "wifi-channels",
               "wifi-link",
               "wifi-tools",
               "wifi-log",
-              "bluetooth",
               "bluetooth-find",
               "bluetooth-analyze",
               "bluetooth-locate",
@@ -3377,6 +3492,8 @@
             "icon": "ic_settings",
             "pages": [
               "store",
+              "apps-sep-1",
+              "profile",
               "store-cloud",
               "store-phone"
             ]
@@ -3386,21 +3503,19 @@
             "label": "Connect",
             "icon": "ic_settings",
             "pages": [
-              "profile",
               "c3",
               "kde"
             ]
           },
           {
             "id": "tools",
-            "label": "Tools",
+            "label": "Profiling",
             "icon": "ic_settings",
             "pages": [
               "c3-watchdog",
               "tools-sep-1",
               "xray",
-              "logcat-fleet",
-              "agents-watchdog"
+              "logcat-fleet"
             ]
           },
           {
@@ -3408,7 +3523,10 @@
             "label": "Configs",
             "icon": "ic_settings",
             "pages": [
+              "profile-app",
+              "configs-sep-a",
               "perms",
+              "agents-watchdog",
               "logcat",
               "xray-app",
               "app-about",
@@ -3423,6 +3541,9 @@
           }
         ],
         "retired_pages": {
+          "network": [
+            "ng-firewall"
+          ],
           "launcher": [
             "controls",
             "onehand",
@@ -3450,6 +3571,7 @@
           ]
         },
         "page_aliases": {
+          "network": "ng-firewall",
           "about": "xray",
           "diagnostics": "xray",
           "agents": "xray",
@@ -3473,6 +3595,23 @@
           "network-sep-1": "the Setup ▸ Network separator divided C3 and Peer Control from the network engines; both moved to the Configs ▸ Fleet group (then named Apps), so it had nothing left to divide"
         },
         "pages": [
+          {
+            "id": "launcher-hub",
+            "label": "Launcher",
+            "icon": "ic_apps",
+            "hub_sections": [
+              "Launcher"
+            ],
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
+            "id": "launcher-sep-0",
+            "label": "|",
+            "separator": true,
+            "group": "Launcher",
+            "subgroup": ""
+          },
           {
             "id": "controls",
             "label": "Quick Actions",
@@ -3523,59 +3662,29 @@
             "subgroup": ""
           },
           {
-            "id": "firewall",
-            "label": "Firewall",
-            "icon": "ic_lock",
-            "group": "Network",
-            "subgroup": ""
-          },
-          {
-            "id": "dns",
-            "label": "DNS",
-            "icon": "ic_world",
-            "group": "Network",
-            "subgroup": ""
-          },
-          {
-            "id": "webserver",
-            "label": "Webserver",
-            "icon": "ic_web",
-            "action": "action:open_webserver",
-            "group": "Network",
-            "subgroup": ""
-          },
-          {
-            "id": "wg",
-            "label": "Cloud Mesh",
-            "icon": "ic_wg",
-            "action": "section:wg",
-            "group": "Network",
-            "subgroup": ""
-          },
-          {
-            "id": "apps-access",
-            "label": "Apps Access",
-            "icon": "ic_apps",
-            "action": "action:open_apps_access",
-            "group": "Network",
-            "subgroup": ""
-          },
-          {
-            "id": "adb-shell",
-            "label": "ADB Shell",
-            "icon": "ic_terminal",
-            "tabs": [
-              "adb-status",
-              "adb-term",
-              "adb-perms",
-              "adb-all"
+            "id": "ng-firewall",
+            "label": "NG Firewall",
+            "icon": "ic_act_shield",
+            "reaches": [
+              "adb-shell",
+              "apps-access"
+            ],
+            "hub_pages": [
+              "apps-access"
             ],
             "group": "Network",
             "subgroup": ""
           },
           {
+            "id": "network-sep-a",
+            "label": "|",
+            "separator": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
             "id": "wifi",
-            "label": "WiFi",
+            "label": "Wi-Fi",
             "icon": "ic_wifi",
             "tabs": [
               "wifi-scan",
@@ -3604,6 +3713,89 @@
             "subgroup": ""
           },
           {
+            "id": "dns",
+            "label": "DNS",
+            "icon": "ic_world",
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "wg",
+            "label": "VPN",
+            "icon": "ic_wg",
+            "action": "section:wg",
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "network-sep-b",
+            "label": "|",
+            "separator": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "firewall",
+            "label": "Firewall",
+            "icon": "ic_lock",
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "os-perms",
+            "label": "OS Perms",
+            "icon": "ic_act_key",
+            "action": "action:open_os_perms",
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "network-sep-c",
+            "label": "|",
+            "separator": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "webserver",
+            "label": "Webserver",
+            "icon": "ic_web",
+            "action": "action:open_webserver",
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "proxy",
+            "label": "Proxy",
+            "icon": "ic_ctl_mobile_data",
+            "action": "action:open_proxy_settings",
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "apps-access",
+            "label": "Apps Access",
+            "icon": "ic_apps",
+            "action": "action:open_apps_access",
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
+            "id": "adb-shell",
+            "label": "ADB Shell",
+            "icon": "ic_terminal",
+            "tabs": [
+              "adb-status",
+              "adb-term",
+              "adb-perms",
+              "adb-all"
+            ],
+            "hidden": true,
+            "group": "Network",
+            "subgroup": ""
+          },
+          {
             "id": "store",
             "label": "Store",
             "icon": "ic_storefront",
@@ -3612,11 +3804,18 @@
             "subgroup": ""
           },
           {
+            "id": "apps-sep-1",
+            "label": "|",
+            "separator": true,
+            "group": "Apps",
+            "subgroup": ""
+          },
+          {
             "id": "profile",
             "label": "Account",
             "icon": "ic_person",
             "action": "extapp:cloud-account",
-            "group": "Connect",
+            "group": "Apps",
             "subgroup": ""
           },
           {
@@ -3639,38 +3838,43 @@
             "label": "Watchdog",
             "icon": "ic_watchtower",
             "action": "extapp:c3-watchdog",
-            "group": "Tools",
+            "group": "Profiling",
             "subgroup": ""
           },
           {
             "id": "tools-sep-1",
             "label": "|",
             "separator": true,
-            "group": "Tools",
+            "group": "Profiling",
             "subgroup": ""
           },
           {
             "id": "xray",
             "label": "X-Ray Device",
             "icon": "ic_monitor_heart",
-            "group": "Tools",
+            "group": "Profiling",
             "subgroup": ""
           },
           {
             "id": "logcat-fleet",
             "label": "Logcat Fleet",
             "icon": "ic_p_logs",
-            "group": "Tools",
+            "group": "Profiling",
             "subgroup": ""
           },
           {
-            "id": "agents-watchdog",
-            "label": "Agents",
-            "icon": "ic_p_watchdog",
-            "hub_sections": [
-              "Network"
-            ],
-            "group": "Tools",
+            "id": "profile-app",
+            "label": "Profile",
+            "icon": "ic_p_accounts",
+            "action": "extapp:cloud-account",
+            "group": "Configs",
+            "subgroup": ""
+          },
+          {
+            "id": "configs-sep-a",
+            "label": "|",
+            "separator": true,
+            "group": "Configs",
             "subgroup": ""
           },
           {
@@ -3681,8 +3885,18 @@
             "subgroup": ""
           },
           {
+            "id": "agents-watchdog",
+            "label": "Agents",
+            "icon": "ic_p_watchdog",
+            "hub_sections": [
+              "Network"
+            ],
+            "group": "Configs",
+            "subgroup": ""
+          },
+          {
             "id": "logcat",
-            "label": "Logcat",
+            "label": "Logcat app",
             "icon": "ic_subject",
             "group": "Configs",
             "subgroup": ""
@@ -4129,7 +4343,8 @@
           "label": "Actions",
           "members": [
             "floating_nav_quick_actions",
-            "kde_status"
+            "kde_status",
+            "presets_state"
           ]
         }
       ],
@@ -4499,6 +4714,49 @@
               "key": "persistent",
               "type": "toggle",
               "label": "Keep it pinned (ongoing)",
+              "default": true
+            }
+          ]
+        },
+        {
+          "id": "presets_state",
+          "card": {
+            "rank": 11,
+            "kind": "text",
+            "accent": "#B388FF"
+          },
+          "label": "Presets",
+          "subtitle": "The current Mode, Sandbox and Theme of Quick actions > Presets, with quick actions: open the page, turn the mode off, next mode, next sandbox, next theme. Exactly one choice per group is ever active; a mode change restores the previous mode first.",
+          "icon": "ic_stat_notify",
+          "surface": "system_notification",
+          "channel": "presets_state",
+          "owner": "notificationcenter/PresetsBadge.kt",
+          "shows_badge": false,
+          "enabled": true,
+          "badge": true,
+          "persistent": true,
+          "service": "com.diegonmarcos.superapp.notificationcenter.PresetsBadgeService",
+          "requires": [
+            "notifications"
+          ],
+          "shows": "Mode (or none, and a pending restore), sandbox, theme; actions Presets, Mode off, Next mode, Next sandbox, Next theme.",
+          "customization": [
+            {
+              "key": "enabled",
+              "type": "toggle",
+              "label": "Show this badge",
+              "default": true
+            },
+            {
+              "key": "persistent",
+              "type": "toggle",
+              "label": "Keep it pinned (ongoing)",
+              "default": true
+            },
+            {
+              "key": "actions",
+              "type": "toggle",
+              "label": "Show action buttons",
               "default": true
             }
           ]
@@ -4990,7 +5248,7 @@
       },
       {
         "id": "cloud-contacts",
-        "folder": "prod_phone",
+        "folder": "prod_contacts",
         "hub_package": "com.diegonmarcos.cloudcontacts",
         "install_package": "com.diegonmarcos.cloudcontacts"
       },
@@ -5008,13 +5266,13 @@
       },
       {
         "id": "cloud-matrix",
-        "folder": "prod_chat",
+        "folder": "prod_messenger",
         "hub_package": "com.diegonmarcos.comms.matrix",
         "install_package": "com.diegonmarcos.comms.matrix"
       },
       {
         "id": "cloud-myterminal",
-        "folder": "sys_dev",
+        "folder": "prod_terminals",
         "hub_package": "com.diegonmarcos.ide",
         "install_package": "com.diegonmarcos.ide"
       },
@@ -5032,7 +5290,7 @@
       },
       {
         "id": "cloud-code",
-        "folder": "prod_terminals",
+        "folder": "prod_code",
         "hub_package": "com.diegonmarcos.code",
         "install_package": "com.diegonmarcos.code"
       },
@@ -5069,13 +5327,13 @@
       },
       {
         "id": "cloud-wallet",
-        "folder": "sys_security",
+        "folder": "prod_wallet",
         "hub_package": "com.diegonmarcos.cloudwallet",
         "install_package": "com.diegonmarcos.cloudwallet"
       },
       {
         "id": "cloud-me",
-        "folder": "sys_settings",
+        "folder": "me_me",
         "hub_package": "com.diegonmarcos.cloudme",
         "install_package": "com.diegonmarcos.cloudme"
       },
@@ -5087,7 +5345,7 @@
       },
       {
         "id": "cloud-vault",
-        "folder": "sys_security",
+        "folder": "data_vault",
         "hub_package": "com.diegonmarcos.cloudvault",
         "install_package": "com.diegonmarcos.cloudvault"
       },
@@ -5129,19 +5387,19 @@
       },
       {
         "id": "cloud-gallery",
-        "folder": "media_video",
+        "folder": "data_gallery",
         "hub_package": "com.diegonmarcos.mediacenter",
         "install_package": "com.diegonmarcos.mediacenter"
       },
       {
         "id": "cloud-office",
-        "folder": "prod_docs",
+        "folder": "prod_office",
         "hub_package": "com.diegonmarcos.cloudoffice",
         "install_package": "com.diegonmarcos.cloudoffice"
       },
       {
         "id": "cloud-camera",
-        "folder": "prod_storage",
+        "folder": "prod_camera",
         "hub_package": "cld.camera",
         "install_package": "cld.camera"
       },
@@ -5152,20 +5410,14 @@
         "install_package": "com.diegonmarcos.cloudnotes"
       },
       {
-        "id": "cloud-writer",
-        "folder": "prod_docs",
-        "hub_package": "com.diegonmarcos.cloudwriter",
-        "install_package": "com.diegonmarcos.cloudwriter"
-      },
-      {
         "id": "cloud-calc",
-        "folder": "prod_utils",
+        "folder": "prod_calc",
         "hub_package": "com.diegonmarcos.cloudcalc",
         "install_package": "com.diegonmarcos.cloudcalc"
       },
       {
         "id": "cloud-search",
-        "folder": "prod_ai",
+        "folder": "svc_search",
         "hub_package": "com.diegonmarcos.cloudsearch",
         "install_package": "com.diegonmarcos.cloudsearch"
       },
@@ -5177,13 +5429,13 @@
       },
       {
         "id": "cloud-kg-store",
-        "folder": "prod_ai",
+        "folder": "svc_kgstore",
         "hub_package": "com.diegonmarcos.cloudkgstore",
         "install_package": "com.diegonmarcos.cloudkgstore"
       },
       {
         "id": "cloud-tools-small-llms",
-        "folder": "prod_ai",
+        "folder": "agi_tools",
         "hub_package": "com.diegonmarcos.cloudtoolssmallllms",
         "install_package": "com.diegonmarcos.cloudtoolssmallllms"
       },
@@ -5195,7 +5447,7 @@
       },
       {
         "id": "cloud-account",
-        "folder": "sys_settings",
+        "folder": "sys_account",
         "hub_package": "com.diegonmarcos.cloudaccount",
         "install_package": "com.diegonmarcos.cloudaccount"
       },
@@ -5207,25 +5459,25 @@
       },
       {
         "id": "cg-omniverse",
-        "folder": "prod_utils",
+        "folder": "proj_omniverse",
         "hub_package": "com.diegonmarcos.cgomniverse",
         "install_package": "com.diegonmarcos.cgomniverse"
       },
       {
         "id": "capital-stack-finterminal",
-        "folder": "prod_utils",
+        "folder": "proj_finterm",
         "hub_package": "com.diegonmarcos.capitalfinterm",
         "install_package": "com.diegonmarcos.capitalfinterm"
       },
       {
         "id": "hardtech-cad",
-        "folder": "prod_utils",
+        "folder": "proj_cad",
         "hub_package": "com.diegonmarcos.hardtechcad",
         "install_package": "com.diegonmarcos.hardtechcad"
       },
       {
         "id": "hardtech-sim2real",
-        "folder": "prod_utils",
+        "folder": "proj_sim2real",
         "hub_package": "com.diegonmarcos.hardtechsim2real",
         "install_package": "com.diegonmarcos.hardtechsim2real"
       }
@@ -5562,6 +5814,11 @@
               "id": "home",
               "label": "Home",
               "icon": "home"
+            },
+            {
+              "id": "webmail",
+              "label": "Webmail",
+              "icon": "language"
             }
           ]
         },
@@ -6096,7 +6353,7 @@
       "name": "Cloud Shopping",
       "label": "Shopping",
       "icon": "ic_shopping",
-      "group": "Weby Services & Markets",
+      "group": "Services",
       "category": "android",
       "description": "Cloud Shopping (#1473): a deals and listings browser over mock data. Navigation is ONE collapsed left side menu (libs:ui-nav-bars vertical_side_menu: the rail on a phone, the full menu on a wide screen) in five groups, Feed (Home: the deals of every page), Things (Groceries, Electronics, Clothing), Services (Transport, Hotels), Assets (Real Estate, Business, Jobs) and Entertainment (Events); the bottom nav holds exactly one item, a search icon with no label, which searches every page. Every page has its own top filter tabs and its rows, both declared in app/src/main/assets/shop/shop.json (mock data, nothing is fetched and no shop is contacted); a row is the ui-kit KitStoreRow (the Cloud Store's dense row) in the shared type ramp. Configs are the fleet's General | Perms | About. Offline, declares no network permission of its own.",
       "kind": "app",
@@ -6231,7 +6488,7 @@
       "name": "Cloud News",
       "label": "News",
       "icon": "ic_rss",
-      "group": "Weby Services & Markets",
+      "group": "Services",
       "category": "android",
       "description": "Diego's Cloud News — standalone Android news app. WebView UI over GDELT-backed topic feeds (economy, technology, geopolitics, climate, finance, AI, energy, health): per-topic article lists, tone/sentiment timelines, and rolling topic summaries against a self-hosted GDELT proxy. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -6352,14 +6609,284 @@
       "group": "Primary",
       "category": "keyboard",
       "description": "Cloud Keyboard — IME with on-device translation, voice input, and bundled sticker packs. Standalone constellation APK.",
-      "kind": "card",
+      "kind": "app",
       "wasm": null,
-      "default_section": null,
-      "bottom_nav": [],
+      "default_section": "keyboard",
+      "bottom_nav": [
+        "keyboard",
+        "writer",
+        "grabber",
+        "mediaboards",
+        "textboards"
+      ],
       "top_bar": null,
       "nav_ui": null,
-      "configs_ui": [],
-      "sections": []
+      "configs_ui": [
+        "nav_ui"
+      ],
+      "sections": [
+        {
+          "id": "keyboard",
+          "label": "Keyboard",
+          "icon": "apps",
+          "pages": [
+            {
+              "id": "themes",
+              "label": "Themes",
+              "icon": "palette",
+              "pages": [
+                {
+                  "id": "themes_default",
+                  "label": "Default",
+                  "icon": "palette"
+                },
+                {
+                  "id": "themes_dev",
+                  "label": "Dev",
+                  "icon": "code"
+                },
+                {
+                  "id": "themes_unexpected",
+                  "label": "Unexpected",
+                  "icon": "palette"
+                }
+              ]
+            },
+            {
+              "id": "settings",
+              "label": "Settings",
+              "icon": "settings",
+              "pages": [
+                {
+                  "id": "appearance",
+                  "label": "Appearance",
+                  "icon": "palette"
+                },
+                {
+                  "id": "advanced",
+                  "label": "Advanced",
+                  "icon": "admin_panel_settings"
+                },
+                {
+                  "id": "preferences",
+                  "label": "Preferences",
+                  "icon": "settings"
+                },
+                {
+                  "id": "gesture_typing",
+                  "label": "Gesture typing",
+                  "icon": "edit"
+                },
+                {
+                  "id": "data_gathering",
+                  "label": "Gesture data",
+                  "icon": "dataset"
+                }
+              ]
+            },
+            {
+              "id": "languages",
+              "label": "Languages",
+              "icon": "language",
+              "pages": [
+                {
+                  "id": "secondary_layouts",
+                  "label": "Secondary layouts",
+                  "icon": "key"
+                }
+              ]
+            },
+            {
+              "id": "toolbar",
+              "label": "Toolbar",
+              "icon": "build"
+            }
+          ]
+        },
+        {
+          "id": "writer",
+          "label": "Writer",
+          "icon": "edit",
+          "pages": [
+            {
+              "id": "writer_enhancer",
+              "label": "Enhancer",
+              "icon": "auto_fix_high"
+            },
+            {
+              "id": "writer_drafter",
+              "label": "Drafter",
+              "icon": "drafts"
+            },
+            {
+              "id": "writer_translator",
+              "label": "Translator",
+              "icon": "language"
+            },
+            {
+              "id": "writer_grammar",
+              "label": "Grammar",
+              "icon": "edit_note"
+            },
+            {
+              "id": "writer_tools",
+              "label": "Tools",
+              "icon": "tools",
+              "pages": [
+                {
+                  "id": "writer_tools_enhance",
+                  "label": "Text Enhancements",
+                  "icon": "auto_fix_high"
+                },
+                {
+                  "id": "writer_tools_translation",
+                  "label": "Translation",
+                  "icon": "language"
+                },
+                {
+                  "id": "writer_tools_grammar",
+                  "label": "Grammar check",
+                  "icon": "edit_note"
+                },
+                {
+                  "id": "writer_tools_ai_routing",
+                  "label": "AI routing",
+                  "icon": "route"
+                },
+                {
+                  "id": "writer_tools_routes",
+                  "label": "Routes",
+                  "icon": "compare_arrows"
+                }
+              ]
+            },
+            {
+              "id": "voice_transcription",
+              "label": "Voice Transcription",
+              "icon": "mic"
+            },
+            {
+              "id": "writer_configs",
+              "label": "Configs Writer",
+              "icon": "settings",
+              "pages": [
+                {
+                  "id": "kb_writing_tools",
+                  "label": "Text enhancement",
+                  "icon": "auto_fix_high",
+                  "pages": [
+                    {
+                      "id": "kb_drafter",
+                      "label": "Draft Answer",
+                      "icon": "drafts"
+                    },
+                    {
+                      "id": "kb_summarise",
+                      "label": "Summarise",
+                      "icon": "description"
+                    }
+                  ]
+                },
+                {
+                  "id": "kb_translator",
+                  "label": "Translation",
+                  "icon": "language"
+                },
+                {
+                  "id": "kb_grammar",
+                  "label": "Grammar Check",
+                  "icon": "edit_note"
+                },
+                {
+                  "id": "autocomplete",
+                  "label": "Autocomplete",
+                  "icon": "checklist",
+                  "pages": [
+                    {
+                      "id": "text_correction",
+                      "label": "Text correction",
+                      "icon": "checklist"
+                    }
+                  ]
+                },
+                {
+                  "id": "voice_transcription_settings",
+                  "label": "Voice transcription settings",
+                  "icon": "settings"
+                },
+                {
+                  "id": "dictionary",
+                  "label": "Dictionary",
+                  "icon": "menu_book",
+                  "pages": [
+                    {
+                      "id": "personal_dictionary",
+                      "label": "Personal dictionary",
+                      "icon": "person"
+                    }
+                  ]
+                },
+                {
+                  "id": "kb_ai_routing",
+                  "label": "AI routing",
+                  "icon": "route"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "grabber",
+          "label": "Grabber",
+          "icon": "search",
+          "pages": [
+            {
+              "id": "grabber_text",
+              "label": "Text Selection",
+              "icon": "edit_note"
+            },
+            {
+              "id": "grabber_screen",
+              "label": "Screen Selection",
+              "icon": "smartphone"
+            }
+          ]
+        },
+        {
+          "id": "mediaboards",
+          "label": "Mediaboards",
+          "icon": "layers",
+          "pages": [
+            {
+              "id": "emojis",
+              "label": "Emojis",
+              "icon": "mood"
+            },
+            {
+              "id": "gif",
+              "label": "GIF",
+              "icon": "play_circle"
+            },
+            {
+              "id": "stickers",
+              "label": "Stickers",
+              "icon": "bookmark"
+            }
+          ]
+        },
+        {
+          "id": "textboards",
+          "label": "Textboards",
+          "icon": "content_paste",
+          "pages": [
+            {
+              "id": "clipboard",
+              "label": "Clipboard",
+              "icon": "content_paste"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "cloud-wallet",
@@ -7691,9 +8218,9 @@
       "dir": "ac_c3-watchdog",
       "package": "com.diegonmarcos.watchdog",
       "name": "Cloud C3 Watchdog",
-      "label": "Watchdog",
-      "icon": "ic_p_watchdog",
-      "group": "Configs",
+      "label": "Cloud C3 Watchdog",
+      "icon": null,
+      "group": null,
       "category": "android",
       "description": "The c3-watchdog panel as an Android app: a WebView showing the REAL dashboard, drawn by c3-watchdog-tui inside nix-on-droid and transcribed to HTML.",
       "kind": "card",
@@ -7750,7 +8277,7 @@
       "name": "Cloud C3",
       "label": "C3",
       "icon": "ic_cloud_control",
-      "group": "Configs",
+      "group": "Setup",
       "category": "android",
       "description": "Diego's Cloud C3 - the fleet's command-and-control surface as its own APK, lifted out of the SuperApp's C3 section (#648). A five-tab shell drawn by the fleet's bottom-nav island (libs:bottomnav) - Infra, Containers, Home, Ops, Observ (opens on Home), under the fleet's AppTopBar with Configs behind its Settings button - declared in ui.* below and baked through BuildConfig. THE SHELL IS VIEWS AND HOSTS FRAGMENTS, not Compose: the pages this app exists to show are the SuperApp's C3 Fragments, and they are MOVED here rather than reauthored, so the rendering, wording and behaviour are the ones that already shipped. BottomNavIslandView is libs:bottomnav's own documented View-side contract for exactly this case (the SuperApp, cloud-me and cloud-wallet shells use it), so hosting fragments is a first-class path. Topology is the address estate: the SuperApp's c3_public and c3_private cards, one C3HealthFragment scoped two ways over the declared service tables. Observ is Health, the SuperApp's own page:c3/health. Home is the overview. Apps LAUNCHES the three C3 sibling APKs that already exist as their own fleet members through ui.external_apps, the same extapp: idiom the SuperApp used, so nothing is re-implemented; the printed name is DERIVED from each fleet id by dropping the family prefix, because an application has ONE name (#351). Configs holds About. A PAGE IS DECLARED WHEN ITS FRAGMENT EXISTS AND NOT BEFORE: there is no not-built body and no flag that could excuse one, which is what lets test/test-c3-shell.sh assert that every declared page renders real content - the guard whose absence let an empty five-tab APK ship green. The five feed cards, the ntfy centre and the three container dashboards ARRIVED (#648, owner-escalated): the ENTIRE SuperApp c3 section declaration is carried verbatim under ui.sections and its two stacks render as the Topology and Observability pages, with Dagu and the WG mesh as their own pages. The top offset is the MEASURED systemBars u displayCutout inset, read in a non-consuming listener (#407/#477), never a tuned margin. Dark is the default theme (#336, #337). English is the base language (#299). Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -7800,7 +8327,9 @@
               "icon": "ic_robot",
               "pages": [
                 "api_ai",
-                "api_scraper"
+                "api_scraper",
+                "api_endpoints",
+                "api_mcp"
               ]
             },
             {
@@ -7858,6 +8387,16 @@
             {
               "id": "api_scraper",
               "label": "Scraper",
+              "icon": "ic_robot"
+            },
+            {
+              "id": "api_endpoints",
+              "label": "C3 Endpoints",
+              "icon": "ic_p_c3_stack"
+            },
+            {
+              "id": "api_mcp",
+              "label": "C3 MCP",
               "icon": "ic_robot"
             },
             {
@@ -8287,12 +8826,6 @@
               "pages": []
             },
             {
-              "id": "public",
-              "label": "Public Endpoints",
-              "icon": "public",
-              "pages": []
-            },
-            {
               "id": "mesh",
               "label": "Mesh Endpoints",
               "icon": "lan",
@@ -8325,7 +8858,39 @@
         {
           "id": "adb_shell",
           "label": "ADB Shell",
-          "icon": "android"
+          "icon": "android",
+          "pages": [
+            {
+              "id": "adb_status",
+              "label": "Status",
+              "icon": "info",
+              "pages": []
+            },
+            {
+              "id": "adb_term",
+              "label": "Shell",
+              "icon": "terminal",
+              "pages": []
+            },
+            {
+              "id": "adb_perms",
+              "label": "Perms",
+              "icon": "verified_user",
+              "pages": []
+            },
+            {
+              "id": "adb_server",
+              "label": "Server",
+              "icon": "dns",
+              "pages": []
+            },
+            {
+              "id": "adb_all",
+              "label": "All",
+              "icon": "apps",
+              "pages": []
+            }
+          ]
         },
         {
           "id": "configs",
@@ -8737,141 +9302,6 @@
       ]
     },
     {
-      "id": "cloud-writer",
-      "dir": "ac_cloud-writer",
-      "package": "com.diegonmarcos.cloudwriter",
-      "name": "Cloud Writer",
-      "label": "Writer",
-      "icon": "ic_writer",
-      "group": "Primary",
-      "category": "android",
-      "description": "Cloud Writer - the application the owner asked for: one place that owns Text Enhance, Translate, Grammar Check and Summary (Resume), with its own model choice for each of them separately. Type or paste a text, pick a tool, get the result back in an editable box.",
-      "kind": "app",
-      "wasm": "cloud-writer",
-      "default_section": "home",
-      "bottom_nav": [
-        "enhancer",
-        "drafter",
-        "home",
-        "translator",
-        "grammar"
-      ],
-      "top_bar": null,
-      "nav_ui": null,
-      "configs_ui": [
-        "nav_ui"
-      ],
-      "sections": [
-        {
-          "id": "enhancer",
-          "label": "Enhancer",
-          "icon": "auto_fix_high",
-          "pages": []
-        },
-        {
-          "id": "drafter",
-          "label": "Drafter",
-          "icon": "drafts",
-          "pages": []
-        },
-        {
-          "id": "home",
-          "label": "Home",
-          "icon": "home",
-          "pages": []
-        },
-        {
-          "id": "translator",
-          "label": "Translator",
-          "icon": "language",
-          "pages": []
-        },
-        {
-          "id": "grammar",
-          "label": "Grammar",
-          "icon": "edit_note",
-          "pages": []
-        },
-        {
-          "id": "writer",
-          "label": "Writer",
-          "icon": "writer",
-          "pages": []
-        },
-        {
-          "id": "tools",
-          "label": "Tools",
-          "icon": "tools",
-          "background": "theme",
-          "pages": [
-            {
-              "id": "enhance",
-              "label": "Text Enhancements",
-              "icon": "auto_fix_high"
-            },
-            {
-              "id": "translation",
-              "label": "Translation",
-              "icon": "language"
-            },
-            {
-              "id": "grammar",
-              "label": "Grammar",
-              "icon": "edit_note"
-            },
-            {
-              "id": "ai_routing",
-              "label": "AI Routing",
-              "icon": "route"
-            },
-            {
-              "id": "routes",
-              "label": "Routes",
-              "icon": "compare_arrows"
-            }
-          ]
-        },
-        {
-          "id": "settings",
-          "label": "Settings",
-          "icon": "settings",
-          "background": "theme",
-          "pages": [
-            {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "security"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
-            },
-            {
-              "id": "appearance",
-              "label": "Appearance",
-              "icon": "palette"
-            },
-            {
-              "id": "models",
-              "label": "Models",
-              "icon": "smart_toy"
-            },
-            {
-              "id": "ocr",
-              "label": "OCR",
-              "icon": "visibility"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "cloud-calc",
       "dir": "ac_cloud-calc",
       "package": "com.diegonmarcos.cloudcalc",
@@ -9091,7 +9521,7 @@
       "name": "Cloud Search",
       "label": "Search",
       "icon": "ic_cloud_search",
-      "group": "Weby Services & Markets",
+      "group": "Services",
       "category": "android",
       "description": "Diego's Cloud Search (#779; renamed Cloud Research in #1162, back to Cloud Search in #1197) - one app for searching, on the shared bottom nav: Scrappers (Site Files, Apify, Cloudflare, SelfHosted; sample rows), Research (Reports of what agents published, the Model catalogue and Agents: #913 draft-only Buy-Side and Sell-Side agents that read your alert mails and pages and write drafts you send yourself), CGC Search (Cloud CGC and Me CGC, each with Semantic and Graph RAG over the public and the private code index), Image, Videos and 3D Models (sample rows); the AI chat over OpenRouter with the major web and AI search engines, plus the fleet's Apps, Messages and Code, is reached from the top bar. News, Shopping and Brokers are gone from the app (#1472; their declaration stays for Cloud KG Store). REAL DATA ONLY: every in-app listing or feed comes from a public API or feed this app is allowed to read (build.json::search.sources, search.feeds), cached on the phone so the last results stay readable offline; a portal whose terms forbid automated access is never fetched - its own search page opens in cloud-browser - and a source that cannot be used says why. The German payslip runs the BMF's own Lohnsteuer PAP 2026 (core/pap, generated into Kotlin by core/tools/pap2kt.py) with the 2026 social-insurance rules, golden-tested against the BMF's calculator. English is the base language (#299); dark is the default theme (#336).",
       "kind": "app",
@@ -9641,7 +10071,7 @@
       "name": "Cloud KG Store",
       "label": "KG Store",
       "icon": "ic_kgs",
-      "group": "Weby Services & Markets",
+      "group": "Services",
       "category": "android",
       "description": "Cloud KG Store (#1207) - the fleet's knowledge-graph store and browser, three sections on the bottom nav: Cloud (two rows of groups: Application = Binary, Web/Debug, MCP search tools, API Data and API Debug with GET and POST; Repo = Code, CGC, MCP search tools, API Semantic and GraphRAG; every page is backed by the fleet endpoints declared in ac_cloud-account/build.json::fleet_endpoints - c3-infra-api, cloud-me-api, c3-public-api, the two CGC MCP services and embeddings-api - and says plainly when an endpoint is missing or does not answer), Phone (the installed Android apps index through PackageManager: package, version, permissions and components) and Web (News, Media, Shopping, Real Estate, Jobs, Business, on the sources and parsers Cloud Search declares: its build.json::search is baked by reference and its plain-JVM search-core is linked by reference, nothing is copied). The assistant behind the top bar's AI icon is libs:ai's chat over the fleet agent gateway (mesh only); no token is held or read by this app for it (decisions-use guard D5), and the fleet bearer for the public fallback route is read from Cloud Account on use and never kept. Dark is the default theme (#336); English is the base language (#299).",
       "kind": "app",
@@ -10035,7 +10465,7 @@
       "name": "Cloud Store",
       "label": "Store",
       "icon": "ic_refresh",
-      "group": "Configs",
+      "group": "Setup",
       "category": "android",
       "description": "Diego's Cloud Store — the constellation app store as its own APK (#865). Hosts libs:appstore: the Cloud fleet list (install, update, download-all, auto-update on Wi-Fi), the phone's installed apps (stop, uninstall, sources) and the apps mesh. It also runs the background fleet pass that keeps every constellation app updated, Cloud SuperApp and itself included. Split out of cloud-superapp so the store ships and updates on its own.",
       "kind": "app",
@@ -10096,7 +10526,7 @@
             },
             {
               "id": "search-android",
-              "label": "Android",
+              "label": "Phone",
               "icon": "android"
             },
             {
@@ -10118,13 +10548,13 @@
           "icon": "access",
           "pages": [
             {
-              "id": "mesh",
-              "label": "Apps Mesh",
-              "icon": "lan"
+              "id": "mcp",
+              "label": "MCP (device)",
+              "icon": "hub"
             },
             {
-              "id": "mcpapi",
-              "label": "Apps MCP-API",
+              "id": "apis",
+              "label": "APIs",
               "icon": "api"
             },
             {
@@ -10141,11 +10571,6 @@
               "id": "android",
               "label": "Android Perms",
               "icon": "android"
-            },
-            {
-              "id": "cloud",
-              "label": "Cloud Perms",
-              "icon": "cloud"
             }
           ]
         },
@@ -10200,7 +10625,7 @@
       "name": "Cloud Account",
       "label": "Account",
       "icon": "ic_p_accounts",
-      "group": "Configs",
+      "group": "Setup",
       "category": "android",
       "description": "Diego's Cloud Account — turns an empty phone into the owner's phone and keeps it that way: the account and its sign-in ways, the per-device profile backed up to and restored from the private vault repo, setup, and the fleet secrets (a0_docs/eng-specs/cloud-account-redesign.md). Hosts libs:account, the same code SuperApp links.",
       "kind": "app",
@@ -10395,6 +10820,11 @@
                   "id": "signin",
                   "label": "Sign in",
                   "icon": "login"
+                },
+                {
+                  "id": "import-configs",
+                  "label": "Import configs",
+                  "icon": "download"
                 },
                 {
                   "id": "settings",
@@ -10660,7 +11090,7 @@
             },
             {
               "id": "local_apps",
-              "label": "Local-Apps",
+              "label": "Local Apps",
               "icon": "apps"
             },
             {
@@ -10781,7 +11211,7 @@
       "name": "CG-Omniverse",
       "label": "Omniverse",
       "icon": "ic_p_sol_other",
-      "group": "Lnktree",
+      "group": "Projects",
       "category": "android",
       "description": "CG-Omniverse: the CG area's Android app behind the SuperApp's Cloud > Lnktree row. Three pages on the shared bottom nav: Avatar (a 3D avatar configurator: three.js in a WebView over bundled assets, options declared in data/avatar.json, the configuration saved and backed up), Galaxy (a Store world loaded full screen in a WebView, WebGL on) and Store (the worlds of data/store.json, generated from data/fwa.md, with Type / Dimension / Device multi-select filters). The pages are declared in build.json::ui and drawn by declared kinds.",
       "kind": "app",
@@ -10831,7 +11261,7 @@
       "name": "Capital-Stack-FinTerminal",
       "label": "FinTerm",
       "icon": "ic_p_markets_terminal",
-      "group": "Lnktree",
+      "group": "Projects",
       "category": "android",
       "description": "Capital-Stack-FinTerminal: the Capital area's capital-markets terminal as an Android app behind the SuperApp's Cloud > Lnktree row. Six tabs on the shared bottom nav, FI | EQ | EX | NW | PM | MY-PM, each entry a dashboard drawn from a DECLARED source (data/sources.json): Cloud-Fincept / fin_api on the private mesh first (with a Start / Stop / Restart control for its container), the key-free public sources (FRED, DBnomics, IMF, World Bank, GDELT) as fallback, and dashed placeholders where a source needs a key you add in Config > Sources (stored encrypted on the phone). MY-PM is a simple local holdings list. Every figure shown is what its source returned, with its date and attribution.",
       "kind": "app",
@@ -10880,19 +11310,6 @@
               "id": "cb-predictions",
               "label": "Predictions",
               "icon": "insights"
-            }
-          ]
-        },
-        {
-          "id": "fi",
-          "label": "FI",
-          "icon": "account_balance",
-          "nav_mode": "horizontal_one_row",
-          "pages": [
-            {
-              "id": "fi-home",
-              "label": "Home",
-              "icon": "home"
             },
             {
               "id": "yield-curves",
@@ -10903,11 +11320,6 @@
               "id": "yields-matrix",
               "label": "Yields Matrix",
               "icon": "table_chart"
-            },
-            {
-              "id": "bonds-market",
-              "label": "Bonds Market",
-              "icon": "bar_chart"
             },
             {
               "id": "forward-rates",
@@ -10925,14 +11337,67 @@
               "icon": "public"
             },
             {
-              "id": "credit",
-              "label": "Credit",
-              "icon": "assessment"
+              "id": "bonds-market",
+              "label": "Bonds Market",
+              "icon": "bar_chart"
             },
             {
               "id": "macro",
               "label": "Macro",
               "icon": "language"
+            },
+            {
+              "id": "credit",
+              "label": "Credit",
+              "icon": "assessment"
+            }
+          ]
+        },
+        {
+          "id": "fi",
+          "label": "FI",
+          "icon": "account_balance",
+          "nav_mode": "horizontal_one_row",
+          "pages": [
+            {
+              "id": "fi-home",
+              "label": "Home",
+              "icon": "home"
+            },
+            {
+              "id": "fi-all",
+              "label": "All",
+              "icon": "dataset"
+            },
+            {
+              "id": "fi-gov-dm",
+              "label": "Gov Bonds DM",
+              "icon": "public"
+            },
+            {
+              "id": "fi-gov-em",
+              "label": "Gov Bonds EM",
+              "icon": "language"
+            },
+            {
+              "id": "fi-aaa",
+              "label": "AAA Bonds",
+              "icon": "verified_user"
+            },
+            {
+              "id": "fi-aa-a",
+              "label": "AA-A Bonds",
+              "icon": "security"
+            },
+            {
+              "id": "fi-bbb",
+              "label": "BBB Bonds",
+              "icon": "assessment"
+            },
+            {
+              "id": "fi-junk",
+              "label": "Junk",
+              "icon": "bolt"
             }
           ]
         },
@@ -10946,6 +11411,56 @@
               "id": "eq-home",
               "label": "Home",
               "icon": "home"
+            },
+            {
+              "id": "eq-growth",
+              "label": "Growth",
+              "icon": "trending_up"
+            },
+            {
+              "id": "eq-value",
+              "label": "Value",
+              "icon": "payments"
+            },
+            {
+              "id": "eq-quality",
+              "label": "Quality",
+              "icon": "star"
+            },
+            {
+              "id": "eq-vol",
+              "label": "Vol",
+              "icon": "speed"
+            },
+            {
+              "id": "eq-top",
+              "label": "Top",
+              "icon": "emoji_events"
+            },
+            {
+              "id": "eq-cyclical",
+              "label": "Cyclical",
+              "icon": "cached"
+            },
+            {
+              "id": "eq-defensive",
+              "label": "Defensive",
+              "icon": "security"
+            },
+            {
+              "id": "eq-dividend",
+              "label": "Dividend",
+              "icon": "account_balance_wallet"
+            },
+            {
+              "id": "eq-momentum",
+              "label": "Momentum",
+              "icon": "rocket_launch"
+            },
+            {
+              "id": "eq-small",
+              "label": "Small",
+              "icon": "apps"
             },
             {
               "id": "world-equity-indices",
@@ -11152,7 +11667,7 @@
       "name": "Hardtech-CAD",
       "label": "CAD",
       "icon": "ic_p_sol_pro",
-      "group": "Lnktree",
+      "group": "Projects",
       "category": "android",
       "description": "Hardtech-CAD: the HardTech area's CAD app behind the SuperApp's Cloud > Lnktree row. Three pages on the shared bottom nav: MCAD and BIM (their folders of the HardTech-Stack-CAD-Simulators repo, the address read at build time from the SuperApp's declarations) and SolidWorks (planned, greyed).",
       "kind": "app",
@@ -11202,7 +11717,7 @@
       "name": "Hardtech-Sim2Real",
       "label": "Sim2Real",
       "icon": "ic_p_sol_tools",
-      "group": "Lnktree",
+      "group": "Projects",
       "category": "android",
       "description": "Hardtech-Sim2Real: the HardTech area's simulation app behind the SuperApp's Cloud > Lnktree row. Three pages on the shared bottom nav, SAP2000, MATLAB and Ansys, all planned and greyed: HardTech-Stack-CAD-Simulators holds no tool for them yet.",
       "kind": "app",

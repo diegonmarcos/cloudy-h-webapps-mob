@@ -172,8 +172,7 @@
     "ic_web",
     "ic_wg",
     "ic_wifi",
-    "ic_world",
-    "ic_writer"
+    "ic_world"
   ],
   "ui": {
     "event": "event",

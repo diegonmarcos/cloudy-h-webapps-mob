@@ -153,6 +153,7 @@
   --fleet-bottom-inner-pad: 8px;
   --fleet-bottom-label: 12px;
   --fleet-bottom-label-bottom: 4px;
+  --fleet-bottom-label-min: 9px;
   --fleet-bottom-lift: 6px;
   --fleet-bottom-max-width: 440px;
   --fleet-bottom-radius: 32px;
