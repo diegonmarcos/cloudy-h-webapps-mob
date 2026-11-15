@@ -70,11 +70,6 @@
       "reason": "Keyboard: an Android IME, phone-only"
     },
     {
-      "id": "cloud-writer",
-      "kind": "phone-only",
-      "reason": "Writer: text tools over OpenRouter on the phone; no web UI container"
-    },
-    {
       "id": "cloud-wallet",
       "kind": "external",
       "url": "https://wallet.google.com/",

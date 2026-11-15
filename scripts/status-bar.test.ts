@@ -13,7 +13,7 @@ const ids = (d: StatusBarDecl, pos: string) => d.elements.filter((e) => e.positi
 
 describe('status bar declaration', () => {
   it('declares the left network cluster in NetworkSections order, the clock centre, R/S/C and the battery right', () => {
-    expect(ids(gen.statusBar, 'left')).toEqual(['cellular', 'wifi', 'bluetooth', 'mesh', 'kde', 'adb', 'data', 'hotspot', 'gps']);
+    expect(ids(gen.statusBar, 'left')).toEqual(['cellular', 'wifi', 'bluetooth', 'hotspot', 'gps', 'mesh', 'kde', 'webs', 'adb', 'ssh', 'data']);
     expect(ids(gen.statusBar, 'centre')).toEqual(['clock']);
     expect(ids(gen.statusBar, 'right')).toEqual(['ram', 'storage', 'cpu', 'fps', 'battery']);
     expect(gen.statusBar.row_height_dp).toBe(26);

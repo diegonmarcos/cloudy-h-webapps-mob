@@ -94,13 +94,6 @@
       "about": true
     },
     {
-      "id": "cloud-writer",
-      "kind": "phone-only",
-      "reason": "Writer: text tools over OpenRouter on the phone; no web UI container",
-      "href": null,
-      "about": true
-    },
-    {
       "id": "cloud-wallet",
       "kind": "external",
       "reason": "Wallet: for now Google Wallet / Pay",

@@ -112,7 +112,7 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
   });
   it('the committed declarations: every tab opens on Home listing all its dashboards; Market Monitor is gone and redirected', () => {
     for (const tab of fin.tabs) {
-      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || e.kind === 'cb_table' || ['quote_board', 'futures_board', 'hedge_calc'].includes(e.kind) || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
+      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || e.kind === 'cb_table' || ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio'].includes(e.kind) || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
       expect(fin.homes[tab].map((c: { slug: string }) => c.slug), tab).toEqual(dash);
       for (const c of fin.homes[tab]) expect(c.icon && c.title && c.subtitle, `${tab}/${c.slug}`).toBeTruthy();
     }
@@ -147,9 +147,9 @@ describe('gen-finterm --check (the CI drift guard)', () => {
 });
 
 describe('the committed web FinTerm declarations', () => {
-  it('34 dashboards: FI 8, EQ 6, HG 3, NW 3, PM 14, CB none (the APK entries; #1539 the Commodities dashboard moved from EX to EQ; #1399 FI Market Monitor removed; #1447 PM A1, B1, C1, D1, D0; #1478 A2 dropped; #1612 EQ DM US / EM / Quotes merged into World Indices Equity, Equity Quote and Watchlist), each with at least one panel', () => {
+  it('34 dashboards: CB 8, EQ 6, HG 3, NW 3, PM 14, FI none (the APK entries; #1756 the eight bond dashboards moved from FI to CB and FI holds only app-only perf_portfolio pages; #1539 the Commodities dashboard moved from EX to EQ; #1399 FI Market Monitor removed; #1447 PM A1, B1, C1, D1, D0; #1478 A2 dropped; #1612 EQ DM US / EM / Quotes merged into World Indices Equity, Equity Quote and Watchlist), each with at least one panel', () => {
     const by = (t: string) => fin.dashboards.filter((d: { tab: string }) => d.tab === t).length;
-    expect([by('fi'), by('eq'), by('hg'), by('nw'), by('pm'), by('cb')]).toEqual([8, 6, 3, 3, 14, 0]);
+    expect([by('fi'), by('eq'), by('hg'), by('nw'), by('pm'), by('cb')]).toEqual([0, 6, 3, 3, 14, 8]);
     expect(fin.dashboards).toHaveLength(34);
     for (const d of fin.dashboards) expect(d.panels.length, d.id).toBeGreaterThan(0);
   });

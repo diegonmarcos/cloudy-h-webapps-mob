@@ -9,8 +9,8 @@ const sec = (id: string) => nav.superapp.sections.find((s) => s.id === id)!;
 const titles = (stack: { kind: string; title: string }[]) => stack.filter((p) => p.kind === 'entry').map((p) => p.title);
 
 describe('Lnktree row', () => {
-  const row = sec('cloud').tile_groups.find((g: { title: string }) => g.title === 'Lnktree');
-  it('is called Lnktree and holds exactly Omniverse, FinTerm, CAD, Sim2Real', () => {
+  const row = sec('cloud').tile_groups.find((g: { title: string }) => g.title === 'Projects');
+  it('is called Projects (#1756, formerly Lnktree) and holds exactly Omniverse, FinTerm, CAD, Sim2Real', () => {
     expect(sec('cloud').tile_groups.map((g: { title: string }) => g.title)).not.toContain('Projects W');
     // the SuperApp's own tile leads the row (1719aee0d5) and launches the SuperApp itself; the other four are the family
     expect(row.tiles.filter((t: { separator?: boolean; label: string }) => !t.separator && t.label !== 'SuperApp').map((t: { label: string }) => t.label)).toEqual(['Omniverse', 'FinTerm', 'CAD', 'Sim2Real']);
@@ -22,7 +22,7 @@ describe('Lnktree row', () => {
 });
 
 describe('Lnktree apps (#1335)', () => {
-  const row = sec('cloud').tile_groups.find((g: { title: string }) => g.title === 'Lnktree');
+  const row = sec('cloud').tile_groups.find((g: { title: string }) => g.title === 'Projects');
   const apps = (JSON.parse(readFileSync(join(root, 'packages/cloudy-ui/nav/nav.json'), 'utf8')) as { apps: { id: string; name: string; dir: string | null; bottom_nav: string[] }[] }).apps;
   it('each tile launches a real app of the Lnktree family (extapp:), and the in-app pages are gone', () => {
     // the FinTerm app id follows the Android folder (ad_Capital-FinTerm -> ad_Capital-Stack-FinTerminal): matched by its ad_Capital- folder, not by a typed id
