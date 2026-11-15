@@ -91,7 +91,7 @@ test('each dashboard renders: every panel is data or a placeholder that says why
 
 test('a blocked public source is one compact row: via your FinTerminal server, mesh only / CORS (no proxy)', async ({ page }) => {
   await net(page);
-  await page.goto(`${BASE}/${fin.app_id}/fi/yield-curves/`);
+  await page.goto(`${BASE}/${fin.app_id}/cb/yield-curves/`);
   await settle(page);
   const ust = page.locator('[data-panel="ust"]');
   await expect(ust).toHaveAttribute('data-state', 'placeholder-blocked');
@@ -100,7 +100,7 @@ test('a blocked public source is one compact row: via your FinTerminal server, m
   await expect(ust.locator('td')).toHaveCount(0); // no table of dashes
 });
 
-test('FI Yield Curves: FRED is cors false so the web goes straight to DBnomics; chart, table, last updated and attribution', async ({ page }, info) => {
+test('CB Yield Curves (#1756, was FI): FRED is cors false so the web goes straight to DBnomics; chart, table, last updated and attribution', async ({ page }, info) => {
   const fred = src('fred');
   const dbn = src('dbnomics');
   const asked: string[] = [];
@@ -110,7 +110,7 @@ test('FI Yield Curves: FRED is cors false so the web goes straight to DBnomics; 
     const code = u.pathname.split('/').pop()!;
     return { type: 'application/json', body: JSON.stringify({ series: { docs: [{ series_code: code, series_name: 'x', period: ['2026-10-27', '2026-10-28', '2026-10-29'], value: [4.1, 4.25, 'NA'] }] } }) };
   });
-  await page.goto(`${BASE}/${fin.app_id}/fi/yield-curves/`);
+  await page.goto(`${BASE}/${fin.app_id}/cb/yield-curves/`);
   await settle(page);
   const ust = page.locator('[data-panel="ust"]');
   await expect(ust).toHaveAttribute('data-state', 'data');
@@ -143,7 +143,7 @@ test('on the mesh fin-api serves first: the topic answer wins and the page says 
     const id = m[1];
     return { body: JSON.stringify({ series_id: id, observations: [{ date: '2099-01-01', value: 3.5 }] }), type: 'application/json' };
   });
-  await page.goto(`${BASE}/${fin.app_id}/fi/yield-curves/`);
+  await page.goto(`${BASE}/${fin.app_id}/cb/yield-curves/`);
   await settle(page);
   const ust = page.locator('[data-panel="ust"]');
   await expect(ust).toHaveAttribute('data-state', 'data');
@@ -219,9 +219,11 @@ test('each FinTerm tab Homepage: Home first in one nav row, a card per dashboard
     }
     await shot(page, info, `finterm-home-${tab}`);
   }
-  await page.goto(`${BASE}/${fin.app_id}/fi/fi-home/`);
-  await page.getByTestId('home-card').first().click();
-  await expect(page.getByTestId('finterm-dash')).toHaveAttribute('data-dash', fin.dashboards.find((d) => d.tab === 'fi' && d.slug === fin.homes.fi[0].slug)!.id);
+  // #1756 FI holds app-only perf_portfolio pages; the bond dashboards live on CB, whose first dashboard card opens its dashboard
+  const first = fin.dashboards.find((d) => d.tab === 'cb' && fin.homes.cb.some((c) => c.slug === d.slug))!;
+  await page.goto(`${BASE}/${fin.app_id}/cb/cb-home/`);
+  await page.locator(`[data-testid="home-card"][href="${BASE}/${fin.app_id}/cb/${first.slug}/"]`).click();
+  await expect(page.getByTestId('finterm-dash')).toHaveAttribute('data-dash', first.id);
 });
 
 // #1539 PM follows the Android nav: Portfolios and Performance (drawn in the app from delayed prices; the web page says so), the old Vol / Profiles deep links land

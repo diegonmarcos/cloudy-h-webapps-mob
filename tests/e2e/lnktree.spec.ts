@@ -12,9 +12,9 @@ const ui = J('packages/cloudy-ui/nav/apps-ui.json').apps as Record<string, { sta
 const finId = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!.id;
 const terminal = links.find((l) => l.id === finId)!;
 
-test('the Lnktree row: four web app pages (FinTerm is the web terminal, its backend is a separate mesh link)', async ({ page }, info) => {
+test('the Projects row (formerly Lnktree, #1756): four web app pages (FinTerm is the web terminal, its backend is a separate mesh link)', async ({ page }, info) => {
   await page.goto(`${BASE}/cloud/`);
-  const row = page.locator('[data-group="Lnktree"]');
+  const row = page.locator('[data-group="Projects"]');
   // the SuperApp's own tile leads the row (Android 1719aee0d5), then the four apps
   await expect(row.locator('[data-tile]')).toHaveCount(5);
   for (const [tile, id] of [['omniverse', 'cg-omniverse'], ['cad', 'hardtech-cad'], ['sim2real', 'hardtech-sim2real']] as const) {
