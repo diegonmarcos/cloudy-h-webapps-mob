@@ -62,6 +62,7 @@ export const STUB_RENAMES = {
   'cloud-media': '/cloud-webapps/cloud-media-center/',
   'cloud-superapp': '/cloud-webapps/',
   'cloud-terminal': '/cloud-webapps/cloud-terminal-termux/',
+  'cloud-writer': '/cloud-webapps/cloud-keyboard/writer/',
 };
 
 /** Any old absolute URL path -> its new absolute path, or null when this map does not know the URL.
