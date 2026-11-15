@@ -11,7 +11,7 @@ const pmPages = (tab: string) => ((finterm.stacks as unknown as Record<string, P
 // #1539 the CB page's sub-pages (Countries, DM / EM / World, Predictions): `cb_table` entries drawn from finterm-cb.json
 const cbPages = (tab: string) => ((finterm.stacks as unknown as Record<string, PmPage[]>)[tab] ?? []).filter((e) => e.kind === 'cb_table');
 // #1539 the pages the APK draws from live delayed quotes (futures boards, hedge calculator, exchange rates, commodity prices): listed on the web, drawn in the app
-const appPages = (tab: string) => ((finterm.stacks as unknown as Record<string, PmPage[]>)[tab] ?? []).filter((e) => ['quote_board', 'futures_board', 'hedge_calc'].includes(e.kind));
+const appPages = (tab: string) => ((finterm.stacks as unknown as Record<string, PmPage[]>)[tab] ?? []).filter((e) => ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio'].includes(e.kind));
 export const entries: EntryGenerator = () => [
   ...finterm.tabs.flatMap((tab) => pmPages(tab).map((e) => ({ app: finterm.app_id, tab, dash: e.page! }))),
   ...finterm.tabs.flatMap((tab) => cbPages(tab).map((e) => ({ app: finterm.app_id, tab, dash: e.page! }))),
