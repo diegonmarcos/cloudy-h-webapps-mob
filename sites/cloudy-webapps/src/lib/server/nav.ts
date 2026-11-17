@@ -161,7 +161,7 @@ function stackCards(base: string, declared: { kind?: string; title: string; subt
   return out;
 }
 
-type AppEntry = { kind?: string; title?: string; subtitle?: string; url?: string; planned?: boolean; note?: string; page?: string };
+type AppEntry = { kind?: string; title?: string; subtitle?: string; url?: string; planned?: boolean; note?: string; page?: string; section?: string };
 /** #1539 FinTerm page kinds: drawn on the web (a page of its own) or only in the APK (live delayed quotes; the web page says so). */
 const WEB_PAGE_KINDS = ['pm_table', 'cb_table'];
 const APP_ONLY_KINDS = ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio'];
@@ -171,7 +171,7 @@ const APP_ONLY_KINDS = ['quote_board', 'futures_board', 'hedge_calc', 'perf_port
  * `entries_open_app` (FinTerm) every dashboard entry opens that link, the app's own web service (the terminal): a container link is the private
  * mesh URL (lock badge, new tab), never a public host. Kinds the web cannot show (holdings kept on the phone) are greyed. null = not a stack page.
  */
-export function appStack(appId: string, sectionId: string | null): StackCardData[] | null {
+export function appStack(appId: string, sectionId: string | null, base = ''): StackCardData[] | null {
   const app = APPS.find((a) => a.id === appId);
   const l = LINKS.get(appId);
   const list = (appsUi.apps as Record<string, { stacks?: Record<string, AppEntry[]> }>)[appId]?.stacks?.[sectionId ?? ''];
@@ -180,6 +180,9 @@ export function appStack(appId: string, sectionId: string | null): StackCardData
   const cards: StackCardData[] = [];
   for (const e of list) {
     if (e.kind === 'section_title') { cards.push({ title: e.title ?? '', subtitle: '', rows: [], caption: '', href: null }); continue; }
+    // #1777 Hardtech-CAD: `info` is a card with a description (nothing to open, not planned); `nav` opens another section / sub-page of the same app
+    if (e.kind === 'info') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: '', href: null }); continue; }
+    if (e.kind === 'nav') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: '', href: e.section ? joinBase(base, `${appId}/${e.section}/${e.page ? e.page + '/' : ''}`) : null, external: false }); continue; }
     if (e.kind === 'about') {
       if (!l || l.kind === 'phone-only') return null;
       cards.push({ title: app.name, subtitle: whatItDoes(app as never), rows: [], caption: '', href: own?.href ?? null, mesh: !!own?.mesh, external: own ? own.kind !== 'webapp' : false });
