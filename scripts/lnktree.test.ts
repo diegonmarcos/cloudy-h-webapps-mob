@@ -10,10 +10,10 @@ const titles = (stack: { kind: string; title: string }[]) => stack.filter((p) =>
 
 describe('Lnktree row', () => {
   const row = sec('cloud').tile_groups.find((g: { title: string }) => g.title === 'Projects');
-  it('is called Projects (#1756, formerly Lnktree) and holds exactly Omniverse, FinTerm, CAD, Sim2Real', () => {
+  it('is called Projects (#1756, formerly Lnktree) and holds exactly Omniverse, FinTerm, CAD, BioMed', () => {
     expect(sec('cloud').tile_groups.map((g: { title: string }) => g.title)).not.toContain('Projects W');
     // the SuperApp's own tile leads the row (1719aee0d5) and launches the SuperApp itself; the other four are the family
-    expect(row.tiles.filter((t: { separator?: boolean; label: string }) => !t.separator && t.label !== 'SuperApp').map((t: { label: string }) => t.label)).toEqual(['Omniverse', 'FinTerm', 'CAD', 'Sim2Real']);
+    expect(row.tiles.filter((t: { separator?: boolean; label: string }) => !t.separator && t.label !== 'SuperApp').map((t: { label: string }) => t.label)).toEqual(['Omniverse', 'FinTerm', 'CAD', 'BioMed']);
   });
   it('every tile target is a route the web has (targets.json)', () => {
     const targets = JSON.parse(readFileSync(join(root, 'packages/cloudy-ui/nav/targets.json'), 'utf8')).targets as Record<string, string>;
@@ -27,10 +27,10 @@ describe('Lnktree apps (#1335)', () => {
   it('each tile launches a real app of the Lnktree family (extapp:), and the in-app pages are gone', () => {
     // the FinTerm app id follows the Android folder (ad_Capital-FinTerm -> ad_Capital-Stack-FinTerminal): matched by its ad_Capital- folder, not by a typed id
     const finterm = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
-    const want: Record<string, string> = { Omniverse: 'extapp:cg-omniverse', FinTerm: `extapp:${finterm.id}`, CAD: 'extapp:hardtech-cad', Sim2Real: 'extapp:hardtech-sim2real' };
+    const want: Record<string, string> = { Omniverse: 'extapp:cg-omniverse', FinTerm: `extapp:${finterm.id}`, CAD: 'extapp:hardtech-cad', BioMed: 'extapp:hardtech-biomed' };
     for (const t of row.tiles.filter((x: { separator?: boolean; label: string }) => !x.separator && x.label !== 'SuperApp')) expect(t.target, t.label).toBe(want[t.label]);
     expect(nav.superapp.sections.map((s) => s.id)).not.toContain('finterm');
-    for (const k of ['stack_omniverse', 'stack_cad', 'stack_sim2real']) expect(sec('cloud')[k], k).toBeUndefined();
+    for (const k of ['stack_omniverse', 'stack_cad', 'stack_biomed']) expect(sec('cloud')[k], k).toBeUndefined();
   });
   it('the four apps are fleet apps with their pages from their own build.json (ad_ folders)', () => {
     const by = Object.fromEntries(apps.map((a) => [a.id, a]));
@@ -38,8 +38,8 @@ describe('Lnktree apps (#1335)', () => {
     expect(by['cg-omniverse'].bottom_nav).toEqual(['avatar', 'galaxy', 'store']);
     const fin = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
     expect(fin.bottom_nav).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm']);
-    expect(by['hardtech-cad'].bottom_nav).toEqual(['mcad', 'bim', 'solidworks']);
-    expect(by['hardtech-sim2real'].bottom_nav).toEqual(['sap2000', 'matlab', 'ansys']);
+    expect(by['hardtech-cad'].bottom_nav).toEqual(['models', 'home', 'sim2real']);   // #1777 Models (MCAD | BIM | SolidWorks), Home, Sim2Real (SAP2000 | MATLAB | Ansys)
+    expect(by['hardtech-biomed'].bottom_nav).toEqual(['physiology', 'biochem', 'biomech', 'anatomy', 'genetic', 'neuro', 'immuno']);   // #1777 the former simulation app, rebranded
     expect(by['cg-omniverse'].name).toBe('CG-Omniverse');
   });
 });
@@ -54,8 +54,8 @@ describe('Lnktree apps on the web', () => {
   const apps = (read('packages/cloudy-ui/nav/nav.json').apps as { id: string; dir: string | null }[]);
   const fin = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
 
-  it('Omniverse, CAD and Sim2Real are web pages of this site (not About stubs); FinTerm is the terminal', () => {
-    for (const id of ['cg-omniverse', 'hardtech-cad', 'hardtech-sim2real']) {
+  it('Omniverse, CAD and BioMed are web pages of this site (not About stubs); FinTerm is the terminal', () => {
+    for (const id of ['cg-omniverse', 'hardtech-cad', 'hardtech-biomed']) {
       const l = links.find((x) => x.id === id)!;
       expect(l.kind, id).toBe('webapp');
       expect(l.href, id).toBe(`/cloud-webapps/${id}/`);
@@ -78,7 +78,7 @@ describe('Lnktree apps on the web', () => {
   });
 
   it('no hand-typed URL for the container, and none for the apps in the mapping (webapp paths are root-absolute)', () => {
-    for (const m of mapping.filter((x) => ['capital-stack-finterminal', 'cg-omniverse', 'hardtech-cad', 'hardtech-sim2real'].includes(x.id as string))) {
+    for (const m of mapping.filter((x) => ['capital-stack-finterminal', 'cg-omniverse', 'hardtech-cad', 'hardtech-biomed'].includes(x.id as string))) {
       expect(m.url, m.id as string).toBeUndefined();
       expect(m.href, m.id as string).toBeUndefined();
       expect(JSON.stringify([m.path ?? '', m.backend ?? '']), m.id as string).not.toMatch(/https?:/);
@@ -86,7 +86,7 @@ describe('Lnktree apps on the web', () => {
   });
 
   it('every page entry carries a declared-source URL or is planned (no typed URL, no dead entry), source keys are consumed', () => {
-    for (const id of ['cg-omniverse', 'hardtech-cad', 'hardtech-sim2real']) for (const [sec, list] of Object.entries(stacks[id].stacks)) for (const e of list) {
+    for (const id of ['cg-omniverse', 'hardtech-cad', 'hardtech-biomed']) for (const [sec, list] of Object.entries(stacks[id].stacks)) for (const e of list) {
       if (e.kind) continue;
       expect(Boolean(e.url) !== Boolean(e.planned), `${id}/${sec}/${e.title}`).toBe(true);
       expect(e.registry ?? e.repo, `${id}/${e.title}`).toBeUndefined();
@@ -97,7 +97,7 @@ describe('Lnktree apps on the web', () => {
     for (const sec of ['avatar', 'galaxy', 'store']) expect(stacks['cg-omniverse'].stacks[sec].map((e) => e.kind), sec).toEqual([sec]);
     expect(by('hardtech-cad', 'mcad').url).toMatch(/^https:\/\/github\.com\//);
     expect(by('hardtech-cad', 'solidworks').planned).toBe(true);
-    for (const sec of ['sap2000', 'matlab', 'ansys']) expect(by('hardtech-sim2real', sec).planned, sec).toBe(true);
+    for (const sec of ['sap2000', 'matlab', 'ansys']) expect(by('hardtech-cad', sec).planned, sec).toBe(true);   // #1777 the simulation pages live under Hardtech-CAD > Sim2Real
   });
 
   it('the FinTerm tabs are FI, EQ, EX, NW, PM, MY-PM and each tab has entries', () => {

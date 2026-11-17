@@ -306,10 +306,10 @@
           "target": "extapp:hardtech-cad"
         },
         {
-          "id": "sim2real",
-          "label": "Sim2Real",
+          "id": "biomed",
+          "label": "BioMed",
           "icon": "sa/ic_p_sol_tools",
-          "target": "extapp:hardtech-sim2real"
+          "target": "extapp:hardtech-biomed"
         }
       ]
     },

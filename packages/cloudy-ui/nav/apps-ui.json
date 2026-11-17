@@ -12309,6 +12309,178 @@
           {
             "kind": "about"
           }
+        ],
+        "home": [
+          {
+            "kind": "section_title",
+            "title": "Hardtech-CAD"
+          },
+          {
+            "kind": "info",
+            "title": "What this app is",
+            "subtitle": "Models and simulation entry points of the HardTech area: browse open CAD and BIM models in 3D on the phone, and see how each simulation tool is meant to connect to them."
+          },
+          {
+            "kind": "section_title",
+            "title": "Models"
+          },
+          {
+            "kind": "nav",
+            "title": "MCAD",
+            "subtitle": "Mechanical CAD: the models table, the model libraries and the FreeCAD / AutoCAD agents",
+            "section": "models",
+            "page": "mcad"
+          },
+          {
+            "kind": "nav",
+            "title": "BIM",
+            "subtitle": "Building information models: IFC and Bonsai agents",
+            "section": "models",
+            "page": "bim"
+          },
+          {
+            "kind": "nav",
+            "title": "SolidWorks",
+            "subtitle": "SolidWorks parametric CAD (planned)",
+            "section": "models",
+            "page": "solidworks"
+          },
+          {
+            "kind": "section_title",
+            "title": "Sim2Real"
+          },
+          {
+            "kind": "nav",
+            "title": "SAP2000",
+            "subtitle": "Structural analysis: how a model would be handed to SAP2000 and the results brought back (planned)",
+            "section": "sim2real",
+            "page": "sap2000"
+          },
+          {
+            "kind": "nav",
+            "title": "MATLAB",
+            "subtitle": "Numerical computing: scripted studies on a model's data (planned)",
+            "section": "sim2real",
+            "page": "matlab"
+          },
+          {
+            "kind": "nav",
+            "title": "Ansys",
+            "subtitle": "Finite element and fluid simulation: PyAnsys-driven runs on a licensed host (planned)",
+            "section": "sim2real",
+            "page": "ansys"
+          }
+        ],
+        "sap2000": [
+          {
+            "title": "SAP2000",
+            "subtitle": "Structural analysis and design of frames, shells and bridges",
+            "planned": true,
+            "note": "Planned: coming. No connector is shipped yet; this page describes the intended integration."
+          },
+          {
+            "kind": "section_title",
+            "title": "Planned integration"
+          },
+          {
+            "kind": "info",
+            "title": "Role in Sim2Real",
+            "subtitle": "Takes a structural model prepared under Models (an IFC building model or a STEP frame) and returns member forces, displacements and utilisation ratios, so a calculated result can be compared with measurements of the real structure."
+          },
+          {
+            "kind": "info",
+            "title": "How the tool is reached",
+            "subtitle": "SAP2000 is driven through its published programming interface (the Open Application Programming Interface) on a Windows host that holds the licence; a fleet agent on that host would run the analysis and hand back files. No licence or solver is bundled in the app and none is needed on the phone."
+          },
+          {
+            "kind": "info",
+            "title": "Inputs and outputs",
+            "subtitle": "In: geometry from IFC or STEP, sections, materials and load cases as JSON. Out: result tables as CSV and a mesh view as GLB for the 3D viewer used by Models."
+          },
+          {
+            "kind": "info",
+            "title": "Open-source alternative",
+            "subtitle": "OpenSees and Code_Aster cover comparable structural analysis without a licence and would be the first targets while the commercial connector is built."
+          },
+          {
+            "kind": "info",
+            "title": "Status",
+            "subtitle": "Planned. The HardTech-Stack-CAD-Simulators repository holds no connector for this tool yet; the page will switch to a live connection when one ships."
+          }
+        ],
+        "matlab": [
+          {
+            "title": "MATLAB",
+            "subtitle": "Numerical computing and simulation",
+            "planned": true,
+            "note": "Planned: coming. No connector is shipped yet; this page describes the intended integration."
+          },
+          {
+            "kind": "section_title",
+            "title": "Planned integration"
+          },
+          {
+            "kind": "info",
+            "title": "Role in Sim2Real",
+            "subtitle": "Runs scripted studies on the data of a model: parameter sweeps, signal processing of measurements and comparison of a simulated curve with a recorded one."
+          },
+          {
+            "kind": "info",
+            "title": "How the tool is reached",
+            "subtitle": "MATLAB offers an engine interface for Python and a batch mode; a fleet agent on a host with the licence would start a script with its inputs and return the figures and result files. No licence is bundled in the app and none is needed on the phone."
+          },
+          {
+            "kind": "info",
+            "title": "Inputs and outputs",
+            "subtitle": "In: parameters and measurement files (CSV, JSON). Out: result tables, plots as images and, for geometry studies, a mesh view as GLB."
+          },
+          {
+            "kind": "info",
+            "title": "Open-source alternative",
+            "subtitle": "GNU Octave runs most plain MATLAB scripts without a licence and would be the first target for scripts that do not need toolboxes."
+          },
+          {
+            "kind": "info",
+            "title": "Status",
+            "subtitle": "Planned. The HardTech-Stack-CAD-Simulators repository holds no connector for this tool yet; the page will switch to a live connection when one ships."
+          }
+        ],
+        "ansys": [
+          {
+            "title": "Ansys",
+            "subtitle": "Finite element and fluid simulation",
+            "planned": true,
+            "note": "Planned: coming. No connector is shipped yet; this page describes the intended integration."
+          },
+          {
+            "kind": "section_title",
+            "title": "Planned integration"
+          },
+          {
+            "kind": "info",
+            "title": "Role in Sim2Real",
+            "subtitle": "Runs finite element and flow simulations on a model brought from Models (a STEP solid) and returns stress, temperature or velocity fields for the 3D viewer, closing the loop between a design and its measured behaviour."
+          },
+          {
+            "kind": "info",
+            "title": "How the tool is reached",
+            "subtitle": "Ansys products are scripted through the open PyAnsys Python packages, which talk to the solver over gRPC on a licensed host; a fleet agent would start the session, run the study and hand back the result files. No licence or solver is bundled in the app and none is needed on the phone."
+          },
+          {
+            "kind": "info",
+            "title": "Inputs and outputs",
+            "subtitle": "In: STEP geometry, material and boundary-condition tables as JSON. Out: field results as VTK or GLB, and summary tables as CSV."
+          },
+          {
+            "kind": "info",
+            "title": "Open-source alternative",
+            "subtitle": "CalculiX and Elmer (finite element) and OpenFOAM (fluid flow) are open-source solvers that would be the first targets while the commercial connector is built."
+          },
+          {
+            "kind": "info",
+            "title": "Status",
+            "subtitle": "Planned. The HardTech-Stack-CAD-Simulators repository holds no connector for this tool yet; the page will switch to a live connection when one ships."
+          }
         ]
       },
       "model_repo": "hardtech-db-models",
@@ -12421,33 +12593,65 @@
         }
       }
     },
-    "hardtech-sim2real": {
+    "hardtech-biomed": {
       "configs_ui": [
         "nav_ui"
       ],
       "stacks": {
-        "sap2000": [
+        "physiology": [
           {
-            "title": "SAP2000",
-            "subtitle": "Structural analysis",
-            "planned": true,
-            "note": "Planned: coming"
+            "kind": "scene",
+            "title": "Physiology",
+            "subtitle": "Each body system as a functional system",
+            "scene": "physiology"
           }
         ],
-        "matlab": [
+        "biochem": [
           {
-            "title": "MATLAB",
-            "subtitle": "Numerical computing and simulation",
-            "planned": true,
-            "note": "Planned: coming"
+            "kind": "scene",
+            "title": "BioChem",
+            "subtitle": "Circadian cycle, energy metabolism, detox, reproduction",
+            "scene": "biochem"
           }
         ],
-        "ansys": [
+        "biomech": [
           {
-            "title": "Ansys",
-            "subtitle": "Finite element simulation",
-            "planned": true,
-            "note": "Planned: coming"
+            "kind": "scene",
+            "title": "BioMech",
+            "subtitle": "A 3D map of muscles and joints",
+            "scene": "biomech"
+          }
+        ],
+        "anatomy": [
+          {
+            "kind": "scene",
+            "title": "Anatomy",
+            "subtitle": "The interactive 3D human body",
+            "scene": "anatomy"
+          }
+        ],
+        "genetic": [
+          {
+            "kind": "scene",
+            "title": "Genetic",
+            "subtitle": "A 3D DNA model",
+            "scene": "genetic"
+          }
+        ],
+        "neuro": [
+          {
+            "kind": "scene",
+            "title": "Neuro",
+            "subtitle": "A 3D brain with every macro region",
+            "scene": "neuro"
+          }
+        ],
+        "immuno": [
+          {
+            "kind": "scene",
+            "title": "Immuno",
+            "subtitle": "The main immune and pathology systems",
+            "scene": "immuno"
           }
         ],
         "about": [
@@ -12455,7 +12659,9 @@
             "kind": "about"
           }
         ]
-      }
+      },
+      "model_repo": "cloudy-u-android",
+      "data_dir": "data/fleet/biomed"
     }
   }
 }

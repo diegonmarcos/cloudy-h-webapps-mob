@@ -1570,10 +1570,10 @@
                 "target": "extapp:hardtech-cad"
               },
               {
-                "id": "sim2real",
-                "label": "Sim2Real",
+                "id": "biomed",
+                "label": "BioMed",
                 "icon": "ic_p_sol_tools",
-                "target": "extapp:hardtech-sim2real"
+                "target": "extapp:hardtech-biomed"
               }
             ]
           },
@@ -5809,10 +5809,10 @@
         "install_package": "com.diegonmarcos.hardtechcad"
       },
       {
-        "id": "hardtech-sim2real",
-        "folder": "proj_sim2real",
-        "hub_package": "com.diegonmarcos.hardtechsim2real",
-        "install_package": "com.diegonmarcos.hardtechsim2real"
+        "id": "hardtech-biomed",
+        "folder": "proj_biomed",
+        "hub_package": "com.diegonmarcos.hardtechbiomed",
+        "install_package": "com.diegonmarcos.hardtechbiomed"
       }
     ]
   },
@@ -12024,14 +12024,14 @@
       "icon": "ic_p_sol_pro",
       "group": "Projects",
       "category": "android",
-      "description": "Hardtech-CAD: the HardTech area's CAD app behind the SuperApp's Cloud > Lnktree row. Three pages on the shared bottom nav: MCAD and BIM (their folders of the HardTech-Stack-CAD-Simulators repo, the address read at build time from the SuperApp's declarations) and SolidWorks (planned, greyed).",
+      "description": "Hardtech-CAD: the HardTech area's CAD and simulation app behind the SuperApp's Cloud > Lnktree row. Three sections on the shared bottom nav: Models (MCAD and BIM, their folders of the HardTech-Stack-CAD-Simulators repository, the address read at build time from the SuperApp's declarations, and SolidWorks, planned, greyed), Home (an overview that opens every page) and Sim2Real (SAP2000, MATLAB and Ansys, planned pages that describe how each tool is meant to connect).",
       "kind": "app",
       "wasm": null,
-      "default_section": "mcad",
+      "default_section": "models",
       "bottom_nav": [
-        "mcad",
-        "bim",
-        "solidworks"
+        "models",
+        "home",
+        "sim2real"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -12040,22 +12040,54 @@
       ],
       "sections": [
         {
-          "id": "mcad",
-          "label": "MCAD",
-          "icon": "build",
-          "pages": []
-        },
-        {
-          "id": "bim",
-          "label": "BIM",
+          "id": "models",
+          "label": "Models",
           "icon": "layers",
+          "pages": [
+            {
+              "id": "mcad",
+              "label": "MCAD",
+              "icon": "build"
+            },
+            {
+              "id": "bim",
+              "label": "BIM",
+              "icon": "layers"
+            },
+            {
+              "id": "solidworks",
+              "label": "SolidWorks",
+              "icon": "inventory_2"
+            }
+          ]
+        },
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
           "pages": []
         },
         {
-          "id": "solidworks",
-          "label": "SolidWorks",
-          "icon": "inventory_2",
-          "pages": []
+          "id": "sim2real",
+          "label": "Sim2Real",
+          "icon": "insights",
+          "pages": [
+            {
+              "id": "sap2000",
+              "label": "SAP2000",
+              "icon": "assessment"
+            },
+            {
+              "id": "matlab",
+              "label": "MATLAB",
+              "icon": "table_chart"
+            },
+            {
+              "id": "ansys",
+              "label": "Ansys",
+              "icon": "speed"
+            }
+          ]
         },
         {
           "id": "about",
@@ -12066,22 +12098,26 @@
       ]
     },
     {
-      "id": "hardtech-sim2real",
-      "dir": "ad_Hardtech-Sim2Real",
-      "package": "com.diegonmarcos.hardtechsim2real",
-      "name": "Hardtech-Sim2Real",
-      "label": "Sim2Real",
+      "id": "hardtech-biomed",
+      "dir": "ad_Hardtech-BioMed",
+      "package": "com.diegonmarcos.hardtechbiomed",
+      "name": "Hardtech-BioMed",
+      "label": "BioMed",
       "icon": "ic_p_sol_tools",
       "group": "Projects",
       "category": "android",
-      "description": "Hardtech-Sim2Real: the HardTech area's simulation app behind the SuperApp's Cloud > Lnktree row. Three pages on the shared bottom nav, SAP2000, MATLAB and Ansys, all planned and greyed: HardTech-Stack-CAD-Simulators holds no tool for them yet.",
+      "description": "Hardtech-BioMed: the HardTech area's human biology and medicine app behind the SuperApp's Cloud > Lnktree row. Seven tabs on the shared bottom nav, Physiology, BioChem, BioMech, Anatomy, Genetic, Neuro and Immuno, each a 3D scene (the CAD viewer engine, libs:cad-core) of an openly licensed model (BodyParts3D, CC BY-SA 2.1 JP, and a generated DNA helix, CC0) with educational topics. The models and the texts are served at run time from data/fleet/biomed, never baked into the APK.",
       "kind": "app",
       "wasm": null,
-      "default_section": "sap2000",
+      "default_section": "physiology",
       "bottom_nav": [
-        "sap2000",
-        "matlab",
-        "ansys"
+        "physiology",
+        "biochem",
+        "biomech",
+        "anatomy",
+        "genetic",
+        "neuro",
+        "immuno"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -12090,21 +12126,45 @@
       ],
       "sections": [
         {
-          "id": "sap2000",
-          "label": "SAP2000",
-          "icon": "assessment",
+          "id": "physiology",
+          "label": "Physiology",
+          "icon": "monitor_heart",
           "pages": []
         },
         {
-          "id": "matlab",
-          "label": "MATLAB",
-          "icon": "table_chart",
+          "id": "biochem",
+          "label": "BioChem",
+          "icon": "bloodtype",
           "pages": []
         },
         {
-          "id": "ansys",
-          "label": "Ansys",
-          "icon": "speed",
+          "id": "biomech",
+          "label": "BioMech",
+          "icon": "fitness_center",
+          "pages": []
+        },
+        {
+          "id": "anatomy",
+          "label": "Anatomy",
+          "icon": "accessibility_new",
+          "pages": []
+        },
+        {
+          "id": "genetic",
+          "label": "Genetic",
+          "icon": "health_bio",
+          "pages": []
+        },
+        {
+          "id": "neuro",
+          "label": "Neuro",
+          "icon": "psychology",
+          "pages": []
+        },
+        {
+          "id": "immuno",
+          "label": "Immuno",
+          "icon": "verified_user",
           "pages": []
         },
         {

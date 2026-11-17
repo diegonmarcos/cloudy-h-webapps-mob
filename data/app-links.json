@@ -158,13 +158,13 @@
       "id": "hardtech-cad",
       "kind": "webapp",
       "path": "/cloud-webapps/hardtech-cad/",
-      "reason": "Hardtech-CAD: its pages (MCAD, BIM, SolidWorks) are web pages of cloudy-webapps; MCAD and BIM open their repo folders, SolidWorks is planned"
+      "reason": "Hardtech-CAD: its sections (Models: MCAD, BIM, SolidWorks; Home; Sim2Real: SAP2000, MATLAB, Ansys) are web pages of cloudy-webapps; MCAD and BIM open their repo folders, the rest is planned"
     },
     {
-      "id": "hardtech-sim2real",
+      "id": "hardtech-biomed",
       "kind": "webapp",
-      "path": "/cloud-webapps/hardtech-sim2real/",
-      "reason": "Hardtech-Sim2Real: its pages (SAP2000, MATLAB, Ansys) are web pages of cloudy-webapps; all planned (greyed)"
+      "path": "/cloud-webapps/hardtech-biomed/",
+      "reason": "Hardtech-BioMed: its tabs (Physiology, BioChem, BioMech, Anatomy, Genetic, Neuro, Immuno) are web pages of cloudy-webapps; the 3D scenes are the Android app's"
     },
     {
       "id": "cloud-superintel",
