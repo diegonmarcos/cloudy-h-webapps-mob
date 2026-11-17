@@ -11827,7 +11827,8 @@
       "bottom_nav": [
         "avatar",
         "galaxy",
-        "store"
+        "store",
+        "voxelverse"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -11851,6 +11852,12 @@
           "id": "store",
           "label": "Store",
           "icon": "apps",
+          "pages": []
+        },
+        {
+          "id": "voxelverse",
+          "label": "Voxelverse",
+          "icon": "layers",
           "pages": []
         },
         {

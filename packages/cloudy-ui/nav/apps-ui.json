@@ -11503,6 +11503,12 @@
             "title": "Store"
           }
         ],
+        "voxelverse": [
+          {
+            "kind": "voxelverse",
+            "title": "Voxelverse"
+          }
+        ],
         "about": [
           {
             "kind": "about"
