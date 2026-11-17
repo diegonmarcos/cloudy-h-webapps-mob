@@ -1531,15 +1531,21 @@
             "title": "Projects",
             "tiles": [
               {
-                "id": "cloud-superapp",
-                "label": "SuperApp",
-                "icon": "ic_superapp_d",
-                "target": "app://com.diegonmarcos.superapp"
+                "id": "wiki",
+                "label": "Wiki",
+                "icon": "ic_wiki",
+                "target": "extapp:cloud-wiki"
               },
               {
                 "id": "lnktree-sep-0",
                 "label": "|",
                 "separator": true
+              },
+              {
+                "id": "cloud-superapp",
+                "label": "SuperApp",
+                "icon": "ic_superapp_d",
+                "target": "app://com.diegonmarcos.superapp"
               },
               {
                 "id": "omniverse",
@@ -1559,9 +1565,10 @@
                 "target": "extapp:capital-stack-finterminal"
               },
               {
-                "id": "lnktree-sep-2",
-                "label": "|",
-                "separator": true
+                "id": "biomed",
+                "label": "BioMed",
+                "icon": "ic_p_sol_tools",
+                "target": "extapp:hardtech-biomed"
               },
               {
                 "id": "cad",
@@ -1570,10 +1577,15 @@
                 "target": "extapp:hardtech-cad"
               },
               {
-                "id": "biomed",
-                "label": "BioMed",
-                "icon": "ic_p_sol_tools",
-                "target": "extapp:hardtech-biomed"
+                "id": "lnktree-sep-2",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "circusverse",
+                "label": "Circusverse",
+                "icon": "ic_p_sol_cloud",
+                "coming_soon": true
               }
             ]
           },
@@ -5647,6 +5659,12 @@
         "install_package": "com.diegonmarcos.cloudshopping"
       },
       {
+        "id": "cloud-wiki",
+        "folder": "hlth_learning",
+        "hub_package": "com.diegonmarcos.cloudwiki",
+        "install_package": "com.diegonmarcos.cloudwiki"
+      },
+      {
         "id": "cloud-news",
         "folder": "hlth_news",
         "hub_package": "com.diegonmarcos.cloudnews",
@@ -6816,6 +6834,150 @@
           "label": "Search",
           "icon": "search",
           "pages": []
+        }
+      ]
+    },
+    {
+      "id": "cloud-wiki",
+      "dir": "ac_cloud-wiki",
+      "package": "com.diegonmarcos.cloudwiki",
+      "name": "Cloud Wiki",
+      "label": "Wiki",
+      "icon": "ic_wiki",
+      "group": "Projects",
+      "category": "android",
+      "description": "Cloud Wiki (#1778): a small encyclopedia of Markdown pages. No bottom nav: a collapsed left side menu (libs:ui-nav-bars vertical_side_menu) holds the topics in four groups, Sciences (Math, Computer Science, Physics, Astronomy, Engineering, Medicine), Humanities (Anthropology, Human Belief Systems, Chronos), Arts (Art, Theater, Music, Movies) and Explore (Graph), and each topic has its subpages as top tabs after an Overview tab (Engineering: one subpage per major field). A page is a short, neutral, educational Markdown explanation with tag chips; tapping a chip filters every page by that tag. Graph is an Obsidian-style force-directed graph (libs:graph-view, shared with Cloud Notes) joining pages by their [[links]] and shared tags, with pan, zoom and tap to open. The content is the runtime dataset wiki (data/fleet/app/com.diegonmarcos.cloudwiki/wiki.json) served by Cloud Store, never an APK asset. Configs are the fleet's General | Perms | About. Declares no network permission of its own.",
+      "kind": "app",
+      "wasm": null,
+      "default_section": "wiki",
+      "bottom_nav": [],
+      "top_bar": null,
+      "nav_ui": null,
+      "configs_ui": [
+        "nav_ui"
+      ],
+      "sections": [
+        {
+          "id": "wiki",
+          "label": "Wiki",
+          "icon": "menu_book",
+          "nav_mode": "vertical_side_menu",
+          "pages": [
+            {
+              "id": "math",
+              "label": "Math",
+              "icon": "calculate"
+            },
+            {
+              "id": "cs",
+              "label": "Computer Science",
+              "icon": "code"
+            },
+            {
+              "id": "physics",
+              "label": "Physics",
+              "icon": "bolt"
+            },
+            {
+              "id": "astronomy",
+              "label": "Astronomy",
+              "icon": "rocket_launch"
+            },
+            {
+              "id": "eng",
+              "label": "Engineering",
+              "icon": "build"
+            },
+            {
+              "id": "medicine",
+              "label": "Medicine",
+              "icon": "monitor_heart"
+            },
+            {
+              "id": "anthropology",
+              "label": "Anthropology",
+              "icon": "groups"
+            },
+            {
+              "id": "beliefs",
+              "label": "Human Belief Systems",
+              "icon": "psychology"
+            },
+            {
+              "id": "chronos",
+              "label": "Chronos",
+              "icon": "timeline"
+            },
+            {
+              "id": "art",
+              "label": "Art",
+              "icon": "palette"
+            },
+            {
+              "id": "theater",
+              "label": "Theater",
+              "icon": "mood"
+            },
+            {
+              "id": "music",
+              "label": "Music",
+              "icon": "music_note"
+            },
+            {
+              "id": "movies",
+              "label": "Movies",
+              "icon": "video"
+            },
+            {
+              "id": "graph",
+              "label": "Graph",
+              "icon": "hub"
+            }
+          ],
+          "groups": [
+            {
+              "id": "sciences",
+              "label": "Sciences",
+              "icon": "insights",
+              "pages": [
+                "math",
+                "cs",
+                "physics",
+                "astronomy",
+                "eng",
+                "medicine"
+              ]
+            },
+            {
+              "id": "humanities",
+              "label": "Humanities",
+              "icon": "groups",
+              "pages": [
+                "anthropology",
+                "beliefs",
+                "chronos"
+              ]
+            },
+            {
+              "id": "arts",
+              "label": "Arts",
+              "icon": "palette",
+              "pages": [
+                "art",
+                "theater",
+                "music",
+                "movies"
+              ]
+            },
+            {
+              "id": "explore",
+              "label": "Explore",
+              "icon": "explore",
+              "pages": [
+                "graph"
+              ]
+            }
+          ]
         }
       ]
     },

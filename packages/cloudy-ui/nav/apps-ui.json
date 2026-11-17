@@ -2165,6 +2165,11 @@
         "nav_ui"
       ]
     },
+    "cloud-wiki": {
+      "configs_ui": [
+        "nav_ui"
+      ]
+    },
     "cloud-news": {
       "configs_ui": [
         "nav_ui"
