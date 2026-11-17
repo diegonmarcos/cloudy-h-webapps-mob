@@ -20,6 +20,7 @@
     "ic_calc",
     "ic_calendar",
     "ic_camera",
+    "ic_canvas",
     "ic_chat",
     "ic_check_all",
     "ic_chevron_right",
@@ -172,6 +173,7 @@
     "ic_web",
     "ic_wg",
     "ic_wifi",
+    "ic_wiki",
     "ic_world"
   ],
   "ui": {
