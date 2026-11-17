@@ -1345,6 +1345,12 @@
                 "target": "extapp:cloud-camera"
               },
               {
+                "id": "canvas",
+                "label": "Canvas",
+                "icon": "ic_canvas",
+                "target": "extapp:cloud-canvas"
+              },
+              {
                 "id": "keyboard",
                 "label": "Keyboard",
                 "icon": "ic_keyboard",
@@ -1960,6 +1966,17 @@
                   }
                 ],
                 "icon_res": "ic_camera"
+              },
+              {
+                "label": "Canvas",
+                "icon_pkg": "com.diegonmarcos.cloudcanvas",
+                "packages": [
+                  {
+                    "pkg": "com.diegonmarcos.cloudcanvas",
+                    "label": "Cloud Canvas"
+                  }
+                ],
+                "icon_res": "ic_canvas"
               },
               {
                 "label": "Keyboard",
@@ -5755,6 +5772,12 @@
         "install_package": "cld.camera"
       },
       {
+        "id": "cloud-canvas",
+        "folder": "prod_canvas",
+        "hub_package": "com.diegonmarcos.cloudcanvas",
+        "install_package": "com.diegonmarcos.cloudcanvas"
+      },
+      {
         "id": "cloud-notes",
         "folder": "prod_docs",
         "hub_package": "com.diegonmarcos.cloudnotes",
@@ -7114,6 +7137,7 @@
       "default_section": "keyboard",
       "bottom_nav": [
         "keyboard",
+        "handwrite",
         "writer",
         "grabber",
         "mediaboards",
@@ -7200,6 +7224,23 @@
               "id": "toolbar",
               "label": "Toolbar",
               "icon": "build"
+            }
+          ]
+        },
+        {
+          "id": "handwrite",
+          "label": "HandWrite",
+          "icon": "edit",
+          "pages": [
+            {
+              "id": "handwrite_settings",
+              "label": "Handwriting",
+              "icon": "settings"
+            },
+            {
+              "id": "handwrite_practice",
+              "label": "Practice pad",
+              "icon": "edit_note"
             }
           ]
         },
@@ -9675,6 +9716,55 @@
           "label": "VR",
           "icon": "vr",
           "pages": []
+        }
+      ]
+    },
+    {
+      "id": "cloud-canvas",
+      "dir": "ac_cloud-canvas",
+      "package": "com.diegonmarcos.cloudcanvas",
+      "name": "Cloud Canvas",
+      "label": "Canvas",
+      "icon": "ic_canvas",
+      "group": "Primary",
+      "category": "android",
+      "description": "Cloud Canvas (#1780): Draw, a paint app on the shared Compose canvas (brush, pencil, marker, eraser, fill, shapes, line, text, eyedropper, layers, undo/redo, pinch zoom, PNG export through the Storage Access Framework), and Play, a music mixer with a piano, drum pads and a synth (all synthesized, low-latency AudioTrack), a 4 to 8 track mixer with loop recording and WAV export. Bottom nav Draw | Play.",
+      "kind": "app",
+      "wasm": null,
+      "default_section": "draw",
+      "bottom_nav": [
+        "draw",
+        "play"
+      ],
+      "top_bar": null,
+      "nav_ui": null,
+      "configs_ui": [
+        "nav_ui"
+      ],
+      "sections": [
+        {
+          "id": "draw",
+          "label": "Draw",
+          "icon": "edit",
+          "pages": [
+            {
+              "id": "draw",
+              "label": "Draw",
+              "icon": "edit"
+            }
+          ]
+        },
+        {
+          "id": "play",
+          "label": "Play",
+          "icon": "music_note",
+          "pages": [
+            {
+              "id": "play",
+              "label": "Play",
+              "icon": "music_note"
+            }
+          ]
         }
       ]
     },

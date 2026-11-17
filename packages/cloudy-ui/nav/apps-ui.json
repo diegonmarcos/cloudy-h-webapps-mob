@@ -5437,6 +5437,11 @@
         "nav_ui"
       ]
     },
+    "cloud-canvas": {
+      "configs_ui": [
+        "nav_ui"
+      ]
+    },
     "cloud-notes": {
       "nav_ui": {
         "mode": "clean",
