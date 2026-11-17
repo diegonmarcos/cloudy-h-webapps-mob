@@ -29,8 +29,8 @@ describe('nav.json', () => {
     const sections = new Set(nav.superapp.sections.map((s: { id: string }) => s.id));
     for (const id of appIds) expect(sections.has(id), id).toBe(false);
   });
-  it('icon sprites: 171 SuperApp glyphs (#1756: ic_writer left with the cloud-writer retirement), the UiIcons catalog, a fallback', () => {
-    expect(icons.sa.length).toBe(171);
+  it('icon sprites: 173 SuperApp glyphs (#1756: ic_writer left with the cloud-writer retirement; #1777 the Wiki and Canvas glyphs joined), the UiIcons catalog, a fallback', () => {
+    expect(icons.sa.length).toBe(173);
     expect(Object.keys(icons.ui).length).toBeGreaterThanOrEqual(150);
     expect(icons.fallback).toBe('tab');
   });
