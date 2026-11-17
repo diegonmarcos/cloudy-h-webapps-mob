@@ -20,6 +20,7 @@ export const load = ({ params }) => {
   const srv = SERVERS[`../../apps/cloudy-apps/${view.app.id}/server.ts`];
   if (srv?.load) view.data = srv.load(view);
   else if (view.section === 'about') { const d = declaredAbout(view.app.id); if (d) view.data = { about: d }; }
-  if (!view.data && !srv?.load) { const stack = appStack(view.app.id, view.sub ?? view.page, base) ?? appStack(view.app.id, view.section, base);   // #1777 a stack may be keyed by a sub-page id (Hardtech-CAD) or by the section if (stack) view.data = { stack }; }
+  // #1777 a stack may be keyed by a sub-page id (Hardtech-CAD) or by the section
+  if (!view.data && !srv?.load) { const stack = appStack(view.app.id, view.sub ?? view.page, base) ?? appStack(view.app.id, view.section, base);  if (stack) view.data = { stack }; }
   return { view, shell: null };
 };
