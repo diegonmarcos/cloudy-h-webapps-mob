@@ -36,7 +36,7 @@ test('each Lnktree app page lists its entries: a declared target or a greyed pla
   for (const id of ['cg-omniverse', 'hardtech-cad', 'hardtech-biomed']) {
     for (const [sec, all] of Object.entries(ui[id].stacks).filter(([k]) => k !== 'about')) {
       // a page drawn by its declared kind (CG-Omniverse avatar/galaxy/store, #1366) has no stack cards, as the unit test (lnktree.test.ts) skips them
-      const list = (all as { kind?: string; url?: string }[]).filter((e) => !e.kind || e.kind === 'info' || e.kind === 'nav');   // #1777 info and nav entries are cards too
+      const list = (all as { kind?: string; url?: string }[]).filter((e) => !e.kind || e.kind === 'info' || e.kind === 'nav' || e.kind === 'section_title');   // #1777 info, nav and section-title entries are cards too
       // a page with a model library (hardtech-cad) is drawn by the generic body, not by stack cards (appStack returns null)
       if ((all as { kind?: string }[]).some((e) => e.kind === 'library')) continue;
       await page.goto(`${BASE}/${id}/${routeOf(id, sec)}/`);
@@ -44,7 +44,7 @@ test('each Lnktree app page lists its entries: a declared target or a greyed pla
       await expect(cards, `${id}/${sec}`).toHaveCount(list.length);
       for (const [i, e] of list.entries()) {
         const card = cards.nth(i);
-        if (e.kind === 'info') { await expect(card, `${id}/${sec}`).not.toHaveAttribute('data-planned', /.*/); await expect(card.locator('a.open')).toHaveCount(0); }
+        if (e.kind === 'info' || e.kind === 'section_title') { await expect(card, `${id}/${sec}`).not.toHaveAttribute('data-planned', /.*/); await expect(card.locator('a.open')).toHaveCount(0); }
         else if (e.kind === 'nav') { await expect(card.locator('a.open'), `${id}/${sec}`).toHaveCount(1); }
         else if (e.url) { await expect(card.locator('a.open'), `${id}/${sec}`).toHaveAttribute('href', e.url); await expect(card).not.toHaveAttribute('data-planned', /.*/); }
         else { await expect(card, `${id}/${sec}`).toHaveAttribute('data-planned', 'true'); await expect(card.locator('a.open')).toHaveCount(0); }
