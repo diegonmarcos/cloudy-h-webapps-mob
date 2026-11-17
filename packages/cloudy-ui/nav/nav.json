@@ -1972,8 +1972,12 @@
                 "icon_pkg": "com.diegonmarcos.cloudcanvas",
                 "packages": [
                   {
-                    "pkg": "com.diegonmarcos.cloudcanvas",
-                    "label": "cloud-canvas"
+                    "pkg": "com.adsk.sketchbook",
+                    "label": "SketchBook"
+                  },
+                  {
+                    "pkg": "com.imageline.FLM",
+                    "label": "FL Studio Mobile"
                   }
                 ],
                 "icon_res": "ic_canvas"
@@ -9728,13 +9732,15 @@
       "icon": "ic_canvas",
       "group": "Primary",
       "category": "android",
-      "description": "Cloud Canvas (#1780): Draw, a paint app on the shared Compose canvas (brush, pencil, marker, eraser, fill, shapes, line, text, eyedropper, layers, undo/redo, pinch zoom, PNG export through the Storage Access Framework), and Play, a music mixer with a piano, drum pads and a synth (all synthesized, low-latency AudioTrack), a 4 to 8 track mixer with loop recording and WAV export. Bottom nav Draw | Play.",
+      "description": "Cloud Canvas (#1780): Draw, a paint app on the shared Compose canvas (brush, pencil, marker, eraser, fill, shapes, line, text, eyedropper, layers, undo/redo, pinch zoom, PNG export through the Storage Access Framework), and Play, a music mixer with a piano, drum pads and a synth (all synthesized, low-latency AudioTrack), a 4 to 8 track mixer with loop recording and WAV export. Draw Enhancer sends a picture and a preset prompt to an image model through OpenRouter (key from Configs > AI or the fleet Account); Music Enhancer is a coming-soon placeholder. Bottom nav Draw | Play | Draw Enhancer | Music Enhancer.",
       "kind": "app",
       "wasm": null,
       "default_section": "draw",
       "bottom_nav": [
         "draw",
-        "play"
+        "play",
+        "enhance",
+        "music"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -9763,6 +9769,30 @@
               "id": "play",
               "label": "Play",
               "icon": "music_note"
+            }
+          ]
+        },
+        {
+          "id": "enhance",
+          "label": "Draw Enhancer",
+          "icon": "auto_awesome",
+          "pages": [
+            {
+              "id": "enhance",
+              "label": "Draw Enhancer",
+              "icon": "auto_awesome"
+            }
+          ]
+        },
+        {
+          "id": "music",
+          "label": "Music Enhancer",
+          "icon": "graphic_eq",
+          "pages": [
+            {
+              "id": "music",
+              "label": "Music Enhancer",
+              "icon": "graphic_eq"
             }
           ]
         }
