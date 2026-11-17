@@ -1973,7 +1973,7 @@
                 "packages": [
                   {
                     "pkg": "com.diegonmarcos.cloudcanvas",
-                    "label": "Cloud Canvas"
+                    "label": "cloud-canvas"
                   }
                 ],
                 "icon_res": "ic_canvas"
