@@ -2120,6 +2120,41 @@
           "label": "Year"
         }
       ],
+      "calendar_styles": [
+        {
+          "id": "circles",
+          "label": "Circles Day",
+          "default": true
+        },
+        {
+          "id": "linear",
+          "label": "Linear Bars"
+        },
+        {
+          "id": "gantt",
+          "label": "Gantt Calendar"
+        }
+      ],
+      "nav_mapping": {
+        "inboxes/notes": "inboxes/notes",
+        "inboxes/synced": "inboxes/synced",
+        "backlogs/backlogs": "backlogs/backlogs",
+        "tasks/calendar": "tasks/calendar",
+        "tasks/list": "tasks/list",
+        "tasks/gantt": "tasks/gantt",
+        "tasks/kanban": "tasks/kanban",
+        "tasks/mindmap": "tasks/mindmap",
+        "tasks/clock": "tasks/clock",
+        "library/library": "library/library",
+        "projects/projects": "home/projects",
+        "settings/general": "settings/general",
+        "settings/perms": "settings/perms",
+        "settings/about": "settings/about",
+        "settings/appearance": "settings/appearance",
+        "settings/agent": "settings/agent",
+        "settings/inbox": "settings/inbox",
+        "settings/feeds": "settings/feeds"
+      },
       "configs_ui": [
         "nav_ui"
       ]
@@ -9376,6 +9411,32 @@
                 {
                   "id": "select_all",
                   "label": "Select all"
+                }
+              ]
+            },
+            {
+              "id": "convert",
+              "label": "Convert",
+              "items": [
+                {
+                  "id": "unzip",
+                  "label": "Unzip…"
+                },
+                {
+                  "id": "compress",
+                  "label": "Zip / Compress (.zip / .tar.gz)…"
+                },
+                {
+                  "id": "convert",
+                  "label": "Convert…"
+                },
+                {
+                  "id": "to_pdf",
+                  "label": "Convert to PDF…"
+                },
+                {
+                  "id": "convert_pdf",
+                  "label": "Convert from PDF (text, MD, HTML, OCR)…"
                 }
               ]
             },

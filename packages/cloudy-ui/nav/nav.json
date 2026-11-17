@@ -1438,12 +1438,6 @@
                 "target": "extapp:cloud-gallery"
               },
               {
-                "id": "mediacenter",
-                "label": "Media Center",
-                "icon": "ic_music",
-                "target": "extapp:cloud-media-center"
-              },
-              {
                 "id": "data-sep-2",
                 "label": "||",
                 "separator": true,
@@ -1469,7 +1463,7 @@
             "tiles": [
               {
                 "id": "me",
-                "label": "Me",
+                "label": "Lnktree",
                 "icon": "ic_vcard",
                 "target": "extapp:cloud-me"
               },
@@ -1492,9 +1486,9 @@
               },
               {
                 "id": "myroadmap",
-                "label": "Tasks",
+                "label": "Socials",
                 "icon": "ic_tree",
-                "target": "extapp:cloud-me#page:tasks/roadmaps"
+                "target": "extapp:cloud-me#page:socials/socials-professional"
               },
               {
                 "id": "me-sep-2",
@@ -1534,6 +1528,56 @@
             ]
           },
           {
+            "title": "Projects",
+            "tiles": [
+              {
+                "id": "cloud-superapp",
+                "label": "SuperApp",
+                "icon": "ic_superapp_d",
+                "target": "app://com.diegonmarcos.superapp"
+              },
+              {
+                "id": "lnktree-sep-0",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "omniverse",
+                "label": "Omniverse",
+                "icon": "ic_p_sol_other",
+                "target": "extapp:cg-omniverse"
+              },
+              {
+                "id": "lnktree-sep-1",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "finterm",
+                "label": "FinTerm",
+                "icon": "ic_p_markets_terminal",
+                "target": "extapp:capital-stack-finterminal"
+              },
+              {
+                "id": "lnktree-sep-2",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "cad",
+                "label": "CAD",
+                "icon": "ic_p_sol_pro",
+                "target": "extapp:hardtech-cad"
+              },
+              {
+                "id": "sim2real",
+                "label": "Sim2Real",
+                "icon": "ic_p_sol_tools",
+                "target": "extapp:hardtech-sim2real"
+              }
+            ]
+          },
+          {
             "title": "Services",
             "tiles": [
               {
@@ -1559,6 +1603,12 @@
                 "label": "Events",
                 "icon": "ic_p_cal_month",
                 "coming_soon": true
+              },
+              {
+                "id": "mediacenter",
+                "label": "Media Center",
+                "icon": "ic_music",
+                "target": "extapp:cloud-media-center"
               },
               {
                 "id": "weby-sep-2",
@@ -1659,56 +1709,6 @@
                 "label": "Terminal",
                 "icon": "ic_terminal",
                 "target": "extapp:cloud-terminal-nix"
-              }
-            ]
-          },
-          {
-            "title": "Projects",
-            "tiles": [
-              {
-                "id": "cloud-superapp",
-                "label": "SuperApp",
-                "icon": "ic_superapp_d",
-                "target": "app://com.diegonmarcos.superapp"
-              },
-              {
-                "id": "lnktree-sep-0",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "omniverse",
-                "label": "Omniverse",
-                "icon": "ic_p_sol_other",
-                "target": "extapp:cg-omniverse"
-              },
-              {
-                "id": "lnktree-sep-1",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "finterm",
-                "label": "FinTerm",
-                "icon": "ic_p_markets_terminal",
-                "target": "extapp:capital-stack-finterminal"
-              },
-              {
-                "id": "lnktree-sep-2",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "cad",
-                "label": "CAD",
-                "icon": "ic_p_sol_pro",
-                "target": "extapp:hardtech-cad"
-              },
-              {
-                "id": "sim2real",
-                "label": "Sim2Real",
-                "icon": "ic_p_sol_tools",
-                "target": "extapp:hardtech-sim2real"
               }
             ]
           },
@@ -1834,7 +1834,7 @@
         "last_apps": {
           "enabled": true,
           "title": "Last Apps",
-          "limit": 12
+          "limit": 21
         },
         "pages": [
           {
@@ -1868,304 +1868,538 @@
         "phone_app_groups": [
           {
             "title": "Primary",
-            "packages": [
+            "packages": [],
+            "folders": [
               {
-                "pkg": "com.brave.browser",
-                "label": "Brave",
-                "subtype": "Browser"
+                "label": "Drive",
+                "icon_pkg": "com.diegonmarcos.clouddrive",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.apps.docs",
+                    "label": "Google Drive"
+                  },
+                  {
+                    "pkg": "com.sec.android.app.myfiles",
+                    "label": "My Files"
+                  },
+                  {
+                    "pkg": "com.rarlab.rar",
+                    "label": "RAR"
+                  },
+                  {
+                    "pkg": "com.viscouspot.gitsync",
+                    "label": "Git Sync"
+                  }
+                ],
+                "icon_res": "ic_drive"
               },
               {
-                "pkg": "com.google.android.apps.maps",
-                "label": "Maps",
-                "subtype": "Nav"
+                "label": "Browser",
+                "icon_pkg": "com.diegonmarcos.cloudbrowser",
+                "packages": [
+                  {
+                    "pkg": "com.brave.browser",
+                    "label": "Brave"
+                  }
+                ],
+                "icon_res": "ic_world"
               },
               {
-                "pkg": "com.sec.android.app.popupcalculator",
-                "label": "Calculator",
-                "subtype": "Calc"
+                "label": "Calc",
+                "icon_pkg": "com.diegonmarcos.cloudcalc",
+                "packages": [
+                  {
+                    "pkg": "com.sec.android.app.popupcalculator",
+                    "label": "Calculator"
+                  },
+                  {
+                    "pkg": "com.sec.android.app.clockpackage",
+                    "label": "Clock"
+                  },
+                  {
+                    "pkg": "com.google.android.apps.translate",
+                    "label": "Translate"
+                  }
+                ],
+                "icon_res": "ic_calc"
               },
               {
-                "pkg": "com.sec.android.app.camera",
+                "label": "Nav",
+                "icon_pkg": "com.diegonmarcos.cloudnav",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.apps.maps",
+                    "label": "Maps"
+                  },
+                  {
+                    "pkg": "app.organicmaps",
+                    "label": "Organic Maps"
+                  }
+                ],
+                "icon_res": "ic_nav"
+              },
+              {
                 "label": "Camera",
-                "subtype": "Camera"
+                "icon_pkg": "cld.camera",
+                "packages": [
+                  {
+                    "pkg": "com.sec.android.app.camera",
+                    "label": "Camera"
+                  }
+                ],
+                "icon_res": "ic_camera"
               },
               {
-                "pkg": "com.google.android.inputmethod.latin",
-                "label": "Gboard",
-                "subtype": "Keyboard"
+                "label": "Keyboard",
+                "icon_pkg": "com.diegonmarcos.cloudkeyboard",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.inputmethod.latin",
+                    "label": "Gboard"
+                  }
+                ],
+                "icon_res": "ic_keyboard"
               },
               {
-                "pkg": "com.google.android.apps.walletnfcrel",
-                "label": "Google Wallet",
-                "subtype": "Wallet"
-              },
-              {
-                "pkg": "com.google.android.apps.translate",
-                "label": "Translate",
-                "subtype": "Utilities"
-              },
-              {
-                "pkg": "com.sec.android.app.clockpackage",
-                "label": "Clock",
-                "subtype": "Utilities"
+                "label": "Wallet",
+                "icon_pkg": "com.diegonmarcos.cloudwallet",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.apps.walletnfcrel",
+                    "label": "Google Wallet"
+                  }
+                ],
+                "icon_res": "ic_wallet"
               }
             ]
           },
           {
             "title": "Communication",
-            "packages": [
+            "packages": [],
+            "folders": [
               {
-                "pkg": "com.google.android.gm",
-                "label": "Gmail",
-                "subtype": "Mail"
+                "label": "Mail",
+                "icon_pkg": "com.diegonmarcos.comms.mail",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.gm",
+                    "label": "Gmail"
+                  }
+                ],
+                "icon_res": "ic_mail"
               },
               {
-                "pkg": "ch.protonmail.android",
-                "label": "Proton Mail",
-                "subtype": "Mail"
+                "label": "Chat",
+                "icon_pkg": "com.diegonmarcos.comms.chat",
+                "packages": [
+                  {
+                    "pkg": "com.Slack",
+                    "label": "Slack"
+                  }
+                ],
+                "icon_res": "ic_p_chat_mattermost"
               },
               {
-                "pkg": "app.sterna",
-                "label": "Sterna Mail",
-                "subtype": "Mail"
+                "label": "Messenger",
+                "icon_pkg": "com.diegonmarcos.comms.matrix",
+                "packages": [
+                  {
+                    "pkg": "com.whatsapp.w4b",
+                    "label": "WhatsApp Business"
+                  },
+                  {
+                    "pkg": "org.telegram.messenger",
+                    "label": "Telegram"
+                  },
+                  {
+                    "pkg": "org.thoughtcrime.securesms",
+                    "label": "Signal"
+                  },
+                  {
+                    "pkg": "com.google.android.apps.tachyon",
+                    "label": "Google Meet"
+                  }
+                ],
+                "icon_res": "ic_p_chat_matrix"
               },
               {
-                "pkg": "com.Slack",
-                "label": "Slack",
-                "subtype": "Chat"
+                "label": "Dialer",
+                "icon_pkg": "com.diegonmarcos.comms.dialer",
+                "packages": [
+                  {
+                    "pkg": "com.samsung.android.dialer",
+                    "label": "Samsung Phone"
+                  }
+                ],
+                "icon_res": "ic_p_dialer"
               },
               {
-                "pkg": "com.mattermost.rn",
-                "label": "Mattermost",
-                "subtype": "Chat"
-              },
-              {
-                "pkg": "com.beeper.android",
-                "label": "Beeper",
-                "subtype": "Chat"
-              },
-              {
-                "pkg": "com.whatsapp.w4b",
-                "label": "WhatsApp Business",
-                "subtype": "Messenger"
-              },
-              {
-                "pkg": "org.telegram.messenger",
-                "label": "Telegram",
-                "subtype": "Messenger"
-              },
-              {
-                "pkg": "com.samsung.android.dialer",
-                "label": "Samsung Phone",
-                "subtype": "Dialer"
-              },
-              {
-                "pkg": "com.google.android.contacts",
-                "label": "Google Contacts",
-                "subtype": "Contacts"
-              },
-              {
-                "pkg": "com.instagram.android",
-                "label": "Instagram",
-                "subtype": "Social"
+                "label": "Contacts",
+                "icon_pkg": "com.diegonmarcos.cloudcontacts",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.contacts",
+                    "label": "Google Contacts"
+                  }
+                ],
+                "icon_res": "ic_p_sol_personal"
               }
             ]
           },
           {
             "title": "Data",
-            "packages": [
+            "packages": [],
+            "folders": [
               {
-                "pkg": "com.google.android.apps.docs",
-                "label": "Google Drive",
-                "subtype": "Drive"
+                "label": "Notes",
+                "icon_pkg": "com.diegonmarcos.cloudnotes",
+                "packages": [
+                  {
+                    "pkg": "md.obsidian",
+                    "label": "Obsidian"
+                  },
+                  {
+                    "pkg": "com.rhmsoft.edit",
+                    "label": "QuickEdit"
+                  }
+                ],
+                "icon_res": "ic_notes"
               },
               {
-                "pkg": "com.sec.android.app.myfiles",
-                "label": "My Files",
-                "subtype": "Drive"
+                "label": "Agenda",
+                "icon_pkg": "com.diegonmarcos.cloudagenda",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.calendar",
+                    "label": "Google Calendar"
+                  },
+                  {
+                    "pkg": "com.google.android.apps.tasks",
+                    "label": "Google Tasks"
+                  },
+                  {
+                    "pkg": "co.mangotechnologies.clickup",
+                    "label": "ClickUp"
+                  }
+                ],
+                "icon_res": "ic_calendar"
               },
               {
-                "pkg": "com.lonelycatgames.Xplore",
-                "label": "X-plore",
-                "subtype": "Drive"
+                "label": "Office",
+                "icon_pkg": "com.diegonmarcos.cloudoffice",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.apps.docs.editors.docs",
+                    "label": "Google Docs"
+                  },
+                  {
+                    "pkg": "com.google.android.apps.docs.editors.sheets",
+                    "label": "Google Sheets"
+                  },
+                  {
+                    "pkg": "com.google.android.apps.docs.editors.slides",
+                    "label": "Google Slides"
+                  },
+                  {
+                    "pkg": "com.adobe.reader",
+                    "label": "Adobe Acrobat"
+                  }
+                ],
+                "icon_res": "ic_sheets"
               },
               {
-                "pkg": "me.proton.android.drive",
-                "label": "Proton Drive",
-                "subtype": "Drive"
+                "label": "Gallery",
+                "icon_pkg": "com.diegonmarcos.mediacenter",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.apps.photos",
+                    "label": "Google Photos"
+                  }
+                ],
+                "icon_res": "ic_photos"
               },
               {
-                "pkg": "com.viscouspot.gitsync",
-                "label": "Git Sync",
-                "subtype": "Drive"
-              },
-              {
-                "pkg": "com.microsoft.office.onenote",
-                "label": "OneNote",
-                "subtype": "Notes"
-              },
-              {
-                "pkg": "md.obsidian",
-                "label": "Obsidian",
-                "subtype": "Notes"
-              },
-              {
-                "pkg": "com.google.android.calendar",
-                "label": "Google Calendar",
-                "subtype": "Agenda"
-              },
-              {
-                "pkg": "com.google.android.apps.docs.editors.docs",
-                "label": "Google Docs",
-                "subtype": "Office"
-              },
-              {
-                "pkg": "com.google.android.apps.photos",
-                "label": "Google Photos",
-                "subtype": "Gallery"
-              },
-              {
-                "pkg": "com.aspiro.tidal",
-                "label": "Tidal",
-                "subtype": "Media Center"
-              },
-              {
-                "pkg": "com.x8bit.bitwarden",
-                "label": "Bitwarden",
-                "subtype": "Vault"
+                "label": "Vault",
+                "icon_pkg": "com.diegonmarcos.cloudvault",
+                "packages": [
+                  {
+                    "pkg": "com.x8bit.bitwarden",
+                    "label": "Bitwarden"
+                  },
+                  {
+                    "pkg": "com.beemdevelopment.aegis",
+                    "label": "Aegis"
+                  }
+                ],
+                "icon_res": "ic_vault"
               }
             ]
           },
           {
             "title": "Me",
-            "packages": [
+            "packages": [],
+            "folders": [
               {
-                "pkg": "com.sec.android.app.shealth",
-                "label": "Samsung Health",
-                "subtype": "Health"
+                "label": "Me-Health",
+                "icon_pkg": "com.diegonmarcos.cloudme",
+                "packages": [
+                  {
+                    "pkg": "com.sec.android.app.shealth",
+                    "label": "Samsung Health"
+                  },
+                  {
+                    "pkg": "com.strava",
+                    "label": "Strava"
+                  },
+                  {
+                    "pkg": "com.fatsecret.android",
+                    "label": "FatSecret"
+                  },
+                  {
+                    "pkg": "com.urbandroid.sleep",
+                    "label": "Sleep as Android"
+                  },
+                  {
+                    "pkg": "com.garmin.android.apps.connectmobile",
+                    "label": "Garmin Connect"
+                  }
+                ],
+                "icon_res": "ic_heart"
               },
               {
-                "pkg": "es.gob.interior.policia.midni",
-                "label": "miDNI",
-                "subtype": "Gov & ID"
+                "label": "Experiences",
+                "icon_pkg": "com.diegonmarcos.cloudme",
+                "packages": [
+                  {
+                    "pkg": "com.memrise.android.memrisecompanion",
+                    "label": "Memrise"
+                  },
+                  {
+                    "pkg": "mobi.eup.easygerman",
+                    "label": "Todaii German"
+                  }
+                ],
+                "icon_res": "ic_file_stack"
               },
               {
-                "pkg": "com.strava",
-                "label": "Strava",
-                "subtype": "Outdoor & Sport"
+                "label": "Socials",
+                "icon_pkg": "com.diegonmarcos.cloudme",
+                "icon_res": "ic_file_stack",
+                "packages": [
+                  {
+                    "pkg": "com.instagram.android",
+                    "label": "Instagram"
+                  },
+                  {
+                    "pkg": "com.instagram.barcelona",
+                    "label": "Threads"
+                  },
+                  {
+                    "pkg": "com.facebook.katana",
+                    "label": "Facebook"
+                  },
+                  {
+                    "pkg": "com.linkedin.android",
+                    "label": "LinkedIn"
+                  },
+                  {
+                    "pkg": "com.pinterest",
+                    "label": "Pinterest"
+                  },
+                  {
+                    "pkg": "com.bereal.ft",
+                    "label": "BeReal"
+                  },
+                  {
+                    "pkg": "com.tinder",
+                    "label": "Tinder"
+                  },
+                  {
+                    "pkg": "com.bumble.app",
+                    "label": "Bumble"
+                  },
+                  {
+                    "pkg": "co.hinge.app",
+                    "label": "Hinge"
+                  }
+                ]
               },
               {
-                "pkg": "com.memrise.android.memrisecompanion",
-                "label": "Memrise",
-                "subtype": "Learning"
-              }
-            ]
-          },
-          {
-            "title": "Services",
-            "packages": [
-              {
-                "pkg": "com.google.android.googlequicksearchbox",
-                "label": "Google",
-                "subtype": "Search"
-              },
-              {
-                "pkg": "com.google.android.apps.magazines",
-                "label": "Google News",
-                "subtype": "News"
-              },
-              {
-                "pkg": "com.devhd.feedly",
-                "label": "Feedly",
-                "subtype": "News"
-              },
-              {
-                "pkg": "com.amazon.mShop.android.shopping",
-                "label": "Amazon",
-                "subtype": "Shopping"
-              },
-              {
-                "pkg": "de.eventim.mobile.app.Android",
-                "label": "Eventim",
-                "subtype": "Events"
-              },
-              {
-                "pkg": "com.ubercab",
-                "label": "Uber",
-                "subtype": "Mobility & Travel"
-              },
-              {
-                "pkg": "com.linkedin.android",
-                "label": "LinkedIn",
-                "subtype": "Jobs & Business"
-              },
-              {
-                "pkg": "de.is24.android",
-                "label": "ImmoScout24",
-                "subtype": "Real Estate"
-              }
-            ]
-          },
-          {
-            "title": "AGI",
-            "packages": [
-              {
-                "pkg": "com.anthropic.claude",
-                "label": "Claude",
-                "subtype": "AI"
-              },
-              {
-                "pkg": "com.google.android.apps.bard",
-                "label": "Gemini",
-                "subtype": "AI"
-              },
-              {
-                "pkg": "com.foxdebug.acode",
-                "label": "Acode",
-                "subtype": "Code"
-              },
-              {
-                "pkg": "com.rhmsoft.edit",
-                "label": "QuickEdit",
-                "subtype": "Code"
-              },
-              {
-                "pkg": "com.termux",
-                "label": "Termux",
-                "subtype": "Terminal"
-              },
-              {
-                "pkg": "com.termux.nix",
-                "label": "Nix",
-                "subtype": "Terminal"
+                "label": "Me-Buro",
+                "icon_pkg": "com.diegonmarcos.cloudme",
+                "packages": [
+                  {
+                    "pkg": "es.gob.interior.policia.midni",
+                    "label": "miDNI"
+                  }
+                ],
+                "icon_res": "ic_p_folder"
               }
             ]
           },
           {
             "title": "Projects",
-            "packages": [
+            "packages": [],
+            "links": [
               {
-                "pkg": "co.mangotechnologies.clickup",
-                "label": "ClickUp"
-              },
-              {
-                "pkg": "com.google.android.apps.fitness",
-                "label": "Google Fit"
-              },
-              {
-                "pkg": "com.fatsecret.android",
-                "label": "FatSecret"
-              },
-              {
-                "pkg": "mobi.eup.easygerman",
-                "label": "Todaii German"
-              },
-              {
-                "pkg": "com.nomadmania.presentation",
-                "label": "NomadMania"
+                "label": "Linktree",
+                "url": "https://linktree.diegonmarcos.com",
+                "icon": "ic_link_tile"
               }
-            ],
+            ]
+          },
+          {
+            "title": "Services",
+            "packages": [],
             "folders": [
+              {
+                "label": "Search",
+                "icon_pkg": "com.diegonmarcos.cloudsearch",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.googlequicksearchbox",
+                    "label": "Google"
+                  }
+                ],
+                "icon_res": "ic_cloud_search"
+              },
+              {
+                "label": "News",
+                "icon_pkg": "com.diegonmarcos.cloudnews",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.apps.magazines",
+                    "label": "Google News"
+                  },
+                  {
+                    "pkg": "com.devhd.feedly",
+                    "label": "Feedly"
+                  }
+                ],
+                "icon_res": "ic_rss"
+              },
+              {
+                "label": "Events",
+                "packages": [
+                  {
+                    "pkg": "de.eventim.mobile.app.Android",
+                    "label": "Eventim"
+                  },
+                  {
+                    "pkg": "com.codekarussell.rausgegangen",
+                    "label": "Rausgegangen"
+                  },
+                  {
+                    "pkg": "com.meetup",
+                    "label": "Meetup"
+                  }
+                ],
+                "icon_res": "ic_p_cal_month"
+              },
+              {
+                "label": "Media Center",
+                "icon_pkg": "com.diegonmarcos.cloudmediacenter",
+                "packages": [
+                  {
+                    "pkg": "com.spotify.music",
+                    "label": "Spotify"
+                  },
+                  {
+                    "pkg": "com.google.android.youtube",
+                    "label": "YouTube"
+                  },
+                  {
+                    "pkg": "com.amazon.avod.thirdpartyclient",
+                    "label": "Prime Video"
+                  },
+                  {
+                    "pkg": "com.shazam.android",
+                    "label": "Shazam"
+                  }
+                ],
+                "icon_res": "ic_music"
+              },
+              {
+                "label": "Shopping",
+                "icon_pkg": "com.diegonmarcos.cloudshopping",
+                "packages": [
+                  {
+                    "pkg": "com.amazon.mShop.android.shopping",
+                    "label": "Amazon"
+                  },
+                  {
+                    "pkg": "de.dhl.paket",
+                    "label": "DHL Paket"
+                  },
+                  {
+                    "pkg": "com.ebay.kleinanzeigen",
+                    "label": "Kleinanzeigen"
+                  }
+                ],
+                "icon_res": "ic_shopping"
+              },
+              {
+                "label": "Mobility & Travel",
+                "packages": [
+                  {
+                    "pkg": "com.ubercab",
+                    "label": "Uber"
+                  },
+                  {
+                    "pkg": "com.booking",
+                    "label": "Booking.com"
+                  },
+                  {
+                    "pkg": "com.thetrainline",
+                    "label": "Trainline"
+                  },
+                  {
+                    "pkg": "com.ryanair.cheapflights",
+                    "label": "Ryanair"
+                  },
+                  {
+                    "pkg": "com.rome2rio.www.rome2rio",
+                    "label": "Rome2Rio"
+                  },
+                  {
+                    "pkg": "com.comuto",
+                    "label": "BlaBlaCar"
+                  },
+                  {
+                    "pkg": "com.trafi.whitelabel.bvg",
+                    "label": "BVG Fahrinfo"
+                  },
+                  {
+                    "pkg": "com.nomadmania.presentation",
+                    "label": "NomadMania"
+                  }
+                ],
+                "icon_res": "ic_ctl_airplane"
+              },
+              {
+                "label": "Jobs & Business",
+                "packages": [
+                  {
+                    "pkg": "com.indeed.android.jobsearch",
+                    "label": "Indeed"
+                  }
+                ],
+                "icon_res": "ic_suite"
+              },
+              {
+                "label": "Real Estate",
+                "packages": [
+                  {
+                    "pkg": "de.is24.android",
+                    "label": "ImmoScout24"
+                  },
+                  {
+                    "pkg": "com.wggesucht.android",
+                    "label": "WG-Gesucht"
+                  }
+                ],
+                "icon_res": "ic_map_pin"
+              },
               {
                 "label": "Money",
                 "packages": [
@@ -2178,36 +2412,16 @@
                     "label": "Revolut"
                   },
                   {
-                    "pkg": "com.transferwise.android",
-                    "label": "Wise"
-                  },
-                  {
                     "pkg": "com.paypal.android.p2pmobile",
                     "label": "PayPal"
-                  },
-                  {
-                    "pkg": "com.google.android.apps.walletnfcrel",
-                    "label": "Google Wallet"
-                  },
-                  {
-                    "pkg": "com.btg.pactual.banking",
-                    "label": "BTG Banking"
-                  },
-                  {
-                    "pkg": "com.btg.pactual.digital.mobile",
-                    "label": "BTG Pactual"
-                  },
-                  {
-                    "pkg": "com.btg.pactual.homebroker.mobile",
-                    "label": "BTG Home Broker"
                   },
                   {
                     "pkg": "com.binance.dev",
                     "label": "Binance"
                   },
                   {
-                    "pkg": "com.bitpanda.bitpanda",
-                    "label": "Bitpanda"
+                    "pkg": "com.btg.pactual.digital.mobile",
+                    "label": "BTG Pactual"
                   },
                   {
                     "pkg": "com.fusionmedia.investing",
@@ -2217,27 +2431,146 @@
                     "pkg": "com.xe.currency",
                     "label": "XE Currency"
                   }
-                ]
+                ],
+                "icon_res": "ic_storefront"
+              }
+            ]
+          },
+          {
+            "title": "AGI",
+            "packages": [],
+            "folders": [
+              {
+                "label": "AI",
+                "packages": [
+                  {
+                    "pkg": "com.anthropic.claude",
+                    "label": "Claude"
+                  },
+                  {
+                    "pkg": "ai.perplexity.app.android",
+                    "label": "Perplexity"
+                  }
+                ],
+                "icon_res": "ic_ai_chat"
+              },
+              {
+                "label": "Code",
+                "icon_pkg": "com.diegonmarcos.code",
+                "packages": [
+                  {
+                    "pkg": "com.foxdebug.acode",
+                    "label": "Acode"
+                  },
+                  {
+                    "pkg": "com.github.android",
+                    "label": "GitHub"
+                  }
+                ],
+                "icon_res": "ic_ide"
+              },
+              {
+                "label": "Terminal",
+                "icon_pkg": "cld.termux.nix",
+                "packages": [
+                  {
+                    "pkg": "com.termux",
+                    "label": "Termux"
+                  }
+                ],
+                "icon_res": "ic_terminal"
               }
             ]
           },
           {
             "title": "Setup",
-            "packages": [
+            "packages": [],
+            "folders": [
               {
-                "pkg": "com.android.vending",
-                "label": "Play Store",
-                "subtype": "Store"
+                "label": "Quick Actions",
+                "packages": [
+                  {
+                    "pkg": "com.android.settings",
+                    "label": "Settings"
+                  },
+                  {
+                    "pkg": "com.samsung.android.oneconnect",
+                    "label": "SmartThings"
+                  }
+                ],
+                "icon_res": "ic_home"
               },
               {
-                "pkg": "org.fdroid.fdroid",
-                "label": "F-Droid",
-                "subtype": "Store"
+                "label": "UI",
+                "packages": [
+                  {
+                    "pkg": "com.samsung.android.goodlock",
+                    "label": "Good Lock"
+                  }
+                ],
+                "icon_res": "ic_ctl_brightness"
               },
               {
-                "pkg": "com.android.settings",
-                "label": "Settings",
-                "subtype": "Settings"
+                "label": "NG Firewall",
+                "packages": [
+                  {
+                    "pkg": "eu.faircode.netguard",
+                    "label": "NetGuard"
+                  },
+                  {
+                    "pkg": "com.wireguard.android",
+                    "label": "WireGuard"
+                  }
+                ],
+                "icon_res": "ic_act_shield"
+              },
+              {
+                "label": "Store",
+                "icon_pkg": "com.diegonmarcos.cloudstore",
+                "packages": [
+                  {
+                    "pkg": "com.android.vending",
+                    "label": "Play Store"
+                  },
+                  {
+                    "pkg": "org.fdroid.fdroid",
+                    "label": "F-Droid"
+                  }
+                ],
+                "icon_res": "ic_refresh"
+              },
+              {
+                "label": "C3",
+                "icon_pkg": "com.diegonmarcos.cloudc3",
+                "packages": [
+                  {
+                    "pkg": "moe.shizuku.privileged.api",
+                    "label": "Shizuku"
+                  },
+                  {
+                    "pkg": "org.kde.kdeconnect_tp",
+                    "label": "KDE Connect"
+                  },
+                  {
+                    "pkg": "com.mobidia.android.mdm",
+                    "label": "Data Monitor"
+                  },
+                  {
+                    "pkg": "com.ubnt.usurvey",
+                    "label": "WiFiman"
+                  }
+                ],
+                "icon_res": "ic_cloud_control"
+              },
+              {
+                "label": "About",
+                "packages": [
+                  {
+                    "pkg": "com.digibites.accubattery",
+                    "label": "AccuBattery"
+                  }
+                ],
+                "icon_res": "ic_info"
               }
             ]
           }
@@ -6189,9 +6522,9 @@
       "bottom_nav": [
         "inboxes",
         "backlogs",
+        "home",
         "tasks",
-        "library",
-        "projects"
+        "library"
       ],
       "top_bar": {
         "drawer": true,
@@ -6208,7 +6541,7 @@
       "sections": [
         {
           "id": "inboxes",
-          "label": "Inboxes",
+          "label": "Inbox",
           "icon": "inbox",
           "background": "theme",
           "pages": [
@@ -6226,7 +6559,7 @@
         },
         {
           "id": "backlogs",
-          "label": "Backlogs",
+          "label": "Backlog",
           "icon": "bookmark",
           "background": "theme",
           "pages": [
@@ -6234,6 +6567,24 @@
               "id": "backlogs",
               "label": "Backlogs",
               "icon": "bookmark"
+            }
+          ]
+        },
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
+          "background": "theme",
+          "pages": [
+            {
+              "id": "overview",
+              "label": "Overview",
+              "icon": "home"
+            },
+            {
+              "id": "projects",
+              "label": "Projects",
+              "icon": "folder"
             }
           ]
         },
@@ -6285,19 +6636,6 @@
               "id": "library",
               "label": "Library",
               "icon": "folder_open"
-            }
-          ]
-        },
-        {
-          "id": "projects",
-          "label": "Projects",
-          "icon": "folder",
-          "background": "theme",
-          "pages": [
-            {
-              "id": "projects",
-              "label": "Projects",
-              "icon": "folder"
             }
           ]
         },
@@ -6988,7 +7326,7 @@
       "bottom_nav": [
         "health",
         "experiences",
-        "tasks",
+        "socials",
         "lnktree",
         "inventory",
         "buro",
@@ -7383,6 +7721,23 @@
               "id": "backlogs",
               "label": "Due",
               "icon": "checklist"
+            }
+          ]
+        },
+        {
+          "id": "socials",
+          "label": "Socials",
+          "icon": "ic_nav_me",
+          "pages": [
+            {
+              "id": "socials-professional",
+              "label": "Professional",
+              "icon": "ic_nav_me"
+            },
+            {
+              "id": "socials-personal",
+              "label": "Personal",
+              "icon": "ic_p_identities"
             }
           ]
         },
@@ -8950,7 +9305,7 @@
       "name": "Cloud Media Center",
       "label": "Media Center",
       "icon": "ic_music",
-      "group": "Data",
+      "group": "Services",
       "category": "android",
       "description": "The fleet's media hub, as an APK, in Rust and static web only: a Tauri 2 app whose one webview shows seven mobile-first pages — music, videos, gallery, books, feed, movies, documentaries — built from the media data of diegonmarcos.github.io pinned at one commit. Every link out goes to the phone's own apps through tauri-plugin-opener.",
       "kind": "portal",
@@ -9173,7 +9528,7 @@
       "description": "Cloud Notes — our own signed build (the local-first notes/whiteboard app), vendored at ac_cloud-notes/ as owned code. DE-CLOUDED (#469): no sync server, no Firebase/telemetry, no AI chat, no EE-licensed code. The one feature added over upstream is opening files from emulated storage (/storage/emulated/0/...) reached via the fleet rule about EAR discipline — see the ship workflow and testers.",
       "kind": "app",
       "wasm": "cloud-notes",
-      "default_section": "home",
+      "default_section": "pages",
       "bottom_nav": [
         "home",
         "pages",
@@ -9215,6 +9570,11 @@
           "icon": "description",
           "pages": [
             {
+              "id": "vault",
+              "label": "Vault",
+              "icon": "folder"
+            },
+            {
               "id": "all",
               "label": "All",
               "icon": "description"
@@ -9227,11 +9587,6 @@
             {
               "id": "collections",
               "label": "Collections",
-              "icon": "folder"
-            },
-            {
-              "id": "vault",
-              "label": "Vault",
               "icon": "folder"
             },
             {
