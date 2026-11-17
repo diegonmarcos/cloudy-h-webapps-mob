@@ -227,6 +227,20 @@
       "href": "/cloud-webapps/hardtech-biomed/"
     },
     {
+      "id": "cloud-wiki",
+      "kind": "phone-only",
+      "reason": "Wiki: the phone's own wiki app; no web UI container yet",
+      "href": null,
+      "about": true
+    },
+    {
+      "id": "cloud-canvas",
+      "kind": "phone-only",
+      "reason": "Canvas: the phone's own canvas app; no web UI container yet",
+      "href": null,
+      "about": true
+    },
+    {
       "id": "cloud-superintel",
       "kind": "phone-only",
       "reason": "SI: AI chat over OpenRouter on the phone; no web UI container",

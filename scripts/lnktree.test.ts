@@ -10,14 +10,15 @@ const titles = (stack: { kind: string; title: string }[]) => stack.filter((p) =>
 
 describe('Lnktree row', () => {
   const row = sec('cloud').tile_groups.find((g: { title: string }) => g.title === 'Projects');
-  it('is called Projects (#1756, formerly Lnktree) and holds exactly Omniverse, FinTerm, CAD, BioMed', () => {
+  it('is called Projects (#1756, formerly Lnktree) and holds exactly Wiki, Omniverse, FinTerm, BioMed, CAD, Circusverse', () => {
     expect(sec('cloud').tile_groups.map((g: { title: string }) => g.title)).not.toContain('Projects W');
-    // the SuperApp's own tile leads the row (1719aee0d5) and launches the SuperApp itself; the other four are the family
-    expect(row.tiles.filter((t: { separator?: boolean; label: string }) => !t.separator && t.label !== 'SuperApp').map((t: { label: string }) => t.label)).toEqual(['Omniverse', 'FinTerm', 'CAD', 'BioMed']);
+    // the SuperApp's own tile leads the row (1719aee0d5) and launches the SuperApp itself; the others are the family plus the Wiki and Circusverse tiles
+    expect(row.tiles.filter((t: { separator?: boolean; label: string }) => !t.separator && t.label !== 'SuperApp').map((t: { label: string }) => t.label)).toEqual(['Wiki', 'Omniverse', 'FinTerm', 'BioMed', 'CAD', 'Circusverse']);
   });
   it('every tile target is a route the web has (targets.json)', () => {
     const targets = JSON.parse(readFileSync(join(root, 'packages/cloudy-ui/nav/targets.json'), 'utf8')).targets as Record<string, string>;
-    for (const t of row.tiles.filter((x: { separator?: boolean; label: string }) => !x.separator && x.label !== 'SuperApp')) expect(targets[t.target], t.target).toBeTruthy();
+    // Circusverse is a tile with no target of its own: every tile that HAS a target must resolve
+    for (const t of row.tiles.filter((x: { separator?: boolean; label: string; target?: string }) => !x.separator && x.label !== 'SuperApp' && x.target)) expect(targets[t.target], t.target).toBeTruthy();
   });
 });
 
@@ -27,7 +28,7 @@ describe('Lnktree apps (#1335)', () => {
   it('each tile launches a real app of the Lnktree family (extapp:), and the in-app pages are gone', () => {
     // the FinTerm app id follows the Android folder (ad_Capital-FinTerm -> ad_Capital-Stack-FinTerminal): matched by its ad_Capital- folder, not by a typed id
     const finterm = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
-    const want: Record<string, string> = { Omniverse: 'extapp:cg-omniverse', FinTerm: `extapp:${finterm.id}`, CAD: 'extapp:hardtech-cad', BioMed: 'extapp:hardtech-biomed' };
+    const want: Record<string, string> = { Omniverse: 'extapp:cg-omniverse', FinTerm: `extapp:${finterm.id}`, CAD: 'extapp:hardtech-cad', BioMed: 'extapp:hardtech-biomed', Wiki: 'extapp:cloud-wiki' };
     for (const t of row.tiles.filter((x: { separator?: boolean; label: string }) => !x.separator && x.label !== 'SuperApp')) expect(t.target, t.label).toBe(want[t.label]);
     expect(nav.superapp.sections.map((s) => s.id)).not.toContain('finterm');
     for (const k of ['stack_omniverse', 'stack_cad', 'stack_biomed']) expect(sec('cloud')[k], k).toBeUndefined();

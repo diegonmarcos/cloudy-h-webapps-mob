@@ -167,6 +167,16 @@
       "reason": "Hardtech-BioMed: its tabs (Physiology, BioChem, BioMech, Anatomy, Genetic, Neuro, Immuno) are web pages of cloudy-webapps; the 3D scenes are the Android app's"
     },
     {
+      "id": "cloud-wiki",
+      "kind": "phone-only",
+      "reason": "Wiki: the phone's own wiki app; no web UI container yet"
+    },
+    {
+      "id": "cloud-canvas",
+      "kind": "phone-only",
+      "reason": "Canvas: the phone's own canvas app; no web UI container yet"
+    },
+    {
       "id": "cloud-superintel",
       "kind": "phone-only",
       "reason": "SI: AI chat over OpenRouter on the phone; no web UI container"
