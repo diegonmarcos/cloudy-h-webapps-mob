@@ -11506,7 +11506,10 @@
         "voxelverse": [
           {
             "kind": "voxelverse",
-            "title": "Voxelverse"
+            "title": "Voxelverse",
+            "subtitle": "The vox-rust build plan, read live from its repo",
+            "repo": "cg-voxel-rust",
+            "path": "docs/vox-rust_Agent-Driven_Voxel_World_Full_Build_Plan.md"
           }
         ],
         "about": [
