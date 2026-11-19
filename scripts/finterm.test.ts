@@ -110,9 +110,18 @@ describe('FinTerm nav: Homepages, one row, Market Monitor redirect (#1399)', () 
     a.build.ui.redirects[0].to = 'no-such-page';
     expect(() => buildFinterm(a)).toThrow(/Homepage or one of its sub-pages/);
   });
+  it('#1786 the PM Index (home_grid) is an app-only sub-page and the home_page pointer is ignored', () => {
+    const a = withNav();
+    a.build.ui.stacks.eq = [{ kind: 'home_page', home: 'eq-index', title: 'Home', subtitle: 'h' }, { kind: 'home_grid', title: 'Index', subtitle: 'cards', page: 'eq-index' }];
+    a.build.ui.sections.find((s: { id: string }) => s.id === 'eq').pages.push({ id: 'eq-index', label: 'Index', icon: 'apps' });
+    const o = buildFinterm(a);
+    expect(o.stacks.eq).toHaveLength(1);
+    expect(o.stacks.eq[0]).toMatchObject({ kind: 'home_grid', page: 'eq-index' });
+    expect(o.homes.eq).toEqual([{ slug: 'eq-index', title: 'Index', icon: 'apps', subtitle: 'cards' }]);
+  });
   it('the committed declarations: every tab opens on Home listing all its dashboards; Market Monitor is gone and redirected', () => {
     for (const tab of fin.tabs) {
-      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || e.kind === 'cb_table' || ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio'].includes(e.kind) || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
+      const dash = fin.stacks[tab].filter((e: { kind: string; detail?: boolean }) => e.kind === 'pm_table' || e.kind === 'cb_table' || ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio', 'home_grid'].includes(e.kind) || (e.kind === 'dashboard' && !e.detail)).map((e: { dashboard: string; page?: string }) => e.page ?? slugOf(e.dashboard));
       expect(fin.homes[tab].map((c: { slug: string }) => c.slug), tab).toEqual(dash);
       for (const c of fin.homes[tab]) expect(c.icon && c.title && c.subtitle, `${tab}/${c.slug}`).toBeTruthy();
     }

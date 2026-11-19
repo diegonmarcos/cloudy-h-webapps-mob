@@ -164,7 +164,7 @@ function stackCards(base: string, declared: { kind?: string; title: string; subt
 type AppEntry = { kind?: string; title?: string; subtitle?: string; url?: string; planned?: boolean; note?: string; page?: string; section?: string };
 /** #1539 FinTerm page kinds: drawn on the web (a page of its own) or only in the APK (live delayed quotes; the web page says so). */
 const WEB_PAGE_KINDS = ['pm_table', 'cb_table'];
-const APP_ONLY_KINDS = ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio'];
+const APP_ONLY_KINDS = ['quote_board', 'futures_board', 'hedge_calc', 'perf_portfolio', 'home_grid'];
 /**
  * The page body of a Lnktree app section (#1335): the app's own ui.stacks[<section>] entries (apps-ui.json, GENERATED), each a card with ONE target.
  * An `entry` opens the URL gen-navdata resolved from its declared source (greyed "planned" when it has none). When the app's link says

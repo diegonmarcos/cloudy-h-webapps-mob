@@ -234,26 +234,6 @@
       },
       {
         "kind": "dashboard",
-        "title": "Commodities",
-        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)",
-        "dashboard": "commodities"
-      },
-      {
-        "kind": "quote_board",
-        "title": "Commodity Prices",
-        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency",
-        "page": "commodity-prices",
-        "view": "commodities"
-      },
-      {
-        "kind": "quote_board",
-        "title": "Exchange Rates",
-        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix",
-        "page": "fx-rates",
-        "view": "fx_rates"
-      },
-      {
-        "kind": "dashboard",
         "title": "Fundamentals",
         "subtitle": "SEC EDGAR company profile, reported financials and filings",
         "dashboard": "equity_fundamentals"
@@ -311,6 +291,12 @@
         "subtitle": "Every portfolio: Today, Last 7d, Last 30d, MTD, YTD, Last 1y and the Last 3y CAGR, from real delayed prices of its legs",
         "page": "pm-performance",
         "table": "performance"
+      },
+      {
+        "kind": "home_grid",
+        "title": "Index",
+        "subtitle": "The former PM Homepage: every PM page as a card (Portfolios, Performance)",
+        "page": "pm-index"
       },
       {
         "kind": "dashboard",
@@ -413,6 +399,10 @@
     ],
     "hg": [
       {
+        "kind": "section_title",
+        "title": "Futures"
+      },
+      {
         "kind": "futures_board",
         "title": "Rates Futures",
         "subtitle": "SOFR, Fed Funds, Euribor, EUR STR, SONIA, TONA and the 2y, 5y, 10y, 30y bond futures (Treasury, Bund, BTP, OAT, Gilt, JGB): delayed quotes, term structure, implied rate",
@@ -476,6 +466,10 @@
         "view": "hedge"
       },
       {
+        "kind": "section_title",
+        "title": "Markets"
+      },
+      {
         "kind": "dashboard",
         "title": "FX",
         "subtitle": "Comprehensive real-time currency pricing, matrix crosses, spot rates, and forwards",
@@ -492,6 +486,26 @@
         "title": "Crypto",
         "subtitle": "Crypto spot, 24h change and daily candles",
         "dashboard": "crypto"
+      },
+      {
+        "kind": "dashboard",
+        "title": "Commodities",
+        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)",
+        "dashboard": "commodities"
+      },
+      {
+        "kind": "quote_board",
+        "title": "Commodity Prices",
+        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency",
+        "page": "commodity-prices",
+        "view": "commodities"
+      },
+      {
+        "kind": "quote_board",
+        "title": "Exchange Rates",
+        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix",
+        "page": "fx-rates",
+        "view": "fx_rates"
       }
     ]
   },
@@ -676,24 +690,6 @@
         "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap S&P 500, Nikkei 225 or FTSE 100 for its holdings table and treemap"
       },
       {
-        "slug": "commodities",
-        "title": "Commodities",
-        "icon": "inventory_2",
-        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
-      },
-      {
-        "slug": "commodity-prices",
-        "title": "Commodity Prices",
-        "icon": "inventory_2",
-        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
-      },
-      {
-        "slug": "fx-rates",
-        "title": "Exchange Rates",
-        "icon": "swap_horiz",
-        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
-      },
-      {
         "slug": "equity-fundamentals",
         "title": "Fundamentals",
         "icon": "description",
@@ -750,6 +746,12 @@
         "title": "Performance",
         "icon": "bar_chart",
         "subtitle": "Every portfolio: Today, Last 7d, Last 30d, MTD, YTD, Last 1y and the Last 3y CAGR, from real delayed prices of its legs"
+      },
+      {
+        "slug": "pm-index",
+        "title": "Index",
+        "icon": "apps",
+        "subtitle": "The former PM Homepage: every PM page as a card (Portfolios, Performance)"
       }
     ],
     "hg": [
@@ -824,6 +826,24 @@
         "title": "Crypto",
         "icon": "token",
         "subtitle": "Crypto spot, 24h change and daily candles"
+      },
+      {
+        "slug": "commodities",
+        "title": "Commodities",
+        "icon": "inventory_2",
+        "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
+      },
+      {
+        "slug": "commodity-prices",
+        "title": "Commodity Prices",
+        "icon": "inventory_2",
+        "subtitle": "Energy, metals and agriculture front-month prices: last, change, 1W, 1M, YTD, unit and currency"
+      },
+      {
+        "slug": "fx-rates",
+        "title": "Exchange Rates",
+        "icon": "swap_horiz",
+        "subtitle": "Cross-rate table of the major and EM currencies: spot, change, 1W, 1M and YTD, and the base x quote matrix"
       }
     ]
   },
@@ -880,22 +900,22 @@
     },
     {
       "slug": "cm",
-      "tab": "eq",
+      "tab": "hg",
       "to": "commodity-prices"
     },
     {
       "slug": "ex-commodities",
-      "tab": "eq",
+      "tab": "hg",
       "to": "commodity-prices"
     },
     {
       "slug": "pm-commodities",
-      "tab": "eq",
+      "tab": "hg",
       "to": "commodity-prices"
     },
     {
       "slug": "pm-commodities",
-      "tab": "eq",
+      "tab": "hg",
       "to": "commodity-prices"
     },
     {
@@ -1379,6 +1399,32 @@
               "Industrials"
             ]
           ]
+        },
+        {
+          "id": "sp500",
+          "label": "S&P 500",
+          "leads": "Benchmark (every phase)",
+          "rows": [
+            [
+              "^GSPC",
+              "S&P 500 index",
+              "Index (US large caps)"
+            ]
+          ],
+          "note": "#1786 the US Cyclicals group's benchmark: the index itself (the quote source's ^GSPC)"
+        },
+        {
+          "id": "nasdaq",
+          "label": "Nasdaq",
+          "leads": "Benchmark (every phase)",
+          "rows": [
+            [
+              "^IXIC",
+              "Nasdaq Composite index",
+              "Index (US, tech-heavy)"
+            ]
+          ],
+          "note": "#1786 the US Cyclicals group's second benchmark: the Nasdaq Composite (the quote source's ^IXIC)"
         }
       ]
     },
@@ -1617,7 +1663,7 @@
           ]
         },
         {
-          "tab": "eq",
+          "tab": "hg",
           "entries": [
             "Commodities"
           ]
@@ -2367,7 +2413,7 @@
           ]
         },
         {
-          "tab": "eq",
+          "tab": "hg",
           "entries": [
             "Commodities"
           ]
@@ -2392,7 +2438,7 @@
       "connector": "cftc_cot",
       "feeds": [
         {
-          "tab": "eq",
+          "tab": "hg",
           "entries": [
             "Commodities"
           ]
@@ -2431,7 +2477,7 @@
           ]
         },
         {
-          "tab": "eq",
+          "tab": "hg",
           "entries": [
             "Commodities"
           ]
@@ -2637,7 +2683,7 @@
       "connector": null,
       "feeds": [
         {
-          "tab": "eq",
+          "tab": "hg",
           "entries": [
             "Commodities"
           ]
@@ -4818,7 +4864,14 @@
             "3M",
             "1Y",
             "3Y",
-            "10Y"
+            "10Y",
+            "1D",
+            "1W",
+            "12M",
+            "CAGR 1m",
+            "CAGR 12m",
+            "CAGR 24m",
+            "CAGR 36m"
           ],
           "unit": "%"
         },
@@ -4881,7 +4934,14 @@
             "3M",
             "1Y",
             "3Y",
-            "10Y"
+            "10Y",
+            "1D",
+            "1W",
+            "12M",
+            "CAGR 1m",
+            "CAGR 12m",
+            "CAGR 24m",
+            "CAGR 36m"
           ],
           "unit": "%"
         },
@@ -4938,7 +4998,14 @@
             "3M",
             "1Y",
             "3Y",
-            "10Y"
+            "10Y",
+            "1D",
+            "1W",
+            "12M",
+            "CAGR 1m",
+            "CAGR 12m",
+            "CAGR 24m",
+            "CAGR 36m"
           ],
           "unit": "%"
         },
@@ -5001,7 +5068,14 @@
             "3M",
             "1Y",
             "3Y",
-            "10Y"
+            "10Y",
+            "1D",
+            "1W",
+            "12M",
+            "CAGR 1m",
+            "CAGR 12m",
+            "CAGR 24m",
+            "CAGR 36m"
           ],
           "unit": "%"
         },
@@ -5085,7 +5159,14 @@
             "3M",
             "1Y",
             "3Y",
-            "10Y"
+            "10Y",
+            "1D",
+            "1W",
+            "12M",
+            "CAGR 1m",
+            "CAGR 12m",
+            "CAGR 24m",
+            "CAGR 36m"
           ],
           "unit": "%"
         },
@@ -5147,7 +5228,14 @@
             "Last",
             "1Y",
             "10Y",
-            "25Y"
+            "25Y",
+            "1D",
+            "1W",
+            "12M",
+            "CAGR 1m",
+            "CAGR 12m",
+            "CAGR 24m",
+            "CAGR 36m"
           ],
           "unit": "%"
         }
@@ -5155,384 +5243,6 @@
       "default": true,
       "slug": "world-equity-indices",
       "subtitle": "Major equity index levels and moves worldwide, with DM (US sectors, strategies, mega-caps) and EM (sectors, USD sovereigns) below; tap S&P 500, Nikkei 225 or FTSE 100 for its holdings table and treemap"
-    },
-    {
-      "id": "commodities",
-      "entry": "Commodities",
-      "tab": "eq",
-      "panels": [
-        {
-          "id": "energy",
-          "title": "Energy spot (FRED, daily)",
-          "source": "fred",
-          "view": "bars",
-          "derive": "level_change",
-          "fetch": {
-            "provider": "fred_series",
-            "lookback_days": 21,
-            "series": [
-              {
-                "id": "DCOILWTICO",
-                "label": "WTI $/bbl"
-              },
-              {
-                "id": "DCOILBRENTEU",
-                "label": "Brent $/bbl"
-              },
-              {
-                "id": "DHHNGSP",
-                "label": "HH gas $/MMBtu"
-              }
-            ],
-            "primary": {
-              "source": "cloud_fincept",
-              "topic": "econ:fred:{id}"
-            }
-          },
-          "columns": [
-            "Commodity",
-            "Level",
-            "1d %",
-            "Date"
-          ],
-          "chart_value": "change_pct",
-          "unit": "%"
-        },
-        {
-          "id": "energy_perf",
-          "title": "Energy",
-          "source": "cboe",
-          "view": "table",
-          "derive": "performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "each": [
-              "CL=F",
-              "BZ=F",
-              "NG=F",
-              "RB=F",
-              "HO=F"
-            ],
-            "labels": {
-              "CL=F": "WTI crude",
-              "BZ=F": "Brent crude",
-              "NG=F": "Natural gas (Henry Hub)",
-              "RB=F": "Gasoline (RBOB)",
-              "HO=F": "Heating oil"
-            },
-            "symbol_map": {
-              "CL=F": "USO",
-              "BZ=F": "BNO",
-              "NG=F": "UNG",
-              "RB=F": "UGA"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y"
-          ],
-          "unit": "%"
-        },
-        {
-          "id": "precious",
-          "title": "Precious metals",
-          "source": "cboe",
-          "view": "table",
-          "derive": "performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "each": [
-              "GC=F",
-              "SI=F",
-              "PL=F",
-              "PA=F"
-            ],
-            "labels": {
-              "GC=F": "Gold",
-              "SI=F": "Silver",
-              "PL=F": "Platinum",
-              "PA=F": "Palladium"
-            },
-            "symbol_map": {
-              "GC=F": "GLD",
-              "SI=F": "SLV",
-              "PL=F": "PPLT",
-              "PA=F": "PALL"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y"
-          ],
-          "unit": "%"
-        },
-        {
-          "id": "industrial",
-          "title": "Industrial metals and minerals",
-          "source": "cboe",
-          "view": "table",
-          "derive": "performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "each": [
-              "HG=F",
-              "ALI=F",
-              "DBB",
-              "URA",
-              "LIT",
-              "REMX"
-            ],
-            "labels": {
-              "HG=F": "Copper",
-              "ALI=F": "Aluminium",
-              "DBB": "Base metals basket (DBB)",
-              "URA": "Uranium (URA)",
-              "LIT": "Lithium (LIT)",
-              "REMX": "Rare earths (REMX)"
-            },
-            "symbol_map": {
-              "HG=F": "CPER",
-              "DBB": "DBB",
-              "URA": "URA",
-              "LIT": "LIT",
-              "REMX": "REMX"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y"
-          ],
-          "unit": "%"
-        },
-        {
-          "id": "agri",
-          "title": "Agriculture and food",
-          "source": "cboe",
-          "view": "table",
-          "derive": "performance",
-          "fetch": {
-            "provider": "cboe_quotes",
-            "path": "/charts/historical/{each}.json",
-            "last": 100000,
-            "each": [
-              "ZC=F",
-              "ZW=F",
-              "ZS=F",
-              "SB=F",
-              "KC=F",
-              "CC=F",
-              "LE=F",
-              "DBA"
-            ],
-            "labels": {
-              "ZC=F": "Corn",
-              "ZW=F": "Wheat",
-              "ZS=F": "Soybeans",
-              "SB=F": "Sugar",
-              "KC=F": "Coffee",
-              "CC=F": "Cocoa",
-              "LE=F": "Live cattle",
-              "DBA": "Agriculture basket (DBA)"
-            },
-            "symbol_map": {
-              "ZC=F": "CORN",
-              "ZW=F": "WEAT",
-              "ZS=F": "SOYB",
-              "SB=F": "CANE",
-              "DBA": "DBA"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y"
-          ],
-          "unit": "%"
-        },
-        {
-          "id": "digital",
-          "title": "Digital commodities (Bitcoin, Ether)",
-          "source": "coinbase",
-          "view": "table",
-          "derive": "performance",
-          "fetch": {
-            "provider": "coinbase_exchange",
-            "path": "/products/{each}/candles",
-            "params": {
-              "granularity": "86400"
-            },
-            "each": [
-              "BTC-USD",
-              "ETH-USD"
-            ],
-            "labels": {
-              "BTC-USD": "Bitcoin",
-              "ETH-USD": "Ether"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/history",
-              "params": {
-                "symbol": "{each}",
-                "interval": "1d",
-                "range": "max"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Name",
-            "Last",
-            "WTD",
-            "MTD",
-            "YTD",
-            "1M",
-            "3M",
-            "1Y",
-            "3Y",
-            "10Y"
-          ],
-          "unit": "%"
-        },
-        {
-          "id": "eia",
-          "title": "EIA spot, futures and inventories",
-          "source": "eia",
-          "view": "table",
-          "placeholder": {
-            "reason": "needs a key or a connector"
-          }
-        },
-        {
-          "id": "cot",
-          "title": "CFTC positioning: net non-commercial futures (contracts, weekly)",
-          "source": "cftc",
-          "view": "quotes",
-          "derive": "points",
-          "fetch": {
-            "provider": "cftc_cot",
-            "path": "/resource/6dca-aqww.json?cftc_contract_market_code={each}",
-            "params": {
-              "$order": "report_date_as_yyyy_mm_dd DESC",
-              "$limit": "2"
-            },
-            "each": [
-              "13874A",
-              "043602",
-              "088691",
-              "067651",
-              "099741",
-              "097741",
-              "133741",
-              "085692"
-            ],
-            "labels": {
-              "133741": "Bitcoin (CME)",
-              "13874A": "E-mini S&P 500",
-              "043602": "UST 10Y note",
-              "088691": "Gold",
-              "067651": "WTI crude",
-              "099741": "Euro FX",
-              "097741": "Japanese yen",
-              "085692": "Copper"
-            },
-            "primary": {
-              "source": "cloud_fincept",
-              "api": "/v1/quotes",
-              "params": {
-                "symbols": "cot:13874A,cot:043602,cot:088691,cot:067651,cot:099741,cot:097741,cot:133741,cot:085692"
-              },
-              "parse": "finterm_v1"
-            }
-          },
-          "columns": [
-            "Market",
-            "Net",
-            "Chg",
-            "Chg %",
-            "Report"
-          ]
-        }
-      ],
-      "slug": "commodities",
-      "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
     },
     {
       "id": "equity_fundamentals",
@@ -8013,6 +7723,384 @@
       ],
       "slug": "crypto",
       "subtitle": "Crypto spot, 24h change and daily candles"
+    },
+    {
+      "id": "commodities",
+      "entry": "Commodities",
+      "tab": "hg",
+      "panels": [
+        {
+          "id": "energy",
+          "title": "Energy spot (FRED, daily)",
+          "source": "fred",
+          "view": "bars",
+          "derive": "level_change",
+          "fetch": {
+            "provider": "fred_series",
+            "lookback_days": 21,
+            "series": [
+              {
+                "id": "DCOILWTICO",
+                "label": "WTI $/bbl"
+              },
+              {
+                "id": "DCOILBRENTEU",
+                "label": "Brent $/bbl"
+              },
+              {
+                "id": "DHHNGSP",
+                "label": "HH gas $/MMBtu"
+              }
+            ],
+            "primary": {
+              "source": "cloud_fincept",
+              "topic": "econ:fred:{id}"
+            }
+          },
+          "columns": [
+            "Commodity",
+            "Level",
+            "1d %",
+            "Date"
+          ],
+          "chart_value": "change_pct",
+          "unit": "%"
+        },
+        {
+          "id": "energy_perf",
+          "title": "Energy",
+          "source": "cboe",
+          "view": "table",
+          "derive": "performance",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "each": [
+              "CL=F",
+              "BZ=F",
+              "NG=F",
+              "RB=F",
+              "HO=F"
+            ],
+            "labels": {
+              "CL=F": "WTI crude",
+              "BZ=F": "Brent crude",
+              "NG=F": "Natural gas (Henry Hub)",
+              "RB=F": "Gasoline (RBOB)",
+              "HO=F": "Heating oil"
+            },
+            "symbol_map": {
+              "CL=F": "USO",
+              "BZ=F": "BNO",
+              "NG=F": "UNG",
+              "RB=F": "UGA"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y"
+          ],
+          "unit": "%"
+        },
+        {
+          "id": "precious",
+          "title": "Precious metals",
+          "source": "cboe",
+          "view": "table",
+          "derive": "performance",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "each": [
+              "GC=F",
+              "SI=F",
+              "PL=F",
+              "PA=F"
+            ],
+            "labels": {
+              "GC=F": "Gold",
+              "SI=F": "Silver",
+              "PL=F": "Platinum",
+              "PA=F": "Palladium"
+            },
+            "symbol_map": {
+              "GC=F": "GLD",
+              "SI=F": "SLV",
+              "PL=F": "PPLT",
+              "PA=F": "PALL"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y"
+          ],
+          "unit": "%"
+        },
+        {
+          "id": "industrial",
+          "title": "Industrial metals and minerals",
+          "source": "cboe",
+          "view": "table",
+          "derive": "performance",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "each": [
+              "HG=F",
+              "ALI=F",
+              "DBB",
+              "URA",
+              "LIT",
+              "REMX"
+            ],
+            "labels": {
+              "HG=F": "Copper",
+              "ALI=F": "Aluminium",
+              "DBB": "Base metals basket (DBB)",
+              "URA": "Uranium (URA)",
+              "LIT": "Lithium (LIT)",
+              "REMX": "Rare earths (REMX)"
+            },
+            "symbol_map": {
+              "HG=F": "CPER",
+              "DBB": "DBB",
+              "URA": "URA",
+              "LIT": "LIT",
+              "REMX": "REMX"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y"
+          ],
+          "unit": "%"
+        },
+        {
+          "id": "agri",
+          "title": "Agriculture and food",
+          "source": "cboe",
+          "view": "table",
+          "derive": "performance",
+          "fetch": {
+            "provider": "cboe_quotes",
+            "path": "/charts/historical/{each}.json",
+            "last": 100000,
+            "each": [
+              "ZC=F",
+              "ZW=F",
+              "ZS=F",
+              "SB=F",
+              "KC=F",
+              "CC=F",
+              "LE=F",
+              "DBA"
+            ],
+            "labels": {
+              "ZC=F": "Corn",
+              "ZW=F": "Wheat",
+              "ZS=F": "Soybeans",
+              "SB=F": "Sugar",
+              "KC=F": "Coffee",
+              "CC=F": "Cocoa",
+              "LE=F": "Live cattle",
+              "DBA": "Agriculture basket (DBA)"
+            },
+            "symbol_map": {
+              "ZC=F": "CORN",
+              "ZW=F": "WEAT",
+              "ZS=F": "SOYB",
+              "SB=F": "CANE",
+              "DBA": "DBA"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y"
+          ],
+          "unit": "%"
+        },
+        {
+          "id": "digital",
+          "title": "Digital commodities (Bitcoin, Ether)",
+          "source": "coinbase",
+          "view": "table",
+          "derive": "performance",
+          "fetch": {
+            "provider": "coinbase_exchange",
+            "path": "/products/{each}/candles",
+            "params": {
+              "granularity": "86400"
+            },
+            "each": [
+              "BTC-USD",
+              "ETH-USD"
+            ],
+            "labels": {
+              "BTC-USD": "Bitcoin",
+              "ETH-USD": "Ether"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/history",
+              "params": {
+                "symbol": "{each}",
+                "interval": "1d",
+                "range": "max"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Name",
+            "Last",
+            "WTD",
+            "MTD",
+            "YTD",
+            "1M",
+            "3M",
+            "1Y",
+            "3Y",
+            "10Y"
+          ],
+          "unit": "%"
+        },
+        {
+          "id": "eia",
+          "title": "EIA spot, futures and inventories",
+          "source": "eia",
+          "view": "table",
+          "placeholder": {
+            "reason": "needs a key or a connector"
+          }
+        },
+        {
+          "id": "cot",
+          "title": "CFTC positioning: net non-commercial futures (contracts, weekly)",
+          "source": "cftc",
+          "view": "quotes",
+          "derive": "points",
+          "fetch": {
+            "provider": "cftc_cot",
+            "path": "/resource/6dca-aqww.json?cftc_contract_market_code={each}",
+            "params": {
+              "$order": "report_date_as_yyyy_mm_dd DESC",
+              "$limit": "2"
+            },
+            "each": [
+              "13874A",
+              "043602",
+              "088691",
+              "067651",
+              "099741",
+              "097741",
+              "133741",
+              "085692"
+            ],
+            "labels": {
+              "133741": "Bitcoin (CME)",
+              "13874A": "E-mini S&P 500",
+              "043602": "UST 10Y note",
+              "088691": "Gold",
+              "067651": "WTI crude",
+              "099741": "Euro FX",
+              "097741": "Japanese yen",
+              "085692": "Copper"
+            },
+            "primary": {
+              "source": "cloud_fincept",
+              "api": "/v1/quotes",
+              "params": {
+                "symbols": "cot:13874A,cot:043602,cot:088691,cot:067651,cot:099741,cot:097741,cot:133741,cot:085692"
+              },
+              "parse": "finterm_v1"
+            }
+          },
+          "columns": [
+            "Market",
+            "Net",
+            "Chg",
+            "Chg %",
+            "Report"
+          ]
+        }
+      ],
+      "slug": "commodities",
+      "subtitle": "Energy, precious metals, industrial metals and minerals, agriculture, Bitcoin and Ether (WTD to 10Y)"
     }
   ],
   "declared": {
