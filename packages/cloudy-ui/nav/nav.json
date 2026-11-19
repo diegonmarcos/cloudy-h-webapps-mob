@@ -1629,6 +1629,12 @@
                 "target": "extapp:cloud-media-center"
               },
               {
+                "id": "games",
+                "label": "Games",
+                "icon": "ic_device_gamepad",
+                "coming_soon": true
+              },
+              {
                 "id": "weby-sep-2",
                 "label": "|",
                 "separator": true
@@ -1638,12 +1644,6 @@
                 "label": "Shopping",
                 "icon": "ic_shopping",
                 "target": "extapp:cloud-shopping"
-              },
-              {
-                "id": "mobility",
-                "label": "Mobility & Travel",
-                "icon": "ic_ctl_airplane",
-                "coming_soon": true
               },
               {
                 "id": "jobs",
@@ -1658,13 +1658,47 @@
                 "coming_soon": true
               },
               {
+                "id": "svc-health",
+                "label": "Health",
+                "icon": "ic_monitor_heart",
+                "coming_soon": true
+              },
+              {
+                "id": "weby-sep-3",
+                "label": "|",
+                "separator": true
+              },
+              {
                 "id": "money",
                 "label": "Money",
                 "icon": "ic_storefront",
                 "coming_soon": true
               },
               {
-                "id": "weby-sep-3",
+                "id": "weby-sep-4",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "hotels",
+                "label": "Hotels",
+                "icon": "ic_hotel",
+                "coming_soon": true
+              },
+              {
+                "id": "mobility",
+                "label": "Transports",
+                "icon": "ic_ctl_airplane",
+                "coming_soon": true
+              },
+              {
+                "id": "city-mobility",
+                "label": "City Mobility",
+                "icon": "ic_city_bus",
+                "coming_soon": true
+              },
+              {
+                "id": "weby-sep-5",
                 "label": "|",
                 "separator": true
               },
@@ -2353,6 +2387,16 @@
                 "icon_res": "ic_music"
               },
               {
+                "label": "Games",
+                "packages": [
+                  {
+                    "pkg": "com.werewolfapps.online",
+                    "label": "Werewolf Online"
+                  }
+                ],
+                "icon_res": "ic_device_gamepad"
+              },
+              {
                 "label": "Shopping",
                 "icon_pkg": "com.diegonmarcos.cloudshopping",
                 "packages": [
@@ -2370,44 +2414,6 @@
                   }
                 ],
                 "icon_res": "ic_shopping"
-              },
-              {
-                "label": "Mobility & Travel",
-                "packages": [
-                  {
-                    "pkg": "com.ubercab",
-                    "label": "Uber"
-                  },
-                  {
-                    "pkg": "com.booking",
-                    "label": "Booking.com"
-                  },
-                  {
-                    "pkg": "com.thetrainline",
-                    "label": "Trainline"
-                  },
-                  {
-                    "pkg": "com.ryanair.cheapflights",
-                    "label": "Ryanair"
-                  },
-                  {
-                    "pkg": "com.rome2rio.www.rome2rio",
-                    "label": "Rome2Rio"
-                  },
-                  {
-                    "pkg": "com.comuto",
-                    "label": "BlaBlaCar"
-                  },
-                  {
-                    "pkg": "com.trafi.whitelabel.bvg",
-                    "label": "BVG Fahrinfo"
-                  },
-                  {
-                    "pkg": "com.nomadmania.presentation",
-                    "label": "NomadMania"
-                  }
-                ],
-                "icon_res": "ic_ctl_airplane"
               },
               {
                 "label": "Jobs & Business",
@@ -2432,6 +2438,28 @@
                   }
                 ],
                 "icon_res": "ic_map_pin"
+              },
+              {
+                "label": "Health",
+                "packages": [
+                  {
+                    "pkg": "com.urbansportsclub",
+                    "label": "Urban Sports Club"
+                  },
+                  {
+                    "pkg": "com.medantapatient.app",
+                    "label": "Medanta"
+                  },
+                  {
+                    "pkg": "com.downdogapp",
+                    "label": "Down Dog"
+                  },
+                  {
+                    "pkg": "com.motosumo.app",
+                    "label": "Motosumo"
+                  }
+                ],
+                "icon_res": "ic_monitor_heart"
               },
               {
                 "label": "Money",
@@ -2466,6 +2494,56 @@
                   }
                 ],
                 "icon_res": "ic_storefront"
+              },
+              {
+                "label": "Hotels",
+                "packages": [
+                  {
+                    "pkg": "com.booking",
+                    "label": "Booking.com"
+                  }
+                ],
+                "icon_res": "ic_hotel"
+              },
+              {
+                "label": "Transports",
+                "packages": [
+                  {
+                    "pkg": "com.thetrainline",
+                    "label": "Trainline"
+                  },
+                  {
+                    "pkg": "com.ryanair.cheapflights",
+                    "label": "Ryanair"
+                  },
+                  {
+                    "pkg": "com.rome2rio.www.rome2rio",
+                    "label": "Rome2Rio"
+                  },
+                  {
+                    "pkg": "com.comuto",
+                    "label": "BlaBlaCar"
+                  },
+                  {
+                    "pkg": "com.nomadmania.presentation",
+                    "label": "NomadMania"
+                  }
+                ],
+                "icon_res": "ic_ctl_airplane"
+              },
+              {
+                "label": "City Mobility",
+                "packages": [
+                  {
+                    "pkg": "com.ubercab",
+                    "label": "Uber"
+                  },
+                  {
+                    "pkg": "com.trafi.whitelabel.bvg",
+                    "label": "BVG Fahrinfo"
+                  }
+                ],
+                "icon_res": "ic_city_bus"
               }
             ]
           },
@@ -4782,7 +4860,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -4842,7 +4920,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -4908,7 +4986,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -4968,7 +5046,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             }
           ]
@@ -5005,7 +5083,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             }
           ]
@@ -5042,7 +5120,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             }
           ]
@@ -5079,7 +5157,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             }
           ]
@@ -5116,7 +5194,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -5164,7 +5242,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -5230,7 +5308,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -5317,7 +5395,7 @@
             {
               "key": "persistent",
               "type": "toggle",
-              "label": "Keep it pinned (ongoing)",
+              "label": "Make it Persistent",
               "default": true
             },
             {
@@ -6873,7 +6951,7 @@
       "icon": "ic_wiki",
       "group": "Projects",
       "category": "android",
-      "description": "Cloud Wiki (#1778): a small encyclopedia of Markdown pages. No bottom nav: a collapsed left side menu (libs:ui-nav-bars vertical_side_menu) holds the topics in four groups, Sciences (Math, Computer Science, Physics, Astronomy, Engineering, Medicine), Humanities (Anthropology, Human Belief Systems, Chronos), Arts (Art, Theater, Music, Movies) and Explore (Graph), and each topic has its subpages as top tabs after an Overview tab (Engineering: one subpage per major field). A page is a short, neutral, educational Markdown explanation with tag chips; tapping a chip filters every page by that tag. Graph is an Obsidian-style force-directed graph (libs:graph-view, shared with Cloud Notes) joining pages by their [[links]] and shared tags, with pan, zoom and tap to open. The content is the runtime dataset wiki (data/fleet/app/com.diegonmarcos.cloudwiki/wiki.json) served by Cloud Store, never an APK asset. Configs are the fleet's General | Perms | About. Declares no network permission of its own.",
+      "description": "Cloud Wiki (#1778): a small encyclopedia of Markdown pages. No bottom nav: a collapsed left side menu (libs:ui-nav-bars vertical_side_menu) holds the topics in four groups, Sciences (Math, Computer Science, Physics, Astronomy, Engineering, Medicine), Humanities (Anthropology, Human Belief Systems, Chronos), Arts (Art, Theater, Music, Movies) and Explore (Graph), and each topic has its subpages as top tabs after an Overview tab (Engineering: one subpage per major field). A page is a short, neutral, educational Markdown explanation with tag chips; tapping a chip filters every page by that tag. Graph is an Obsidian-style force-directed graph (libs:graph-view, shared with Cloud Notes) joining pages by their [[links]] and shared tags, with pan, zoom and tap to open. The content is the runtime dataset wiki (data/fleet/app/com.diegonmarcos.cloudwiki/wiki.json) served by Cloud Store, never an APK asset. Configs are the fleet's General | Perms | About. Declares no network permission of its own. #1789 Chronos also holds the interactive simulators of diegonmarcos/lib-chronos: one nested page per Chronos page of the repo, in its hierarchy and with its titles, shown in the fleet web view (libs:web-core, APP_PAGE) and served offline from APK assets (assets/chronos, WebViewAssetLoader on the asset origin; every other request is answered 403). They are baked at build time from a pinned commit (tools/chronos-pin.json, tools/regen-chronos.py, drift-checked by test/test-chronos.sh), the one exception to the runtime dataset.",
       "kind": "app",
       "wasm": null,
       "default_section": "wiki",
@@ -6933,7 +7011,61 @@
             {
               "id": "chronos",
               "label": "Chronos",
-              "icon": "timeline"
+              "icon": "timeline",
+              "pages": [
+                {
+                  "id": "chronos.lib",
+                  "label": "Chronos - Cycles Across Scales",
+                  "icon": "timeline",
+                  "asset": "Chronos/index.html",
+                  "pages": [
+                    {
+                      "id": "chronos.lib.0",
+                      "label": "Humansphere - Circadian - Chronos",
+                      "icon": "bedtime",
+                      "asset": "Chronos/0.Humansphere-Circadian/index.html"
+                    },
+                    {
+                      "id": "chronos.lib.1",
+                      "label": "Earthsphere - Cycles - Chronos",
+                      "icon": "public",
+                      "asset": "Chronos/1.Earthsphere-Cycles/index.html"
+                    },
+                    {
+                      "id": "chronos.lib.2",
+                      "label": "Milkwaysphere - Orbits - Chronos",
+                      "icon": "language",
+                      "asset": "Chronos/2.Milkwaysphere-Orbits/index.html"
+                    },
+                    {
+                      "id": "chronos.lib.3",
+                      "label": "Quantum Cycles - Chronos",
+                      "icon": "hub",
+                      "asset": "Chronos/3.Quantum-Cycles/index.html",
+                      "pages": [
+                        {
+                          "id": "chronos.lib.3.0",
+                          "label": "Decoherence Cycle - ( Cells repair & Memory) - Quantum Mechanics",
+                          "icon": "schedule",
+                          "asset": "Chronos/3.Quantum-Cycles/3.0.Quantum-Decoherence-Cycle/index.html"
+                        },
+                        {
+                          "id": "chronos.lib.3.1",
+                          "label": "Black Hole Cycle (Birth & Death) - Quantum Gravity",
+                          "icon": "rocket_launch",
+                          "asset": "Chronos/3.Quantum-Cycles/3.1.Quantum-Gravity-Cycle/index.html"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "chronos.lib.4",
+                      "label": "Celestial Alignments | 3-Tier System",
+                      "icon": "auto_awesome",
+                      "asset": "Chronos/4.Astronomy-Astrological-sphere/index.html"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "id": "art",
@@ -9732,15 +9864,16 @@
       "icon": "ic_canvas",
       "group": "Primary",
       "category": "android",
-      "description": "Cloud Canvas (#1780): Draw, a paint app on the shared Compose canvas (brush, pencil, marker, eraser, fill, shapes, line, text, eyedropper, layers, undo/redo, pinch zoom, PNG export through the Storage Access Framework), and Play, a music mixer with a piano, drum pads and a synth (all synthesized, low-latency AudioTrack), a 4 to 8 track mixer with loop recording and WAV export. Draw Enhancer sends a picture and a preset prompt to an image model through OpenRouter (key from Configs > AI or the fleet Account); Music Enhancer is a coming-soon placeholder. Bottom nav Draw | Play | Draw Enhancer | Music Enhancer.",
+      "description": "Cloud Canvas (#1780): Draw, a paint app on the shared Compose canvas (brush, pencil, marker, eraser, fill, shapes, line, text, eyedropper, layers, undo/redo, pinch zoom, PNG export through the Storage Access Framework), with a sibling page Board, an infinite whiteboard (Quickdraw, MIT, vendored offline in a WebView, boards saved to app storage, #1787; the fleet's tldraw build is kept pinned but not shipped: tldraw 5 does not render without a licence key), and Play, a music mixer whose instruments play through a SoundFont engine by default (#1809: FluidSynth 2.5.1, LGPL-2.1, playing the General MIDI bank GeneralUser GS v2.0.3 on a low-latency Oboe stream; every instrument mapped to a GM preset and the kit to the GM drum map) or, as the selectable Classic engine, a sampled grand piano (Salamander Grand Piano, CC-BY 3.0), a sampled acoustic drum kit (MuldjordKit, CC-BY 4.0) and a synth (low-latency AudioTrack, polyphony, velocity layers; the synthesized piano and kit stay as the fallback), a 4 to 8 track mixer with loop recording and WAV export. Draw Enhancer sends a picture and a preset prompt to an image model through OpenRouter (key from Configs > AI or the fleet Account); Music Enhancer is a coming-soon placeholder. #1808 Painter: the Interactive Hexagon Grid, a cell painter on hex, square, triangle and octagon grids in 2D or on a 3D sphere (Three.js r128 and Inter vendored offline in a WebView, state saved to app storage). Bottom nav Draw | Painter | Board | Play | Enhancers: Board also has its own entry (the Draw > Board page stays), and Enhancers holds Draw Enhancer and Music Enhancer on one shared second row.",
       "kind": "app",
       "wasm": null,
       "default_section": "draw",
       "bottom_nav": [
         "draw",
+        "painter",
+        "board",
         "play",
-        "enhance",
-        "music"
+        "enhance"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -9757,8 +9890,31 @@
               "id": "draw",
               "label": "Draw",
               "icon": "edit"
+            },
+            {
+              "id": "board",
+              "label": "Board",
+              "icon": "account_tree"
             }
           ]
+        },
+        {
+          "id": "painter",
+          "label": "Painter",
+          "icon": "palette",
+          "pages": [
+            {
+              "id": "painter",
+              "label": "Painter",
+              "icon": "palette"
+            }
+          ]
+        },
+        {
+          "id": "board",
+          "label": "Board",
+          "icon": "account_tree",
+          "pages": []
         },
         {
           "id": "play",
@@ -9774,21 +9930,14 @@
         },
         {
           "id": "enhance",
-          "label": "Draw Enhancer",
+          "label": "Enhancers",
           "icon": "auto_awesome",
           "pages": [
             {
               "id": "enhance",
               "label": "Draw Enhancer",
               "icon": "auto_awesome"
-            }
-          ]
-        },
-        {
-          "id": "music",
-          "label": "Music Enhancer",
-          "icon": "graphic_eq",
-          "pages": [
+            },
             {
               "id": "music",
               "label": "Music Enhancer",
@@ -12112,21 +12261,6 @@
               "icon": "public"
             },
             {
-              "id": "commodities",
-              "label": "Commodities",
-              "icon": "inventory_2"
-            },
-            {
-              "id": "commodity-prices",
-              "label": "Commodity Prices",
-              "icon": "inventory_2"
-            },
-            {
-              "id": "fx-rates",
-              "label": "Exchange Rates",
-              "icon": "swap_horiz"
-            },
-            {
               "id": "equity-fundamentals",
               "label": "Fundamentals",
               "icon": "description"
@@ -12196,6 +12330,11 @@
               "id": "pm-performance",
               "label": "Performance",
               "icon": "bar_chart"
+            },
+            {
+              "id": "pm-index",
+              "label": "Index",
+              "icon": "apps"
             }
           ]
         },
@@ -12269,6 +12408,21 @@
               "id": "crypto",
               "label": "Crypto",
               "icon": "token"
+            },
+            {
+              "id": "commodities",
+              "label": "Commodities",
+              "icon": "inventory_2"
+            },
+            {
+              "id": "commodity-prices",
+              "label": "Commodity Prices",
+              "icon": "inventory_2"
+            },
+            {
+              "id": "fx-rates",
+              "label": "Exchange Rates",
+              "icon": "swap_horiz"
             }
           ]
         },

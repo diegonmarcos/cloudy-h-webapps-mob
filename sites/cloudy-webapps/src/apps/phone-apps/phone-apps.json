@@ -339,6 +339,11 @@
           "url": null
         },
         {
+          "id": "com.werewolfapps.online",
+          "label": "Werewolf Online",
+          "url": null
+        },
+        {
           "id": "com.amazon.mShop.android.shopping",
           "label": "Amazon",
           "url": "https://www.amazon.com"
@@ -354,46 +359,6 @@
           "url": null
         },
         {
-          "id": "com.ubercab",
-          "label": "Uber",
-          "url": "https://www.uber.com"
-        },
-        {
-          "id": "com.booking",
-          "label": "Booking.com",
-          "url": null
-        },
-        {
-          "id": "com.thetrainline",
-          "label": "Trainline",
-          "url": null
-        },
-        {
-          "id": "com.ryanair.cheapflights",
-          "label": "Ryanair",
-          "url": null
-        },
-        {
-          "id": "com.rome2rio.www.rome2rio",
-          "label": "Rome2Rio",
-          "url": null
-        },
-        {
-          "id": "com.comuto",
-          "label": "BlaBlaCar",
-          "url": null
-        },
-        {
-          "id": "com.trafi.whitelabel.bvg",
-          "label": "BVG Fahrinfo",
-          "url": null
-        },
-        {
-          "id": "com.nomadmania.presentation",
-          "label": "NomadMania",
-          "url": "https://nomadmania.com"
-        },
-        {
           "id": "com.indeed.android.jobsearch",
           "label": "Indeed",
           "url": "https://www.indeed.com"
@@ -407,6 +372,26 @@
           "id": "com.wggesucht.android",
           "label": "WG-Gesucht",
           "url": null
+        },
+        {
+          "id": "com.urbansportsclub",
+          "label": "Urban Sports Club",
+          "url": "https://urbansportsclub.com"
+        },
+        {
+          "id": "com.medantapatient.app",
+          "label": "Medanta",
+          "url": "https://www.medanta.org"
+        },
+        {
+          "id": "com.downdogapp",
+          "label": "Down Dog",
+          "url": "https://www.downdogapp.com"
+        },
+        {
+          "id": "com.motosumo.app",
+          "label": "Motosumo",
+          "url": "https://motosumo.com"
         },
         {
           "id": "es.bancosantander.apps",
@@ -442,6 +427,46 @@
           "id": "com.xe.currency",
           "label": "XE Currency",
           "url": "https://www.xe.com"
+        },
+        {
+          "id": "com.booking",
+          "label": "Booking.com",
+          "url": null
+        },
+        {
+          "id": "com.thetrainline",
+          "label": "Trainline",
+          "url": null
+        },
+        {
+          "id": "com.ryanair.cheapflights",
+          "label": "Ryanair",
+          "url": null
+        },
+        {
+          "id": "com.rome2rio.www.rome2rio",
+          "label": "Rome2Rio",
+          "url": null
+        },
+        {
+          "id": "com.comuto",
+          "label": "BlaBlaCar",
+          "url": null
+        },
+        {
+          "id": "com.nomadmania.presentation",
+          "label": "NomadMania",
+          "url": "https://nomadmania.com"
+        },
+        {
+          "id": "com.ubercab",
+          "label": "Uber",
+          "url": "https://www.uber.com"
+        },
+        {
+          "id": "com.trafi.whitelabel.bvg",
+          "label": "BVG Fahrinfo",
+          "url": null
         }
       ]
     },
