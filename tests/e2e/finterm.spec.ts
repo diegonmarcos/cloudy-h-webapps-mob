@@ -104,11 +104,14 @@ test('CB Yield Curves (#1756, was FI): FRED is cors false so the web goes straig
   const fred = src('fred');
   const dbn = src('dbnomics');
   const asked: string[] = [];
+  // dates relative to today: the panel's 21-day lookback drops a fixed date once it ages out (#1815)
+  const ago = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString().slice(0, 10);
+  const [d1, d2, d3] = [ago(3), ago(2), ago(1)];
   await net(page, (u) => {
     asked.push(u.host);
     if (u.host !== new URL(dbn.endpoint).host) return null;
     const code = u.pathname.split('/').pop()!;
-    return { type: 'application/json', body: JSON.stringify({ series: { docs: [{ series_code: code, series_name: 'x', period: ['2026-10-27', '2026-10-28', '2026-10-29'], value: [4.1, 4.25, 'NA'] }] } }) };
+    return { type: 'application/json', body: JSON.stringify({ series: { docs: [{ series_code: code, series_name: 'x', period: [d1, d2, d3], value: [4.1, 4.25, 'NA'] }] } }) };
   });
   await page.goto(`${BASE}/${fin.app_id}/cb/yield-curves/`);
   await settle(page);
@@ -116,9 +119,9 @@ test('CB Yield Curves (#1756, was FI): FRED is cors false so the web goes straig
   await expect(ust).toHaveAttribute('data-state', 'data');
   await expect(ust.getByTestId('finterm-chart')).toBeVisible();
   await expect(ust.getByTestId('finterm-table').locator('tbody tr')).toHaveCount(11);
-  await expect(ust.getByTestId('finterm-asof')).toHaveText('2026-10-28');
+  await expect(ust.getByTestId('finterm-asof')).toHaveText(d2);
   // one footer line: "● 09:15 · as of 2026-10-28 · FRED ↗ · via DBnomics" (the declared source is attributed, the route that served it named)
-  await expect(ust.getByTestId('finterm-meta')).toContainText('as of 2026-10-28');
+  await expect(ust.getByTestId('finterm-meta')).toContainText(`as of ${d2}`);
   await expect(ust.getByTestId('finterm-meta')).toContainText(`via ${shortSource(dbn.name)}`);
   // terminal chart card: gridlines + right-edge labels, and the table pins its header and sorts on tap
   await expect(ust.locator('[data-testid="finterm-table"] th').first()).toBeVisible();
@@ -237,7 +240,7 @@ test('PM Portfolios and Performance, the moved PM deep links, the EQ price board
   await expect(page.getByTestId('pm-app-only')).toBeVisible();
   await page.goto(`${BASE}/${fin.app_id}/pm/pm-performance/`);
   await expect(page.getByTestId('pm-app-only')).toBeVisible();
-  await page.goto(`${BASE}/${fin.app_id}/eq/commodity-prices/`);
+  await page.goto(`${BASE}/${fin.app_id}/hg/commodity-prices/`); // #1815 Commodity Prices moved from EQ to HG
   await expect(page.getByTestId('finterm-app-only')).toBeVisible();
   await page.goto(`${BASE}/${fin.app_id}/cb/cb-countries/`);
   await expect(page.getByTestId('finterm-cb')).toHaveAttribute('data-view', 'countries', { timeout: 15_000 });
