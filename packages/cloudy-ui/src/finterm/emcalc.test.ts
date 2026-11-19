@@ -161,7 +161,7 @@ describe('PM Vol risk levels and the one-screen matrix (#1462, #1478)', () => {
     expect(pmDecl.profiles.tabs!.map((t) => t.label)).toEqual(['Growth', 'Value', 'Quality', 'Cyclical', 'Defensive', 'Dividend', 'Momentum', 'Small-cap', 'S&P 500', 'Nasdaq']);
     expect(pmDecl.portfolios.columns).toEqual(['Portfolio', 'Vol', 'Top 3', 'See all']);
     expect(pmDecl.performance.columns![0]).toBe('Portfolio');
-    expect(FINTERM.homes.pm.map((c) => c.slug)).toEqual(['pm-portfolios', 'pm-performance']);
+    expect(FINTERM.homes.pm.map((c) => c.slug)).toEqual(['pm-portfolios', 'pm-performance', 'pm-index']);
   });
   it('the matrix fits one 312 px card body: 9 columns, numerals within the ramp (7..11 px), 10 rows of 20 px', () => {
     const w = matrixWidths(312, 9);
