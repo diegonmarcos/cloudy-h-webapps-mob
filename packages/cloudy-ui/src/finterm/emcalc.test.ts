@@ -157,7 +157,7 @@ describe('PM Vol risk levels and the one-screen matrix (#1462, #1478)', () => {
   });
   it('Commodities left PM for the EQ tab (an app-only quote board, #1539); Profiles: the 8 cycle profiles; the PM Homepage is Portfolios and Performance', () => {
     expect(pmDecl.commodities).toBeUndefined();
-    expect((FINTERM.dashboards as unknown as D[]).find((d) => d.id === 'commodities')?.tab).toBe('eq');
+    expect((FINTERM.dashboards as unknown as D[]).find((d) => d.id === 'commodities')?.tab).toBe('hg');
     expect(pmDecl.profiles.tabs!.map((t) => t.label)).toEqual(['Growth', 'Value', 'Quality', 'Cyclical', 'Defensive', 'Dividend', 'Momentum', 'Small-cap']);
     expect(pmDecl.portfolios.columns).toEqual(['Portfolio', 'Vol', 'Top 3', 'See all']);
     expect(pmDecl.performance.columns![0]).toBe('Portfolio');

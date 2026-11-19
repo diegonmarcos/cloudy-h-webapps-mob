@@ -158,7 +158,8 @@ describe('gen-finterm --check (the CI drift guard)', () => {
 describe('the committed web FinTerm declarations', () => {
   it('34 dashboards: CB 8, EQ 6, HG 3, NW 3, PM 14, FI none (the APK entries; #1756 the eight bond dashboards moved from FI to CB and FI holds only app-only perf_portfolio pages; #1539 the Commodities dashboard moved from EX to EQ; #1399 FI Market Monitor removed; #1447 PM A1, B1, C1, D1, D0; #1478 A2 dropped; #1612 EQ DM US / EM / Quotes merged into World Indices Equity, Equity Quote and Watchlist), each with at least one panel', () => {
     const by = (t: string) => fin.dashboards.filter((d: { tab: string }) => d.tab === t).length;
-    expect([by('fi'), by('eq'), by('hg'), by('nw'), by('pm'), by('cb')]).toEqual([0, 6, 3, 3, 14, 8]);
+    // the launcher moved the Commodities dashboard from EQ to HG (EQ 5, HG 4); nothing was removed
+    expect([by('fi'), by('eq'), by('hg'), by('nw'), by('pm'), by('cb')]).toEqual([0, 5, 4, 3, 14, 8]);
     expect(fin.dashboards).toHaveLength(34);
     for (const d of fin.dashboards) expect(d.panels.length, d.id).toBeGreaterThan(0);
   });
