@@ -47,6 +47,15 @@
       "bearer": false
     },
     {
+      "slug": "jev-sidecar-go",
+      "dir": "infra-ai_jev-sidecar-go",
+      "description": "Go port of jev-gate (the Jev pre-flight gate: agent hooks, decide/outcome/precision and the sidecar `serve` with POST /decide/<use>, POST /outcome/<use>, GET /health, GET /precision), shadow stage: runs next to the Python jev-sidecar on its",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "languagetool",
       "dir": "infra-ai_languagetool",
       "description": "LanguageTool grammar/spell-check HTTP API — rules-only, no n-grams, WG-only sidecar on oci-apps",
@@ -151,6 +160,15 @@
       "dir": "infra-api_cloudy-all-api",
       "description": "C3 Services REST API — service API gateway Fastify API",
       "mesh": "cloudy-all-api.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
+      "slug": "cloudy-all-go-mcp",
+      "dir": "infra-api_cloudy-all-go-mcp",
+      "description": "Go port of cloudy-all-mcp (fleet MCP router: list_servers, list_tools, call over stateless Streamable HTTP, mesh-first with public bearer fallback, 60 s tool cache), shadow stage: runs next to the TypeScript container on its own port and co",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": true
@@ -455,6 +473,15 @@
       "bearer": false
     },
     {
+      "slug": "ntfy-go",
+      "dir": "infra-obs_ntfy-go",
+      "description": "Go port of the six ntfy Python sidecars (syslog-bridge, rss-gateway, github-rss, notify-broker, digest, topic-scanner) as ONE static binary, shadow stage: runs next to the Python sidecars on its own ports and containers, every sender in dry",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "openobserve",
       "dir": "infra-obs_openobserve",
       "description": "OpenObserve - single-binary observability platform (logs + traces + metrics + RUM). Replaces LGTM stack.",
@@ -485,6 +512,15 @@
       "slug": "agents-tmp-reaper",
       "dir": "infra-ops_agents-tmp-reaper",
       "description": "Agent /tmp reaper — periodically clears stale agent scratch from the /tmp of the agent containers on oci-apps, so a runaway agent cache cannot fill the host root filesystem (task 442 / issue 410). Cron-driven maintenance container in the db",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
+      "slug": "c3-execd",
+      "dir": "infra-ops_c3-execd",
+      "description": "Go sidecar for cloud-infra-mcp / cloudy-c3-api / superapp-mcp: loopback exec with timeouts, pooled native SSH (x/crypto/ssh), policy-gated Docker unix-socket client and an audit log. Shadow stage: runs beside the Node helpers (shared/libs/e",
       "mesh": null,
       "hosts": [],
       "signin": false,
@@ -724,6 +760,15 @@
       "bearer": false
     },
     {
+      "slug": "chat-mattermost-go",
+      "dir": "user-comm_chat-mattermost-go",
+      "description": "Go port of the Mattermost ntfy bridge and C3 command bot (ntfy-bridge.py in chat-mattermost: bootstrap, ntfy to channel bridge, /c3 slash command, C3 bot over websocket), shadow stage: follows the ntfy stream and serves the /c3 handler read",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "cloud-webmail",
       "dir": "user-comm_cloud-webmail",
       "description": "Cloud Webmail — Stalwart-native JMAP webmail with multi-account/multi-server (webmail.diegonmarcos.com); OUR build of bulwarkmail/webmail 1.9.2. Replaces SnappyMail.",
@@ -860,6 +905,15 @@
       "slug": "capital-stack-news-gdelt-api",
       "dir": "user-news_capital-stack-news-gdelt-api",
       "description": "GDELT News Aggregator — Fastify API with SQLite cache",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
+      "slug": "capital-stack-news-gdelt-go-api",
+      "dir": "user-news_capital-stack-news-gdelt-go-api",
+      "description": "Go port of capital-stack-news-gdelt-api (GDELT news aggregator: fetch worker + SQLite cache + read API /news/articles /timeline /tone /topics), shadow stage: runs next to the Node container on its own port and its own cache, outside every r",
       "mesh": null,
       "hosts": [],
       "signin": false,
