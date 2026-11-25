@@ -56,9 +56,12 @@ test('each FinTerm tab lists its dashboards as web pages, plus the Backend (mesh
     expect(new URL(link.backend.href).host).toMatch(/\.mesh\.diegonmarcos\.com$|^c3-pvt\.diegonmarcos\.com$/);
     if (tab === 'fi') await shot(page, info, 'finterm-fi-tab');
   }
-  await page.goto(`${BASE}/${fin.app_id}/my-pm/`);
-  await expect(page.locator('[data-testid="stack-card"] a.open')).toHaveCount(0);
-  await expect(page.getByTestId('stack-card')).toHaveAttribute('data-planned', 'true');
+  // #1832 MY-PM is MARKZ (app-only): its pages are greyed cards, drawn in the Android app (the Backend card closes the list)
+  await page.goto(`${BASE}/${fin.app_id}/markz/`);
+  const mk = page.getByTestId('stack-card');
+  await expect(mk.first().locator('a.open')).toHaveCount(0);
+  await expect(mk.first()).toHaveAttribute('data-planned', 'true');
+  await expect(mk.first()).toContainText('Overview');
 });
 
 /** A panel fed (also) by a declared data file (`asset:` source, e.g. the central bank calendar): it renders offline. */

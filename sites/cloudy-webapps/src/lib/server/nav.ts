@@ -202,6 +202,8 @@ export function appStack(appId: string, sectionId: string | null, base = ''): St
     // #1539 a FinTerm table page (CB, PM) opens its own web page; a live-quote page (HG boards, hedge calculator, EQ price boards) is greyed: the APK draws it
     if (e.kind && WEB_PAGE_KINDS.includes(e.kind) && e.page && own?.kind === 'webapp') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: '', href: `${own.href}${sectionId}/${e.page}/`, mesh: false, external: false }); continue; }
     if (e.kind && APP_ONLY_KINDS.includes(e.kind)) { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: e.kind === 'home_grid' ? 'The card grid of every page: drawn in the Android app (this Homepage lists the same cards).' : 'Live delayed quotes: drawn in the Android app.', href: null, planned: true }); continue; }
+    // #1832 MARKZ (the owner's portfolio analytics) has no web page: each page is a greyed card, drawn in the Android app
+    if (e.kind === 'markz') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: 'Portfolio analytics: drawn in the Android app.', href: null, planned: true }); continue; }
     if (e.kind === 'holdings') { cards.push({ title: e.title ?? '', subtitle: e.subtitle ?? '', rows: [], caption: 'Kept on the phone: a browser cannot reach it.', href: null, planned: true }); continue; }
     return null; // sources and other device-only kinds: the generic body
   }

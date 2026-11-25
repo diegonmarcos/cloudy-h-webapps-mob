@@ -11,7 +11,7 @@ test.describe('SuperApp shell', () => {
     const items = page.locator('.bottom-nav__item');
     await expect(items).toHaveCount(5);
     await expect(items.nth(2)).toHaveAttribute('aria-selected', 'true');
-    await expect(page.locator('.bottom-nav__item .label')).toHaveText(['Notify', 'Boards', 'Home', 'Cloud', 'Phone']);
+    await expect(page.locator('.bottom-nav__item .label')).toHaveText(['Notify', 'Actions', 'Home', 'Cloud', 'Phone']);
     await shot(page, info, 'home');
   });
 
