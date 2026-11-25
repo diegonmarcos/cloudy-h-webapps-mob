@@ -1,24 +1,99 @@
 {
-  "_source": "diegonmarcos/cloudy-u-android aa_cloud-superapp/build.json ui.sections[cloud].tile_groups[Services] (order from ui.services_order), snapshot of main at a4a8d1094dbd187dd67997d1c0ab504c995b23f2 (#1806). Update by hand when the launcher row changes; gen-navdata.mjs is the live copy.",
+  "_source": "diegonmarcos/cloudy-u-android aa_cloud-superapp/build.json ui.sections[cloud].tile_groups[Services · City, Services · Leisure] (order from ui.services_order), snapshot of cloudy-u-android main after the Services split (City, Leisure); search and kg-store left the Services groups and stay in the cloud section (#1483). Update by hand when the launcher row changes; gen-navdata.mjs is the live copy.",
   "tiles": [
-    { "id": "search", "label": "Search", "icon": "ic_cloud_search" },
-    { "id": "news", "label": "News", "icon": "ic_rss" },
-    { "id": "events", "label": "Events", "icon": "ic_p_cal_month" },
-    { "id": "mediacenter", "label": "Media Center", "icon": "ic_music" },
-    { "id": "games", "label": "Games", "icon": "ic_device_gamepad" },
-    { "id": "shopping", "label": "Shopping", "icon": "ic_shopping" },
-    { "id": "jobs", "label": "Jobs & Business", "icon": "ic_suite" },
-    { "id": "real-estate", "label": "Real Estate", "icon": "ic_map_pin" },
-    { "id": "svc-health", "label": "Health", "icon": "ic_monitor_heart" },
-    { "id": "money", "label": "Money", "icon": "ic_storefront" },
-    { "id": "hotels", "label": "Hotels", "icon": "ic_hotel" },
-    { "id": "mobility", "label": "Transports", "icon": "ic_ctl_airplane" },
-    { "id": "city-mobility", "label": "City Mobility", "icon": "ic_city_bus" },
-    { "id": "kg-store", "label": "KG Store", "icon": "ic_kgs" }
+    {
+      "id": "money",
+      "label": "Money",
+      "icon": "ic_storefront"
+    },
+    {
+      "id": "shopping",
+      "label": "Shopping",
+      "icon": "ic_shopping"
+    },
+    {
+      "id": "svc-health",
+      "label": "Health",
+      "icon": "ic_monitor_heart"
+    },
+    {
+      "id": "real-estate",
+      "label": "Real Estate",
+      "icon": "ic_map_pin"
+    },
+    {
+      "id": "jobs",
+      "label": "Jobs & Business",
+      "icon": "ic_suite"
+    },
+    {
+      "id": "city-mobility",
+      "label": "City Mobility",
+      "icon": "ic_city_bus"
+    },
+    {
+      "id": "mobility",
+      "label": "Transports",
+      "icon": "ic_ctl_airplane"
+    },
+    {
+      "id": "hotels",
+      "label": "Hotels",
+      "icon": "ic_hotel"
+    },
+    {
+      "id": "news",
+      "label": "News",
+      "icon": "ic_rss"
+    },
+    {
+      "id": "events",
+      "label": "Events",
+      "icon": "ic_p_cal_month"
+    },
+    {
+      "id": "mediacenter",
+      "label": "Media Center",
+      "icon": "ic_music"
+    },
+    {
+      "id": "social",
+      "label": "Social",
+      "icon": "ic_heart"
+    },
+    {
+      "id": "games",
+      "label": "Games",
+      "icon": "ic_device_gamepad"
+    }
   ],
   "previous": {
     "_source": "the webapps Services group before #1815 (cloudy-h-webapps-mob 62ec4e64): nothing here may disappear (rule 16); a launcher rename keeps the id",
-    "tile_ids": ["search", "weby-sep-1", "news", "events", "mediacenter", "weby-sep-2", "shopping", "mobility", "jobs", "real-estate", "money", "weby-sep-3", "kg-store"],
-    "phone_labels": ["Search", "News", "Events", "Media Center", "Shopping", "Mobility & Travel", "Jobs & Business", "Real Estate", "Money"]
+    "tile_ids": [
+      "search",
+      "weby-sep-1",
+      "news",
+      "events",
+      "mediacenter",
+      "weby-sep-2",
+      "shopping",
+      "mobility",
+      "jobs",
+      "real-estate",
+      "money",
+      "weby-sep-3",
+      "kg-store"
+    ],
+    "phone_labels": [
+      "Search",
+      "News",
+      "Events",
+      "Media Center",
+      "Shopping",
+      "Mobility & Travel",
+      "Jobs & Business",
+      "Real Estate",
+      "Money"
+    ]
   }
 }

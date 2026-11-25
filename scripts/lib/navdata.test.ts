@@ -9,8 +9,8 @@ type Page = { id: string; pages?: Page[] };
 const paths = new Set(routesJson.routes.map((r: { path: string }) => r.path));
 
 describe('nav.json', () => {
-  it('has the 16 SuperApp sections and the 5-item bottom island', () => {
-    expect(nav.superapp.sections.length).toBe(16);
+  it('has the 17 SuperApp sections and the 5-item bottom island', () => {
+    expect(nav.superapp.sections.length).toBe(17);
     expect(nav.superapp.bottom_nav).toEqual(['communication', 'boards', 'home', 'cloud', 'phone']);
   });
   it('has at least 22 fleet apps with declared sections, every page routed', () => {

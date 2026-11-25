@@ -38,7 +38,7 @@ describe('Lnktree apps (#1335)', () => {
     // ad_CG-Omniverse/build.json ui.bottom_nav (#1366): Avatar, Galaxy, Store
     expect(by['cg-omniverse'].bottom_nav).toEqual(['avatar', 'galaxy', 'store', 'voxelverse']);
     const fin = apps.find((a) => a.dir?.startsWith('ad_Capital-'))!;
-    expect(fin.bottom_nav).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm']);
+    expect(fin.bottom_nav).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'markz']);
     expect(by['hardtech-cad'].bottom_nav).toEqual(['models', 'home', 'sim2real']);   // #1777 Models (MCAD | BIM | SolidWorks), Home, Sim2Real (SAP2000 | MATLAB | Ansys)
     expect(by['hardtech-biomed'].bottom_nav).toEqual(['physiology', 'biochem', 'biomech', 'anatomy', 'genetic', 'neuro', 'immuno']);   // #1777 the former simulation app, rebranded
     expect(by['cg-omniverse'].name).toBe('CG-Omniverse');
@@ -101,7 +101,7 @@ describe('Lnktree apps on the web', () => {
     for (const sec of ['sap2000', 'matlab', 'ansys']) expect(by('hardtech-cad', sec).planned, sec).toBe(true);   // #1777 the simulation pages live under Hardtech-CAD > Sim2Real
   });
 
-  it('the FinTerm tabs are FI, EQ, EX, NW, PM, MY-PM and each tab has entries', () => {
-    expect(Object.keys(stacks[fin.id].stacks).filter((k) => ['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm'].includes(k))).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg', 'my-pm']);
+  it('the FinTerm tabs are FI, EQ, EX, NW, PM, HG and each tab has entries', () => {
+    expect(Object.keys(stacks[fin.id].stacks).filter((k) => ['cb', 'fi', 'eq', 'nw', 'pm', 'hg'].includes(k))).toEqual(['cb', 'fi', 'eq', 'nw', 'pm', 'hg']);
   });
 });
