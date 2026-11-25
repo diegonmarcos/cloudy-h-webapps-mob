@@ -1762,7 +1762,7 @@
               {
                 "id": "social",
                 "label": "Social",
-                "icon": "ic_heart",
+                "icon": "ic_sparkles",
                 "target": "page:phone/apps#folder:media_social"
               },
               {
@@ -2613,7 +2613,7 @@
               },
               {
                 "label": "Social",
-                "icon_res": "ic_heart",
+                "icon_res": "ic_sparkles",
                 "opens_folder": "media_social",
                 "packages": []
               },
