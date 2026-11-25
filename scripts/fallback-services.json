@@ -47,6 +47,15 @@
       "bearer": false
     },
     {
+      "slug": "jev-sidecar-go",
+      "dir": "infra-ai_jev-sidecar-go",
+      "description": "Go port of jev-gate (the Jev pre-flight gate: agent hooks, decide/outcome/precision and the sidecar `serve` with POST /decide/<use>, POST /outcome/<use>, GET /health, GET /precision), shadow stage: runs next to the Python jev-sidecar on its",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "languagetool",
       "dir": "infra-ai_languagetool",
       "description": "LanguageTool grammar/spell-check HTTP API — rules-only, no n-grams, WG-only sidecar on oci-apps",
@@ -62,6 +71,15 @@
       "dir": "infra-api_c3-public-api",
       "description": "C3 Public API — single public-edge listener on oci-analytics. Consolidates http-to-smtp-proxy-api (Bearer-gated /mail/*) and c3-analytics-api passthrough (public /analytics/*). Replaces split listeners across gcp-proxy + oci-analytics so gc",
       "mesh": "c3-public-api.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
+      "slug": "c3-public-go-api",
+      "dir": "infra-api_c3-public-go-api",
+      "description": "Go port of c3-public-api (public API: analytics passthrough, Bearer-gated mail bridge with the delivery ledger, SuperApp config artifact, Profile > Connect with mailed one-time codes), shadow stage: runs next to the Node container on its ow",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": true
@@ -116,6 +134,15 @@
       "bearer": true
     },
     {
+      "slug": "cloud-me-go-api",
+      "dir": "infra-api_cloud-me-go-api",
+      "description": "Go port of cloud-me-api (read-only, authenticated read path to the owner's private cloud-me-* repos: git deploy-key sync, file gate, builtin fleet datasets, autocomplete rows), shadow stage: runs next to the Node container on its own port, ",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
       "slug": "cloud-services-mcp",
       "dir": "infra-api_cloud-services-mcp",
       "description": "C3 Services MCP Server — service API gateway MCP transport (stdio + HTTP)",
@@ -151,6 +178,15 @@
       "dir": "infra-api_cloudy-all-api",
       "description": "C3 Services REST API — service API gateway Fastify API",
       "mesh": "cloudy-all-api.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
+      "slug": "cloudy-all-go-mcp",
+      "dir": "infra-api_cloudy-all-go-mcp",
+      "description": "Go port of cloudy-all-mcp (fleet MCP router: list_servers, list_tools, call over stateless Streamable HTTP, mesh-first with public bearer fallback, 60 s tool cache), shadow stage: runs next to the TypeScript container on its own port and co",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": true
@@ -200,6 +236,15 @@
       "dir": "infra-api_cloudy-drive-git-proxy-api",
       "description": "Git Proxy API — Authelia-fronted read path to GitHub so the phone holds NO GitHub credential (#647, route 3 of #646's fallback chain). The caller authenticates to US with the Authelia bearer it already has; this service holds the GitHub tok",
       "mesh": "cloudy-drive-git-proxy-api.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
+      "slug": "cloudy-drive-git-proxy-go-api",
+      "dir": "infra-api_cloudy-drive-git-proxy-go-api",
+      "description": "Go port of cloudy-drive-git-proxy-api (Authelia-fronted read path to GitHub: repos, tarball, git clone/fetch, commits/runs feeds, mesh release-asset mirror), shadow stage: runs next to the Node container on its own port, outside every reque",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": true
@@ -455,6 +500,15 @@
       "bearer": false
     },
     {
+      "slug": "ntfy-go",
+      "dir": "infra-obs_ntfy-go",
+      "description": "Go port of the six ntfy Python sidecars (syslog-bridge, rss-gateway, github-rss, notify-broker, digest, topic-scanner) as ONE static binary, shadow stage: runs next to the Python sidecars on its own ports and containers, every sender in dry",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "openobserve",
       "dir": "infra-obs_openobserve",
       "description": "OpenObserve - single-binary observability platform (logs + traces + metrics + RUM). Replaces LGTM stack.",
@@ -491,10 +545,28 @@
       "bearer": false
     },
     {
+      "slug": "c3-execd",
+      "dir": "infra-ops_c3-execd",
+      "description": "Go sidecar for cloud-infra-mcp / cloudy-c3-api / superapp-mcp: loopback exec with timeouts, pooled native SSH (x/crypto/ssh), policy-gated Docker unix-socket client and an audit log. Shadow stage: runs beside the Node helpers (shared/libs/e",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "c3bot-relay",
       "dir": "infra-ops_c3bot-relay",
       "description": "c3bot-relay (#1579): Telegram <-> c3 relay on the c3-bot (Bot A, ONE token). Primary ingestion is webhook mode via the public c3-pub route /c3bot-webhook (secret_token checked). While the webhook is unhealthy the relay calls deleteWebhook a",
       "mesh": "c3bot-relay.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
+      "slug": "c3bot-relay-go",
+      "dir": "infra-ops_c3bot-relay-go",
+      "description": "Go port of c3bot-relay (Telegram <-> c3 relay: WebSocket /ws, SSE /events, long-poll /poll, POST /send, /claim lease, webhook + getUpdates failover), shadow stage: runs next to the Node container on its own port, own container and own state",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": false
@@ -513,6 +585,15 @@
       "dir": "infra-sec_auth-broker",
       "description": "Identity broker for the multi-SSO sign-in: GitHub (device flow + web), Google (web code flow + PKCE) and Cloudflare One (Access JWT) and Email code (one-time code), owner only (#1066, #1083, #1118)",
       "mesh": "auth-broker.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
+      "slug": "auth-broker-go",
+      "dir": "infra-sec_auth-broker-go",
+      "description": "Go port of auth-broker (fleet sign-in: GitHub device flow, Google and GitHub web flow with PKCE S256 and a single-use browser-bound state, Cloudflare One / Access JWT verification, email one-time code, the shared HMAC-signed session cookie)",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": false
@@ -567,6 +648,15 @@
       "bearer": true
     },
     {
+      "slug": "cloudy-ai-tokens-go-api",
+      "dir": "infra-sec_cloudy-ai-tokens-go-api",
+      "description": "Go port of cloudy-ai-tokens-api (the fleet token engine: AES-256-GCM sealed token values, HMAC lookup index, verifier and owner API, audit trail), shadow stage: own sqlite file, own port, outside every request path (ticket #1877). Parity ha",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
       "slug": "crowdsec",
       "dir": "infra-sec_crowdsec",
       "description": "CrowdSec behavioral IDS/IPS engine — DORMANT placeholder (Cloudflare-off fallback). Container runs but detects/remediates nothing: empty acquisition, online API (CAPI) disabled, no bouncers wired.",
@@ -587,10 +677,28 @@
       "bearer": false
     },
     {
+      "slug": "introspect-proxy-go",
+      "dir": "infra-sec_introspect-proxy-go",
+      "description": "Go port of introspect-proxy (Caddy forward_auth Bearer check), shadow stage: runs next to the Python container on its own port, outside the request path, and logs a periodic decision comparison against it (ticket #1872)",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
       "slug": "mcp-oauth",
       "dir": "infra-sec_mcp-oauth",
       "description": "MCP OAuth 2.1 authorization server for mcp.diegonmarcos.com (option 31.1, approved 2026-10-28): RFC 8414/9728 discovery, RFC 7591 DCR, /authorize behind Authelia, PKCE S256 /token, opaque tokens introspected by introspect-proxy",
       "mesh": "mcp-oauth.mesh.diegonmarcos.com",
+      "hosts": [],
+      "signin": false,
+      "bearer": false
+    },
+    {
+      "slug": "mcp-oauth-go",
+      "dir": "infra-sec_mcp-oauth-go",
+      "description": "Go port of mcp-oauth (MCP OAuth 2.1 authorization server: RFC 8414/9728 discovery, RFC 7591 registration, PKCE S256 authorization code with signed consent form, refresh rotation, RFC 7662 introspection), shadow stage: own sqlite file, own p",
+      "mesh": null,
       "hosts": [],
       "signin": false,
       "bearer": false
@@ -703,6 +811,15 @@
         "chat.diegonmarcos.com"
       ],
       "signin": true,
+      "bearer": false
+    },
+    {
+      "slug": "chat-mattermost-go",
+      "dir": "user-comm_chat-mattermost-go",
+      "description": "Go port of the Mattermost ntfy bridge and C3 command bot (ntfy-bridge.py in chat-mattermost: bootstrap, ntfy to channel bridge, /c3 slash command, C3 bot over websocket), shadow stage: follows the ntfy stream and serves the /c3 handler read",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
       "bearer": false
     },
     {
@@ -842,6 +959,15 @@
       "slug": "capital-stack-news-gdelt-api",
       "dir": "user-news_capital-stack-news-gdelt-api",
       "description": "GDELT News Aggregator — Fastify API with SQLite cache",
+      "mesh": null,
+      "hosts": [],
+      "signin": false,
+      "bearer": true
+    },
+    {
+      "slug": "capital-stack-news-gdelt-go-api",
+      "dir": "user-news_capital-stack-news-gdelt-go-api",
+      "description": "Go port of capital-stack-news-gdelt-api (GDELT news aggregator: fetch worker + SQLite cache + read API /news/articles /timeline /tone /topics), shadow stage: runs next to the Node container on its own port and its own cache, outside every r",
       "mesh": null,
       "hosts": [],
       "signin": false,
