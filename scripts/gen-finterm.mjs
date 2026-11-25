@@ -90,9 +90,10 @@ export function buildFinterm({ sources, dashboards, build, services, appId, decl
   const redirects = (build.ui.redirects ?? []).map((r) => {
     if (byId.has(r.from)) fail(`redirect from ${r.from}: that dashboard still exists`);
     const pages = (secs?.find((s) => s.id === r.tab)?.pages ?? []).map((p) => p.id);
-    if (!TABS.includes(r.tab) || (r.to !== 'home' && !pages.includes(r.to))) fail(`redirect from ${r.from}: the target must be a tab's Homepage or one of its sub-pages`);
+    // the target is checked against every declared section; a redirect into an app-only section (markz, #1832) has no web page and is not emitted
+    if (!secs?.some((s) => s.id === r.tab) || (r.to !== 'home' && !pages.includes(r.to))) fail(`redirect from ${r.from}: the target must be a tab's Homepage or one of its sub-pages`);
     return { slug: slugOf(r.from), tab: r.tab, to: r.to === 'home' ? `${r.tab}-home` : r.to };
-  });
+  }).filter((r) => TABS.includes(r.tab));
   const bySlug = new Map((services?.services ?? []).map((s) => [s.slug, s]));
   const mesh = {};
   const keep = ['id', 'name', 'category', 'primary', 'priority', 'coverage', 'endpoint', 'fleet_endpoint', 'docs', 'cors', 'paths', 'connector', 'feeds', 'attribution', 'user_endpoint', 'schedule'];

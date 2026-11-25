@@ -306,6 +306,7 @@ export const tokens = {
       "HEIGHT": 52,
       "ICON": 24,
       "ICONS_RIGHT": 3,
+      "ICON_RIGHT": 17,
       "ICON_TARGET": 44,
       "ISLAND_PAD_H": 14,
       "ISLAND_PAD_V": 7,
@@ -578,4 +579,4 @@ export type Tokens = typeof tokens;
 export const THEME_IDS = ["cloud","cloud_minimalist_black"] as const;
 export type ThemeId = (typeof THEME_IDS)[number];
 export const PALETTE_ROLES = ["window","surface","surface_selected","text_primary","text_secondary","accent","hairline","tile_ink"] as const;
-export const TOKEN_COUNT = 414;
+export const TOKEN_COUNT = 415;

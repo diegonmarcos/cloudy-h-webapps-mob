@@ -4,7 +4,7 @@
     "default_section": "home",
     "bottom_nav": [
       "communication",
-      "boards",
+      "actions",
       "home",
       "cloud",
       "phone"
@@ -13,7 +13,7 @@
       {
         "id": "communication",
         "label": "Notify",
-        "icon": "ic_p_inbox",
+        "icon": "notifications",
         "module": null,
         "is_aggregator": true,
         "pages": [
@@ -25,9 +25,10 @@
           },
           {
             "id": "notify-badges",
-            "label": "Persistent Badges",
+            "label": "Persistents",
             "icon": "ic_rss",
-            "facet": true
+            "facet": true,
+            "separator_before": true
           },
           {
             "id": "notify-cloudy",
@@ -46,6 +47,42 @@
             "label": "Configs",
             "icon": "ic_settings",
             "facet": true
+          },
+          {
+            "id": "boards-msgs",
+            "label": "Inboxes",
+            "icon": "ic_chat",
+            "facet": true,
+            "mirror_page": "boards/msgs"
+          },
+          {
+            "id": "boards-me",
+            "label": "Me",
+            "icon": "ic_person",
+            "facet": true,
+            "mirror_page": "boards/my-pm"
+          },
+          {
+            "id": "boards-tasks",
+            "label": "Tasks",
+            "icon": "ic_pm_boards",
+            "facet": true,
+            "mirror_page": "boards/tasks"
+          },
+          {
+            "id": "boards-resources",
+            "label": "Resources",
+            "icon": "ic_devices",
+            "facet": true,
+            "separator_before": true,
+            "mirror_page": "boards/resources"
+          },
+          {
+            "id": "boards-xray",
+            "label": "X-Ray Device",
+            "icon": "ic_monitor_heart",
+            "facet": true,
+            "mirror_page": "config/xray"
           },
           {
             "id": "rss-inboxes",
@@ -84,6 +121,30 @@
           }
         ],
         "tabs": true,
+        "row_groups": [
+          {
+            "id": "cards",
+            "label": "Cards",
+            "pages": [
+              "my-rss",
+              "notify-badges",
+              "notify-cloudy",
+              "notify-phone",
+              "notify-configs"
+            ]
+          },
+          {
+            "id": "boards",
+            "label": "Boards",
+            "pages": [
+              "boards-msgs",
+              "boards-me",
+              "boards-tasks",
+              "boards-resources",
+              "boards-xray"
+            ]
+          }
+        ],
         "state_pages": {
           "my-rss": "my-rss",
           "notify-badges": "my-rss",
@@ -171,7 +232,7 @@
                 "label": "All"
               },
               {
-                "id": "+",
+                "id": "+%",
                 "label": "Services"
               }
             ]
@@ -210,7 +271,7 @@
         "stack_my-rss": [
           {
             "kind": "notification_badges",
-            "title": "Persistent badges",
+            "title": "Persistents",
             "title_res": "notify_badges_title",
             "above_filters": true,
             "summary": true
@@ -225,7 +286,7 @@
         "stack_notify-badges": [
           {
             "kind": "notification_badges",
-            "title": "Persistent badges",
+            "title": "Persistents",
             "title_res": "notify_badges_title",
             "above_filters": true
           }
@@ -452,7 +513,7 @@
                 "label": "All"
               },
               {
-                "id": "+",
+                "id": "+%",
                 "label": "Services"
               }
             ]
@@ -568,7 +629,7 @@
                 "label": "All"
               },
               {
-                "id": "+",
+                "id": "+%",
                 "label": "Services"
               }
             ]
@@ -684,7 +745,7 @@
                 "label": "All"
               },
               {
-                "id": "+",
+                "id": "+%",
                 "label": "Services"
               }
             ]
@@ -793,14 +854,14 @@
           {
             "id": "services",
             "label": "Source · Services",
-            "default": "+",
+            "default": "+%",
             "options": [
               {
                 "id": "all",
                 "label": "All"
               },
               {
-                "id": "+",
+                "id": "+%",
                 "label": "Services"
               }
             ]
@@ -916,7 +977,7 @@
                 "label": "All"
               },
               {
-                "id": "+",
+                "id": "+%",
                 "label": "Services"
               }
             ]
@@ -950,6 +1011,20 @@
                 "label": "Collapsed"
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "actions",
+        "label": "Actions",
+        "icon": "bolt",
+        "module": null,
+        "single_page": true,
+        "pages": [
+          {
+            "id": "quick-actions",
+            "label": "Quick Actions",
+            "icon": "ic_home"
           }
         ]
       },
@@ -1596,14 +1671,13 @@
             ]
           },
           {
-            "title": "Services",
+            "title": "Services · City",
             "tiles": [
               {
-                "id": "search",
-                "label": "Search",
-                "icon": "ic_cloud_search",
-                "tint": false,
-                "target": "extapp:cloud-search"
+                "id": "money",
+                "label": "Money",
+                "icon": "ic_storefront",
+                "coming_soon": true
               },
               {
                 "id": "weby-sep-1",
@@ -1611,10 +1685,67 @@
                 "separator": true
               },
               {
+                "id": "shopping",
+                "label": "Shopping",
+                "icon": "ic_shopping",
+                "target": "extapp:cloud-shopping"
+              },
+              {
+                "id": "svc-health",
+                "label": "Health",
+                "icon": "ic_monitor_heart",
+                "coming_soon": true
+              },
+              {
+                "id": "real-estate",
+                "label": "Real Estate",
+                "icon": "ic_map_pin",
+                "coming_soon": true
+              },
+              {
+                "id": "jobs",
+                "label": "Jobs & Business",
+                "icon": "ic_suite",
+                "coming_soon": true
+              },
+              {
+                "id": "weby-sep-2",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "city-mobility",
+                "label": "City Mobility",
+                "icon": "ic_city_bus",
+                "coming_soon": true
+              },
+              {
+                "id": "mobility",
+                "label": "Transports",
+                "icon": "ic_ctl_airplane",
+                "coming_soon": true
+              },
+              {
+                "id": "hotels",
+                "label": "Hotels",
+                "icon": "ic_hotel",
+                "coming_soon": true
+              }
+            ]
+          },
+          {
+            "title": "Services · Leisure",
+            "tiles": [
+              {
                 "id": "news",
                 "label": "News",
                 "icon": "ic_rss",
                 "target": "extapp:cloud-news"
+              },
+              {
+                "id": "weby-sep-3",
+                "label": "|",
+                "separator": true
               },
               {
                 "id": "events",
@@ -1629,84 +1760,16 @@
                 "target": "extapp:cloud-media-center"
               },
               {
+                "id": "social",
+                "label": "Social",
+                "icon": "ic_heart",
+                "target": "page:phone/apps#folder:media_social"
+              },
+              {
                 "id": "games",
                 "label": "Games",
                 "icon": "ic_device_gamepad",
                 "coming_soon": true
-              },
-              {
-                "id": "weby-sep-2",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "shopping",
-                "label": "Shopping",
-                "icon": "ic_shopping",
-                "target": "extapp:cloud-shopping"
-              },
-              {
-                "id": "jobs",
-                "label": "Jobs & Business",
-                "icon": "ic_suite",
-                "coming_soon": true
-              },
-              {
-                "id": "real-estate",
-                "label": "Real Estate",
-                "icon": "ic_map_pin",
-                "coming_soon": true
-              },
-              {
-                "id": "svc-health",
-                "label": "Health",
-                "icon": "ic_monitor_heart",
-                "coming_soon": true
-              },
-              {
-                "id": "weby-sep-3",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "money",
-                "label": "Money",
-                "icon": "ic_storefront",
-                "coming_soon": true
-              },
-              {
-                "id": "weby-sep-4",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "hotels",
-                "label": "Hotels",
-                "icon": "ic_hotel",
-                "coming_soon": true
-              },
-              {
-                "id": "mobility",
-                "label": "Transports",
-                "icon": "ic_ctl_airplane",
-                "coming_soon": true
-              },
-              {
-                "id": "city-mobility",
-                "label": "City Mobility",
-                "icon": "ic_city_bus",
-                "coming_soon": true
-              },
-              {
-                "id": "weby-sep-5",
-                "label": "|",
-                "separator": true
-              },
-              {
-                "id": "kg-store",
-                "label": "KG Store",
-                "icon": "ic_kgs",
-                "target": "extapp:cloud-kg-store"
               }
             ]
           },
@@ -1761,6 +1824,24 @@
                 "label": "Terminal",
                 "icon": "ic_terminal",
                 "target": "extapp:cloud-terminal-nix"
+              },
+              {
+                "id": "agi-sep-3",
+                "label": "|",
+                "separator": true
+              },
+              {
+                "id": "search",
+                "label": "Search",
+                "icon": "ic_cloud_search",
+                "tint": false,
+                "target": "extapp:cloud-search"
+              },
+              {
+                "id": "kg-store",
+                "label": "KG Store",
+                "icon": "ic_kgs",
+                "target": "extapp:cloud-kg-store"
               }
             ]
           },
@@ -2316,20 +2397,164 @@
             ]
           },
           {
-            "title": "Services",
+            "title": "Services · City",
             "packages": [],
             "folders": [
               {
-                "label": "Search",
-                "icon_pkg": "com.diegonmarcos.cloudsearch",
+                "label": "Money",
                 "packages": [
                   {
-                    "pkg": "com.google.android.googlequicksearchbox",
-                    "label": "Google"
+                    "pkg": "es.bancosantander.apps",
+                    "label": "Santander"
+                  },
+                  {
+                    "pkg": "com.revolut.revolut",
+                    "label": "Revolut"
+                  },
+                  {
+                    "pkg": "com.paypal.android.p2pmobile",
+                    "label": "PayPal"
+                  },
+                  {
+                    "pkg": "com.binance.dev",
+                    "label": "Binance"
+                  },
+                  {
+                    "pkg": "com.btg.pactual.digital.mobile",
+                    "label": "BTG Pactual"
+                  },
+                  {
+                    "pkg": "com.fusionmedia.investing",
+                    "label": "Investing.com"
+                  },
+                  {
+                    "pkg": "com.xe.currency",
+                    "label": "XE Currency"
                   }
                 ],
-                "icon_res": "ic_cloud_search"
+                "icon_res": "ic_storefront"
               },
+              {
+                "label": "Shopping",
+                "icon_pkg": "com.diegonmarcos.cloudshopping",
+                "packages": [
+                  {
+                    "pkg": "com.amazon.mShop.android.shopping",
+                    "label": "Amazon"
+                  },
+                  {
+                    "pkg": "de.dhl.paket",
+                    "label": "DHL Paket"
+                  },
+                  {
+                    "pkg": "com.ebay.kleinanzeigen",
+                    "label": "Kleinanzeigen"
+                  }
+                ],
+                "icon_res": "ic_shopping"
+              },
+              {
+                "label": "Health",
+                "packages": [
+                  {
+                    "pkg": "com.urbansportsclub",
+                    "label": "Urban Sports Club"
+                  },
+                  {
+                    "pkg": "com.medantapatient.app",
+                    "label": "Medanta"
+                  },
+                  {
+                    "pkg": "com.downdogapp",
+                    "label": "Down Dog"
+                  },
+                  {
+                    "pkg": "com.motosumo.app",
+                    "label": "Motosumo"
+                  }
+                ],
+                "icon_res": "ic_monitor_heart"
+              },
+              {
+                "label": "Real Estate",
+                "packages": [
+                  {
+                    "pkg": "de.is24.android",
+                    "label": "ImmoScout24"
+                  },
+                  {
+                    "pkg": "com.wggesucht.android",
+                    "label": "WG-Gesucht"
+                  }
+                ],
+                "icon_res": "ic_map_pin"
+              },
+              {
+                "label": "Jobs & Business",
+                "packages": [
+                  {
+                    "pkg": "com.indeed.android.jobsearch",
+                    "label": "Indeed"
+                  }
+                ],
+                "icon_res": "ic_suite"
+              },
+              {
+                "label": "City Mobility",
+                "packages": [
+                  {
+                    "pkg": "com.ubercab",
+                    "label": "Uber"
+                  },
+                  {
+                    "pkg": "com.trafi.whitelabel.bvg",
+                    "label": "BVG Fahrinfo"
+                  }
+                ],
+                "icon_res": "ic_city_bus"
+              },
+              {
+                "label": "Transports",
+                "packages": [
+                  {
+                    "pkg": "com.thetrainline",
+                    "label": "Trainline"
+                  },
+                  {
+                    "pkg": "com.ryanair.cheapflights",
+                    "label": "Ryanair"
+                  },
+                  {
+                    "pkg": "com.rome2rio.www.rome2rio",
+                    "label": "Rome2Rio"
+                  },
+                  {
+                    "pkg": "com.comuto",
+                    "label": "BlaBlaCar"
+                  },
+                  {
+                    "pkg": "com.nomadmania.presentation",
+                    "label": "NomadMania"
+                  }
+                ],
+                "icon_res": "ic_ctl_airplane"
+              },
+              {
+                "label": "Hotels",
+                "packages": [
+                  {
+                    "pkg": "com.booking",
+                    "label": "Booking.com"
+                  }
+                ],
+                "icon_res": "ic_hotel"
+              }
+            ]
+          },
+          {
+            "title": "Services · Leisure",
+            "packages": [],
+            "folders": [
               {
                 "label": "News",
                 "icon_pkg": "com.diegonmarcos.cloudnews",
@@ -2387,6 +2612,12 @@
                 "icon_res": "ic_music"
               },
               {
+                "label": "Social",
+                "icon_res": "ic_heart",
+                "opens_folder": "media_social",
+                "packages": []
+              },
+              {
                 "label": "Games",
                 "packages": [
                   {
@@ -2395,155 +2626,6 @@
                   }
                 ],
                 "icon_res": "ic_device_gamepad"
-              },
-              {
-                "label": "Shopping",
-                "icon_pkg": "com.diegonmarcos.cloudshopping",
-                "packages": [
-                  {
-                    "pkg": "com.amazon.mShop.android.shopping",
-                    "label": "Amazon"
-                  },
-                  {
-                    "pkg": "de.dhl.paket",
-                    "label": "DHL Paket"
-                  },
-                  {
-                    "pkg": "com.ebay.kleinanzeigen",
-                    "label": "Kleinanzeigen"
-                  }
-                ],
-                "icon_res": "ic_shopping"
-              },
-              {
-                "label": "Jobs & Business",
-                "packages": [
-                  {
-                    "pkg": "com.indeed.android.jobsearch",
-                    "label": "Indeed"
-                  }
-                ],
-                "icon_res": "ic_suite"
-              },
-              {
-                "label": "Real Estate",
-                "packages": [
-                  {
-                    "pkg": "de.is24.android",
-                    "label": "ImmoScout24"
-                  },
-                  {
-                    "pkg": "com.wggesucht.android",
-                    "label": "WG-Gesucht"
-                  }
-                ],
-                "icon_res": "ic_map_pin"
-              },
-              {
-                "label": "Health",
-                "packages": [
-                  {
-                    "pkg": "com.urbansportsclub",
-                    "label": "Urban Sports Club"
-                  },
-                  {
-                    "pkg": "com.medantapatient.app",
-                    "label": "Medanta"
-                  },
-                  {
-                    "pkg": "com.downdogapp",
-                    "label": "Down Dog"
-                  },
-                  {
-                    "pkg": "com.motosumo.app",
-                    "label": "Motosumo"
-                  }
-                ],
-                "icon_res": "ic_monitor_heart"
-              },
-              {
-                "label": "Money",
-                "packages": [
-                  {
-                    "pkg": "es.bancosantander.apps",
-                    "label": "Santander"
-                  },
-                  {
-                    "pkg": "com.revolut.revolut",
-                    "label": "Revolut"
-                  },
-                  {
-                    "pkg": "com.paypal.android.p2pmobile",
-                    "label": "PayPal"
-                  },
-                  {
-                    "pkg": "com.binance.dev",
-                    "label": "Binance"
-                  },
-                  {
-                    "pkg": "com.btg.pactual.digital.mobile",
-                    "label": "BTG Pactual"
-                  },
-                  {
-                    "pkg": "com.fusionmedia.investing",
-                    "label": "Investing.com"
-                  },
-                  {
-                    "pkg": "com.xe.currency",
-                    "label": "XE Currency"
-                  }
-                ],
-                "icon_res": "ic_storefront"
-              },
-              {
-                "label": "Hotels",
-                "packages": [
-                  {
-                    "pkg": "com.booking",
-                    "label": "Booking.com"
-                  }
-                ],
-                "icon_res": "ic_hotel"
-              },
-              {
-                "label": "Transports",
-                "packages": [
-                  {
-                    "pkg": "com.thetrainline",
-                    "label": "Trainline"
-                  },
-                  {
-                    "pkg": "com.ryanair.cheapflights",
-                    "label": "Ryanair"
-                  },
-                  {
-                    "pkg": "com.rome2rio.www.rome2rio",
-                    "label": "Rome2Rio"
-                  },
-                  {
-                    "pkg": "com.comuto",
-                    "label": "BlaBlaCar"
-                  },
-                  {
-                    "pkg": "com.nomadmania.presentation",
-                    "label": "NomadMania"
-                  }
-                ],
-                "icon_res": "ic_ctl_airplane"
-              },
-              {
-                "label": "City Mobility",
-                "packages": [
-                  {
-                    "pkg": "com.ubercab",
-                    "label": "Uber"
-                  },
-                  {
-                    "pkg": "com.trafi.whitelabel.bvg",
-                    "label": "BVG Fahrinfo"
-                  }
-                ],
-                "icon_res": "ic_city_bus"
               }
             ]
           },
@@ -2590,6 +2672,17 @@
                   }
                 ],
                 "icon_res": "ic_terminal"
+              },
+              {
+                "label": "Search",
+                "icon_pkg": "com.diegonmarcos.cloudsearch",
+                "packages": [
+                  {
+                    "pkg": "com.google.android.googlequicksearchbox",
+                    "label": "Google"
+                  }
+                ],
+                "icon_res": "ic_cloud_search"
               }
             ]
           },
@@ -3886,9 +3979,11 @@
               "launcher-sep-1",
               "notify",
               "presets",
-              "panels",
               "panels-all",
               "panels-battery",
+              "panels-security",
+              "panels-quick-ui",
+              "panels-network",
               "panels-tools",
               "focus"
             ]
@@ -3993,6 +4088,9 @@
             "onehand",
             "notify"
           ],
+          "panels": [
+            "controls"
+          ],
           "about": [
             "xray",
             "app-about"
@@ -4022,6 +4120,7 @@
           "agents-superapp": "xray",
           "agents-fleet": "xray",
           "watchdog": "agents-watchdog",
+          "panels": "controls",
           "watchtower": "xray",
           "agents-watchtower": "xray"
         },
@@ -4062,7 +4161,12 @@
             "icon": "ic_home",
             "tabs": [
               "presets",
-              "panels"
+              "panels-battery",
+              "panels-security",
+              "panels-quick-ui",
+              "panels-network",
+              "panels-tools",
+              "panels-all"
             ],
             "group": "Launcher",
             "subgroup": ""
@@ -4102,6 +4206,7 @@
             "icon": "ic_rss",
             "facet": true,
             "mirror_page": "communication/my-rss",
+            "redirect": "communication/my-rss",
             "group": "Launcher",
             "subgroup": ""
           },
@@ -4489,21 +4594,8 @@
           },
           {
             "id": "presets",
-            "label": "Presets",
+            "label": "Preset",
             "icon": "ic_p_sol_personal",
-            "hidden": true,
-            "group": "Launcher",
-            "subgroup": ""
-          },
-          {
-            "id": "panels",
-            "label": "Panels",
-            "icon": "ic_home",
-            "tabs": [
-              "panels-all",
-              "panels-battery",
-              "panels-tools"
-            ],
             "hidden": true,
             "group": "Launcher",
             "subgroup": ""
@@ -4518,15 +4610,40 @@
           },
           {
             "id": "panels-battery",
-            "label": "Battery Hungers",
+            "label": "Battery",
+            "separator_before": true,
             "icon": "ic_settings",
             "hidden": true,
             "group": "Launcher",
             "subgroup": ""
           },
           {
+            "id": "panels-security",
+            "label": "Security",
+            "icon": "ic_lock",
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
+            "id": "panels-quick-ui",
+            "label": "UI",
+            "icon": "ic_ctl_brightness",
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
+            "id": "panels-network",
+            "label": "Network",
+            "icon": "ic_ctl_wifi",
+            "hidden": true,
+            "group": "Launcher",
+            "subgroup": ""
+          },
+          {
             "id": "panels-tools",
-            "label": "Tools",
+            "label": "Others",
             "icon": "ic_settings",
             "hidden": true,
             "group": "Launcher",
@@ -4713,14 +4830,14 @@
       },
       {
         "id": "boards-my-pm",
-        "section": "boards",
-        "page": "my-pm",
+        "section": "communication",
+        "page": "boards-me",
         "label": "Boards · ME"
       },
       {
         "id": "boards-tasks",
-        "section": "boards",
-        "page": "tasks",
+        "section": "communication",
+        "page": "boards-tasks",
         "label": "Boards · Tasks"
       },
       {
@@ -4854,7 +4971,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -4914,7 +5031,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -4980,7 +5097,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5040,7 +5157,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5077,7 +5194,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5114,7 +5231,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5151,7 +5268,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5188,7 +5305,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5236,7 +5353,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5302,7 +5419,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -5389,7 +5506,7 @@
             {
               "key": "enabled",
               "type": "toggle",
-              "label": "Show this badge",
+              "label": "Show this card",
               "default": true
             },
             {
@@ -6146,6 +6263,16 @@
           "icon": "configs",
           "pages": [
             {
+              "id": "import",
+              "label": "Import",
+              "icon": "file_upload"
+            },
+            {
+              "id": "channels",
+              "label": "Channels",
+              "icon": "hub"
+            },
+            {
               "id": "general",
               "label": "General",
               "icon": "settings"
@@ -6159,16 +6286,6 @@
               "id": "about",
               "label": "About",
               "icon": "info"
-            },
-            {
-              "id": "import",
-              "label": "Import",
-              "icon": "file_upload"
-            },
-            {
-              "id": "channels",
-              "label": "Channels",
-              "icon": "hub"
             }
           ]
         }
@@ -6407,20 +6524,72 @@
       "description": "Cloud Code — our own signed build of Acode (the Android code editor), vendored at ac_cloud-code/ as owned code (#562), with a 7-tab bottom nav over it: Backlog | Editor | Repos | Chat | Agents | Browser | MyTerminal. Acode is the UPSTREAM PROJECT, never the product name. The Editor tab is Acode untouched; the other six live in src/cloud/ behind one seam in src/main.js. See CLOUD-CODE.md.",
       "kind": "app",
       "wasm": "cloud-code",
-      "default_section": "ai",
+      "default_section": "agent",
       "bottom_nav": [
-        "backlog",
+        "workspace",
         "editor",
-        "git",
-        "ai",
-        "agents",
-        "browser",
-        "myterminal"
+        "agent",
+        "changes",
+        "run"
       ],
       "top_bar": null,
       "nav_ui": null,
       "configs_ui": [],
       "sections": [
+        {
+          "id": "workspace",
+          "label": "Workspace",
+          "icon": "folder_open"
+        },
+        {
+          "id": "editor",
+          "label": "Editor",
+          "icon": "code"
+        },
+        {
+          "id": "agent",
+          "label": "Agent",
+          "icon": "brain",
+          "pages": [
+            {
+              "id": "chat",
+              "label": "Chat",
+              "icon": "chat_bubble"
+            },
+            {
+              "id": "bat",
+              "label": "Batches",
+              "icon": "documents"
+            },
+            {
+              "id": "mdl",
+              "label": "Models",
+              "icon": "extension"
+            }
+          ]
+        },
+        {
+          "id": "changes",
+          "label": "Changes",
+          "icon": "compare_arrows"
+        },
+        {
+          "id": "run",
+          "label": "Run",
+          "icon": "play_circle_outline",
+          "pages": [
+            {
+              "id": "browser",
+              "label": "Browser",
+              "icon": "public"
+            },
+            {
+              "id": "myterminal",
+              "label": "MyTerminal",
+              "icon": "square-terminal"
+            }
+          ]
+        },
         {
           "id": "backlog",
           "label": "Backlog",
@@ -6447,48 +6616,6 @@
               "icon": "zap"
             }
           ]
-        },
-        {
-          "id": "editor",
-          "label": "Editor",
-          "icon": "code"
-        },
-        {
-          "id": "git",
-          "label": "Git",
-          "icon": "git"
-        },
-        {
-          "id": "ai",
-          "label": "AI",
-          "icon": "chat_bubble"
-        },
-        {
-          "id": "agents",
-          "label": "Agents",
-          "icon": "brain",
-          "pages": [
-            {
-              "id": "bat",
-              "label": "Batches",
-              "icon": "documents"
-            },
-            {
-              "id": "mdl",
-              "label": "Models",
-              "icon": "extension"
-            }
-          ]
-        },
-        {
-          "id": "browser",
-          "label": "Browser",
-          "icon": "public"
-        },
-        {
-          "id": "myterminal",
-          "label": "MyTerminal",
-          "icon": "square-terminal"
         }
       ]
     },
@@ -6581,21 +6708,6 @@
           "icon": "configs",
           "pages": [
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "security"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
-            },
-            {
               "id": "tracker",
               "label": "Tracker",
               "icon": "my_location"
@@ -6624,6 +6736,21 @@
               "id": "device",
               "label": "Device",
               "icon": "smartphone"
+            },
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
             }
           ]
         }
@@ -6769,21 +6896,6 @@
           "background": "theme",
           "pages": [
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "security"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
-            },
-            {
               "id": "appearance",
               "label": "Appearance",
               "icon": "palette"
@@ -6802,6 +6914,21 @@
               "id": "feeds",
               "label": "Feeds",
               "icon": "rss_feed"
+            },
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
             }
           ]
         }
@@ -6814,7 +6941,7 @@
       "name": "Cloud Shopping",
       "label": "Shopping",
       "icon": "ic_shopping",
-      "group": "Services",
+      "group": "Services · City",
       "category": "android",
       "description": "Cloud Shopping (#1473): a deals and listings browser over mock data. Navigation is ONE collapsed left side menu (libs:ui-nav-bars vertical_side_menu: the rail on a phone, the full menu on a wide screen) in five groups, Feed (Home: the deals of every page), Things (Groceries, Electronics, Clothing), Services (Transport, Hotels), Assets (Real Estate, Business, Jobs) and Entertainment (Events); the bottom nav holds exactly one item, a search icon with no label, which searches every page. Every page has its own top filter tabs and its rows, both declared in app/src/main/assets/shop/shop.json (mock data, nothing is fetched and no shop is contacted); a row is the ui-kit KitStoreRow (the Cloud Store's dense row) in the shared type ramp. Configs are the fleet's General | Perms | About. Offline, declares no network permission of its own.",
       "kind": "app",
@@ -6951,7 +7078,7 @@
       "icon": "ic_wiki",
       "group": "Projects",
       "category": "android",
-      "description": "Cloud Wiki (#1778): a small encyclopedia of Markdown pages. No bottom nav: a collapsed left side menu (libs:ui-nav-bars vertical_side_menu) holds the topics in four groups, Sciences (Math, Computer Science, Physics, Astronomy, Engineering, Medicine), Humanities (Anthropology, Human Belief Systems, Chronos), Arts (Art, Theater, Music, Movies) and Explore (Graph), and each topic has its subpages as top tabs after an Overview tab (Engineering: one subpage per major field). A page is a short, neutral, educational Markdown explanation with tag chips; tapping a chip filters every page by that tag. Graph is an Obsidian-style force-directed graph (libs:graph-view, shared with Cloud Notes) joining pages by their [[links]] and shared tags, with pan, zoom and tap to open. The content is the runtime dataset wiki (data/fleet/app/com.diegonmarcos.cloudwiki/wiki.json) served by Cloud Store, never an APK asset. Configs are the fleet's General | Perms | About. Declares no network permission of its own. #1789 Chronos also holds the interactive simulators of diegonmarcos/lib-chronos: one nested page per Chronos page of the repo, in its hierarchy and with its titles, shown in the fleet web view (libs:web-core, APP_PAGE) and served offline from APK assets (assets/chronos, WebViewAssetLoader on the asset origin; every other request is answered 403). They are baked at build time from a pinned commit (tools/chronos-pin.json, tools/regen-chronos.py, drift-checked by test/test-chronos.sh), the one exception to the runtime dataset.",
+      "description": "Cloud Wiki (#1778, #1867): an encyclopedia of Markdown pages. No bottom nav: a collapsed left side menu (libs:ui-nav-bars vertical_side_menu) under three parents, Modern Science (hubs Sciences: Math, Computer Science, Physics, Astronomy, Engineering, Medicine; Humanities: Anthropology, Human Belief Systems; Arts: Art, Theater, Music, Movies; Explore: Graph), Arcanum Science (the Esoteric Arcanum master taxonomy: A Architecture of Sacred Sciences & Wisdom, B Interactions: Magic & Grimoires, C Esoteric Schools & Traditions, their sections I-V as topics and their leaves as pages, a historical and cultural encyclopedia, not instructions for practice) and Projects (Chronos, Sacred Geometry). A hub page shows its intro and its topics; each topic has its subpages as top tabs after an Overview tab. A page is a short, neutral, educational Markdown explanation with tag chips; tapping a chip filters every page by that tag. Graph is an Obsidian-style force-directed graph (libs:graph-view, shared with Cloud Notes) joining pages by their [[links]] and shared tags, with pan, zoom and tap to open. #1867 THE CONTENT IS THE REPO diegonmarcos/Projects-Library-KG: one numbered folder per node (1.Modern-science/1.0.Science/1.0.0.Math/1.0.0.0.Algebra/index.md, 2.Arcanum-science/..., 3.Projects/3.0.Chronos, 3.Projects/3.1.Sacred-geo), its root wiki.json generated from the tree by the repo's tools/gen-wiki.py. The app clones that repo at run time, read-only, into its own storage (libs:git-ui GitConnect, ChronosRepo; refreshed per the chosen mode, served offline from the clone) and reads the pages from the clone's wiki.json; until the first clone lands it reads the runtime dataset wiki (data/fleet/app/com.diegonmarcos.cloudwiki/wiki.json, the same file at the pin) served by Cloud Store. The Chronos simulators (3.Projects/3.0.Chronos, one nested page per index.html, in its hierarchy and with its titles) and the Sacred Geometry explorer are shown in the fleet web view (libs:web-core, APP_PAGE) from the clone through WebViewAssetLoader on the asset origin (every other request answered 403). The copy baked into the APK at the pin (tools/chronos-pin.json, tools/regen-chronos.py, drift-checked by test/test-chronos.sh) is the OFFLINE SEED served until the first clone; the same tool writes the side menu (ui.sections wiki pages and groups) and the Cloud Store dataset from the repo at the pin. Configs are the fleet's General | Perms | About.",
       "kind": "app",
       "wasm": null,
       "default_section": "wiki",
@@ -6969,44 +7096,173 @@
           "nav_mode": "vertical_side_menu",
           "pages": [
             {
-              "id": "math",
-              "label": "Math",
-              "icon": "calculate"
+              "id": "sciences",
+              "label": "Sciences",
+              "icon": "insights",
+              "pages": [
+                {
+                  "id": "math",
+                  "label": "Math",
+                  "icon": "calculate"
+                },
+                {
+                  "id": "cs",
+                  "label": "Computer Science",
+                  "icon": "code"
+                },
+                {
+                  "id": "physics",
+                  "label": "Physics",
+                  "icon": "bolt"
+                },
+                {
+                  "id": "astronomy",
+                  "label": "Astronomy",
+                  "icon": "rocket_launch"
+                },
+                {
+                  "id": "eng",
+                  "label": "Engineering",
+                  "icon": "build"
+                },
+                {
+                  "id": "medicine",
+                  "label": "Medicine",
+                  "icon": "monitor_heart"
+                }
+              ]
             },
             {
-              "id": "cs",
-              "label": "Computer Science",
-              "icon": "code"
+              "id": "humanities",
+              "label": "Humanities",
+              "icon": "groups",
+              "pages": [
+                {
+                  "id": "anthropology",
+                  "label": "Anthropology",
+                  "icon": "groups"
+                },
+                {
+                  "id": "beliefs",
+                  "label": "Human Belief Systems",
+                  "icon": "psychology"
+                }
+              ]
             },
             {
-              "id": "physics",
-              "label": "Physics",
-              "icon": "bolt"
+              "id": "arts",
+              "label": "Arts",
+              "icon": "palette",
+              "pages": [
+                {
+                  "id": "art",
+                  "label": "Art",
+                  "icon": "palette"
+                },
+                {
+                  "id": "theater",
+                  "label": "Theater",
+                  "icon": "mood"
+                },
+                {
+                  "id": "music",
+                  "label": "Music",
+                  "icon": "music_note"
+                },
+                {
+                  "id": "movies",
+                  "label": "Movies",
+                  "icon": "video"
+                }
+              ]
             },
             {
-              "id": "astronomy",
-              "label": "Astronomy",
-              "icon": "rocket_launch"
+              "id": "explore",
+              "label": "Explore",
+              "icon": "explore",
+              "pages": [
+                {
+                  "id": "graph",
+                  "label": "Graph",
+                  "icon": "hub"
+                }
+              ]
             },
             {
-              "id": "eng",
-              "label": "Engineering",
-              "icon": "build"
+              "id": "arcanum-a",
+              "label": "Architecture of Sacred Sciences & Wisdom",
+              "icon": "account_tree",
+              "pages": [
+                {
+                  "id": "sacred-sciences",
+                  "label": "Sacred Sciences & Celestial Mechanics",
+                  "icon": "star"
+                },
+                {
+                  "id": "harmonics",
+                  "label": "Number, Geometry & Harmonic Proportions",
+                  "icon": "graphic_eq"
+                },
+                {
+                  "id": "symbolic-architecture",
+                  "label": "Spatial, Symbolic & Vital Architecture",
+                  "icon": "account_balance"
+                }
+              ]
             },
             {
-              "id": "medicine",
-              "label": "Medicine",
-              "icon": "monitor_heart"
+              "id": "arcanum-b",
+              "label": "Interactions: Magic & Grimoires",
+              "icon": "auto_fix_high",
+              "pages": [
+                {
+                  "id": "divination",
+                  "label": "Divination Systems & Epistemic Arts",
+                  "icon": "visibility"
+                },
+                {
+                  "id": "alchemy",
+                  "label": "Alchemical & Transformative Sciences",
+                  "icon": "cached"
+                },
+                {
+                  "id": "ceremonial-magic",
+                  "label": "Ceremonial Magic, Grimoires & Summoning Disciplines",
+                  "icon": "menu_book"
+                },
+                {
+                  "id": "folk-magic",
+                  "label": "Folk Magic & Witchcraft Traditions",
+                  "icon": "home"
+                },
+                {
+                  "id": "talismans",
+                  "label": "Talismanic & Applied Arcanum",
+                  "icon": "key"
+                }
+              ]
             },
             {
-              "id": "anthropology",
-              "label": "Anthropology",
-              "icon": "groups"
-            },
-            {
-              "id": "beliefs",
-              "label": "Human Belief Systems",
-              "icon": "psychology"
+              "id": "arcanum-c",
+              "label": "Esoteric Schools & Traditions",
+              "icon": "history",
+              "pages": [
+                {
+                  "id": "western-esoteric",
+                  "label": "Western Esoteric Traditions",
+                  "icon": "language"
+                },
+                {
+                  "id": "eastern-esoteric",
+                  "label": "Eastern Esoteric Traditions",
+                  "icon": "explore"
+                },
+                {
+                  "id": "mystery-schools",
+                  "label": "Mystery Schools & Ancient Wisdom",
+                  "icon": "lock"
+                }
+              ]
             },
             {
               "id": "chronos",
@@ -7015,125 +7271,92 @@
               "pages": [
                 {
                   "id": "chronos.lib",
-                  "label": "Chronos - Cycles Across Scales",
+                  "label": "Home",
                   "icon": "timeline",
-                  "asset": "Chronos/index.html",
+                  "asset": "3.Projects/3.0.Chronos/index.html"
+                },
+                {
+                  "id": "chronos.lib.0",
+                  "label": "Humansphere - Circadian",
+                  "icon": "bedtime",
+                  "asset": "3.Projects/3.0.Chronos/0.Humansphere-Circadian/index.html"
+                },
+                {
+                  "id": "chronos.lib.1",
+                  "label": "Earthsphere - Cycles",
+                  "icon": "public",
+                  "asset": "3.Projects/3.0.Chronos/1.Earthsphere-Cycles/index.html"
+                },
+                {
+                  "id": "chronos.lib.2",
+                  "label": "Milkwaysphere - Orbits",
+                  "icon": "language",
+                  "asset": "3.Projects/3.0.Chronos/2.Milkwaysphere-Orbits/index.html"
+                },
+                {
+                  "id": "chronos.lib.3",
+                  "label": "Quantum Cycles",
+                  "icon": "hub",
+                  "asset": "3.Projects/3.0.Chronos/3.Quantum-Cycles/index.html",
                   "pages": [
                     {
-                      "id": "chronos.lib.0",
-                      "label": "Humansphere - Circadian - Chronos",
-                      "icon": "bedtime",
-                      "asset": "Chronos/0.Humansphere-Circadian/index.html"
+                      "id": "chronos.lib.3.0",
+                      "label": "Quantum Decoherence Cycle",
+                      "icon": "schedule",
+                      "asset": "3.Projects/3.0.Chronos/3.Quantum-Cycles/3.0.Quantum-Decoherence-Cycle/index.html"
                     },
                     {
-                      "id": "chronos.lib.1",
-                      "label": "Earthsphere - Cycles - Chronos",
-                      "icon": "public",
-                      "asset": "Chronos/1.Earthsphere-Cycles/index.html"
-                    },
-                    {
-                      "id": "chronos.lib.2",
-                      "label": "Milkwaysphere - Orbits - Chronos",
-                      "icon": "language",
-                      "asset": "Chronos/2.Milkwaysphere-Orbits/index.html"
-                    },
-                    {
-                      "id": "chronos.lib.3",
-                      "label": "Quantum Cycles - Chronos",
-                      "icon": "hub",
-                      "asset": "Chronos/3.Quantum-Cycles/index.html",
-                      "pages": [
-                        {
-                          "id": "chronos.lib.3.0",
-                          "label": "Decoherence Cycle - ( Cells repair & Memory) - Quantum Mechanics",
-                          "icon": "schedule",
-                          "asset": "Chronos/3.Quantum-Cycles/3.0.Quantum-Decoherence-Cycle/index.html"
-                        },
-                        {
-                          "id": "chronos.lib.3.1",
-                          "label": "Black Hole Cycle (Birth & Death) - Quantum Gravity",
-                          "icon": "rocket_launch",
-                          "asset": "Chronos/3.Quantum-Cycles/3.1.Quantum-Gravity-Cycle/index.html"
-                        }
-                      ]
-                    },
-                    {
-                      "id": "chronos.lib.4",
-                      "label": "Celestial Alignments | 3-Tier System",
-                      "icon": "auto_awesome",
-                      "asset": "Chronos/4.Astronomy-Astrological-sphere/index.html"
+                      "id": "chronos.lib.3.1",
+                      "label": "Quantum Gravity Cycle",
+                      "icon": "rocket_launch",
+                      "asset": "3.Projects/3.0.Chronos/3.Quantum-Cycles/3.1.Quantum-Gravity-Cycle/index.html"
                     }
                   ]
+                },
+                {
+                  "id": "chronos.lib.4",
+                  "label": "Astronomy - Astrological Sphere",
+                  "icon": "auto_awesome",
+                  "asset": "3.Projects/3.0.Chronos/4.Astronomy-Astrological-sphere/index.html"
                 }
               ]
             },
             {
-              "id": "art",
-              "label": "Art",
-              "icon": "palette"
-            },
-            {
-              "id": "theater",
-              "label": "Theater",
-              "icon": "mood"
-            },
-            {
-              "id": "music",
-              "label": "Music",
-              "icon": "music_note"
-            },
-            {
-              "id": "movies",
-              "label": "Movies",
-              "icon": "video"
-            },
-            {
-              "id": "graph",
-              "label": "Graph",
-              "icon": "hub"
+              "id": "sacred",
+              "label": "Sacred Geometry",
+              "icon": "token",
+              "project": "3.Projects/3.1.Sacred-geo"
             }
           ],
           "groups": [
             {
-              "id": "sciences",
-              "label": "Sciences",
-              "icon": "insights",
+              "id": "modern",
+              "label": "Modern Science",
+              "icon": "public",
               "pages": [
-                "math",
-                "cs",
-                "physics",
-                "astronomy",
-                "eng",
-                "medicine"
+                "sciences",
+                "humanities",
+                "arts",
+                "explore"
               ]
             },
             {
-              "id": "humanities",
-              "label": "Humanities",
-              "icon": "groups",
+              "id": "arcanum",
+              "label": "Arcanum Science",
+              "icon": "auto_awesome",
               "pages": [
-                "anthropology",
-                "beliefs",
-                "chronos"
+                "arcanum-a",
+                "arcanum-b",
+                "arcanum-c"
               ]
             },
             {
-              "id": "arts",
-              "label": "Arts",
-              "icon": "palette",
+              "id": "projects",
+              "label": "Projects",
+              "icon": "layers",
               "pages": [
-                "art",
-                "theater",
-                "music",
-                "movies"
-              ]
-            },
-            {
-              "id": "explore",
-              "label": "Explore",
-              "icon": "explore",
-              "pages": [
-                "graph"
+                "chronos",
+                "sacred"
               ]
             }
           ]
@@ -7147,7 +7370,7 @@
       "name": "Cloud News",
       "label": "News",
       "icon": "ic_rss",
-      "group": "Services",
+      "group": "Services · Leisure",
       "category": "android",
       "description": "Diego's Cloud News — standalone Android news app. WebView UI over GDELT-backed topic feeds (economy, technology, geopolitics, climate, finance, AI, energy, health): per-topic article lists, tone/sentiment timelines, and rolling topic summaries against a self-hosted GDELT proxy. Build via Nix devShell, one APK out.",
       "kind": "app",
@@ -7661,12 +7884,11 @@
       "description": "Diego's Cloud Me — the personal-administration half of the constellation. Where Cloud SuperApp is the launcher for everything the cloud runs, Cloud Me is the launcher for everything the PERSON runs: paperwork and money (Buro), what is due (Agenda), the public profile (Me), travel and health (Projects) and study (Studying). It stores almost nothing of its own — cards live in Cloud Wallet, passwords in Cloud Vault, files in cloud-myterminal, health records in Health Connect — and is the one screen that indexes all of them.",
       "kind": "app",
       "wasm": "cloud-me",
-      "default_section": "lnktree",
+      "default_section": "proj",
       "bottom_nav": [
-        "health",
-        "experiences",
-        "socials",
-        "lnktree",
+        "pers",
+        "prof",
+        "proj",
         "inventory",
         "buro",
         "llc"
@@ -7678,9 +7900,25 @@
       ],
       "sections": [
         {
-          "id": "health",
-          "nav_mode": "horizontal_two_rows",
-          "label": "Health",
+          "migration": {
+            "store": "experiences_user",
+            "legacy": {
+              "done": "_done",
+              "todo": "_todo"
+            },
+            "field": "category",
+            "by_value": {
+              "🌐 Travel": "geo"
+            },
+            "default": "endurance",
+            "rename": {
+              "geo": {
+                "place": "country"
+              }
+            }
+          },
+          "id": "pers",
+          "label": "Pers",
           "icon": "ic_nav_health",
           "metrics": [
             {
@@ -7808,184 +8046,161 @@
           ],
           "pages": [
             {
-              "id": "tracked",
-              "label": "Tracked",
-              "icon": "monitor_heart"
-            },
-            {
-              "id": "activities",
-              "label": "Activities",
-              "icon": "ic_p_health_activity"
-            },
-            {
-              "id": "bodycomp",
-              "label": "Body comp",
-              "icon": "ic_p_health_body"
-            },
-            {
-              "id": "hr",
-              "label": "HR & HRV",
-              "icon": "ic_p_health_vitals"
-            },
-            {
-              "id": "sleep",
-              "label": "Sleep",
-              "icon": "ic_p_health_sleep"
-            },
-            {
-              "id": "home",
-              "label": "Index",
-              "icon": "home"
-            },
-            {
-              "id": "bio",
-              "label": "Anthropometrics",
-              "icon": "health_bio"
-            },
-            {
-              "id": "circadian",
-              "label": "Circadian",
-              "icon": "health_circadian"
-            },
-            {
-              "id": "biomarkers",
-              "label": "Biomarkers",
-              "icon": "health_biomarkers"
-            },
-            {
-              "id": "timeline",
-              "label": "Timeline",
-              "icon": "timeline"
-            },
-            {
-              "id": "objectives",
-              "label": "Objectives",
-              "icon": "health_objectives"
-            },
-            {
-              "id": "matrix",
-              "label": "Matrix",
-              "icon": "health_matrix"
-            },
-            {
-              "id": "culinary",
-              "label": "Culinary",
-              "icon": "health_culinary"
-            },
-            {
-              "id": "clash",
-              "label": "Absorption clash",
-              "icon": "health_clash"
-            },
-            {
-              "id": "thermal",
-              "label": "Thermal",
-              "icon": "health_thermal"
-            },
-            {
-              "id": "hemo",
-              "label": "Hemodynamics",
-              "icon": "health_hemo"
-            },
-            {
-              "id": "shop",
-              "label": "Supermarket",
-              "icon": "health_shop"
-            },
-            {
-              "id": "dossier",
-              "label": "Dossier",
-              "icon": "health_dossier"
-            },
-            {
-              "id": "workout",
-              "label": "Workout plan",
-              "icon": "ic_gym"
-            }
-          ],
-          "groups": [
-            {
-              "id": "trackers",
-              "label": "Trackers",
-              "icon": "monitor_heart",
-              "pages": [
-                "tracked",
-                "activities",
-                "bodycomp",
-                "hr",
-                "sleep"
-              ]
-            },
-            {
-              "id": "plan",
-              "label": "Plan",
-              "icon": "health_timeline",
-              "pages": [
-                "home",
-                "bio",
-                "circadian",
-                "biomarkers",
-                "timeline",
-                "objectives",
-                "matrix",
-                "culinary",
-                "clash",
-                "thermal",
-                "hemo",
-                "shop",
-                "dossier",
-                "workout"
-              ]
-            }
-          ]
-        },
-        {
-          "migration": {
-            "store": "experiences_user",
-            "legacy": {
-              "done": "_done",
-              "todo": "_todo"
-            },
-            "field": "category",
-            "by_value": {
-              "🌐 Travel": "geo"
-            },
-            "default": "endurance",
-            "rename": {
-              "geo": {
-                "place": "country"
-              }
-            }
-          },
-          "id": "experiences",
-          "label": "Experiences",
-          "icon": "ic_nav_achieves",
-          "pages": [
-            {
-              "id": "work",
-              "label": "Work",
-              "icon": "ic_nav_work"
-            },
-            {
-              "id": "study",
-              "label": "Study",
-              "icon": "ic_nav_study",
+              "id": "pers-profiles",
+              "label": "Profiles",
+              "icon": "ic_p_identities",
               "pages": [
                 {
-                  "id": "cv",
-                  "label": "CV",
-                  "icon": "ic_p_cv"
+                  "id": "personal",
+                  "label": "Personal",
+                  "icon": "ic_p_identities"
                 },
                 {
-                  "id": "roadmap",
-                  "label": "Roadmap",
-                  "icon": "ic_p_roadmap"
+                  "id": "instagram",
+                  "label": "Instagram",
+                  "icon": "ic_p_identities"
+                },
+                {
+                  "id": "social",
+                  "label": "Social",
+                  "icon": "ic_p_identities"
                 }
               ]
             },
             {
+              "id": "health",
+              "label": "Health",
+              "icon": "ic_nav_health",
+              "pages": [
+                {
+                  "id": "trackers",
+                  "label": "Trackers",
+                  "icon": "monitor_heart",
+                  "pages": [
+                    {
+                      "id": "tracked",
+                      "label": "Tracked",
+                      "icon": "monitor_heart"
+                    },
+                    {
+                      "id": "activities",
+                      "label": "Activities",
+                      "icon": "ic_p_health_activity"
+                    },
+                    {
+                      "id": "bodycomp",
+                      "label": "Body comp",
+                      "icon": "ic_p_health_body"
+                    },
+                    {
+                      "id": "hr",
+                      "label": "HR & HRV",
+                      "icon": "ic_p_health_vitals"
+                    },
+                    {
+                      "id": "sleep",
+                      "label": "Sleep",
+                      "icon": "ic_p_health_sleep"
+                    }
+                  ]
+                },
+                {
+                  "id": "plan",
+                  "label": "Plan",
+                  "icon": "health_timeline",
+                  "pages": [
+                    {
+                      "id": "home",
+                      "label": "Index",
+                      "icon": "home"
+                    },
+                    {
+                      "id": "bio",
+                      "label": "Anthropometrics",
+                      "icon": "health_bio"
+                    },
+                    {
+                      "id": "circadian",
+                      "label": "Circadian",
+                      "icon": "health_circadian"
+                    },
+                    {
+                      "id": "biomarkers",
+                      "label": "Biomarkers",
+                      "icon": "health_biomarkers"
+                    },
+                    {
+                      "id": "timeline",
+                      "label": "Timeline",
+                      "icon": "timeline"
+                    },
+                    {
+                      "id": "objectives",
+                      "label": "Objectives",
+                      "icon": "health_objectives"
+                    },
+                    {
+                      "id": "matrix",
+                      "label": "Matrix",
+                      "icon": "health_matrix"
+                    },
+                    {
+                      "id": "culinary",
+                      "label": "Culinary",
+                      "icon": "health_culinary"
+                    },
+                    {
+                      "id": "clash",
+                      "label": "Absorption clash",
+                      "icon": "health_clash"
+                    },
+                    {
+                      "id": "thermal",
+                      "label": "Thermal",
+                      "icon": "health_thermal"
+                    },
+                    {
+                      "id": "hemo",
+                      "label": "Hemodynamics",
+                      "icon": "health_hemo"
+                    },
+                    {
+                      "id": "shop",
+                      "label": "Supermarket",
+                      "icon": "health_shop"
+                    },
+                    {
+                      "id": "dossier",
+                      "label": "Dossier",
+                      "icon": "health_dossier"
+                    },
+                    {
+                      "id": "workout",
+                      "label": "Workout plan",
+                      "icon": "ic_gym"
+                    }
+                  ]
+                },
+                {
+                  "id": "health-profile",
+                  "label": "Record",
+                  "icon": "ic_nav_health"
+                }
+              ]
+            },
+            {
+              "id": "astro",
+              "label": "Astro",
+              "icon": "ic_world"
+            },
+            {
+              "id": "dd",
+              "label": "DD",
+              "icon": "ic_nav_buro"
+            },
+            {
               "id": "achieves",
-              "label": "Personal Achieves",
+              "label": "Personal Archives",
               "icon": "ic_nav_achieves",
               "pages": [
                 {
@@ -8028,6 +8243,82 @@
           ]
         },
         {
+          "id": "prof",
+          "label": "Prof",
+          "icon": "ic_nav_work",
+          "groups": [
+            {
+              "id": "profiles",
+              "label": "Profiles",
+              "icon": "badge",
+              "pages": [
+                "prof-profiles"
+              ]
+            },
+            {
+              "id": "companies",
+              "label": "Companies",
+              "icon": "ic_world",
+              "pages": [
+                "leafy",
+                "nexus",
+                "stark"
+              ]
+            }
+          ],
+          "pages": [
+            {
+              "id": "prof-profiles",
+              "label": "Profiles",
+              "icon": "ic_nav_me",
+              "pages": [
+                {
+                  "id": "professional",
+                  "label": "Professional",
+                  "icon": "ic_nav_me"
+                },
+                {
+                  "id": "work",
+                  "label": "Work",
+                  "icon": "ic_nav_work"
+                },
+                {
+                  "id": "study",
+                  "label": "Study",
+                  "icon": "ic_nav_study",
+                  "pages": [
+                    {
+                      "id": "cv",
+                      "label": "CV",
+                      "icon": "ic_p_cv"
+                    },
+                    {
+                      "id": "roadmap",
+                      "label": "Roadmap",
+                      "icon": "ic_p_roadmap"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "leafy",
+              "label": "Leaf.y",
+              "icon": "ic_world"
+            },
+            {
+              "id": "nexus",
+              "label": "Nexus.z",
+              "icon": "ic_world"
+            },
+            {
+              "id": "stark",
+              "label": "Stark.x",
+              "icon": "ic_world"
+            }
+          ]
+        },
+        {
           "id": "tasks",
           "nav_mode": "horizontal_two_rows",
           "label": "Tasks",
@@ -8064,49 +8355,16 @@
           ]
         },
         {
-          "id": "socials",
-          "label": "Socials",
-          "icon": "ic_nav_me",
-          "pages": [
-            {
-              "id": "socials-professional",
-              "label": "Professional",
-              "icon": "ic_nav_me"
-            },
-            {
-              "id": "socials-personal",
-              "label": "Personal",
-              "icon": "ic_p_identities"
-            }
-          ]
-        },
-        {
-          "id": "lnktree",
+          "id": "proj",
           "nav_mode": "horizontal_two_rows",
-          "label": "Lnktree",
-          "icon": "ic_nav_me",
+          "label": "Proj",
+          "icon": "ic_link_tile",
           "groups": [
             {
-              "id": "prof",
-              "label": "Prof",
-              "icon": "badge",
+              "id": "lnktree",
+              "label": "Lnktree",
+              "icon": "ic_link_tile",
               "pages": [
-                "professional",
-                "leafy",
-                "nexus",
-                "stark"
-              ]
-            },
-            {
-              "id": "pers",
-              "label": "Pers",
-              "icon": "person",
-              "pages": [
-                "personal",
-                "social",
-                "health",
-                "dd",
-                "astro",
                 "lnktree-site"
               ]
             },
@@ -8126,57 +8384,9 @@
           ],
           "pages": [
             {
-              "id": "professional",
-              "label": "Professional",
-              "icon": "ic_nav_me"
-            },
-            {
-              "id": "leafy",
-              "label": "Leaf.y",
-              "icon": "ic_world",
-              "separator_before": true
-            },
-            {
-              "id": "nexus",
-              "label": "Nexus.z",
-              "icon": "ic_world"
-            },
-            {
-              "id": "stark",
-              "label": "Stark.x",
-              "icon": "ic_world"
-            },
-            {
-              "id": "personal",
-              "label": "Personal",
-              "icon": "ic_p_identities"
-            },
-            {
-              "id": "social",
-              "label": "Social",
-              "icon": "ic_p_identities"
-            },
-            {
-              "id": "health",
-              "label": "Health",
-              "icon": "ic_nav_health",
-              "separator_before": true
-            },
-            {
-              "id": "dd",
-              "label": "DD",
-              "icon": "ic_nav_buro"
-            },
-            {
-              "id": "astro",
-              "label": "Astro",
-              "icon": "ic_world"
-            },
-            {
               "id": "lnktree-site",
               "label": "Lnktree",
-              "icon": "ic_link_tile",
-              "separator_before": true
+              "icon": "ic_link_tile"
             },
             {
               "id": "area-unix",
@@ -8661,6 +8871,16 @@
           "toolbar": true,
           "pages": [
             {
+              "id": "nav",
+              "label": "Navigation",
+              "icon": "navigation"
+            },
+            {
+              "id": "apps",
+              "label": "Apps",
+              "icon": "apps"
+            },
+            {
               "id": "general",
               "label": "General",
               "icon": "settings"
@@ -8674,16 +8894,6 @@
               "id": "about",
               "label": "About",
               "icon": "info"
-            },
-            {
-              "id": "nav",
-              "label": "Navigation",
-              "icon": "navigation"
-            },
-            {
-              "id": "apps",
-              "label": "Apps",
-              "icon": "apps"
             }
           ]
         }
@@ -8703,11 +8913,11 @@
       "wasm": "cloud-browser",
       "default_section": "browser",
       "bottom_nav": [
-        "weby",
-        "cloudy",
-        "browser",
+        "domains",
         "tabs",
-        "domains"
+        "browser",
+        "cloudy",
+        "weby"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -8751,24 +8961,24 @@
           "icon": "cloud",
           "pages": [
             {
+              "id": "webapps",
+              "label": "WebApps",
+              "icon": "apps"
+            },
+            {
               "id": "gh_pages",
               "label": "GH Pages",
               "icon": "public"
             },
             {
-              "id": "webserver",
-              "label": "Local Webserver",
-              "icon": "dns"
+              "id": "local",
+              "label": "Local",
+              "icon": "folder_open"
             },
             {
-              "id": "private_urls",
-              "label": "Cloudy Private URLs",
-              "icon": "lock"
-            },
-            {
-              "id": "public_urls",
-              "label": "Cloudy Public URLs",
-              "icon": "language"
+              "id": "c3_urls",
+              "label": "C3",
+              "icon": "link"
             }
           ]
         },
@@ -8810,21 +9020,6 @@
           "icon": "configs",
           "pages": [
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "security"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
-            },
-            {
               "id": "sites",
               "label": "Sites",
               "icon": "public"
@@ -8853,6 +9048,21 @@
               "id": "gpu",
               "label": "GPU",
               "icon": "language"
+            },
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "security"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
             }
           ]
         }
@@ -9423,6 +9633,16 @@
           "icon": "ic_settings",
           "pages": [
             {
+              "id": "build",
+              "label": "Build",
+              "icon": "ic_code"
+            },
+            {
+              "id": "plugins",
+              "label": "Plugins",
+              "icon": "ic_code"
+            },
+            {
               "id": "general",
               "label": "General",
               "icon": "ic_settings"
@@ -9436,16 +9656,6 @@
               "id": "about",
               "label": "About",
               "icon": "info"
-            },
-            {
-              "id": "build",
-              "label": "Build",
-              "icon": "ic_code"
-            },
-            {
-              "id": "plugins",
-              "label": "Plugins",
-              "icon": "ic_code"
             }
           ]
         }
@@ -9592,24 +9802,6 @@
           "icon": "settings",
           "pages": [
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings",
-              "pages": []
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "verified_user",
-              "pages": []
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info",
-              "pages": []
-            },
-            {
               "id": "server",
               "label": "Server",
               "icon": "dns",
@@ -9632,6 +9824,30 @@
               "label": "Links",
               "icon": "link",
               "pages": []
+            },
+            {
+              "id": "fleet_token",
+              "label": "Fleet token",
+              "icon": "key",
+              "pages": []
+            },
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings",
+              "pages": []
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "verified_user",
+              "pages": []
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info",
+              "pages": []
             }
           ]
         }
@@ -9644,7 +9860,7 @@
       "name": "Cloud Media Center",
       "label": "Media Center",
       "icon": "ic_music",
-      "group": "Services",
+      "group": "Services · Leisure",
       "category": "android",
       "description": "The fleet's media hub, as an APK, in Rust and static web only: a Tauri 2 app whose one webview shows seven mobile-first pages — music, videos, gallery, books, feed, movies, documentaries — built from the media data of diegonmarcos.github.io pinned at one commit. Every link out goes to the phone's own apps through tauri-plugin-opener.",
       "kind": "portal",
@@ -9792,7 +10008,7 @@
         "objects",
         "photo",
         "video",
-        "vr"
+        "scanner"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -9851,6 +10067,12 @@
           "id": "vr",
           "label": "VR",
           "icon": "vr",
+          "pages": []
+        },
+        {
+          "id": "scanner",
+          "label": "Scanner",
+          "icon": "scanner",
           "pages": []
         }
       ]
@@ -10103,7 +10325,7 @@
       "bottom_nav": [
         "calculator",
         "sheet",
-        "ai",
+        "home",
         "measure",
         "toolkit"
       ],
@@ -10138,7 +10360,8 @@
                 "datetime",
                 "sound",
                 "finance",
-                "graph"
+                "graph",
+                "ask"
               ]
             }
           ],
@@ -10185,6 +10408,11 @@
               "id": "graph",
               "label": "Graph",
               "icon": "chart"
+            },
+            {
+              "id": "ask",
+              "label": "Ask Jev",
+              "icon": "ask"
             }
           ]
         },
@@ -10201,19 +10429,113 @@
           ]
         },
         {
-          "id": "ai",
-          "label": "AI",
-          "icon": "auto_awesome",
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
+          "hierarchy": {
+            "nodes": [
+              {
+                "id": "calculations",
+                "label": "Calculations",
+                "icon": "calculate",
+                "children": [
+                  {
+                    "id": "calc",
+                    "label": "Calc",
+                    "icon": "calculate",
+                    "section": "calculator",
+                    "pages": [
+                      "calc",
+                      "latex",
+                      "convert",
+                      "history",
+                      "datetime",
+                      "sound",
+                      "finance",
+                      "graph",
+                      "ask"
+                    ]
+                  },
+                  {
+                    "id": "sheet",
+                    "label": "Sheet",
+                    "icon": "table_chart",
+                    "section": "sheet",
+                    "pages": [
+                      "sheet"
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "toolkit",
+                "label": "Toolkit",
+                "icon": "build",
+                "children": [
+                  {
+                    "id": "measure",
+                    "label": "Measure",
+                    "icon": "speed",
+                    "section": "measure",
+                    "children": [
+                      {
+                        "id": "measure_sound",
+                        "label": "Sound",
+                        "icon": "mic",
+                        "pages": [
+                          "sensors"
+                        ]
+                      },
+                      {
+                        "id": "measure_camera",
+                        "label": "Camera",
+                        "icon": "camera",
+                        "pages": [
+                          "camera"
+                        ]
+                      },
+                      {
+                        "id": "measure_wireless",
+                        "label": "Wireless",
+                        "icon": "wifi",
+                        "pages": [
+                          "wifi",
+                          "bluetooth",
+                          "nfc",
+                          "lfrfid"
+                        ]
+                      },
+                      {
+                        "id": "measure_sensors",
+                        "label": "Sensors",
+                        "icon": "sensors",
+                        "pages": [
+                          "phone"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "tools",
+                    "label": "Tools",
+                    "icon": "build",
+                    "section": "toolkit",
+                    "pages": [
+                      "light",
+                      "recorder",
+                      "tracker",
+                      "clock"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
           "pages": [
             {
-              "id": "ai",
-              "label": "AI",
-              "icon": "auto_awesome"
-            },
-            {
-              "id": "ask",
-              "label": "Ask Jev",
-              "icon": "ask"
+              "id": "home",
+              "label": "Home",
+              "icon": "home"
             }
           ]
         },
@@ -10221,6 +10543,30 @@
           "id": "measure",
           "label": "Measure",
           "icon": "speed",
+          "nav_mode": "horizontal_two_rows",
+          "groups": [
+            {
+              "id": "measure",
+              "label": "Measure",
+              "icon": "speed",
+              "pages": [
+                "sensors",
+                "camera",
+                "phone"
+              ]
+            },
+            {
+              "id": "wireless",
+              "label": "Wireless",
+              "icon": "wifi",
+              "pages": [
+                "wifi",
+                "bluetooth",
+                "nfc",
+                "lfrfid"
+              ]
+            }
+          ],
           "pages": [
             {
               "id": "sensors",
@@ -10261,7 +10607,7 @@
         },
         {
           "id": "toolkit",
-          "label": "Toolkit",
+          "label": "Tools",
           "icon": "build",
           "pages": [
             {
@@ -10307,7 +10653,7 @@
       "name": "Cloud Search",
       "label": "Search",
       "icon": "ic_cloud_search",
-      "group": "Services",
+      "group": "AGI",
       "category": "android",
       "description": "Diego's Cloud Search (#779; renamed Cloud Research in #1162, back to Cloud Search in #1197) - one app for searching, on the shared bottom nav: Scrappers (Site Files, Apify, Cloudflare, SelfHosted; sample rows), Research (Reports of what agents published, the Model catalogue and Agents: #913 draft-only Buy-Side and Sell-Side agents that read your alert mails and pages and write drafts you send yourself), CGC Search (Cloud CGC and Me CGC, each with Semantic and Graph RAG over the public and the private code index), Image, Videos and 3D Models (sample rows); the AI chat over OpenRouter with the major web and AI search engines, plus the fleet's Apps, Messages and Code, is reached from the top bar. News, Shopping and Brokers are gone from the app (#1472; their declaration stays for Cloud KG Store). REAL DATA ONLY: every in-app listing or feed comes from a public API or feed this app is allowed to read (build.json::search.sources, search.feeds), cached on the phone so the last results stay readable offline; a portal whose terms forbid automated access is never fetched - its own search page opens in cloud-browser - and a source that cannot be used says why. The German payslip runs the BMF's own Lohnsteuer PAP 2026 (core/pap, generated into Kotlin by core/tools/pap2kt.py) with the 2026 social-insurance rules, golden-tested against the BMF's calculator. English is the base language (#299); dark is the default theme (#336).",
       "kind": "app",
@@ -10558,9 +10904,8 @@
         "notebook",
         "cgcs",
         "si",
-        "tools",
-        "ais",
-        "cost"
+        "models",
+        "context"
       ],
       "top_bar": null,
       "nav_ui": null,
@@ -10613,20 +10958,20 @@
           ]
         },
         {
-          "id": "tools",
-          "label": "Tools",
+          "id": "models",
+          "label": "Models",
           "icon": "memory",
           "pages": [
+            {
+              "id": "tools_pickers",
+              "label": "Agents",
+              "icon": "smart_toy",
+              "pages": []
+            },
             {
               "id": "tools_models",
               "label": "Models",
               "icon": "psychology",
-              "pages": []
-            },
-            {
-              "id": "tools_pickers",
-              "label": "Agent & Model",
-              "icon": "smart_toy",
               "pages": []
             },
             {
@@ -10636,10 +10981,30 @@
               "pages": []
             },
             {
-              "id": "tools_mcp",
-              "label": "MCP",
-              "icon": "hub",
+              "id": "apis",
+              "label": "API",
+              "icon": "api",
               "pages": []
+            }
+          ],
+          "groups": [
+            {
+              "id": "agents_models_tasks",
+              "label": "Agents, Models, Tasks",
+              "icon": "memory",
+              "pages": [
+                "tools_pickers",
+                "tools_models",
+                "tools_tasks"
+              ]
+            },
+            {
+              "id": "api",
+              "label": "API",
+              "icon": "api",
+              "pages": [
+                "apis"
+              ]
             }
           ]
         },
@@ -10780,46 +11145,60 @@
           ]
         },
         {
-          "id": "ais",
-          "label": "AIs",
+          "id": "context",
+          "label": "Context",
           "icon": "smart_toy",
           "pages": [
-            {
-              "id": "apis",
-              "label": "APIs",
-              "icon": "api",
-              "pages": []
-            },
-            {
-              "id": "mcp",
-              "label": "MCP",
-              "icon": "hub",
-              "pages": []
-            },
-            {
-              "id": "dotfiles",
-              "label": "Dotfiles",
-              "icon": "description",
-              "pages": []
-            },
             {
               "id": "plugins",
               "label": "Plugins",
               "icon": "build",
               "pages": []
-            }
-          ]
-        },
-        {
-          "id": "cost",
-          "label": "Cost",
-          "icon": "payments",
-          "pages": [
+            },
             {
-              "id": "cost",
-              "label": "Cost",
-              "icon": "payments",
+              "id": "mcp_kg",
+              "label": "MCP-KG",
+              "icon": "hub",
               "pages": []
+            },
+            {
+              "id": "mcp",
+              "label": "MCP-Tools",
+              "icon": "hub",
+              "pages": []
+            },
+            {
+              "id": "hooks",
+              "label": "Hooks",
+              "icon": "bolt",
+              "pages": []
+            },
+            {
+              "id": "skills",
+              "label": "Skills",
+              "icon": "description",
+              "pages": []
+            }
+          ],
+          "groups": [
+            {
+              "id": "plugins",
+              "label": "Plugins",
+              "icon": "build",
+              "pages": [
+                "plugins"
+              ]
+            },
+            {
+              "id": "mcp_kg_tools",
+              "label": "MCP, Hooks, Skills",
+              "icon": "hub",
+              "pages": [
+                "mcp_kg",
+                "mcp",
+                "hooks",
+                "skills"
+              ]
             }
           ]
         },
@@ -10857,7 +11236,7 @@
       "name": "Cloud KG Store",
       "label": "KG Store",
       "icon": "ic_kgs",
-      "group": "Services",
+      "group": "AGI",
       "category": "android",
       "description": "Cloud KG Store (#1207) - the fleet's knowledge-graph store and browser, three sections on the bottom nav: Cloud (two rows of groups: Application = Binary, Web/Debug, MCP search tools, API Data and API Debug with GET and POST; Repo = Code, CGC, MCP search tools, API Semantic and GraphRAG; every page is backed by the fleet endpoints declared in ac_cloud-account/build.json::fleet_endpoints - c3-infra-api, cloud-me-api, c3-public-api, the two CGC MCP services and embeddings-api - and says plainly when an endpoint is missing or does not answer), Phone (the installed Android apps index through PackageManager: package, version, permissions and components) and Web (News, Media, Shopping, Real Estate, Jobs, Business, on the sources and parsers Cloud Search declares: its build.json::search is baked by reference and its plain-JVM search-core is linked by reference, nothing is copied). The assistant behind the top bar's AI icon is libs:ai's chat over the fleet agent gateway (mesh only); no token is held or read by this app for it (decisions-use guard D5), and the fleet bearer for the public fallback route is read from Cloud Account on use and never kept. Dark is the default theme (#336); English is the base language (#299).",
       "kind": "app",
@@ -11316,6 +11695,11 @@
               "icon": "android"
             },
             {
+              "id": "search-games",
+              "label": "Games",
+              "icon": "games"
+            },
+            {
               "id": "search-torrent",
               "label": "Torrent",
               "icon": "torrent"
@@ -11333,6 +11717,11 @@
           "label": "Access",
           "icon": "access",
           "pages": [
+            {
+              "id": "mesh",
+              "label": "Apps Mesh",
+              "icon": "lan"
+            },
             {
               "id": "mcp",
               "label": "MCP (device)",
@@ -11947,21 +12336,6 @@
           "icon": "settings",
           "pages": [
             {
-              "id": "general",
-              "label": "General",
-              "icon": "settings"
-            },
-            {
-              "id": "perms",
-              "label": "Perms",
-              "icon": "lock"
-            },
-            {
-              "id": "about",
-              "label": "About",
-              "icon": "info"
-            },
-            {
               "id": "drive",
               "label": "Drive",
               "icon": "folder"
@@ -11985,6 +12359,21 @@
               "id": "webserver",
               "label": "Webserver",
               "icon": "dns"
+            },
+            {
+              "id": "general",
+              "label": "General",
+              "icon": "settings"
+            },
+            {
+              "id": "perms",
+              "label": "Perms",
+              "icon": "lock"
+            },
+            {
+              "id": "about",
+              "label": "About",
+              "icon": "info"
             }
           ]
         }
@@ -12056,7 +12445,7 @@
       "icon": "ic_p_markets_terminal",
       "group": "Projects",
       "category": "android",
-      "description": "Capital-Stack-FinTerminal: the Capital area's capital-markets terminal as an Android app behind the SuperApp's Cloud > Lnktree row. Six tabs on the shared bottom nav, FI | EQ | EX | NW | PM | MY-PM, each entry a dashboard drawn from a DECLARED source (data/sources.json): Cloud-Fincept / fin_api on the private mesh first (with a Start / Stop / Restart control for its container), the key-free public sources (FRED, DBnomics, IMF, World Bank, GDELT) as fallback, and dashed placeholders where a source needs a key you add in Config > Sources (stored encrypted on the phone). MY-PM is a simple local holdings list. Every figure shown is what its source returned, with its date and attribution.",
+      "description": "Capital-Stack-FinTerminal: the Capital area's capital-markets terminal as an Android app behind the SuperApp's Cloud > Lnktree row. Six tabs on the shared bottom nav, FI | EQ | EX | NW | PM | MARKZ (formerly MY-PM), each entry a dashboard drawn from a DECLARED source (data/sources.json): Cloud-Fincept / fin_api on the private mesh first (with a Start / Stop / Restart control for its container), the key-free public sources (FRED, DBnomics, IMF, World Bank, GDELT) as fallback, and dashed placeholders where a source needs a key you add in Config > Sources (stored encrypted on the phone). MARKZ (#1832, formerly MY-PM) is the owner's portfolio-returns page (the after-inflation and after-tax sensitivity matrix, the Markovitz analysis and its substeps, data/markz.json) with the simple local holdings list. Every figure shown is what its source returned, with its date and attribution.",
       "kind": "app",
       "wasm": null,
       "default_section": "cb",
@@ -12067,7 +12456,7 @@
         "nw",
         "pm",
         "hg",
-        "my-pm"
+        "markz"
       ],
       "top_bar": null,
       "nav_ui": {
@@ -12427,20 +12816,65 @@
           ]
         },
         {
-          "id": "my-pm",
-          "label": "MY-PM",
+          "id": "markz",
+          "label": "MARKZ",
           "icon": "wallet",
           "nav_mode": "horizontal_one_row",
           "pages": [
             {
-              "id": "my-pm-home",
+              "id": "markz-home",
               "label": "Home",
               "icon": "home"
+            },
+            {
+              "id": "markz-overview",
+              "label": "Overview",
+              "icon": "dataset"
+            },
+            {
+              "id": "markz-markovitz",
+              "label": "Markovitz",
+              "icon": "timeline"
+            },
+            {
+              "id": "markz-sensy",
+              "label": "Sensy Matrix",
+              "icon": "table_chart"
+            },
+            {
+              "id": "markz-volatility",
+              "label": "Volatility",
+              "icon": "speed"
+            },
+            {
+              "id": "markz-beta",
+              "label": "Beta",
+              "icon": "trending_up"
+            },
+            {
+              "id": "markz-capm",
+              "label": "CAPM Calculator",
+              "icon": "payments"
+            },
+            {
+              "id": "markz-correlation",
+              "label": "Correlation",
+              "icon": "apps"
+            },
+            {
+              "id": "markz-optimization",
+              "label": "Optimization",
+              "icon": "rocket_launch"
             },
             {
               "id": "holdings",
               "label": "Personal portfolio",
               "icon": "wallet"
+            },
+            {
+              "id": "markz-index",
+              "label": "Index",
+              "icon": "bar_chart"
             }
           ]
         },
