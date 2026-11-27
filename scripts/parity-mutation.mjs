@@ -5,4 +5,7 @@ import { spawnSync } from 'node:child_process';
 const r = spawnSync('npx', ['vitest', 'run', 'scripts/webapps-parity.test.ts'], { env: { ...process.env, PARITY_MUTATE: '1' }, encoding: 'utf8' });
 if (r.status === 0) { console.error('FAIL: the mutated parity run was GREEN, the guard is blind'); process.exit(1); }
 if (!/lost without a declared reason|differs|Cloud page/.test(r.stdout + r.stderr)) { console.error('FAIL: red for the wrong reason\n' + (r.stdout + r.stderr).slice(-1500)); process.exit(1); }
+for (const part of ['search bar missing', 'All Apps section missing', 'Smart Folders section missing']) {
+  if (!(r.stdout + r.stderr).includes(part)) { console.error(`FAIL: no mutation went red for: ${part}`); process.exit(1); }
+}
 console.log('ok: parity mutation is RED as required');

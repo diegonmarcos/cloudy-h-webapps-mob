@@ -37,3 +37,15 @@ export function checkAppPage(declGroups, siteGroups) {
   a.forEach((g, i) => { if (g !== b[i]) bad.push(`group ${i} differs: site "${b[i]}" vs declared "${g}"`); });
   return bad;
 }
+
+/** The three parts of SuperApp Cloud > App the site must draw besides the groups (#1958b): the search bar, All Apps (every declared
+ *  app group, from the same declaration) and Smart Folders > Recently Used (with its empty-state line). `src` is the source of
+ *  packages/cloudy-ui/src/shell/Tiles.svelte, the one renderer of the page. Returns problems. */
+export function checkAppParts(declGroups, src) {
+  const bad = [];
+  if (!/data-testid="app-search"/.test(src) || !/placeholder="Search"/.test(src) || !/needle/.test(src)) bad.push('search bar missing: the site Cloud > App page has no working Search field');
+  if (!/data-testid="all-apps"/.test(src) || !/>All Apps</.test(src) || !/appGroups\.?/.test(src) || !/data-apps-group/.test(src)) bad.push('All Apps section missing: the site Cloud > App page does not draw every declared group as apps');
+  if (!/data-testid="smart-folders"/.test(src) || !/>Smart Folders</.test(src) || !/>Recently Used</.test(src) || !/Open a few Cloud tiles and they'll show up here/.test(src)) bad.push('Smart Folders section missing: Recently Used (and its empty-state line) is not drawn');
+  if (!declGroups.some((g) => g.title !== 'Actions' && g.tiles.length)) bad.push('All Apps would be empty: the declaration has no app groups');
+  return bad;
+}

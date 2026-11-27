@@ -50,3 +50,14 @@ test('?embed=1 home draws every declared group and tile in order, then Actions',
   expect(drawn.map((g) => g.title)).toEqual([...cloudGroups.map((g) => g.title), 'Actions']);
   cloudGroups.forEach((g, i) => expect(drawn[i].tiles).toEqual(g.tiles.filter((t) => !t.separator).map((t) => t.label)));
 });
+
+// #1958b the App page's search bar, All Apps and Smart Folders are on the site (embed and standalone draw the same grid).
+test('?embed=1 home has the search bar (filters), All Apps and Smart Folders', async ({ page }) => {
+  await page.goto(`${BASE}/?embed=1`);
+  await expect(page.locator('.embed-apps [data-testid="app-search"]')).toBeVisible();
+  await expect(page.locator('.embed-apps [data-testid="all-apps"] [data-app]').first()).toBeVisible();
+  await expect(page.locator('.embed-apps [data-testid="smart-folders"]')).toContainText('Recently Used');
+  await expect(page.locator('.embed-apps [data-testid="recent-empty"]')).toBeVisible();
+  await page.locator('.embed-apps [data-testid="app-search"]').fill('zzzz-no-such-app');
+  await expect(page.locator('.embed-apps [data-group]')).toHaveCount(0);
+});

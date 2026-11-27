@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 // @ts-expect-error plain JS module shared with the mutation script
-import { checkParity, checkAppPage } from './lib/parity.mjs';
+import { checkParity, checkAppPage, checkAppParts } from './lib/parity.mjs';
 
 // #1958 (rule 16): the site mirrors SuperApp Cloud > App; every app the App page shows appears on the site, and nothing the site had
 // before is gone unless data/parity-declared-drops.json says why. PARITY_MUTATE=1 (the CI mutation step) breaks the current data on
@@ -23,6 +23,10 @@ if (process.env.PARITY_MUTATE === '1') {
   navSlugs = navSlugs.filter((s) => s !== 'cloud-mail');
   pages = pages.slice(1);
 }
+let tilesSrc = readFileSync(join(root, 'packages/cloudy-ui/src/shell/Tiles.svelte'), 'utf8');
+if (process.env.PARITY_MUTATE === '1') {   // one mutation per new part: no search bar, no All Apps, no Smart Folders
+  tilesSrc = tilesSrc.replace('data-testid="app-search"', '').replace('data-testid="all-apps"', '').replace('data-testid="smart-folders"', '');
+}
 const tiles = groups.flatMap((g) => g.tiles.filter((t) => !t.separator).map((t) => ({ group: g.title, id: t.id!, label: t.label! })));
 
 describe('webapps parity (#1958)', () => {
@@ -37,6 +41,9 @@ describe('webapps parity (#1958)', () => {
     const slug = (t: string) => { const m = /^extapp:([a-z0-9-]+)/.exec(t); return m ? ({ 'cloud-media-center': 'cloud-media', 'cloud-terminal-nix': 'cloud-terminal' } as Record<string, string>)[m[1]] ?? m[1] : null; };
     const want = new Set(groups.flatMap((g) => g.tiles).map((t: any) => (t.target ? slug(t.target) : null)).filter(Boolean));
     for (const s of want) expect(navSlugs, `${s}`).toContain(s);
+  });
+  it('the site draws the search bar, All Apps and Smart Folders of the App page', () => {
+    expect(checkAppParts(groups, tilesSrc)).toEqual([]);
   });
   it('the Actions row (circular menu) is declared and drawn after the groups', () => {
     expect(nav.superapp.circular_actions.length).toBeGreaterThan(0);
