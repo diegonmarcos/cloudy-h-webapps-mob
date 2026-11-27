@@ -12576,7 +12576,16 @@
           "needs_clone": "Needs a local clone: clone the repository first.",
           "submodules": "The in-process engine (JGit) has no recursive submodule fetch or push.",
           "hosting": "Needs a signed-in GitHub token.",
-          "rebase_winner": "A rebase has no per-file ours/theirs pick in the engine; use Merge."
+          "rebase_winner": "A rebase has no per-file ours/theirs pick in the engine; use Merge.",
+          "single_view": "Reads or opens one repository: the bulk Overview shows the aggregated counts and its own check actions.",
+          "per_repo_list": "One repository's remote list: open the repository to see it; Remote facts refreshes every repository.",
+          "per_repo_panel": "A panel of one repository (hooks, settings, origin repair): open the repository.",
+          "per_repo_confirm": "Names one repository's folder or remote (rename, archive, delete local) and asks about its own dirty state: done one repository at a time.",
+          "no_selection": "No repository is selected: pick repositories under Selected Ones.",
+          "no_cloned": "No repository in this scope is cloned.",
+          "all_cloned": "Every repository in this scope is already cloned.",
+          "skipped_not_cloned": "needs a local clone",
+          "run_busy": "A bulk run is in progress."
         },
         "reasons_i18n": {
           "es": {
@@ -12586,7 +12595,16 @@
             "needs_clone": "Necesita un clon local: clona primero el repositorio.",
             "submodules": "El motor en proceso (JGit) no soporta submódulos recursivos.",
             "hosting": "Necesita un token de GitHub con sesión iniciada.",
-            "rebase_winner": "Un rebase no tiene elección por archivo en el motor; usa Merge."
+            "rebase_winner": "Un rebase no tiene elección por archivo en el motor; usa Merge.",
+            "single_view": "Lee o abre un repositorio: el Resumen masivo muestra los conteos agregados y sus propias comprobaciones.",
+            "per_repo_list": "Lista remota de un repositorio: abre el repositorio; Datos remotos actualiza todos.",
+            "per_repo_panel": "Panel de un repositorio (hooks, ajustes, reparar origin): abre el repositorio.",
+            "per_repo_confirm": "Nombra la carpeta o el remoto de un repositorio (renombrar, archivar, borrar local) y pregunta por su propio estado sucio: se hace de uno en uno.",
+            "no_selection": "Ningun repositorio seleccionado: elige repositorios en Los seleccionados.",
+            "no_cloned": "Ningun repositorio de este alcance esta clonado.",
+            "all_cloned": "Todos los repositorios de este alcance ya estan clonados.",
+            "skipped_not_cloned": "necesita un clon local",
+            "run_busy": "Hay una ejecucion masiva en curso."
           }
         },
         "bulk": {
@@ -13411,7 +13429,144 @@
               ]
             }
           ],
-          "confirm_lists_repos": true
+          "confirm_lists_repos": true,
+          "scopes": [
+            {
+              "id": "all",
+              "label": "All Repos",
+              "i18n": {
+                "es": "Todos los repos"
+              }
+            },
+            {
+              "id": "selected",
+              "label": "Selected Ones",
+              "i18n": {
+                "es": "Los seleccionados"
+              }
+            },
+            {
+              "id": "cloned",
+              "label": "Cloned Ones",
+              "i18n": {
+                "es": "Los clonados"
+              }
+            }
+          ],
+          "concurrency": 3,
+          "twins": {
+            "hd.fetch_status": "bo.fetch_status",
+            "hd.check_lite": "bo.check_lite",
+            "hd.check_full": "bo.check_full",
+            "hd.refresh": "bo.refresh_list",
+            "sy.preview": "bo.sync.preview",
+            "sy.run": "bo.sync.run",
+            "cl.preview": "bo.clone.preview",
+            "cl.run": "bo.clone.run",
+            "wf.status": "bo.wf.status",
+            "wf.unpushed": "bo.wf.unpushed",
+            "wf.output": "bo.wf.output"
+          },
+          "per_repo_only": {
+            "hd.repo_list": "single_view",
+            "hd.name": "single_view",
+            "hd.visibility": "single_view",
+            "hd.summary": "single_view",
+            "hd.clone_state": "single_view",
+            "hd.close": "single_view",
+            "hd.not_cloned": "single_view",
+            "hd.clone_now": "single_view",
+            "ov.state_light": "single_view",
+            "ov.cloned": "single_view",
+            "ov.divergence": "single_view",
+            "ov.dirty": "single_view",
+            "ov.detached": "single_view",
+            "ov.unpushed": "single_view",
+            "ov.branch": "single_view",
+            "ov.files": "single_view",
+            "ov.conflicts": "single_view",
+            "ov.checked": "single_view",
+            "ov.last_fetch": "single_view",
+            "ov.last_error": "single_view",
+            "ov.working_copy": "single_view",
+            "ov.remote_state": "single_view",
+            "ov.last_sync_job": "single_view",
+            "ov.large": "single_view",
+            "ov.message": "single_view",
+            "ov.debug_line": "single_view",
+            "ov.depth_outcome": "single_view",
+            "ov.check_worktree": "single_view",
+            "ov.readonly_note": "single_view",
+            "ov.goto.web": "single_view",
+            "ov.goto.copy_url": "single_view",
+            "ov.goto.folder": "single_view",
+            "ov.goto.branches": "single_view",
+            "ov.goto.checkout_main": "single_view",
+            "ov.meta.autosync_state": "single_view",
+            "ov.meta.name": "single_view",
+            "ov.meta.owner": "single_view",
+            "ov.meta.remote_url": "single_view",
+            "ov.meta.copy_remote": "single_view",
+            "ov.meta.local_path": "single_view",
+            "ov.meta.visibility": "single_view",
+            "ov.meta.provider": "single_view",
+            "ov.meta.lfs": "single_view",
+            "ov.meta.default_branch": "single_view",
+            "ov.meta.upstream": "single_view",
+            "ov.meta.clone_profile": "single_view",
+            "ov.meta.last_commit": "single_view",
+            "ov.meta.remote_size": "single_view",
+            "ov.meta.size_disk": "single_view",
+            "ov.meta.branches_tags": "single_view",
+            "ov.meta.auth_autosync": "single_view",
+            "ov.meta.last_sync": "single_view",
+            "wf.prs": "per_repo_list",
+            "wf.actions": "per_repo_list",
+            "wf.runs": "per_repo_list",
+            "mg.tools.hooks": "per_repo_panel",
+            "mg.tools.settings": "per_repo_panel",
+            "mg.tools.fix_origin": "per_repo_panel",
+            "mg.auth.remote": "per_repo_panel",
+            "mg.life.rename": "per_repo_confirm",
+            "mg.life.rename_remote": "per_repo_confirm",
+            "mg.life.archive": "per_repo_confirm",
+            "mg.life.delete_local": "per_repo_confirm"
+          },
+          "actions": {
+            "stash": "compound:stash",
+            "stash_pop": "compound:stash_pop",
+            "pull_rebase": "compound:pull_rebase",
+            "auto_commit": "compound:auto_commit",
+            "commit": "compound:auto_commit",
+            "solve_conflicts": "top:open_conflicts",
+            "list_conflicts": "top:open_conflicts",
+            "unpushed": "top:check_light",
+            "stats": "top:check_full",
+            "list_dirty": "top:check_full",
+            "history": "top:open_logs",
+            "metadata": "top:check_remote",
+            "meta_branch": "top:check_remote",
+            "meta_sync": "top:check_remote",
+            "size": "top:check_sizes",
+            "fetch_status": "top:fetch_status",
+            "check_light": "top:check_light",
+            "check_full": "top:check_full",
+            "test_auth": "plan:test_auth",
+            "remote_mode:https": "remote_mode",
+            "remote_mode:ssh": "remote_mode",
+            "remote_mode:readonly": "remote_mode",
+            "archive_remote": "hosting:archive",
+            "delete_remote": "hosting:delete_remote",
+            "clean_1": "depth:keep_repo_depth1:1",
+            "clean_5": "depth:keep_repo_depth1:5",
+            "clean_10": "depth:keep_repo_depth1:10",
+            "keep_repo_depth1": "depth:keep_repo_depth1:1",
+            "clone_oauth": "global:clone_oauth",
+            "clone_ssh": "global:clone_ssh",
+            "autosync_toggle": "autosync",
+            "autosync_every": "autosync",
+            "copy_preview": "copy"
+          }
         }
       },
       "sync": {

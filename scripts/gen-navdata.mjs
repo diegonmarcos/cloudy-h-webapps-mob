@@ -37,7 +37,7 @@ const SHELL_KEYS = ['default_section', 'bottom_nav', 'sections', 'main_menu', 'h
   'swipe_walk', 'home_actions', 'dynamic_island_action', 'notification_center', 'floating_nav', 'app_tabs', 'search_scopes', 'retired_tile_ids'];
 const superapp = pick(ui, SHELL_KEYS);
 // Cloud > App draws the star's Actions ring after the declared groups (GroupedTilesFragment.starActions = build.json circular_menu.actions)
-superapp.circular_actions = (saBuild.circular_menu?.actions ?? []).map((a) => ({ label: a.label, target: a.target }));
+superapp.circular_actions = (saBuild.onehand?.circular_menu?.actions ?? []).map((a) => ({ label: a.label, target: a.target }));
 superapp.external_apps = (ui.external_apps ?? []).map((e) => pick(e, ['id', 'folder', 'hub_package', 'install_package', 'site']));
 // kind=entry stack panels (Cloud > Lnktree pages, #1331) name a DECLARED source, never a URL; the web page needs the URL, so it is
 // resolved here exactly the way LnktreeTargets.kt resolves it on the phone: `site` = the single linktree.json link of that label,

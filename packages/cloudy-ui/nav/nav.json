@@ -5867,7 +5867,36 @@
     "retired_tile_ids": {
       "cloud/ai-tlg-claude": "cloud/ai-chat"
     },
-    "circular_actions": [],
+    "circular_actions": [
+      {
+        "label": "Search",
+        "target": "action:open_search"
+      },
+      {
+        "label": "Contact Me",
+        "target": "https://linktree.diegonmarcos.com/qrcode.html"
+      },
+      {
+        "label": "AI",
+        "target": "intent://resolve?domain=Cloud_agent_hermes_bot#Intent;scheme=tg;package=org.telegram.messenger;S.browser_fallback_url=https%3A%2F%2Ft.me%2FCloud_agent_hermes_bot;end"
+      },
+      {
+        "label": "Take a Pic",
+        "target": "action:open_camera"
+      },
+      {
+        "label": "Screenshots",
+        "target": "action:open_screenshots"
+      },
+      {
+        "label": "Tabs",
+        "target": "page:apptabs/grid"
+      },
+      {
+        "label": "Drive",
+        "target": "app:com.diegonmarcos.clouddrive"
+      }
+    ],
     "external_apps": [
       {
         "id": "cloud-dialer",
