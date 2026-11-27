@@ -4406,10 +4406,10 @@
           },
           {
             "id": "kde",
-            "label": "Fleet Control",
+            "label": "Peer Control",
             "icon": "ic_hub",
             "settings": [
-              "Peer Control"
+              "Fleet Control"
             ],
             "group": "C3",
             "subgroup": ""
