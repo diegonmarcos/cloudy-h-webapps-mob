@@ -24,8 +24,8 @@
     { "prefix": "cloud-me/proj/lnktree-site/", "reason": "#1930/#1956 Lnktree is its own folder of Cloud Me (cloud-me/lnktree/lt-lnktree-site/)" },
     { "prefix": "cloud-gallery/timeline/", "reason": "no longer declared in ac_cloud-gallery build.json ui.sections" },
     { "prefix": "cloud-c3/containers/", "reason": "per-project container pages (capital, cg, cloud_me, cloudy, hardtech, others) no longer declared in ac_cloud-c3 build.json ui.sections; containers/all stays" },
-    { "prefix": "cloud-c3/observ/", "reason": "no longer declared in ac_cloud-c3 build.json ui.sections" },
-    { "prefix": "cloud-c3/ops/orch/", "reason": "no longer declared in ac_cloud-c3 build.json ui.sections" },
+    { "prefix": "cloud-c3/observ/", "reason": "the observ section left ac_cloud-c3 build.json; Observability is ops/obs (old stub c3-observability now redirects to /cloudy-c3/ops/obs/)" },
+    { "prefix": "cloud-c3/ops/orch/", "reason": "Orchestration became its own ac_cloud-c3 section (cloud-c3/orch/, with Dagu, GH Releases and GHCR added)" },
     { "prefix": "cloud-c3/ops/mail/mail_map/", "reason": "no longer declared in ac_cloud-c3 build.json ui.sections" }
   ]
 }

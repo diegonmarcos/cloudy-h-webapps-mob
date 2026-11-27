@@ -58,7 +58,7 @@ export const STUB_RENAMES = {
   'c3-dns-routing': '/cloudy-c3/ops/net/net_dns/',
   'c3-mail': '/cloud-webapps/cloud-mail/',
   'c3-mcp-apis': '/cloudy-c3/portal/mcp/',
-  'c3-observability': '/cloudy-c3/observ/',
+  'c3-observability': '/cloudy-c3/ops/obs/',
   'c3-security-network': '/cloudy-c3/portal/architecture/',
   'cloud-media': '/cloud-webapps/cloud-media-center/',
   'cloud-superapp': '/cloud-webapps/',
