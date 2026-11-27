@@ -17,6 +17,14 @@
     { "id": "lnktree", "reason": "#1930 the Linktree pane left the Cloud strip (App | WebApps | Setup); its id is a page alias of apps (targets.json page:cloud/lnktree -> cloud/apps/, old URL redirect in SA_RENAMES)" }
   ],
   "routes": [
+    {
+      "prefix": "cloud-tasks/library/",
+      "reason": "#1964 Cloud Tasks opens on Home and Library lives under Home (cloud-tasks/home/library/; ac_cloud-tasks build.json)"
+    },
+    {
+      "prefix": "cloud-tasks/tasks/clock/",
+      "reason": "#1964 Clock is its own page of Cloud Tasks (cloud-tasks/clock/clock/; ac_cloud-tasks build.json)"
+    },
     { "prefix": "cloud/lnktree/", "reason": "#1930 page alias of cloud/apps/ (target and old-URL redirect keep the link alive)" },
     { "prefix": "cloud-me/pers/pers-profiles/", "reason": "#1956 Me-Pers pages reorganised; social profiles moved into the Me row (ac_cloud-me build.json no longer declares these pages)" },
     { "prefix": "cloud-me/prof/prof-profiles/", "reason": "#1937 Prof > More removed; Me-Prof targets Prof > Profiles (ac_cloud-me build.json)" },
