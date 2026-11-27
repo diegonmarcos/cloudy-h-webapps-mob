@@ -37,7 +37,8 @@ test('?embed=1 home is the Cloud > Apps grid, and the flag survives a tile click
   await page.goto(`${BASE}/?embed=1`);
   await expect(page.locator(`.embed-apps [data-group="${cloudGroups[0].title}"]`)).toBeVisible();
   await expect(page.getByTestId('home-cube')).toBeHidden();
-  await page.locator('.embed-apps a.tile').first().click();
+  // the first tile that stays inside this site (Navigation now lives in the desktop site, a mesh container opens a new tab)
+  await page.locator(`.embed-apps a.tile[href^="${BASE}/"]:not([target="_blank"])`).first().click();
   await page.waitForLoadState('load');
   expect(await page.evaluate(() => document.documentElement.classList.contains('embed'))).toBe(true);
 });
