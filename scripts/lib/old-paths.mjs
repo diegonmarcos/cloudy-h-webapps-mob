@@ -19,6 +19,7 @@ function nearest(parts, routeSet) {
 export const SA_RENAMES = {
   'browser/': 'cloud-browser/',
   'cloud/c3/': 'c3/',
+  'cloud/lnktree/': 'cloud/apps/',   // #1930 page alias lnktree -> apps
   'communication/cloud-rss/': 'communication/',
   'communication/msgs/': 'boards/msgs/',
   'config/ai/': 'config/agents/',

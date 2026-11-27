@@ -2,6 +2,7 @@
 # Guards: shared nav is current; every c3-* page has parseable mock JSON and no GitHub token handling.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+node scripts/gen-cloud-apps.mjs --check
 node scripts/gen-nav.mjs --check
 node scripts/test-embed.mjs
 # (the c3-* web-only stub pages and their MOCK checks retired with the stub folders, #1320 M7: /cloudy-c3/ has its own tests)

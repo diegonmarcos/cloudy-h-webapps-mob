@@ -43,6 +43,7 @@ jobs:
           node scripts/gen-navdata.mjs --check
           node scripts/gen-icons.mjs --check
           node scripts/gen-app-links.mjs --check
+          node scripts/gen-cloud-apps.mjs --check
           node scripts/gen-phone-apps.mjs --check
           node scripts/gen-finterm.mjs --check
       - name: Portal probe (declared embeddable == what each vendor site allows)
@@ -53,6 +54,8 @@ jobs:
           npm ci --no-audit --no-fund || npm install --no-audit --no-fund
       - name: Unit (Vitest)
         run: npm run sync --workspaces --if-present && npx vitest run
+      - name: Mutation - the parity guard must go RED when the App page or the site loses an app (#1958)
+        run: node scripts/parity-mutation.mjs
       - name: Build both sites
         run: npm run build
       - name: Every routes.json path prerendered (trailing slash)

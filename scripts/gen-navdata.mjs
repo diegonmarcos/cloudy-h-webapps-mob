@@ -36,6 +36,8 @@ const ui = saBuild.ui ?? fail('aa_cloud-superapp/build.json has no ui');
 const SHELL_KEYS = ['default_section', 'bottom_nav', 'sections', 'main_menu', 'home_groups', 'tile_columns', 'phone_grid_columns', 'top_orbs',
   'swipe_walk', 'home_actions', 'dynamic_island_action', 'notification_center', 'floating_nav', 'app_tabs', 'search_scopes', 'retired_tile_ids'];
 const superapp = pick(ui, SHELL_KEYS);
+// Cloud > App draws the star's Actions ring after the declared groups (GroupedTilesFragment.starActions = build.json circular_menu.actions)
+superapp.circular_actions = (saBuild.circular_menu?.actions ?? []).map((a) => ({ label: a.label, target: a.target }));
 superapp.external_apps = (ui.external_apps ?? []).map((e) => pick(e, ['id', 'folder', 'hub_package', 'install_package', 'site']));
 // kind=entry stack panels (Cloud > Lnktree pages, #1331) name a DECLARED source, never a URL; the web page needs the URL, so it is
 // resolved here exactly the way LnktreeTargets.kt resolves it on the phone: `site` = the single linktree.json link of that label,
@@ -146,6 +148,8 @@ for (const s of superapp.sections) {
   targets[`section:${s.id}`] = `${s.id}/`;
   walk(`${s.id}/`, s.pages, { kind: 'page', section: s.id }, 1);
   for (const p of s.pages ?? []) if (p?.id) targets[`page:${s.id}/${p.id}`] = `${s.id}/${p.id}/`;
+  // a retired page id kept as `page_aliases` (#1930: lnktree -> apps) still resolves, to the page it now lands on
+  for (const [from, to] of Object.entries(s.page_aliases ?? {})) if (!targets[`page:${s.id}/${from}`]) targets[`page:${s.id}/${from}`] = `${s.id}/${to}/`;
 }
 for (const a of apps) {
   route(`${a.id}/`, { kind: 'app', app: a.id });

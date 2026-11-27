@@ -1,0 +1,31 @@
+{
+  "_doc": "#1958 what the regenerated site no longer carries compared with data/parity-baseline-1958.json, each with the reason. The site mirrors the SuperApp declaration (aa_cloud-superapp/build.json and the ac_* build.json files of cloudy-u-android); an entry here is something that declaration dropped or moved, never something the web side removed by itself. scripts/webapps-parity.test.ts fails on any loss not listed here AND on any entry listed here that is still present (a stale declaration).",
+  "tiles": [
+    { "id": "tools-account", "reason": "Cloud > App Me row: the Profile tile was replaced by Me-Pers | Me-Prof | Me-Prj (#1956); Profile still exists in the Setup row (id configs-profile)" },
+    { "id": "configs-controls", "reason": "Cloud > App Setup row: Quick Actions and UI merged into one Launcher tile (#1929/#1943)" },
+    { "id": "configs-ui", "reason": "Cloud > App Setup row: Quick Actions and UI merged into one Launcher tile (#1929/#1943)" }
+  ],
+  "tiles_moved": [
+    { "id": "drive-conn", "from": "Primary", "to": "Data", "reason": "#1916 Drive, Browser and Wallet moved from Primary to Data" },
+    { "id": "browser", "from": "Primary", "to": "Data", "reason": "#1916 Drive, Browser and Wallet moved from Primary to Data" },
+    { "id": "wallet", "from": "Primary", "to": "Data", "reason": "#1916 Drive, Browser and Wallet moved from Primary to Data" }
+  ],
+  "nav_slugs": [
+    { "slug": "cloud-writer", "reason": "no Cloud > App tile targets extapp:cloud-writer any more (Writer lives in Keyboard); the old stub URL redirects to cloud-keyboard/writer/ (STUB_RENAMES)" }
+  ],
+  "cloud_pages": [
+    { "id": "lnktree", "reason": "#1930 the Linktree pane left the Cloud strip (App | WebApps | Setup); its id is a page alias of apps (targets.json page:cloud/lnktree -> cloud/apps/, old URL redirect in SA_RENAMES)" }
+  ],
+  "routes": [
+    { "prefix": "cloud/lnktree/", "reason": "#1930 page alias of cloud/apps/ (target and old-URL redirect keep the link alive)" },
+    { "prefix": "cloud-me/pers/pers-profiles/", "reason": "#1956 Me-Pers pages reorganised; social profiles moved into the Me row (ac_cloud-me build.json no longer declares these pages)" },
+    { "prefix": "cloud-me/prof/prof-profiles/", "reason": "#1937 Prof > More removed; Me-Prof targets Prof > Profiles (ac_cloud-me build.json)" },
+    { "prefix": "cloud-me/proj/area-", "reason": "#1931 Me-Prj opens Cloud Me Proj Home; the area pages are no longer declared (ac_cloud-me build.json)" },
+    { "prefix": "cloud-me/proj/lnktree-site/", "reason": "#1930/#1956 Lnktree is its own folder of Cloud Me (cloud-me/lnktree/lt-lnktree-site/)" },
+    { "prefix": "cloud-gallery/timeline/", "reason": "no longer declared in ac_cloud-gallery build.json ui.sections" },
+    { "prefix": "cloud-c3/containers/", "reason": "per-project container pages (capital, cg, cloud_me, cloudy, hardtech, others) no longer declared in ac_cloud-c3 build.json ui.sections; containers/all stays" },
+    { "prefix": "cloud-c3/observ/", "reason": "no longer declared in ac_cloud-c3 build.json ui.sections" },
+    { "prefix": "cloud-c3/ops/orch/", "reason": "no longer declared in ac_cloud-c3 build.json ui.sections" },
+    { "prefix": "cloud-c3/ops/mail/mail_map/", "reason": "no longer declared in ac_cloud-c3 build.json ui.sections" }
+  ]
+}

@@ -77,7 +77,11 @@ export function phoneAppGroups(): TileGroup[] {
 
 export function cloudGroups(base: string): TileGroup[] {
   const cloud = sectionById.get('cloud');
-  return (cloud?.tile_groups ?? []).map((g) => ({ title: g.title, tiles: tileItems(base, g.tiles) }));
+  const groups: TileGroup[] = (cloud?.tile_groups ?? []).map((g) => ({ title: g.title, ...((g as { glyph?: string }).glyph ? { glyph: (g as { glyph?: string }).glyph } : {}), tiles: tileItems(base, g.tiles) }));
+  // GroupedTilesFragment draws the star's Actions ring (build.json circular_menu.actions) as the last row of Cloud > App
+  const actions = (SA as unknown as { circular_actions?: { label: string; target: string }[] }).circular_actions ?? [];
+  if (actions.length) groups.push({ title: 'Actions', tiles: actions.map((a, i) => { const h = href(base, a.target); return { id: `action-${i}`, label: a.label, icon: h.external ? 'ic_world' : 'ic_suite', href: h.href, external: h.external }; }) });
+  return groups;
 }
 
 const STATUS_BAR = statusBarJson.statusBar as unknown as StatusBarDecl;

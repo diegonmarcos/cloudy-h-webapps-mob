@@ -22,3 +22,6 @@ export const cloudGroups: { title: string; tiles: Tile[] }[] = (JSON.parse(readF
   .find((s) => s.id === 'cloud')!.tile_groups!;
 /** The declared group holding tile `id` (its title, as the shell's data-group). */
 export const groupOf = (id: string) => cloudGroups.find((g) => g.tiles.some((t) => t.id === id))!.title;
+/** The Cloud strip as declared (build.json ui.sections[cloud].pages, the ones the strip draws), upper-cased as the tab row draws them. */
+export const cloudTabs: string[] = (JSON.parse(readFileSync('packages/cloudy-ui/nav/nav.json', 'utf8')).superapp.sections as { id: string; pages?: { label: string; hidden?: boolean }[] }[])
+  .find((s) => s.id === 'cloud')!.pages!.filter((p) => !p.hidden).map((p) => p.label.toUpperCase());

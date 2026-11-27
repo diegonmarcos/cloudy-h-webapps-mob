@@ -25,6 +25,16 @@ jobs:
           node-version: 22
       - name: Playwright + Chromium
         run: npm i --no-save --no-package-lock @playwright/test@1.56.1 && npx playwright install --with-deps chromium
+      - name: Validate dispatch inputs (allow-list, env only)
+        env:
+          BASE: ${{ inputs.base }}
+          PATHS: ${{ inputs.paths }}
+        run: |
+          case "$BASE" in
+            https://diegonmarcos.github.io/cloud-webapps|https://diegonmarcos.github.io/cloud-webapps/) ;;
+            *) echo "base not on the allow-list"; exit 1 ;;
+          esac
+          printf '%s' "$PATHS" | grep -Eq '^[A-Za-z0-9/_. ?=&-]*$' || { echo "paths: characters outside the allow-list"; exit 1; }
       - name: Shoot
         env:
           BASE: ${{ inputs.base }}

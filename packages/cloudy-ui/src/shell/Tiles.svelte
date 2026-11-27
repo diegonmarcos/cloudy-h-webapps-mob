@@ -12,7 +12,7 @@
   {#if quickmarks}<h3 class="group-title">Quickmarks</h3>{/if}
   {#each groups as g, gi (gi)}
     <section class="group" data-group={g.title}>
-      <h3 class="group-title">{g.title}</h3>
+      <h3 class="group-title">{#if g.glyph}<span class="group-glyph" aria-hidden="true">{g.glyph} </span>{/if}{g.title}</h3>
       <div class="strip" class:wrap>
         {#each g.tiles as t, ti (ti)}
           <div class="cell">

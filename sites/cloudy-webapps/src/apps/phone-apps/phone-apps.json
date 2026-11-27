@@ -5,46 +5,6 @@
       "title": "Primary",
       "tiles": [
         {
-          "id": "com.google.android.apps.docs",
-          "label": "Google Drive",
-          "url": "https://drive.google.com"
-        },
-        {
-          "id": "com.sec.android.app.myfiles",
-          "label": "My Files",
-          "url": null
-        },
-        {
-          "id": "com.rarlab.rar",
-          "label": "RAR",
-          "url": null
-        },
-        {
-          "id": "com.viscouspot.gitsync",
-          "label": "Git Sync",
-          "url": null
-        },
-        {
-          "id": "com.brave.browser",
-          "label": "Brave",
-          "url": null
-        },
-        {
-          "id": "com.sec.android.app.popupcalculator",
-          "label": "Calculator",
-          "url": null
-        },
-        {
-          "id": "com.sec.android.app.clockpackage",
-          "label": "Clock",
-          "url": null
-        },
-        {
-          "id": "com.google.android.apps.translate",
-          "label": "Translate",
-          "url": "https://translate.google.com"
-        },
-        {
           "id": "com.google.android.apps.maps",
           "label": "Maps",
           "url": "https://maps.google.com"
@@ -75,9 +35,19 @@
           "url": null
         },
         {
-          "id": "com.google.android.apps.walletnfcrel",
-          "label": "Google Wallet",
-          "url": "https://wallet.google.com"
+          "id": "com.sec.android.app.popupcalculator",
+          "label": "Calculator",
+          "url": null
+        },
+        {
+          "id": "com.sec.android.app.clockpackage",
+          "label": "Clock",
+          "url": null
+        },
+        {
+          "id": "com.google.android.apps.translate",
+          "label": "Translate",
+          "url": "https://translate.google.com"
         }
       ]
     },
@@ -130,6 +100,41 @@
       "title": "Data",
       "tiles": [
         {
+          "id": "com.google.android.apps.docs",
+          "label": "Google Drive",
+          "url": "https://drive.google.com"
+        },
+        {
+          "id": "com.sec.android.app.myfiles",
+          "label": "My Files",
+          "url": null
+        },
+        {
+          "id": "com.rarlab.rar",
+          "label": "RAR",
+          "url": null
+        },
+        {
+          "id": "com.viscouspot.gitsync",
+          "label": "Git Sync",
+          "url": null
+        },
+        {
+          "id": "com.github.android",
+          "label": "GitHub",
+          "url": null
+        },
+        {
+          "id": "com.brave.browser",
+          "label": "Brave",
+          "url": null
+        },
+        {
+          "id": "com.google.android.apps.photos",
+          "label": "Google Photos",
+          "url": "https://photos.google.com"
+        },
+        {
           "id": "md.obsidian",
           "label": "Obsidian",
           "url": null
@@ -155,6 +160,21 @@
           "url": "https://app.clickup.com"
         },
         {
+          "id": "com.x8bit.bitwarden",
+          "label": "Bitwarden",
+          "url": "https://vault.bitwarden.com"
+        },
+        {
+          "id": "com.beemdevelopment.aegis",
+          "label": "Aegis",
+          "url": null
+        },
+        {
+          "id": "com.google.android.apps.walletnfcrel",
+          "label": "Google Wallet",
+          "url": "https://wallet.google.com"
+        },
+        {
           "id": "com.google.android.apps.docs.editors.docs",
           "label": "Google Docs",
           "url": "https://docs.google.com"
@@ -172,21 +192,6 @@
         {
           "id": "com.adobe.reader",
           "label": "Adobe Acrobat",
-          "url": null
-        },
-        {
-          "id": "com.google.android.apps.photos",
-          "label": "Google Photos",
-          "url": "https://photos.google.com"
-        },
-        {
-          "id": "com.x8bit.bitwarden",
-          "label": "Bitwarden",
-          "url": "https://vault.bitwarden.com"
-        },
-        {
-          "id": "com.beemdevelopment.aegis",
-          "label": "Aegis",
           "url": null
         }
       ]
@@ -217,16 +222,6 @@
         {
           "id": "com.garmin.android.apps.connectmobile",
           "label": "Garmin Connect",
-          "url": null
-        },
-        {
-          "id": "com.memrise.android.memrisecompanion",
-          "label": "Memrise",
-          "url": "https://www.memrise.com"
-        },
-        {
-          "id": "mobi.eup.easygerman",
-          "label": "Todaii German",
           "url": null
         },
         {
@@ -275,15 +270,21 @@
           "url": null
         },
         {
+          "id": "com.memrise.android.memrisecompanion",
+          "label": "Memrise",
+          "url": "https://www.memrise.com"
+        },
+        {
+          "id": "mobi.eup.easygerman",
+          "label": "Todaii German",
+          "url": null
+        },
+        {
           "id": "es.gob.interior.policia.midni",
           "label": "miDNI",
           "url": null
         }
       ]
-    },
-    {
-      "title": "Projects",
-      "tiles": []
     },
     {
       "title": "Services · City",
@@ -454,14 +455,14 @@
           "url": null
         },
         {
-          "id": "com.amazon.avod.thirdpartyclient",
-          "label": "Prime Video",
-          "url": null
-        },
-        {
           "id": "com.shazam.android",
           "label": "Shazam",
           "url": null
+        },
+        {
+          "id": "com.aspiro.tidal",
+          "label": "Tidal",
+          "url": "https://listen.tidal.com"
         },
         {
           "id": "com.werewolfapps.online",
@@ -484,13 +485,13 @@
           "url": null
         },
         {
-          "id": "com.foxdebug.acode",
-          "label": "Acode",
-          "url": null
+          "id": "com.google.android.apps.bard",
+          "label": "Gemini",
+          "url": "https://gemini.google.com"
         },
         {
-          "id": "com.github.android",
-          "label": "GitHub",
+          "id": "com.foxdebug.acode",
+          "label": "Acode",
           "url": null
         },
         {
@@ -569,6 +570,10 @@
           "url": null
         }
       ]
+    },
+    {
+      "title": "Projects",
+      "tiles": []
     }
   ]
 }

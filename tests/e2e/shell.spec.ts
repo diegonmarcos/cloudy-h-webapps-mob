@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { shot } from './shot';
-import { BASE, cloudGroups, isTablet, swipe } from './helpers';
+import { BASE, cloudGroups, cloudTabs, isTablet, swipe } from './helpers';
 
 // M2: the SuperApp shell at phone (412x915) and tablet (1280x800, 800x1280).
 test.describe('SuperApp shell', () => {
@@ -26,9 +26,9 @@ test.describe('SuperApp shell', () => {
     expect(await sel.evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgb(230, 224, 233)');
   });
 
-  test('Cloud: tabs App | WebApps | Linktree | Configs, Quickmarks tile groups from build.json', async ({ page }, info) => {
+  test('Cloud: tabs App | WebApps | Setup (as declared), Quickmarks tile groups from build.json', async ({ page }, info) => {
     await page.goto(`${BASE}/cloud/`);
-    await expect(page.locator('[data-testid="content"] [data-testid="page-tabs"] .page-tabs__item')).toHaveText(['APP', 'WEBAPPS', 'LINKTREE', 'CONFIGS']);
+    await expect(page.locator('[data-testid="content"] [data-testid="page-tabs"] .page-tabs__item')).toHaveText(cloudTabs);
     await expect(page.locator('.group-title').first()).toHaveText('Quickmarks');
     const first = cloudGroups[0];
     await expect(page.locator(`[data-group="${first.title}"] .tile__label`).first()).toHaveText(first.tiles.find((t) => !t.separator)!.label);
@@ -57,7 +57,7 @@ test.describe('SuperApp shell', () => {
   });
 
   test('Back from a page lands on the section first tab, then Home', async ({ page }) => {
-    await page.goto(`${BASE}/cloud/lnktree/`);
+    await page.goto(`${BASE}/cloud/webapps/`);
     await page.getByTestId('toolbar-back').click();
     await expect(page).toHaveURL(/\/cloud\/apps\/$/);
     await page.getByTestId('toolbar-back').click();
@@ -101,8 +101,8 @@ test('offline: a visited page reloads from the service worker', async ({ page, c
 });
 
 test('/t/ resolves Android targets', async ({ page }) => {
-  await page.goto(`${BASE}/t/?page:cloud/lnktree`);
-  await expect(page).toHaveURL(/\/cloud\/lnktree\/$/);
+  await page.goto(`${BASE}/t/?page:cloud/lnktree`);   // #1930 retired page id, aliased to apps
+  await expect(page).toHaveURL(/\/cloud\/apps\/$/);
   await page.goto(`${BASE}/t/#extapp:cloud-calc#page:calculator/graph`);
   await expect(page).toHaveURL(/\/cloud-calc\/calculator\/graph\/$/);
 });
