@@ -2149,8 +2149,8 @@
         "tasks/gantt": "tasks/gantt",
         "tasks/kanban": "tasks/kanban",
         "tasks/mindmap": "tasks/mindmap",
-        "tasks/clock": "tasks/clock",
-        "library/library": "library/library",
+        "tasks/clock": "clock/clock",
+        "library/library": "home/library",
         "projects/projects": "home/projects",
         "settings/general": "settings/general",
         "settings/perms": "settings/perms",
@@ -2159,6 +2159,16 @@
         "settings/agent": "settings/agent",
         "settings/inbox": "settings/inbox",
         "settings/feeds": "settings/feeds"
+      },
+      "route_aliases": {
+        "library": [
+          "home",
+          "library"
+        ],
+        "tasks/clock": [
+          "clock",
+          "clock"
+        ]
       },
       "configs_ui": [
         "nav_ui"
@@ -2602,7 +2612,8 @@
           "start_delay_s": 0,
           "subresource_concurrency": 8,
           "script_urls": true,
-          "harvest_timeout_s": 20
+          "harvest_timeout_s": 20,
+          "max_script_media_per_page": 2500
         }
       },
       "settings": [

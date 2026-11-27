@@ -6869,13 +6869,13 @@
       "description": "Diego's Cloud Tasks (formerly Cloud Agenda, before that Cloud Calendar) — standalone Android task, calendar and event app. The applicationId stays com.diegonmarcos.cloudagenda so installed phones update in place. Jetpack Compose chrome (CloudKitTheme light/dark/system, libs:bottomnav island + page tabs, a page-managed hamburger drawer, AI and Profile buttons in the top row, libs:ai chat with persistent history) over a local tasks database (projects > lists > tasks > subtasks, statuses, tags, links to Cloud Mail / Cloud Drive items) and a mail agent that proposes tasks for review. The Feeds page is still the legacy tasks.html WebView (public-ICS feed sync, CalDAV against a self-hosted Radicale). Build via Nix devShell, one APK out.",
       "kind": "app",
       "wasm": null,
-      "default_section": "tasks",
+      "default_section": "home",
       "bottom_nav": [
         "inboxes",
         "backlogs",
         "home",
         "tasks",
-        "library"
+        "clock"
       ],
       "top_bar": {
         "drawer": true,
@@ -6936,6 +6936,11 @@
               "id": "projects",
               "label": "Projects",
               "icon": "folder"
+            },
+            {
+              "id": "library",
+              "label": "Library",
+              "icon": "folder_open"
             }
           ]
         },
@@ -6969,24 +6974,19 @@
               "id": "mindmap",
               "label": "Mindmap",
               "icon": "account_tree"
-            },
-            {
-              "id": "clock",
-              "label": "Clock",
-              "icon": "clock"
             }
           ]
         },
         {
-          "id": "library",
-          "label": "Library",
-          "icon": "folder_open",
+          "id": "clock",
+          "label": "Clock",
+          "icon": "clock",
           "background": "theme",
           "pages": [
             {
-              "id": "library",
-              "label": "Library",
-              "icon": "folder_open"
+              "id": "clock",
+              "label": "Clock",
+              "icon": "clock"
             }
           ]
         },
@@ -8422,6 +8422,11 @@
                 {
                   "id": "prof-portfolio",
                   "label": "Portfolio",
+                  "icon": "ic_world"
+                },
+                {
+                  "id": "prof-developer",
+                  "label": "Developer",
                   "icon": "ic_world"
                 },
                 {
